@@ -56,6 +56,7 @@ python3 -m analysis.complex_network.step04_extract_org_censorship
 | 全球复杂网络 · Global complex network | 24 | `analysis/complex_network/step*` | Barabási / Newman |
 | Cloudflare 全链 · Cloudflare full-chain | 25 | `analysis/cloudflare_analysis.py` | Single-AS deep-dive |
 | 中国位置 · China in Global Internet | 20 | `analysis/china/run_all.py` | 互联网主权 + Hegemony |
+| 九国跨国+时序 · Cross-Country + Time-Series | 20 × 9 × 2 | `analysis/countries/run_all.py` | Cross-country comparison, YoY evolution |
 
 ## 快速开始 · Quick start
 

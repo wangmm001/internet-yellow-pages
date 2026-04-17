@@ -269,3 +269,5 @@ xdg-open analysis/china/html/index.html
 | 2026-04-16~17 | 新增 20-step 中国分析（`china/`），含综合主权指数 |
 | 2026-04-17 | 目录重组：原始 CSV 迁入 `data_cache/` (gitignore)，`exploratory/` 归集根级脚本 |
 | 2026-04-17 | 新增 `analysis/README.md` 目录索引、`analysis/RESEARCH.md` 本研究说明 |
+| 2026-04-17 | 新增 9 国跨国分析（`countries/`）：US/CN/JP/IN/DE/GB/FR/NL/RU × 20 步；per-country profile + cross_country / dependency_matrix / content_geography 四个合成仪表板 |
+| 2026-04-17 | 2026-04 快照主权指数: FR 0.753 · US 0.740 · NL 0.678 · GB 0.613 · IN 0.533 · DE 0.529 · JP 0.486 · RU 0.480 · CN 0.269 |
