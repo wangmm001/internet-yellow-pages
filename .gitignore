@@ -151,3 +151,4 @@ dmypy.json
 .vscode/
 neo4j/
 tmp/
+analysis/complex_network/network_evolution.log
