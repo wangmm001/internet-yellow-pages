@@ -65,6 +65,17 @@
   th, td { border:1px solid #30363D; padding:6px 10px; text-align:left; }
   th { background:#161B22; }
 </style>
+
+<style>
+  .chart-caption { background:#161B22; border-left:3px solid #4ECDC4;
+                   padding:14px 20px 14px 22px; margin:10px 0 28px 0;
+                   border-radius:0 6px 6px 0; color:#C9D1D9; font-size:14px;
+                   line-height:1.85; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; }
+  .chart-caption b { color:#E6EDF3; }
+  .chart-caption .label { display:inline-block; background:#4ECDC4; color:#0D1117;
+                          padding:2px 8px; border-radius:10px; font-size:12px;
+                          font-weight:600; margin-right:10px; vertical-align:middle; }
+</style>
 </head><body style="background:#0D1117;"><div class="step-banner"><h1>Step 13 · IXP + 机房 三部图：中国互联"物理桥梁"<span style="margin-left:16px;color:#4ECDC4;font-size:12px;">[Neo4j live]</span></h1><h2>IXP + Facility Tripartite Bridge</h2></div><div class="content"><div class="sidebar-note"><b>假设 Hypothesis:</b> 物理层面："AS 在何处加入 IXP" 揭示国家出境流量的实际交换点。香港、新加坡、法兰克福、阿什本等"机房-IXP 合一"的枢纽承担着东亚出境流量的大部分互联。<br>Physically, where an AS joins an IXP reveals the actual cross-border exchange. Hubs like HK, SG, FRA, ASH co-locate IXPs with major carrier-neutral facilities.<br><br><b>中国数据结果 CN Finding:</b> 提取 19414 条 CN-AS / IXP / 机房 三部关系。Top IXP 枢纽 (CN 视角): DE-CIX Frankfurt[DE](4862), NL-ix[NL](1458), LINX LON1[GB](1386), IX.br (PTT.br) São Paulo[BR](1170), DE-CIX New York[US](660)。<br>19414 tripartite rows extracted. Top IXP hubs for CN: DE-CIX Frankfurt[DE](4862), NL-ix[NL](1458), LINX LON1[GB](1386), IX.br (PTT.br) São Paulo[BR](1170), DE-CIX New York[US](660)<br><i style="color:#8B949E">参考 Reference: Live Neo4j join of MEMBER_OF × LOCATED_IN × COUNTRY</i></div><div style="background:#161B22;border:1px solid #30363D;border-radius:8px;">
         <div class="card" style="width: 100%">
             
@@ -139,4 +150,19 @@
               }
               drawGraph();
         </script>
-    </div></div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 13 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>
+    </div></div><div class="chart-caption"><span class="label">图解</span><b>这是什么图？</b> 三部图(Tripartite Graph)——同时展示
+        "中国 AS—IXP—机房"的三层连接关系。
+        <b>读法？</b> 每个节点是一个实体(AS/IXP/机房)，连线表示"这家 AS 在该 IXP 会员，
+        或该 IXP 位于该机房"。中国 AS 用红色。
+        <b>关键数据？</b> 中国 AS 共与 198 个 IXP、658 个机房有关联；
+        总连接 19,414 条。
+        <b>Top 5 IXP 为中国流量中转的关键节点：</b>
+        ① DE-CIX Frankfurt 4,862 条；
+        ② NL-ix 1,458；
+        ③ LINX LON1 1,386；
+        ④ IX.br São Paulo 1,170；
+        ⑤ DE-CIX New York 660。
+        <b>结构特点？</b> 中国 AS 出海路径高度依赖"大型国际 IXP+Equinix 级机房"组合。
+        法兰克福 DE-CIX 位居榜首，是中国公司入欧的第一大门。
+        <b>启示？</b> 想理解中国跨境流量的"物理路径"，看这张图就够了——
+        它是"数字丝绸之路"最真实的地形图。</div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 13 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>

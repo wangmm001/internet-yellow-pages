@@ -65,6 +65,17 @@
   th, td { border:1px solid #30363D; padding:6px 10px; text-align:left; }
   th { background:#161B22; }
 </style>
+
+<style>
+  .chart-caption { background:#161B22; border-left:3px solid #4ECDC4;
+                   padding:14px 20px 14px 22px; margin:10px 0 28px 0;
+                   border-radius:0 6px 6px 0; color:#C9D1D9; font-size:14px;
+                   line-height:1.85; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; }
+  .chart-caption b { color:#E6EDF3; }
+  .chart-caption .label { display:inline-block; background:#4ECDC4; color:#0D1117;
+                          padding:2px 8px; border-radius:10px; font-size:12px;
+                          font-weight:600; margin-right:10px; vertical-align:middle; }
+</style>
 </head><body style="background:#0D1117;"><div class="step-banner"><h1>Step 05 · 中国 AS 对等互联子图<span style="margin-left:16px;color:#4ECDC4;font-size:12px;">[cached CSV]</span></h1><h2>China AS Peering Subgraph</h2></div><div class="content"><div class="sidebar-note"><b>假设 Hypothesis:</b> 小世界结构在互联网 AS 级别长期被观察到；但不同国家的对等互联模式差异显著：一些国家在本地形成稠密"半岛"（如 BR/DE），另一些则主要通过少量 Tier-1 上联（如 CN/RU）。<br>The Internet exhibits small-world structure at the AS level, but country-level peering patterns diverge: some countries form dense local peninsulas (BR, DE) while others rely on a few Tier-1 uplinks (CN, RU).<br><br><b>中国数据结果 CN Finding:</b> 子图 400 节点（其中 CN AS 60 个）、2450 条对等互联边。与 CN 相连的外国 ASN 覆盖 77 个国家；最主要外部对端来自：US(48), DE(26), CH(23), HK(22), FR(19)。<br>Subgraph: 400 nodes (60 CN), 2450 edges. Top foreign peer countries: US(48), DE(26), CH(23), HK(22), FR(19).<br><i style="color:#8B949E">参考 Reference: BGPKIT AS relationship data, cached bgp_peering.csv</i></div><div style="background:#161B22;border:1px solid #30363D;border-radius:8px;">
         <div class="card" style="width: 100%">
             
@@ -139,4 +150,14 @@
               }
               drawGraph();
         </script>
-    </div></div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 05 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>
+    </div></div><div class="chart-caption"><span class="label">图解</span><b>这是什么图？</b> 交互式网络图——把中国 60 个头部 AS
+        的"朋友圈"(PEERS_WITH 关系)可视化。每个点是一个 AS，线代表两者之间建立了对等互联
+        (peering)——可以把流量免费、低延迟互传。
+        <b>读法？</b> 鼠标悬停可看 AS 名；红色节点是中国 AS，其他颜色是它直接对接的
+        外国 AS(340 个，来自美/德/瑞士/香港/法国等)。整体节点 400 个、连线 2,450 条。
+        <b>能看出什么？</b> 中国头部 AS 的外部朋友集中在少数几个国际"枢纽 AS"
+        ——美国 Hurricane Electric(AS6939)、Cogent、Level3；欧洲 DE-CIX；
+        香港 PCCW、NTT。<b>结构特点？</b> 中国 AS 多是"星型"对接枢纽 AS，
+        而国家之间较少直接互连——这就是为什么跨境流量往往要绕道美国或香港。
+        <b>启示？</b> 中国在全球 BGP"社交网络"中是重要参与者，但核心桥接由少数外国
+        AS 担任，形成了"对外依赖"的拓扑。</div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 05 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>

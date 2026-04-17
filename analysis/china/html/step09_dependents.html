@@ -65,6 +65,17 @@
   th, td { border:1px solid #30363D; padding:6px 10px; text-align:left; }
   th { background:#161B22; }
 </style>
+
+<style>
+  .chart-caption { background:#161B22; border-left:3px solid #4ECDC4;
+                   padding:14px 20px 14px 22px; margin:10px 0 28px 0;
+                   border-radius:0 6px 6px 0; color:#C9D1D9; font-size:14px;
+                   line-height:1.85; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; }
+  .chart-caption b { color:#E6EDF3; }
+  .chart-caption .label { display:inline-block; background:#4ECDC4; color:#0D1117;
+                          padding:2px 8px; border-radius:10px; font-size:12px;
+                          font-weight:600; margin-right:10px; vertical-align:middle; }
+</style>
 </head><body style="background:#0D1117;"><div class="step-banner"><h1>Step 09 · 谁依赖中国? · 入向 AS Hegemony<span style="margin-left:16px;color:#4ECDC4;font-size:12px;">[cached CSV]</span></h1><h2>Who Depends on China? (Inbound Hegemony)</h2></div><div class="content"><div class="sidebar-note"><b>假设 Hypothesis:</b> 多数"Tier-1 级"AS 的出现假设是全球性的 (Labovitz 2010)；如果中国 AS 出现作为其他国家的上游，说明中国已从"纯末端"转向"区域 hub"。<br>Prior work suggests Tier-1-like roles are global. Any CN AS acting as upstream for foreign ASes indicates a transition from pure eyeball to regional hub status.<br><br><b>中国数据结果 CN Finding:</b> 144 条外部 AS → CN 依赖边 (hege≥0.03)。88 个外部 AS 依赖中国上游。Top-5 CN 上游: AS10111(33), AS213605(14), AS4837(12), AS4134(7), AS134578(7)。依赖方国家分布: US(15), HK(12), GB(9), ZZ(6), TW(3)。<br>144 foreign→CN dependency edges. 88 foreign ASes depend on CN upstreams. Top-5 CN hubs: AS10111(33), AS213605(14), AS4837(12), AS4134(7), AS134578(7).<br><i style="color:#8B949E">参考 Reference: IHR hegemony (as_dependency.csv)</i></div><div style="background:#161B22;border:1px solid #30363D;border-radius:8px;">
         <div class="card" style="width: 100%">
             
@@ -139,4 +150,15 @@
               }
               drawGraph();
         </script>
-    </div></div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 09 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>
+    </div></div><div class="chart-caption"><span class="label">图解</span><b>这是什么图？</b> 反向依赖 Pyvis 网络——显示哪些外国
+        AS 反过来依赖中国 AS 作为上游(即它们的 BGP 路径会经过中国)。
+        <b>数据概况？</b> 共 144 条入向依赖边、88 个外国"被依赖方"。
+        <b>中国最被看重的 AS：</b> AS10111(电信 CN2 北美) 33 条、AS213605(腾讯) 14、
+        AS4837(联通) 12、AS4134(电信) 7、AS134578 (巴比特/B 站) 7。
+        <b>"谁依赖中国最多"？</b> 美国 15 个外国 AS(多为华人社区 ISP)、香港 12、
+        英国 9、未知地区(ZZ) 6、台湾 3。
+        <b>与上一步对比惊人差异：</b> 中国"向外"依赖 7,505 条，但"向内"被依赖仅 144 条——
+        不对称比 50:1！
+        <b>启示？</b> 这是中国互联网全球影响力的客观写照——
+        中国主要是"互联网消费者"而非"流量供应者"；除了少数电信 CN2、腾讯云海外业务，
+        全球外国网络把中国作为上游选项的场景依然稀少。</div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 09 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>

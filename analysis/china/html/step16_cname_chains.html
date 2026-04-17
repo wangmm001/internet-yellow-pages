@@ -65,6 +65,17 @@
   th, td { border:1px solid #30363D; padding:6px 10px; text-align:left; }
   th { background:#161B22; }
 </style>
+
+<style>
+  .chart-caption { background:#161B22; border-left:3px solid #4ECDC4;
+                   padding:14px 20px 14px 22px; margin:10px 0 28px 0;
+                   border-radius:0 6px 6px 0; color:#C9D1D9; font-size:14px;
+                   line-height:1.85; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; }
+  .chart-caption b { color:#E6EDF3; }
+  .chart-caption .label { display:inline-block; background:#4ECDC4; color:#0D1117;
+                          padding:2px 8px; border-radius:10px; font-size:12px;
+                          font-weight:600; margin-right:10px; vertical-align:middle; }
+</style>
 </head><body style="background:#0D1117;"><div class="step-banner"><h1>Step 16 · 跨境 CNAME 别名链<span style="margin-left:16px;color:#4ECDC4;font-size:12px;">[Neo4j live]</span></h1><h2>CNAME Chains Crossing China</h2></div><div class="content"><div class="sidebar-note"><b>假设 Hypothesis:</b> CNAME 链揭示"运营依赖"而非 IP 层依赖。大量全球网站把 CDN/WAF 外包到 Cloudflare / Akamai；中国云服务的 CNAME 受众范围可反映"被中国 Cloud 承载"的海外流量。<br>CNAME chains reveal operational dependencies invisible at the IP layer. The population of hosts CNAMEd into Chinese clouds reflects foreign traffic operationally hosted by CN providers.<br><br><b>中国数据结果 CN Finding:</b> 已采样 2500 条 CNAME 边指向中国云/CDN 目标；涉及目标主机名 1472 个。最受欢迎的运营商家族：Aliyun(1323), Huawei CDN(944), Tencent Cloud(141), Aliyun CDN(58), Baidu(17)。<br>2500 sampled alias edges pointing to CN cloud/CDN targets covering 1472 distinct CN target hostnames. Top families: Aliyun(1323), Huawei CDN(944), Tencent Cloud(141), Aliyun CDN(58), Baidu(17).<br><i style="color:#8B949E">参考 Reference: OpenINTEL ALIAS_OF via IYP live query</i></div><div style="background:#161B22;border:1px solid #30363D;border-radius:8px;">
         <div class="card" style="width: 100%">
             
@@ -139,4 +150,18 @@
               }
               drawGraph();
         </script>
-    </div></div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 16 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>
+    </div></div><div class="chart-caption"><span class="label">图解</span><b>这是什么图？</b> Pyvis 网络——展示中国域名 CNAME 链最终
+        指向的"云服务家族"。
+        <b>什么是 CNAME 链？</b> 一个域名 A.com 在 DNS 里可能指向 B.cloudfront.net
+        (CNAME 别名)，B 又指向 C.aliyuncs.com——链一路追下去才能找到最终承载服务器。
+        每条链条揭示"这个网站最终是谁在伺候"。
+        <b>数据概况？</b> 2,500 条 alias 边样本里，有 1,472 个独立的中国云目标。
+        <b>Top 云家族？</b>
+        ① <b>Aliyun</b> 1,323——阿里云遥遥领先；
+        ② <b>Huawei CDN</b> 944；
+        ③ <b>Tencent Cloud</b> 141；
+        ④ <b>Aliyun CDN</b> 58；
+        ⑤ Baidu 17、华为 11、网宿 CDN 3。
+        <b>启示？</b> 阿里云和华为 CDN 构成"中国云 CNAME"的两大集合；
+        腾讯、百度规模远小。这与各家在公有云/CDN 市场的格局一致——
+        阿里云是公有云第一、华为 CDN 是企业上云第一入口。</div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 16 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>
