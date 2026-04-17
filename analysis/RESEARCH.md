@@ -205,20 +205,22 @@ Geography → Atlas → Risk 共 25 步，建立了"单实体全链画像"方法
 
 ## 五、后续研究方向 · Future Directions
 
-### 5.1 近期 · Near-term
+### 5.1 近期 · Near-term  *(已完成 · completed 2026-04-17)*
 
-- **美国 / 俄罗斯 / 日本 / 欧盟** 平行 20 步分析，形成跨国对比矩阵
-- Step 19 改用"AS+Country 聚合地理散点"替代 Point 查询
-- HTML 切换 Plotly `'directory'` 模式（单次 plotly.min.js，减少 ~85% 仓库体积）
-- `.cn` 全量枚举 (`LIMIT` 提升至 50,000+) 重跑 Step 15
+- ✅ **美国 / 俄罗斯 / 日本 / 印度 / 欧盟主要国** 平行 20 步分析 — 见 `analysis/countries/`
+- ⏳ Step 19 改用"AS+Country 聚合地理散点"替代 Point 查询 (still TODO)
+- ⏳ HTML 切换 Plotly `'directory'` 模式减少体积 (current 61 MB × 2 snapshots)
+- ⏳ `.cn` 全量枚举 (LIMIT 50,000+) 重跑 Step 15
 
-### 5.2 中期 · Mid-term
+### 5.2 中期 · Mid-term  *(核心已完成 · core completed 2026-04-17)*
 
-- **时序演化**：对比不同快照（2024-04 / 2025-04 / 2026-04）的 CN 主权指数、hub-ratio、
-  RPKI 覆盖率变化曲线
-- **跨国依赖二次图**：将各国 20 步结果投射为"国家 × 国家"依赖矩阵，量化数字地缘结构
-- **内容地理**：结合 CrUX Top-1M × HostName → IP → Prefix → AS → Country 链路，
-  度量"用户可见 Web"的国家分布
+- ✅ **时序演化**：2025-04 → 2026-04 双快照对比主权指数演化 — 见
+  `analysis/countries/html/evolution.html`；下一步可扩展至 2024-04 / 2023-04 形成时序曲线
+- ✅ **跨国依赖二次图** — 见 `analysis/countries/html/dependency_matrix.html`
+  (9×9 hegemony heatmap + edge count + Sankey + per-country donut)
+- ✅ **内容地理**（基础版 · cached dns_as_hosting）— 见
+  `analysis/countries/html/content_geography.html`；全量 Tranco × CrUX 版本仍待加强
+- ⏳ 扩展到更多快照年份（2023-04 / 2024-04 / 2027-04 once available）
 
 ### 5.3 长期 · Long-term
 
