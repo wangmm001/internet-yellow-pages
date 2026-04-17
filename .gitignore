@@ -13,6 +13,10 @@ plugins/
 # IYP snapshot dumps/data (root-level only)
 /dumps/
 /data/
+/dumps_archive/
+
+# Pipeline log from analysis/countries/run_pipeline.sh
+analysis/countries/extract.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
