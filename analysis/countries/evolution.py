@@ -1,20 +1,15 @@
-"""Time-series evolution dashboard (2025-04 vs 2026-04).
+"""Time-series evolution dashboard (N quarterly snapshots).
 
-Reads per-snapshot per-country metrics and computes:
- - Per-metric absolute + percent deltas
- - Sovereignty Index delta
- - Global rank change
-
-Produces evolution.html with 4 panels:
- 1. Slope chart per sovereignty component
- 2. Delta heatmap (country × metric, color = YoY change)
- 3. Rank change bump chart
- 4. Narrative callouts
+Reads per-snapshot per-country metrics and renders 5 panels:
+  ① Trend small-multiples — 9 countries × 12 key metrics across all snapshots
+  ② CAGR heatmap — country × metric, monthly-compounded annualized growth
+  ③ Sovereignty Index trajectory
+  ④ Inflection / volatility table — Top 30 by direction changes + range
+  ⑤ Rank fluctuation band — 4 scale metrics, lower rank = better
 """
 import argparse
 import os
 import sys
-from collections import defaultdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
@@ -27,18 +22,18 @@ from analysis.countries.common import (  # noqa: E402
 
 
 METRICS_TRACKED = [
-    ('AS 数', 1, 'total_ases'),
-    ('前缀总数', 4, 'total_prefixes'),
-    ('IPv6 前缀', 4, 'v6_prefixes'),
-    ('RPKI %', 4, 'rpki_rate_pct'),
-    ('Best PR', 6, ('best_ranks', 'pagerank')),
-    ('Max k-core', 7, 'deepest_k_in_country'),
-    ('入向依赖', 9, 'inbound_edges'),
-    ('出向依赖', 8, 'outbound_edges'),
-    ('托管主机', 14, 'total_hosted_hostnames'),
+    ('AS 数',       1, 'total_ases'),
+    ('前缀总数',    4, 'total_prefixes'),
+    ('IPv6 前缀',   4, 'v6_prefixes'),
+    ('RPKI %',      4, 'rpki_rate_pct'),
+    ('Best PR',     6, ('best_ranks', 'pagerank')),
+    ('Max k-core',  7, 'deepest_k_in_country'),
+    ('入向依赖',    9, 'inbound_edges'),
+    ('出向依赖',    8, 'outbound_edges'),
+    ('托管主机',   14, 'total_hosted_hostnames'),
     ('DNS 主权 %', 15, 'domestic_pct'),
-    ('审查 AS', 18, 'censoring_ases'),
-    ('主权指数', 20, 'composite_sovereignty_index'),
+    ('审查 AS',    18, 'censoring_ases'),
+    ('主权指数',   20, 'composite_sovereignty_index'),
 ]
 
 
@@ -54,198 +49,264 @@ def _get(data, step, key):
     return s.get(key, None)
 
 
-def load_both(snap_old, snap_new):
-    """Return {cc: {step_num: metrics}} for both."""
-    countries = sorted(set(list_countries_in_snapshot(snap_old))
-                       & set(list_countries_in_snapshot(snap_new)))
-    def load(snap):
-        out = {}
+def load_all(snapshots):
+    """Return (countries, {snap: {cc: {step: metrics_dict}}})."""
+    per_snap = [set(list_countries_in_snapshot(s)) for s in snapshots]
+    countries = sorted(set.intersection(*per_snap)) if per_snap else []
+    out = {s: {cc: {} for cc in countries} for s in snapshots}
+    for s in snapshots:
         for cc in countries:
-            out[cc] = {}
             for n in range(1, 21):
-                m = read_country_metrics(snap, cc, n)
-                out[cc][n] = (m or {}).get('metrics', {}) or {}
-        return out
-    return countries, load(snap_old), load(snap_new)
+                m = read_country_metrics(s, cc, n)
+                out[s][cc][n] = (m or {}).get('metrics', {}) or {}
+    return countries, out
 
 
-def build(snap_old='2025-04', snap_new='2026-04'):
-    snaps = list_snapshots()
-    if snap_old not in snaps or snap_new not in snaps:
-        save_placeholder_html(
-            'evolution.html', 0,
-            f'时序演化 · Time-Series Evolution ({snap_old}→{snap_new})',
-            'Time-Series Evolution',
-            f'缺少快照 {snap_old} 或 {snap_new}. 请先完成数据提取。',
-            f'Missing snapshot {snap_old} or {snap_new}.')
-        return
+def snapshot_to_months(s):
+    """'2025-01' → 0, '2025-04' → 3, '2026-04' → 15."""
+    y, m = s.split('-')
+    return (int(y) - 2025) * 12 + (int(m) - 1)
 
-    countries, old, new = load_both(snap_old, snap_new)
-    if not countries:
-        save_placeholder_html(
-            'evolution.html', 0, '时序演化', 'Evolution',
-            '两个快照没有共同国家。', 'No common countries.')
-        return
 
+def cagr(start_v, end_v, months):
+    """Compound monthly growth rate annualized. None if invalid."""
+    if start_v is None or end_v is None or months <= 0:
+        return None
+    try:
+        if start_v <= 0 or end_v <= 0:
+            return None
+        return (end_v / start_v) ** (12.0 / months) - 1.0
+    except (ZeroDivisionError, ValueError, TypeError):
+        return None
+
+
+def inflection_count(series):
+    """Number of direction reversals in a numeric series (None-tolerant)."""
+    vals = [v for v in series if v is not None and isinstance(v, (int, float))]
+    if len(vals) < 3:
+        return 0
+    signs = []
+    for a, b in zip(vals, vals[1:]):
+        if b > a:
+            signs.append(1)
+        elif b < a:
+            signs.append(-1)
+        else:
+            signs.append(0)
+    reversals = 0
+    for a, b in zip(signs, signs[1:]):
+        if a != 0 and b != 0 and a != b:
+            reversals += 1
+    return reversals
+
+
+def range_over_min(series):
+    """(max-min) / |min|; None if insufficient data."""
+    vals = [v for v in series if v is not None and isinstance(v, (int, float))]
+    if len(vals) < 2:
+        return None
+    vmin, vmax = min(vals), max(vals)
+    if vmin == 0:
+        return None
+    return (vmax - vmin) / abs(vmin)
+
+
+def _fmt_num(v):
+    if v is None:
+        return '—'
+    if isinstance(v, float):
+        return f'{v:.3f}' if abs(v) < 100 else f'{v:,.0f}'
+    return str(v)
+
+
+def build(snapshots=None):
     import plotly.graph_objects as go
     import plotly.subplots as sp
 
-    # Panel 1: Slope chart for sovereignty index
-    slope = go.Figure()
+    all_snaps = list_snapshots()
+    snapshots = snapshots or all_snaps
+    snapshots = [s for s in snapshots if s in all_snaps]
+    if len(snapshots) < 2:
+        save_placeholder_html(
+            'evolution.html', 0,
+            '时序演化 · Time-Series Evolution',
+            'Time-Series Evolution',
+            f'需要 ≥ 2 个快照，当前只有 {snapshots}',
+            f'Need ≥ 2 snapshots, found {snapshots}')
+        return
+
+    countries, data = load_all(snapshots)
+    if not countries:
+        save_placeholder_html(
+            'evolution.html', 0,
+            '时序演化', 'Evolution',
+            '快照之间没有共同国家。', 'No common countries across snapshots.')
+        return
+
+    x_labels = snapshots
+
+    # ───── Panel 1 · Trend small-multiples ─────
+    n_metrics = len(METRICS_TRACKED)
+    cols = 3
+    rows = (n_metrics + cols - 1) // cols
+    panel1 = sp.make_subplots(
+        rows=rows, cols=cols,
+        subplot_titles=[m[0] for m in METRICS_TRACKED],
+        vertical_spacing=0.06, horizontal_spacing=0.05,
+    )
+    for i, (label, step, key) in enumerate(METRICS_TRACKED):
+        r, c = i // cols + 1, i % cols + 1
+        for cc in countries:
+            ys = [_get(data[s][cc], step, key) for s in snapshots]
+            panel1.add_trace(go.Scatter(
+                x=x_labels, y=ys, mode='lines+markers',
+                name=cc, legendgroup=cc, showlegend=(i == 0),
+                line=dict(color=country_color(cc), width=1.5),
+                marker=dict(size=5),
+            ), row=r, col=c)
+    panel1.update_layout(
+        title='① 12 项关键指标趋势 · 9 国 × 季度 · Trend small-multiples',
+        height=260 * rows, hovermode='x unified',
+    )
+
+    # ───── Panel 2 · CAGR heatmap ─────
+    start, end = snapshots[0], snapshots[-1]
+    months = snapshot_to_months(end) - snapshot_to_months(start)
+    z, text = [], []
     for cc in countries:
-        old_v = _get(old[cc], 20, 'composite_sovereignty_index') or 0
-        new_v = _get(new[cc], 20, 'composite_sovereignty_index') or 0
-        slope.add_trace(go.Scatter(
-            x=[snap_old, snap_new], y=[old_v, new_v],
-            mode='lines+markers+text',
-            text=['', f'{cc} {new_v:.3f}'], textposition='middle right',
-            line=dict(color=country_color(cc), width=2),
-            marker=dict(size=10), name=cc,
+        row_z, row_t = [], []
+        for label, step, key in METRICS_TRACKED:
+            v0 = _get(data[start][cc], step, key)
+            v1 = _get(data[end][cc], step, key)
+            g = cagr(v0, v1, months)
+            row_z.append(None if g is None else round(g * 100, 2))
+            row_t.append('—' if g is None else f'{g*100:+.1f}%')
+        z.append(row_z)
+        text.append(row_t)
+    panel2 = go.Figure(go.Heatmap(
+        z=z, x=[m[0] for m in METRICS_TRACKED], y=countries,
+        text=text, texttemplate='%{text}',
+        colorscale='RdBu', zmid=0, reversescale=False,
+        colorbar=dict(title='CAGR %'),
+        hovertemplate='%{y} × %{x}<br>CAGR: %{text}<extra></extra>',
+    ))
+    panel2.update_layout(
+        title=f'② 复合年增长率 CAGR · {start} → {end}（{months} 个月，按月复利）',
+        xaxis=dict(tickangle=-30),
+        height=max(360, 40 * len(countries) + 140),
+    )
+
+    # ───── Panel 3 · Sovereignty trajectories ─────
+    panel3 = go.Figure()
+    for cc in countries:
+        ys = [_get(data[s][cc], 20, 'composite_sovereignty_index') for s in snapshots]
+        panel3.add_trace(go.Scatter(
+            x=x_labels, y=ys, mode='lines+markers+text',
+            name=cc, line=dict(color=country_color(cc), width=2),
+            marker=dict(size=8),
+            text=[''] * (len(ys) - 1) + [cc],
+            textposition='middle right',
         ))
-    slope.update_layout(
-        title=f'① 主权综合指数演化 Slope Chart ({snap_old} → {snap_new})',
+    panel3.update_layout(
+        title='③ Sovereignty Index 时序 · Composite trajectory',
         xaxis=dict(title='Snapshot'),
         yaxis=dict(title='Composite Sovereignty Index', range=[0, 1]),
-        height=560,
+        height=480, hovermode='x unified',
     )
 
-    # Panel 2: Delta heatmap
-    def pct_change(old_v, new_v):
-        if old_v in (None, 0) or new_v is None:
-            return None
-        return (new_v - old_v) / abs(old_v) * 100
-    labels = [m[0] for m in METRICS_TRACKED]
-    matrix = []
-    texts = []
+    # ───── Panel 4 · Inflection / volatility table ─────
+    movers = []
     for cc in countries:
-        row = []
-        trow = []
-        for _, step, key in METRICS_TRACKED:
-            o = _get(old[cc], step, key)
-            n = _get(new[cc], step, key)
-            delta = pct_change(o, n)
-            row.append(delta if delta is not None else 0)
-            trow.append(f'{o}→{n}' if o is not None and n is not None else '—')
-        matrix.append(row)
-        texts.append(trow)
-    hm = go.Figure(go.Heatmap(
-        z=matrix, x=labels, y=countries,
-        colorscale='RdBu', zmid=0,
-        colorbar=dict(title='YoY %<br>change'),
-        text=texts,
-        hovertemplate='%{y} × %{x}<br>%{text}<br>%{z:.1f}%<extra></extra>',
-    ))
-    hm.update_layout(
-        title=f'② YoY Δ% 热图 ({snap_old} → {snap_new})',
-        xaxis=dict(tickangle=-30),
-        height=500,
-    )
-
-    # Panel 3: Sovereignty components side-by-side
-    comp_names = ['hosting_sovereignty', 'dns_sovereignty', 'rpki_adoption',
-                  'ixp_domesticization', 'hub_ratio']
-    comp_labels = ['Hosting', 'DNS Sov', 'RPKI', 'IXP Domes', 'Hub Ratio']
-    comp_fig = sp.make_subplots(
-        rows=1, cols=5, subplot_titles=comp_labels, shared_yaxes=True)
-    for i, ck in enumerate(comp_names):
-        for cc in countries:
-            o = ((old[cc].get(20) or {}).get('components') or {}).get(ck, 0) or 0
-            n = ((new[cc].get(20) or {}).get('components') or {}).get(ck, 0) or 0
-            comp_fig.add_trace(go.Scatter(
-                x=[snap_old, snap_new], y=[o, n],
-                mode='lines+markers', name=cc, legendgroup=cc,
-                showlegend=(i == 0),
-                line=dict(color=country_color(cc), width=2),
-                marker=dict(size=6),
-            ), row=1, col=i + 1)
-    comp_fig.update_layout(
-        title='③ 五分项主权指数演化 · Per-component slope',
-        height=380, showlegend=True,
-    )
-    comp_fig.update_yaxes(range=[0, 1])
-
-    # Panel 4: Scale metric bump chart (AS count rank evolution)
-    def rank_series(snapshot_data, key, is_step_3=True):
-        """Return {cc: rank} for a given metric from Step 3."""
-        vals = [(cc, (snapshot_data[cc].get(3, {}) or {}).get(key, {}).get('value', 0))
-                for cc in countries]
-        srt = sorted(vals, key=lambda t: -t[1])
-        return {cc: i + 1 for i, (cc, _) in enumerate(srt)}
-    bump_fig = sp.make_subplots(
-        rows=2, cols=2, subplot_titles=(
-            'AS count rank', 'Prefix count rank',
-            'IXP count rank', 'Facility count rank'))
-    for panel_i, (metric, mr, mc) in enumerate([
-        ('as_count', 1, 1), ('prefix_count', 1, 2),
-        ('ixp_count', 2, 1), ('facility_count', 2, 2),
-    ]):
-        old_r = rank_series(old, metric)
-        new_r = rank_series(new, metric)
-        for cc in countries:
-            bump_fig.add_trace(go.Scatter(
-                x=[snap_old, snap_new],
-                y=[old_r.get(cc, len(countries)), new_r.get(cc, len(countries))],
-                mode='lines+markers+text',
-                text=['', cc], textposition='middle right',
-                line=dict(color=country_color(cc), width=2),
-                marker=dict(size=8),
-                showlegend=(panel_i == 0), legendgroup=cc, name=cc,
-            ), row=mr, col=mc)
-    bump_fig.update_layout(
-        title='④ 排名演化 Bump Chart · Rank change within 9-country group',
-        height=560,
-    )
-    bump_fig.update_yaxes(autorange='reversed')
-
-    # Narrative summary: biggest movers
-    def biggest_movers(key, step):
-        moves = []
-        for cc in countries:
-            o = _get(old[cc], step, key)
-            n = _get(new[cc], step, key)
-            if o is None or n is None:
+        for label, step, key in METRICS_TRACKED:
+            series = [_get(data[s][cc], step, key) for s in snapshots]
+            reversals = inflection_count(series)
+            vol = range_over_min(series)
+            vals = [v for v in series if v is not None and isinstance(v, (int, float))]
+            if len(vals) < 2:
                 continue
-            moves.append((cc, o, n, pct_change(o, n)))
-        moves.sort(key=lambda t: abs(t[3] or 0), reverse=True)
-        return moves[:3]
+            movers.append((cc, label, reversals, vol, series))
+    movers.sort(
+        key=lambda r: (-(r[2] or 0), -(r[3] if r[3] is not None else 0)))
+    top = movers[:30]
+    series_cell = [' → '.join(_fmt_num(v) for v in r[4]) for r in top]
+    panel4 = go.Figure(go.Table(
+        header=dict(
+            values=['Country', 'Metric', 'Direction<br>changes',
+                    'Range / |min|', 'Series'],
+            fill_color=DARK_PANEL,
+            font=dict(color=TEXT_PRIMARY, size=13),
+            align='left'),
+        cells=dict(values=[
+            [r[0] for r in top],
+            [r[1] for r in top],
+            [r[2] for r in top],
+            [('—' if r[3] is None else f'{r[3]*100:.0f}%') for r in top],
+            series_cell,
+        ],
+            fill_color=DARK_BG,
+            font=dict(color=TEXT_SECONDARY, size=12),
+            align='left', height=26)))
+    panel4.update_layout(
+        title='④ 方向反转与波动榜 · Top 30 by direction changes then range',
+        height=820,
+    )
 
-    sov_moves = biggest_movers('composite_sovereignty_index', 20)
-    as_moves = biggest_movers('total_ases', 1)
-    pfx_moves = biggest_movers('total_prefixes', 4)
+    # ───── Panel 5 · Rank fluctuation band ─────
+    rank_metrics = [
+        ('AS count rank',   3, ('as_count',       'rank')),
+        ('Prefix rank',     3, ('prefix_count',   'rank')),
+        ('IXP rank',        3, ('ixp_count',      'rank')),
+        ('Facility rank',   3, ('facility_count', 'rank')),
+    ]
+    panel5 = sp.make_subplots(
+        rows=1, cols=len(rank_metrics),
+        subplot_titles=[m[0] for m in rank_metrics],
+        shared_yaxes=False, horizontal_spacing=0.06)
+    for i, (label, step, key) in enumerate(rank_metrics, start=1):
+        for cc in countries:
+            ys = [_get(data[s][cc], step, key) for s in snapshots]
+            panel5.add_trace(go.Scatter(
+                x=x_labels, y=ys, mode='lines+markers',
+                name=cc, legendgroup=cc, showlegend=(i == 1),
+                line=dict(color=country_color(cc), width=1.3),
+                marker=dict(size=5),
+            ), row=1, col=i)
+        panel5.update_yaxes(autorange='reversed', row=1, col=i)
+    panel5.update_layout(
+        title='⑤ 全球排名波动带 · Rank trajectories (lower = better)',
+        height=480, hovermode='x unified',
+    )
 
-    narr = f'''
-    <div class="sidebar-note">
-    <b>时序演化摘要 · Time-Series Evolution Summary</b><br><br>
-    对比快照 {snap_old} → {snap_new}，九国参与对比。<br>
-    <b>主权指数最大变动 · biggest sovereignty movers:</b><br>
-    {"<br>".join(f"  {cc} {o:.3f}→{n:.3f} ({d:+.1f}%)" for cc, o, n, d in sov_moves)}
-    <br><br>
-    <b>AS 数量最大变动 · biggest AS-count movers:</b><br>
-    {"<br>".join(f"  {cc} {o:,}→{n:,} ({d:+.1f}%)" for cc, o, n, d in as_moves)}
-    <br><br>
-    <b>前缀数最大变动 · biggest prefix-count movers:</b><br>
-    {"<br>".join(f"  {cc} {o:,}→{n:,} ({d:+.1f}%)" for cc, o, n, d in pfx_moves)}
-    </div>
-    '''
-
-    figs = [slope, hm, comp_fig, bump_fig]
-    for f in figs:
-        apply_plotly_theme(f)
-    body = narr + plotly_inline_once(figs)
+    # ───── Stitch ─────
+    intro = (
+        f'<p style="color:{TEXT_SECONDARY};padding:0 16px;font-size:14px">'
+        f'基于 <b>{len(snapshots)}</b> 个季度快照（{", ".join(snapshots)}）对 '
+        f'<b>{len(countries)}</b> 国 × <b>{len(METRICS_TRACKED)}</b> 指标的时序分析。'
+        f'CAGR 为按月复利折算到年。<br>'
+        f'Time-series analysis across <b>{len(snapshots)}</b> quarterly snapshots '
+        f'for <b>{len(countries)}</b> countries × <b>{len(METRICS_TRACKED)}</b> metrics. '
+        f'CAGR is monthly-compounded, annualized.'
+        f'</p>'
+    )
+    body = intro + plotly_inline_once(
+        [panel1, panel2, panel3, panel4, panel5])
     save_consolidated_html(
-        body, 'evolution.html',
-        title_zh=f'时序演化 · {snap_old} → {snap_new}',
-        title_en=f'Time-Series Evolution · {snap_old} vs {snap_new}',
-        subtitle=f'{len(countries)} common countries · 20 metrics · 2 snapshots',
+        body,
+        'evolution.html',
+        f'时序演化 · {snapshots[0]} → {snapshots[-1]}（{len(snapshots)} 季度）',
+        f'Time-Series Evolution · {snapshots[0]} → {snapshots[-1]} '
+        f'({len(snapshots)} quarters)',
+        subtitle=(f'{len(countries)} 国 · {len(METRICS_TRACKED)} 指标 · '
+                  f'{len(snapshots)} 快照'),
     )
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--old', default='2025-04')
-    ap.add_argument('--new', default='2026-04')
+    ap.add_argument('--snapshots', nargs='+', default=None,
+                    help='Override auto-detected snapshot list')
     args = ap.parse_args()
-    build(args.old, args.new)
+    build(snapshots=args.snapshots)
 
 
 if __name__ == '__main__':
