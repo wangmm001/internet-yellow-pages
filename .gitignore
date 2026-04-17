@@ -1,6 +1,16 @@
 # Configuration file
 config.json
 
+# Large raw/derived data caches (regeneratable from Neo4j)
+data_cache/
+
+# Neo4j plugin binaries
+plugins/
+
+# IYP snapshot dumps/data
+dumps/
+data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
