@@ -271,3 +271,6 @@ xdg-open analysis/china/html/index.html
 | 2026-04-17 | 新增 `analysis/README.md` 目录索引、`analysis/RESEARCH.md` 本研究说明 |
 | 2026-04-17 | 新增 9 国跨国分析（`countries/`）：US/CN/JP/IN/DE/GB/FR/NL/RU × 20 步；per-country profile + cross_country / dependency_matrix / content_geography 四个合成仪表板 |
 | 2026-04-17 | 2026-04 快照主权指数: FR 0.753 · US 0.740 · NL 0.678 · GB 0.613 · IN 0.533 · DE 0.529 · JP 0.486 · RU 0.480 · CN 0.269 |
+| 2026-04-17 | 下载 2025-04-08 dump (10 GB)、dump swap、加载 ~85 GB DB，完成 2025-04 快照 9 国提取 |
+| 2026-04-17 | 2025-04 快照主权指数: NL 0.694 · FR 0.650 · US 0.616 · RU 0.602 · DE 0.594 · GB 0.591 · JP 0.580 · IN 0.508 · CN 0.220 |
+| 2026-04-17 | 新增 `evolution.html` · 时序演化仪表板 (2025→2026 slope / delta heatmap / bump chart) |

@@ -220,20 +220,24 @@ def _censorship():
 
 @lru_cache(maxsize=1)
 def _global_country_stats():
-    """Load global_country_stats.csv if present (computed by china pipeline)."""
-    path = os.path.join(os.path.dirname(__file__), '..', 'china', 'data',
-                        'global_country_stats.csv')
+    """Load global_country_stats.csv — prefers snapshot-local cache."""
+    candidates = [
+        os.path.join(CACHE_DIR, 'global_country_stats.csv'),
+        os.path.join(os.path.dirname(__file__), '..', 'china', 'data',
+                     'global_country_stats.csv'),
+    ]
     out = {}
-    if not os.path.exists(path):
-        return out
-    with open(path, encoding='utf-8') as f:
-        for r in csv.DictReader(f):
-            out[r['country_code']] = {
-                'as_count': int(r.get('as_count') or 0),
-                'prefix_count': int(r.get('prefix_count') or 0),
-                'ixp_count': int(r.get('ixp_count') or 0),
-                'facility_count': int(r.get('facility_count') or 0),
-            }
+    for path in candidates:
+        if os.path.exists(path):
+            with open(path, encoding='utf-8') as f:
+                for r in csv.DictReader(f):
+                    out[r['country_code']] = {
+                        'as_count': int(r.get('as_count') or 0),
+                        'prefix_count': int(r.get('prefix_count') or 0),
+                        'ixp_count': int(r.get('ixp_count') or 0),
+                        'facility_count': int(r.get('facility_count') or 0),
+                    }
+            return out
     return out
 
 
