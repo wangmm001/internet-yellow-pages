@@ -1,0 +1,25 @@
+{
+  "step": 3,
+  "country": "GB",
+  "snapshot": "2025-04",
+  "title_zh": "全球规模排名",
+  "title_en": "Global scale rank",
+  "metrics": {
+    "as_count": {
+      "rank": 7,
+      "value": 3225
+    },
+    "prefix_count": {
+      "rank": 12,
+      "value": 50001
+    },
+    "ixp_count": {
+      "rank": 13,
+      "value": 31
+    },
+    "facility_count": {
+      "rank": 4,
+      "value": 244
+    }
+  }
+}

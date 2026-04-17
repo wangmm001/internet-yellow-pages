@@ -1,0 +1,20 @@
+{
+  "step": 1,
+  "country": "CN",
+  "snapshot": "2025-04",
+  "title_zh": "AS 清册与标签分布",
+  "title_en": "AS inventory & tag breakdown",
+  "metrics": {
+    "total_ases": 6694,
+    "tag_distribution": {
+      "ISP": 911,
+      "Other": 923,
+      "Unknown": 4530,
+      "Enterprise": 96,
+      "Academic/Edu": 123,
+      "Content/CDN": 61,
+      "Government": 16,
+      "Eyeball": 34
+    }
+  }
+}

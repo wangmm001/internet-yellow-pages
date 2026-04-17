@@ -1,0 +1,17 @@
+{
+  "step": 20,
+  "country": "RU",
+  "snapshot": "2026-04",
+  "title_zh": "综合主权指数",
+  "title_en": "Composite sovereignty index",
+  "metrics": {
+    "composite_sovereignty_index": 0.4804,
+    "components": {
+      "hosting_sovereignty": 1.0,
+      "dns_sovereignty": 0.0868,
+      "rpki_adoption": 0.4668,
+      "ixp_domesticization": 0.5943,
+      "hub_ratio": 0.2541
+    }
+  }
+}

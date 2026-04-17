@@ -1,0 +1,11 @@
+{
+  "step": 16,
+  "country": "CN",
+  "snapshot": "2026-04",
+  "title_zh": "跨境 CNAME 链",
+  "title_en": "Cross-border CNAME",
+  "metrics": {
+    "alias_sources": 9617,
+    "alias_targets": 4722
+  }
+}

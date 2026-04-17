@@ -1,0 +1,40 @@
+{
+  "step": 12,
+  "country": "RU",
+  "snapshot": "2025-04",
+  "title_zh": "机房分布",
+  "title_en": "Facility distribution",
+  "metrics": {
+    "total_facility_records": 1208,
+    "distinct_facilities_with_country": 253,
+    "top_countries_by_facility_presence": {
+      "RU": 887,
+      "DE": 62,
+      "NL": 38,
+      "US": 30,
+      "GB": 25
+    },
+    "top_facilities": [
+      [
+        "Moscow M9",
+        207
+      ],
+      [
+        "Bolshaya Morskaya 18",
+        63
+      ],
+      [
+        "Raduga-2",
+        51
+      ],
+      [
+        "Tsvetochnaya Data Center",
+        42
+      ],
+      [
+        "Moscow M10",
+        35
+      ]
+    ]
+  }
+}

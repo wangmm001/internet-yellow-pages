@@ -1,0 +1,840 @@
+asn,ixp,country
+58336,SBIX Zurich,CH
+213891,BGP.Exchange - Dusseldorf,DE
+7721,BGP.Exchange - Dusseldorf,DE
+215502,BGP.Exchange - Dusseldorf,DE
+39753,BGP.Exchange - Dusseldorf,DE
+142553,BGP.Exchange - Dusseldorf,DE
+151194,BGP.Exchange - Dusseldorf,DE
+215007,BGP.Exchange - Dusseldorf,DE
+140915,BGP.Exchange - Dusseldorf,DE
+153725,DE-CIX Hamburg,DE
+45102,DataLine-IX,RU
+200936,Pigeon IX,US
+213891,Pigeon IX,US
+151785,Pigeon IX,US
+151673,Pigeon IX,US
+140915,Pigeon IX,US
+151674,Pigeon IX,US
+150184,Pigeon IX,US
+139317,Pigeon IX,US
+203236,Pigeon IX,US
+216299,Pigeon IX,US
+214963,Pigeon IX,US
+24429,IXPN Lagos,NG
+150184,Impart IX,SG
+140915,Impart IX,SG
+24429,1-DE,DE
+142553,IXP NL DRO,NL
+131483,CN-IX-SH,CN
+59027,CN-IX-SH,CN
+45090,CN-IX-SH,CN
+55990,CN-IX-SH,CN
+200536,BGP.Exchange - Frankfurt,DE
+207303,BGP.Exchange - Frankfurt,DE
+205369,BGP.Exchange - Frankfurt,DE
+208754,BGP.Exchange - Frankfurt,DE
+210352,BGP.Exchange - Frankfurt,DE
+137908,BGP.Exchange - Frankfurt,DE
+212985,BGP.Exchange - Frankfurt,DE
+213891,BGP.Exchange - Frankfurt,DE
+140915,BGP.Exchange - Frankfurt,DE
+139216,BGP.Exchange - Frankfurt,DE
+211575,BGP.Exchange - Frankfurt,DE
+215007,BGP.Exchange - Frankfurt,DE
+210426,BGP.Exchange - Frankfurt,DE
+142553,BGP.Exchange - Frankfurt,DE
+151194,BGP.Exchange - Frankfurt,DE
+214575,BGP.Exchange - Frankfurt,DE
+216056,DataSphere Internet Exchange (Hong Kong),HK
+150289,DataSphere Internet Exchange (Hong Kong),HK
+210352,DataSphere Internet Exchange (Hong Kong),HK
+214955,DataSphere Internet Exchange (Hong Kong),HK
+199932,DataSphere Internet Exchange (Hong Kong),HK
+7721,DataSphere Internet Exchange (Hong Kong),HK
+216299,DataSphere Internet Exchange (Hong Kong),HK
+211575,DataSphere Internet Exchange (Hong Kong),HK
+140682,DataSphere Internet Exchange (Hong Kong),HK
+45102,CIX-ATL,US
+214933,BGP.Exchange - Toronto,CA
+201705,BGP.Exchange - Toronto,CA
+213891,BGP.Exchange - Seoul,KR
+37968,AMS-IX Hong Kong,HK
+24429,AMS-IX Hong Kong,HK
+45102,DCI Indonesia DCI-IX,ID
+45102,MSK-IX Moscow,RU
+24429,MSK-IX Moscow,RU
+45102,BIX Jakarta,ID
+215007,BGP.Exchange - Melbourne,AU
+45102,DE-CIX ASEAN,SG
+142553,BGP.Exchange - London,GB
+215786,BGP.Exchange - London,GB
+215007,BGP.Exchange - London,GB
+204856,BGP.Exchange - London,GB
+212985,BGP.Exchange - London,GB
+200890,BGP.Exchange - London,GB
+208754,BGP.Exchange - London,GB
+200936,BGP.Exchange - London,GB
+210352,BGP.Exchange - London,GB
+132203,France-IX Marseille,FR
+213605,KCIX,US
+146950,KCIX,US
+212793,KCIX,US
+150289,KCIX,US
+44421,KCIX,US
+211575,BGP.Exchange - Zurich,CH
+215007,BGP.Exchange - Zurich,CH
+214955,BGP.Exchange - Zurich,CH
+204856,BGP.Exchange - Zurich,CH
+151194,BGP.Exchange - Zurich,CH
+200890,BGP.Exchange - Zurich,CH
+142553,BGP.Exchange - Zurich,CH
+58336,FREMIX,US
+200936,FREMIX,US
+139589,FREMIX,US
+199691,FREMIX,US
+213605,FREMIX,US
+212793,FREMIX,US
+216056,FREMIX,US
+149793,FREMIX,US
+24429,GNM-IX,NL
+200536,Zero Internet eXchange San Jose,US
+140682,Zero Internet eXchange San Jose,US
+211575,Zero Internet eXchange San Jose,US
+151785,BGP.Exchange - Tokyo,JP
+214933,BGP.Exchange - Tokyo,JP
+39753,BGP.Exchange - Tokyo,JP
+207091,BGP.Exchange - Tokyo,JP
+200936,BGP.Exchange - Tokyo,JP
+205008,BGP.Exchange - Tokyo,JP
+204856,BGP.Exchange - Tokyo,JP
+213782,BGP.Exchange - Tokyo,JP
+213891,BGP.Exchange - Tokyo,JP
+214848,BGP.Exchange - Tokyo,JP
+138535,BGP.Exchange - Tokyo,JP
+211575,BGP.Exchange - Tokyo,JP
+216056,BGP.Exchange - Tokyo,JP
+214575,BGP.Exchange - Tokyo,JP
+210352,BGP.Exchange - Tokyo,JP
+45102,JTIX (Thailand),TH
+132591,JTIX (Thailand),TH
+207292,ARIX,US
+45102,JKT-IX,ID
+212985,BGP.Exchange - Berlin,DE
+204856,BGP.Exchange - Berlin,DE
+24429,MyIX,MY
+132203,MyIX,MY
+45102,MyIX,MY
+209306,Poema IX,TW
+150184,Poema IX,TW
+139888,Poema IX,TW
+215750,Poema IX,TW
+151674,Poema IX,TW
+139317,Poema IX,TW
+200536,Poema IX,TW
+199310,Poema IX,TW
+141237,Poema IX,TW
+150289,Poema IX,TW
+203236,Poema IX,TW
+142164,Poema IX,TW
+205603,Poema IX,TW
+140731,Poema IX,TW
+142553,Poema IX,TW
+7721,Poema IX,TW
+213605,Poema IX,TW
+211575,Poema IX,TW
+139216,FSIX Shanghai,CN
+139073,FSIX Shanghai,CN
+150173,STUIX,TW
+24429,STUIX,TW
+140731,STUIX,TW
+213605,STUIX,TW
+141237,STUIX,TW
+211575,STUIX,TW
+150289,STUIX,TW
+142641,STUIX,TW
+216299,STUIX,TW
+142586,LOCIX DUSSELDORF,DE
+209574,LOCIX DUSSELDORF,DE
+214613,LOCIX DUSSELDORF,DE
+200789,LOCIX DUSSELDORF,DE
+213878,LOCIX DUSSELDORF,DE
+151194,LOCIX DUSSELDORF,DE
+212164,LOCIX DUSSELDORF,DE
+200959,LOCIX DUSSELDORF,DE
+137908,LOCIX DUSSELDORF,DE
+209650,Speed-IX,NL
+150289,STLIX,US
+24429,JPNAP Tokyo,JP
+45102,JPNAP Tokyo,JP
+146762,JPNAP Tokyo,JP
+205603,JCIX,JP
+204211,INTERIX,NL
+211575,INTERIX,NL
+213605,INTERIX,NL
+63541,CHN-IX Guangzhou,CN
+24429,Equinix Ashburn,US
+132203,Equinix Ashburn,US
+45102,Equinix Ashburn,US
+139589,BFD-IX,GB
+39753,BFD-IX,GB
+140938,BFD-IX,GB
+151785,BGP.Exchange - Singapore,SG
+216056,BGP.Exchange - Singapore,SG
+140682,BGP.Exchange - Singapore,SG
+142553,BGP.Exchange - Singapore,SG
+215007,BGP.Exchange - Singapore,SG
+204856,BGP.Exchange - Singapore,SG
+214899,BGP.Exchange - Singapore,SG
+209294,BGP.Exchange - Singapore,SG
+139589,BGP.Exchange - Singapore,SG
+214933,BGP.Exchange - Singapore,SG
+63602,CNIX,CN
+59060,CNIX,CN
+37965,CNIX,CN
+135011,CNIX,CN
+45090,CNIX,CN
+59019,CNIX,CN
+63727,CNIX,CN
+45093,CNIX,CN
+37963,CNIX,CN
+59034,CNIX,CN
+38365,CNIX,CN
+18245,CNIX,CN
+55990,CNIX,CN
+23844,CNIX,CN
+63598,CNIX,CN
+17428,CNIX,CN
+58863,CNIX,CN
+133865,CNIX,CN
+55957,CNIX,CN
+137718,CNIX,CN
+211575,LoLi-IX - NGB,CN
+210352,LoLi-IX - NGB,CN
+210176,LoLi-IX - NGB,CN
+139317,LoLi-IX - NGB,CN
+153376,LoLi-IX - NGB,CN
+151673,LoLi-IX - NGB,CN
+205008,LoLi-IX - NGB,CN
+204211,LoLi-IX - NGB,CN
+211729,LoLi-IX - NGB,CN
+214955,LoLi-IX - NGB,CN
+203236,IXP US FRE,US
+142553,IXP US FRE,US
+4134,AMS-IX Djibouti,DJ
+132203,JPIX OSAKA,JP
+24429,JPIX OSAKA,JP
+132203,center3 IX Riyadh,SA
+24429,center3 IX Riyadh,SA
+142553,BGP.Exchange - Rome,IT
+140915,BGP.Exchange - Rome,IT
+212237,HamroIX-Amsterdam,NL
+142553,HamroIX-Amsterdam,NL
+216056,BGP.Exchange - Hong Kong,HK
+207303,BGP.Exchange - Hong Kong,HK
+153376,BGP.Exchange - Hong Kong,HK
+214933,BGP.Exchange - Hong Kong,HK
+212985,BGP.Exchange - Hong Kong,HK
+140682,BGP.Exchange - Hong Kong,HK
+214955,BGP.Exchange - Hong Kong,HK
+203309,BGP.Exchange - Hong Kong,HK
+210352,BGP.Exchange - Hong Kong,HK
+205008,BGP.Exchange - Hong Kong,HK
+200936,BGP.Exchange - Hong Kong,HK
+204856,BGP.Exchange - Hong Kong,HK
+7721,BGP.Exchange - Hong Kong,HK
+139888,BGP.Exchange - Hong Kong,HK
+214575,BGP.Exchange - Hong Kong,HK
+151785,BGP.Exchange - Hong Kong,HK
+141776,Skywolf IX US,US
+209294,BGP.Exchange - Taipei,TW
+140682,BGP.Exchange - Taipei,TW
+210352,BGP.Exchange - Taipei,TW
+213605,BGP.Exchange - Taipei,TW
+153725,DE-CIX Munich,DE
+209650,EVIX,US
+209300,EVIX,US
+207292,EVIX,US
+212793,EVIX,US
+200936,EVIX,US
+4842,EVIX,US
+209261,EVIX,US
+211575,EVIX,US
+24429,Netnod Stockholm BLUE -- MTU1500,SE
+24429,Netnod Stockholm BLUE -- MTU4470,SE
+142553,BGP.Exchange - Sydney,AU
+200536,BGP.Exchange - Sydney,AU
+210176,TPIX-TW,TW
+146834,TPIX-TW,TW
+213605,TPIX-TW,TW
+150289,TPIX-TW,TW
+151194,TPIX-TW,TW
+154185,TPIX-TW,TW
+24429,TPIX-TW,TW
+4134,Equinix Miami,US
+4134,DE-CIX New York,US
+45102,AIX,ID
+209650,LOCIX NETHERLANDS,NL
+45102,AMS-IX Bangkok,TH
+39753,BGP.Exchange - Paris,FR
+204856,BGP.Exchange - Paris,FR
+24429,NAPAfrica IX Johannesburg,ZA
+4134,NAPAfrica IX Johannesburg,ZA
+24429,BBIX Thailand,TH
+132203,BBIX Thailand,TH
+141776,IX42 SG,SG
+142553,IX42 SG,SG
+150184,Nephren IX,HK
+200536,Nephren IX,HK
+203236,Nephren IX,HK
+132203,Equinix Palo Alto,US
+45102,Equinix Palo Alto,US
+141776,Aperture-IX,HK
+205532,Aperture-IX,HK
+142641,Aperture-IX,HK
+210041,Aperture-IX,HK
+146950,Aperture-IX,HK
+205603,Aperture-IX,HK
+45102,BBIX Singapore,SG
+132203,BBIX Singapore,SG
+55967,BBIX Singapore,SG
+131285,BBIX Singapore,SG
+132203,BBIX Osaka,JP
+24429,BBIX Osaka,JP
+132203,CNX,KH
+151194,Kawaii IX AMS,NL
+202396,Kawaii IX AMS,NL
+202335,Kawaii IX AMS,NL
+209574,Kawaii IX AMS,NL
+4134,UAE-IX,AE
+45102,UAE-IX,AE
+24429,UAE-IX,AE
+4809,UAE-IX,AE
+141237,GeekIX Taoyuan (Jumbo),TW
+139317,GeekIX Taoyuan (Jumbo),TW
+137256,GeekIX Taoyuan (Jumbo),TW
+140731,GeekIX Taoyuan (Jumbo),TW
+209306,GeekIX Taoyuan (Jumbo),TW
+24429,THAILAND IX (TH-IX),TH
+132203,THAILAND IX (TH-IX),TH
+45102,THAILAND IX (TH-IX),TH
+132203,Equinix Hong Kong,HK
+133865,Equinix Hong Kong,HK
+137753,Equinix Hong Kong,HK
+24429,Equinix Hong Kong,HK
+63631,Equinix Hong Kong,HK
+146762,Equinix Hong Kong,HK
+140633,Equinix Hong Kong,HK
+45102,Equinix Hong Kong,HK
+146834,Equinix Hong Kong,HK
+10111,Equinix Hong Kong,HK
+55967,Equinix Hong Kong,HK
+45102,LONAP,GB
+205369,BGP.Exchange - New York,US
+204856,BGP.Exchange - New York,US
+142164,MoeIX SEA,US
+203236,MoeIX SEA,US
+200536,MoeIX SEA,US
+150184,MoeIX SEA,US
+203899,MoeIX SEA,US
+149475,MoeIX SEA,US
+142553,MoeIX SEA,US
+37963,NNIX,CN
+131577,NNIX,CN
+45090,NNIX,CN
+131495,NNIX,CN
+37965,NNIX,CN
+55959,NNIX,CN
+45062,NNIX,CN
+63586,NNIX,CN
+139136,NNIX,CN
+55990,NNIX,CN
+141776,IXPSU Hangzhou,CN
+203236,IXPSU Hangzhou,CN
+142553,IXPSU Hangzhou,CN
+142553,BGP.Exchange - Amsterdam,NL
+7721,BGP.Exchange - Amsterdam,NL
+205008,BGP.Exchange - Amsterdam,NL
+140915,BGP.Exchange - Amsterdam,NL
+210352,BGP.Exchange - Amsterdam,NL
+215007,BGP.Exchange - Amsterdam,NL
+216056,BGP.Exchange - Amsterdam,NL
+151194,BGP.Exchange - Amsterdam,NL
+200536,BGP.Exchange - Amsterdam,NL
+45102,BBIX Hong Kong,HK
+132203,BBIX Hong Kong,HK
+24429,CSL Thai-IX Bangkok,TH
+215007,FogIXP,CH
+200936,FogIXP,CH
+199310,FogIXP,CH
+213605,FogIXP,CH
+140731,FogIXP,CH
+208754,FogIXP,CH
+205008,FogIXP,CH
+200809,FogIXP,CH
+213891,FogIXP,CH
+212793,FogIXP,CH
+215750,FogIXP,CH
+203643,FogIXP,CH
+204856,FogIXP,CH
+151194,FogIXP,CH
+210352,FogIXP,CH
+140915,FogIXP,CH
+199392,FogIXP,CH
+208679,FogIXP,CH
+150289,FogIXP,CH
+205369,FogIXP,CH
+209294,FogIXP,CH
+153725,FogIXP,CH
+205794,FogIXP,CH
+213782,FogIXP,CH
+203309,FogIXP,CH
+207303,FogIXP,CH
+141776,ZXIX Wuhan (L),CN
+142553,ZXIX Wuhan (L),CN
+199310,NRIX,TW
+215750,NRIX,TW
+212237,OpenSwitch-IX,IN
+142553,OpenSwitch-IX,IN
+24429,Equinix Paris,FR
+203236,IXP UK LON,GB
+139073,IXP UK LON,GB
+142553,IXP UK LON,GB
+200536,GPC Missouri,US
+45102,SAIX Saudi Arabia Riyadh,SA
+24429,SAIX Saudi Arabia Riyadh,SA
+132203,SAIX Saudi Arabia Riyadh,SA
+200536,BGP.Exchange - Fremont,US
+39753,BGP.Exchange - Fremont,US
+7721,BGP.Exchange - Fremont,US
+205369,BGP.Exchange - Fremont,US
+216056,BGP.Exchange - Fremont,US
+207303,BGP.Exchange - Fremont,US
+139249,BGP.Exchange - Fremont,US
+142553,BGP.Exchange - Fremont,US
+210352,BGP.Exchange - Fremont,US
+24429,center3 IX Jeddah,SA
+45102,center3 IX Jeddah,SA
+133865,CSL Thai-IX Singapore,TH
+24429,TOP-IX,IT
+142111,Any2West,US
+4809,Any2West,US
+63541,Any2West,US
+4134,Any2West,US
+212793,UNM-Exch Canada-West,CA
+140731,UNM-Exch Canada-West,CA
+200936,UNM-Exch Canada-West,CA
+203655,UNM-Exch Canada-West,CA
+151674,UNM-Exch Canada-West,CA
+138365,UNM-Exch Canada-West,CA
+140915,UNM-Exch Canada-West,CA
+205794,UNM-Exch Canada-West,CA
+58336,UNM-Exch Canada-West,CA
+210903,UNM-Exch Canada-West,CA
+214899,4b42 Internet Exchange Point,CH
+215502,4b42 Internet Exchange Point,CH
+200536,4b42 Internet Exchange Point,CH
+200890,4b42 Internet Exchange Point,CH
+215007,4b42 Internet Exchange Point,CH
+212237,4b42 Internet Exchange Point,CH
+137256,4b42 Internet Exchange Point,CH
+211575,4b42 Internet Exchange Point,CH
+209218,4b42 Internet Exchange Point,CH
+139073,4b42 Internet Exchange Point,CH
+139589,4b42 Internet Exchange Point,CH
+141776,4b42 Internet Exchange Point,CH
+209650,4b42 Internet Exchange Point,CH
+150184,4b42 Internet Exchange Point,CH
+208127,4b42 Internet Exchange Point,CH
+202256,4b42 Internet Exchange Point,CH
+209645,4b42 Internet Exchange Point,CH
+209300,4b42 Internet Exchange Point,CH
+205794,4b42 Internet Exchange Point,CH
+140682,4b42 Internet Exchange Point,CH
+210903,4b42 Internet Exchange Point,CH
+142553,4b42 Internet Exchange Point,CH
+205532,4b42 Internet Exchange Point,CH
+205369,4b42 Internet Exchange Point,CH
+203236,4b42 Internet Exchange Point,CH
+203655,4b42 Internet Exchange Point,CH
+138365,4b42 Internet Exchange Point,CH
+58336,4b42 Internet Exchange Point,CH
+150289,4b42 Internet Exchange Point,CH
+140915,4b42 Internet Exchange Point,CH
+205603,ENTERNET IX,JP
+142553,IXP LI VAD,LI
+139073,IXP LI VAD,LI
+146762,DE-CIX Frankfurt,DE
+4837,DE-CIX Frankfurt,DE
+24429,DE-CIX Frankfurt,DE
+4134,DE-CIX Frankfurt,DE
+55967,DE-CIX Frankfurt,DE
+153725,DE-CIX Frankfurt,DE
+45102,DE-CIX Frankfurt,DE
+132203,DE-CIX Frankfurt,DE
+59060,CHN-IX Beijing,CN
+56019,CHN-IX Beijing,CN
+45093,CHN-IX Beijing,CN
+63541,CHN-IX Beijing,CN
+17429,CHN-IX Beijing,CN
+24138,CHN-IX Beijing,CN
+18245,CHN-IX Beijing,CN
+45102,VANIX,CA
+206729,NVIX,US
+209650,NVIX,US
+212793,KleyReX,DE
+210903,KleyReX,DE
+139249,KleyReX,DE
+62230,KleyReX,DE
+207292,KleyReX,DE
+205603,KleyReX,DE
+209650,KleyReX,DE
+142641,KleyReX,DE
+153725,KleyReX,DE
+140731,KleyReX,DE
+49904,KleyReX,DE
+4842,KleyReX,DE
+139589,KleyReX,DE
+4842,YYCIX,CA
+200536,Miaowoo Ashburn,US
+203899,Miaowoo Ashburn,US
+203236,Miaowoo Ashburn,US
+133865,IAIX,HK
+214933,Protocol 7 IX - Tokyo,JP
+39753,Protocol 7 IX - Tokyo,JP
+151785,Protocol 7 IX - Tokyo,JP
+214848,Protocol 7 IX - Tokyo,JP
+201705,Protocol 7 IX - Tokyo,JP
+210773,CXIX - Yangtze Delta,CN
+151673,CXIX - Yangtze Delta,CN
+204211,CXIX - Yangtze Delta,CN
+139073,IXP NUR,DE
+45102,ESpanix Madrid Lower LAN,ES
+24429,ESpanix Madrid Lower LAN,ES
+213605,LoLi-IX - HKG,HK
+211575,LoLi-IX - HKG,HK
+45093,Cnean,CN
+24429,GetaFIX Manila,PH
+45102,GetaFIX Manila,PH
+132203,GetaFIX Manila,PH
+132203,JPNAP Osaka,JP
+132203,DE-CIX Istanbul,TR
+137908,Ciallo～(∠·ω< )⌒★ IX - HK,HK
+208754,Ciallo～(∠·ω< )⌒★ IX - HK,HK
+59027,CN-IX-BJ,CN
+151194,BGP.Exchange - Barcelona,ES
+215007,BGP.Exchange - Barcelona,ES
+9384,Equinix Tokyo,JP
+10111,Equinix Tokyo,JP
+213404,AKIX,CH
+210352,AKIX,CH
+151194,AKIX,CH
+210176,AKIX,CH
+205369,AKIX,CH
+205008,AKIX,CH
+213605,AKIX,CH
+199310,AKIX,CH
+211575,AKIX,CH
+213891,AKIX,CH
+4134,JINX,ZA
+213605,AMS-IX,NL
+24429,AMS-IX,NL
+132203,AMS-IX,NL
+4134,AMS-IX,NL
+4837,AMS-IX,NL
+55967,Any2East,US
+45102,TorIX,CA
+45102,ERA-IX Frankfurt,DE
+63829,NIXI Delhi,IN
+140731,NL-ix,NL
+132203,NL-ix,NL
+212793,NL-ix,NL
+24429,NL-ix,NL
+45102,NL-ix,NL
+209650,NL-ix,NL
+24429,PIT Bolivia,BO
+24429,MHK-IX,PH
+213605,MSR IX,JP
+202335,MSR IX,JP
+139317,MSR IX,JP
+7586,HKIX,HK
+132203,HKIX,HK
+55967,HKIX,HK
+23911,HKIX,HK
+24429,HKIX,HK
+45102,HKIX,HK
+4842,HKIX,HK
+135426,HKIX,HK
+63631,HKIX,HK
+214575,CXIX - Great Lakes,US
+139317,CXIX - Great Lakes,US
+150184,CXIX - Great Lakes,US
+211575,CXIX - Great Lakes,US
+216299,CXIX - Great Lakes,US
+214933,CXIX - Great Lakes,US
+207303,CXIX - Great Lakes,US
+202396,CXIX - Great Lakes,US
+203309,CXIX - Great Lakes,US
+214899,CXIX - Great Lakes,US
+210352,CXIX - Great Lakes,US
+153376,CXIX - Great Lakes,US
+210773,CXIX - Great Lakes,US
+204211,CXIX - Great Lakes,US
+214955,CXIX - Great Lakes,US
+211729,CXIX - Great Lakes,US
+151673,CXIX - Great Lakes,US
+209574,CXIX - Great Lakes,US
+146834,KINX,KR
+132203,KINX,KR
+45102,KINX,KR
+24429,Netnod Stockholm GREEN -- MTU1500,SE
+149793,BGP.Exchange - Kansas,US
+214955,BGP.Exchange - Kansas,US
+140682,BGP.Exchange - Kansas,US
+137908,BGP.Exchange - Kansas,US
+10111,BBIX Tokyo,JP
+45102,BBIX Tokyo,JP
+24429,BBIX Tokyo,JP
+55967,BBIX Tokyo,JP
+132203,BBIX Tokyo,JP
+9384,BBIX Tokyo,JP
+24429,DE-CIX Madrid,ES
+24429,1-IX EU,PL
+10111,Hong Kong Global Internet Exchange,HK
+214439,Hong Kong Global Internet Exchange,HK
+211575,AKIX - TFU,CN
+214955,AKIX - TFU,CN
+214933,AKIX - TFU,CN
+204211,AKIX - TFU,CN
+213605,Protocol 7 IX - Hong Kong,HK
+202396,Protocol 7 IX - Hong Kong,HK
+211729,Protocol 7 IX - Hong Kong,HK
+214848,Protocol 7 IX - Hong Kong,HK
+207303,Protocol 7 IX - Hong Kong,HK
+214955,Protocol 7 IX - Hong Kong,HK
+201705,Protocol 7 IX - Hong Kong,HK
+210352,Protocol 7 IX - Hong Kong,HK
+203309,Protocol 7 IX - Hong Kong,HK
+211575,Protocol 7 IX - Hong Kong,HK
+209574,Protocol 7 IX - Hong Kong,HK
+202335,Protocol 7 IX - Hong Kong,HK
+207299,Protocol 7 IX - Hong Kong,HK
+151673,Protocol 7 IX - Hong Kong,HK
+153376,Protocol 7 IX - Hong Kong,HK
+205369,Protocol 7 IX - Hong Kong,HK
+214933,Protocol 7 IX - Hong Kong,HK
+212985,Protocol 7 IX - Hong Kong,HK
+139317,Protocol 7 IX - Hong Kong,HK
+151785,Protocol 7 IX - Hong Kong,HK
+209294,Protocol 7 IX - Hong Kong,HK
+216056,Protocol 7 IX - Hong Kong,HK
+10111,SFMIX,US
+59077,SHIXP,CN
+146762,SHIXP,CN
+55990,SHIXP,CN
+45079,SHIXP,CN
+38365,SHIXP,CN
+37963,SHIXP,CN
+45086,SHIXP,CN
+37965,SHIXP,CN
+17775,SHIXP,CN
+137718,SHIXP,CN
+9812,SHIXP,CN
+18118,SHIXP,CN
+59027,SHIXP,CN
+45090,SHIXP,CN
+146761,SHIXP,CN
+59083,SHIXP,CN
+149057,SHIXP,CN
+55985,SHIXP,CN
+23853,SHIXP,CN
+216056,HN Internet Exchange (Main),US
+200936,HN Internet Exchange (Main),US
+213782,HN Internet Exchange (Main),US
+199310,HN Internet Exchange (Main),US
+140915,HN Internet Exchange (Main),US
+142553,IXP FI HEL,FI
+45102,France-IX Paris,FR
+24429,France-IX Paris,FR
+45102,DE-CIX Kuala Lumpur,MY
+45102,IIX-Jakarta,ID
+132203,IIX-Jakarta,ID
+24429,IIX-Jakarta,ID
+17428,"CNIX (Qianhai, Shenzhen)",CN
+55990,"CNIX (Qianhai, Shenzhen)",CN
+38365,"CNIX (Qianhai, Shenzhen)",CN
+37965,"CNIX (Qianhai, Shenzhen)",CN
+149057,"CNIX (Qianhai, Shenzhen)",CN
+37968,"CNIX (Qianhai, Shenzhen)",CN
+153712,"CNIX (Qianhai, Shenzhen)",CN
+151230,"CNIX (Qianhai, Shenzhen)",CN
+153497,"CNIX (Qianhai, Shenzhen)",CN
+45090,"CNIX (Qianhai, Shenzhen)",CN
+45102,EdgeNXT,ID
+45102,DE-CIX Malaysia,MY
+63829,NIXI Chennai,IN
+141776,Baoshuo Internet Exchange,CN
+139589,PyramIX,EG
+212237,PyramIX,EG
+141776,PyramIX,EG
+142553,PyramIX,EG
+45102,JPIX TOKYO,JP
+146762,JPIX TOKYO,JP
+132203,JPIX TOKYO,JP
+24429,JPIX TOKYO,JP
+132203,IX.br (PTT.br) São Paulo,BR
+139799,IX.br (PTT.br) São Paulo,BR
+4842,SIX Seattle (Jumbo),US
+146950,SIX Seattle (Jumbo),US
+211575,ZXIX Hangzhou,CN
+140938,ZXIX Hangzhou,CN
+139317,ZXIX Hangzhou,CN
+139888,ZXIX Hangzhou,CN
+142553,ZXIX Hangzhou,CN
+210426,ZXIX Hangzhou,CN
+214955,ZXIX Hangzhou,CN
+204211,ZXIX Hangzhou,CN
+199310,ZXIX Hangzhou,CN
+215750,ZXIX Hangzhou,CN
+140961,ZXIX Hangzhou,CN
+140915,ZXIX Hangzhou,CN
+209306,ZXIX Hangzhou,CN
+57330,ZXIX Hangzhou,CN
+209294,ZXIX Hangzhou,CN
+153376,ZXIX Hangzhou,CN
+210352,ZXIX Hangzhou,CN
+212237,ZXIX Hangzhou,CN
+141237,IX42 LAS,US
+210903,IX42 LAS,US
+141776,IX42 LAS,US
+140938,IX42 LAS,US
+215007,BGP.Exchange - Auckland,NZ
+137908,ZXIX Hong Kong,HK
+203236,ZXIX Hong Kong,HK
+202335,ZXIX Hong Kong,HK
+216056,ZXIX Hong Kong,HK
+216299,ZXIX Hong Kong,HK
+205369,ZXIX Hong Kong,HK
+209306,ZXIX Hong Kong,HK
+212532,ZXIX Hong Kong,HK
+215786,ZXIX Hong Kong,HK
+213605,ZXIX Hong Kong,HK
+198266,ZXIX Hong Kong,HK
+142553,ZXIX Hong Kong,HK
+151673,ZXIX Hong Kong,HK
+214955,ZXIX Hong Kong,HK
+215750,ZXIX Hong Kong,HK
+7721,ZXIX Hong Kong,HK
+209218,ZXIX Hong Kong,HK
+199310,ZXIX Hong Kong,HK
+139216,ZXIX Hong Kong,HK
+211575,ZXIX Hong Kong,HK
+211729,ZXIX Hong Kong,HK
+210352,ZXIX Hong Kong,HK
+141237,ZXIX Hong Kong,HK
+140961,ZXIX Hong Kong,HK
+141776,ZXIX Hong Kong,HK
+140915,ZXIX Hong Kong,HK
+205008,ZXIX Hong Kong,HK
+150289,ZXIX Hong Kong,HK
+214933,ZXIX Hong Kong,HK
+140938,ZXIX Hong Kong,HK
+203309,ZXIX Hong Kong,HK
+209294,ZXIX Hong Kong,HK
+212985,ZXIX Hong Kong,HK
+139317,ZXIX Hong Kong,HK
+139888,ZXIX Hong Kong,HK
+202396,Protocol 7 IX - Lycheen Japan,JP
+213605,Protocol 7 IX - Lycheen Japan,JP
+214575,Protocol 7 IX - Lycheen Japan,JP
+211729,Protocol 7 IX - Lycheen Japan,JP
+151673,Protocol 7 IX - Lycheen Japan,JP
+204211,Protocol 7 IX - Lycheen Japan,JP
+203309,Protocol 7 IX - Lycheen Japan,JP
+211575,Protocol 7 IX - Lycheen Japan,JP
+205369,Protocol 7 IX - Lycheen Japan,JP
+10111,Equinix Singapore,SG
+63631,Equinix Singapore,SG
+55967,Equinix Singapore,SG
+45102,Equinix Singapore,SG
+131285,Equinix Singapore,SG
+133865,Equinix Singapore,SG
+24429,Equinix Singapore,SG
+132203,Equinix Singapore,SG
+146762,Equinix Singapore,SG
+213605,ONIX,CA
+215750,ONIX,CA
+216299,ONIX,CA
+205794,ONIX,CA
+151194,ONIX,CA
+140915,ONIX,CA
+150289,ONIX,CA
+205369,ONIX,CA
+199691,ONIX,CA
+146950,LSIX,NL
+132203,KOIX,KR
+24429,DE-CIX Marseille,FR
+4837,LINX LON1,GB
+24429,LINX LON1,GB
+132203,LINX LON1,GB
+45102,LINX LON1,GB
+4134,LINX LON1,GB
+24429,BBIX Manila,PH
+45102,BBIX Manila,PH
+146950,SIX Seattle,US
+4842,SIX Seattle,US
+45102,OpenIXP / NiCE,ID
+24429,OpenIXP / NiCE,ID
+132203,OpenIXP / NiCE,ID
+142641,Lambda-IX,US
+45102,Digital Edge EPIX Jakarta,ID
+140938,TOHU IX,CN
+57330,TOHU IX,CN
+141237,TOHU IX,CN
+212237,TOHU IX,CN
+142553,TOHU IX,CN
+209218,TOHU IX,CN
+141776,TOHU IX,CN
+137256,TOHU IX,CN
+139589,TOHU IX,CN
+59027,CN-IX-GZ,CN
+45090,CN-IX-GZ,CN
+150289,HOUIX,US
+24429,Equinix San Jose,US
+45102,Equinix San Jose,US
+132203,Equinix San Jose,US
+24429,Equinix Seattle,US
+133952,Equinix Seattle,US
+7721,BGP.Exchange - Los Angeles,US
+208754,BGP.Exchange - Los Angeles,US
+214575,BGP.Exchange - Los Angeles,US
+210352,BGP.Exchange - Los Angeles,US
+207303,BGP.Exchange - Los Angeles,US
+204856,BGP.Exchange - Los Angeles,US
+213891,BGP.Exchange - Los Angeles,US
+153725,DE-CIX Dusseldorf,DE
+209650,DE-CIX Dusseldorf,DE
+215007,BGP.Exchange - Adelaide,AU
+200959,LOCIX FRANKFURT,DE
+199392,LOCIX FRANKFURT,DE
+211729,LOCIX FRANKFURT,DE
+204211,LOCIX FRANKFURT,DE
+202782,LOCIX FRANKFURT,DE
+212164,LOCIX FRANKFURT,DE
+199932,LOCIX FRANKFURT,DE
+205794,LOCIX FRANKFURT,DE
+213605,LOCIX FRANKFURT,DE
+200809,LOCIX FRANKFURT,DE
+151673,LOCIX FRANKFURT,DE
+209650,LOCIX FRANKFURT,DE
+208754,LOCIX FRANKFURT,DE
+214963,LOCIX FRANKFURT,DE
+216299,LOCIX FRANKFURT,DE
+210426,LOCIX FRANKFURT,DE
+211575,AKIX - HKG,HK
+45102,SGIX,SG
+132203,SGIX,SG
+4809,SGIX,SG
+24429,MIX-IT,IT
+24429,Netnod Stockholm GREEN -- MTU4470,SE
+4134,CINX,ZA

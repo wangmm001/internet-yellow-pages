@@ -1,0 +1,55 @@
+{
+  "step": 15,
+  "title_zh": ".cn 域名权威 DNS 主权分析",
+  "title_en": "DNS Authority & .cn Zone Sovereignty",
+  "metrics": {
+    "ns_sampled_for_cn_tld": 500,
+    "total_cn_domains_covered": 31036,
+    "cn_operator_share_pct": 14.34,
+    "us_operator_share_pct": 5.06,
+    "top5_providers": [
+      [
+        "Other (com)",
+        13826
+      ],
+      [
+        "Other (cn)",
+        7739
+      ],
+      [
+        "Other (net)",
+        3086
+      ],
+      [
+        "Aliyun",
+        2832
+      ],
+      [
+        "Cloudflare",
+        1537
+      ]
+    ],
+    "cn_operated_ns_serving_foreign_top": [
+      [
+        "vip3.alidns.com",
+        4505
+      ],
+      [
+        "vip4.alidns.com",
+        4500
+      ],
+      [
+        "vip7.alidns.com",
+        3957
+      ],
+      [
+        "vip8.alidns.com",
+        3954
+      ],
+      [
+        "f1g1ns2.dnspod.net",
+        3187
+      ]
+    ]
+  }
+}

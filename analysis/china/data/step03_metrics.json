@@ -1,0 +1,25 @@
+{
+  "step": 3,
+  "title_zh": "中国在全球尺度上的地位概览",
+  "title_en": "China vs World at a Glance",
+  "metrics": {
+    "cn_ranks_by_metric": {
+      "as_count": {
+        "rank": 3,
+        "value": 6660
+      },
+      "prefix_count": {
+        "rank": 3,
+        "value": 109409
+      },
+      "ixp_count": {
+        "rank": 16,
+        "value": 19
+      },
+      "facility_count": {
+        "rank": 33,
+        "value": 30
+      }
+    }
+  }
+}

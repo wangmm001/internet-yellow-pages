@@ -1,0 +1,33 @@
+{
+  "step": 7,
+  "title_zh": "中国 AS 在全球 k-core 层级中的位置",
+  "title_en": "China ASes in Global k-Core Hierarchy",
+  "metrics": {
+    "global_max_k": 197,
+    "cn_deepest_coreness": 197,
+    "cn_count_k_ge_30": 18,
+    "cn_count_k_ge_100": 5,
+    "cn_top5_coreness": [
+      [
+        24429,
+        197
+      ],
+      [
+        132203,
+        197
+      ],
+      [
+        45102,
+        187
+      ],
+      [
+        55967,
+        157
+      ],
+      [
+        4134,
+        125
+      ]
+    ]
+  }
+}

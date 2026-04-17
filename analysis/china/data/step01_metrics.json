@@ -1,0 +1,22 @@
+{
+  "step": 1,
+  "title_zh": "中国自治系统清册与范围界定",
+  "title_en": "China AS Inventory & Scope Definition",
+  "metrics": {
+    "total_greater_china_asns": 8624,
+    "cn_asns": 6660,
+    "hk_asns": 1468,
+    "tw_asns": 474,
+    "mo_asns": 22,
+    "cn_tag_categories": {
+      "Other": 5118,
+      "ISP": 931,
+      "Unknown": 284,
+      "Enterprise": 99,
+      "Academic/Edu": 99,
+      "Content/CDN": 78,
+      "Eyeball": 34,
+      "Government": 17
+    }
+  }
+}

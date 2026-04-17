@@ -7,9 +7,9 @@ data_cache/
 # Neo4j plugin binaries
 plugins/
 
-# IYP snapshot dumps/data
-dumps/
-data/
+# IYP snapshot dumps/data (root-level only)
+/dumps/
+/data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -139,8 +139,8 @@ dmypy.json
 .pyre/
 
 .history/
-dumps/
-data/
+/dumps/
+/data/
 .vscode/
 neo4j/
 tmp/

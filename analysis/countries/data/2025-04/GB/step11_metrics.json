@@ -1,0 +1,23 @@
+{
+  "step": 11,
+  "country": "GB",
+  "snapshot": "2025-04",
+  "title_zh": "IXP 会员分布",
+  "title_en": "IXP landscape",
+  "metrics": {
+    "ixp_memberships_domestic": 1527,
+    "ixp_memberships_foreign": 2342,
+    "top_ixp_host_countries": {
+      "GB": 1527,
+      "US": 434,
+      "NL": 275,
+      "DE": 235,
+      "CH": 167,
+      "SE": 79,
+      "CA": 68,
+      "AU": 65,
+      "ES": 63,
+      "FR": 60
+    }
+  }
+}

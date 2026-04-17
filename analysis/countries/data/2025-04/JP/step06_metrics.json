@@ -1,0 +1,16 @@
+{
+  "step": 6,
+  "country": "JP",
+  "snapshot": "2025-04",
+  "title_zh": "全球中心性位置",
+  "title_en": "Global centrality ranks",
+  "metrics": {
+    "count_with_centrality": 790,
+    "best_ranks": {
+      "degree": 7,
+      "betweenness": 231,
+      "eigenvector": 231,
+      "pagerank": 12
+    }
+  }
+}

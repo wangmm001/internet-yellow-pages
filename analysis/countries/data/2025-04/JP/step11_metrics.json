@@ -1,0 +1,23 @@
+{
+  "step": 11,
+  "country": "JP",
+  "snapshot": "2025-04",
+  "title_zh": "IXP 会员分布",
+  "title_en": "IXP landscape",
+  "metrics": {
+    "ixp_memberships_domestic": 1220,
+    "ixp_memberships_foreign": 1185,
+    "top_ixp_host_countries": {
+      "JP": 1220,
+      "US": 280,
+      "NL": 118,
+      "SG": 78,
+      "AU": 61,
+      "HK": 60,
+      "DE": 44,
+      "IN": 38,
+      "GB": 37,
+      "PL": 28
+    }
+  }
+}

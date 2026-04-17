@@ -1,0 +1,24 @@
+{
+  "step": 15,
+  "country": "NL",
+  "snapshot": "2026-04",
+  "title_zh": "DNS 主权率",
+  "title_en": "DNS sovereignty",
+  "metrics": {
+    "total_domains": 357917,
+    "ns_sampled": 300,
+    "domestic_pct": 16.97,
+    "operator_country_distribution": {
+      "tld:nl": 132689,
+      "NL": 60744,
+      "tld:com": 41963,
+      "tld:eu": 36017,
+      "tld:net": 31326,
+      "tld:be": 20331,
+      "US": 12428,
+      "tld:host": 5998,
+      "tld:one": 4691,
+      "tld:de": 3407
+    }
+  }
+}

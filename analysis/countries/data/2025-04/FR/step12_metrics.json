@@ -1,0 +1,40 @@
+{
+  "step": 12,
+  "country": "FR",
+  "snapshot": "2025-04",
+  "title_zh": "机房分布",
+  "title_en": "Facility distribution",
+  "metrics": {
+    "total_facility_records": 3991,
+    "distinct_facilities_with_country": 1215,
+    "top_countries_by_facility_presence": {
+      "FR": 1758,
+      "US": 790,
+      "GB": 195,
+      "DE": 157,
+      "NL": 134
+    },
+    "top_facilities": [
+      [
+        "Telehouse - Paris 2 (Voltaire - Léon Frot)",
+        203
+      ],
+      [
+        "Equinix PA2 - Paris, Saint-Denis",
+        89
+      ],
+      [
+        "Equinix PA3 - Paris, Saint-Denis",
+        77
+      ],
+      [
+        "SFR Netcenter Lyon-Venissieux",
+        74
+      ],
+      [
+        "Digital Realty Marseille MRS1-3",
+        44
+      ]
+    ]
+  }
+}

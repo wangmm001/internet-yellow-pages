@@ -1,0 +1,23 @@
+{
+  "step": 5,
+  "country": "JP",
+  "snapshot": "2025-04",
+  "title_zh": "对等互联伙伴",
+  "title_en": "Peering partners",
+  "metrics": {
+    "internal_edges": 2380,
+    "cross_border_edges": 18671,
+    "top_peer_countries": {
+      "US": 3000,
+      "BR": 2640,
+      "GB": 1090,
+      "NL": 1064,
+      "RU": 1021,
+      "HK": 990,
+      "SG": 958,
+      "AU": 913,
+      "FR": 837,
+      "DE": 822
+    }
+  }
+}

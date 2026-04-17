@@ -1,0 +1,43 @@
+{
+  "step": 12,
+  "title_zh": "中国 AS 机房与物理站点分布",
+  "title_en": "China AS Facility Co-location",
+  "metrics": {
+    "total_cn_as_facility_records": 276,
+    "distinct_facilities_with_cn": 147,
+    "top5_countries_by_cn_facility_presence": {
+      "HK": 57,
+      "US": 56,
+      "JP": 25,
+      "CN": 24,
+      "SG": 14
+    },
+    "top5_facilities": [
+      [
+        "MEGA-i (iAdvantage Hong Kong)",
+        14,
+        "HK"
+      ],
+      [
+        "Equinix HK2 - Hong Kong",
+        13,
+        "HK"
+      ],
+      [
+        "Equinix SV1/SV5/SV10 - Silicon Valley, San Jose",
+        8,
+        "US"
+      ],
+      [
+        "Digital Realty Frankfurt FRA1-27",
+        7,
+        "DE"
+      ],
+      [
+        "Equinix TY8 - Tokyo",
+        7,
+        "JP"
+      ]
+    ]
+  }
+}

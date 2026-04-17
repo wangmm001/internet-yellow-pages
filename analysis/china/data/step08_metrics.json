@@ -1,0 +1,46 @@
+{
+  "step": 8,
+  "title_zh": "中国对外依赖 · 出向 AS Hegemony",
+  "title_en": "Who Does China Depend On? (Outbound Hegemony)",
+  "metrics": {
+    "total_outbound_edges_hege_ge_005": 7505,
+    "foreign_ases_depended_on": 269,
+    "top5_foreign_upstream": [
+      [
+        6939,
+        5062,
+        "US"
+      ],
+      [
+        1299,
+        447,
+        "SE"
+      ],
+      [
+        3356,
+        292,
+        "US"
+      ],
+      [
+        174,
+        200,
+        "BE"
+      ],
+      [
+        2914,
+        145,
+        "HK"
+      ]
+    ],
+    "top_destination_countries": {
+      "US": 5565,
+      "HK": 623,
+      "SE": 449,
+      "BE": 203,
+      "AU": 199,
+      "GB": 74,
+      "BH": 56,
+      "DE": 54
+    }
+  }
+}

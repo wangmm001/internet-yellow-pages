@@ -1,0 +1,1666 @@
+asn,category,tags
+40963,Content/CDN,"Computer and Information Technology|Hosting and Cloud Provider|Retail Stores, Wholesale, and E-commerce Sites"
+196613,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Education and Research
+204805,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+196615,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Community Groups and Nonprofits
+24586,ISP,Tranco 10k Host|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+8211,Other,"Investment, Portfolio Management, Pensions and Funds|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+24595,Government,"Service|Government and Public Administration|Accountants, Tax Preparers, Payroll Services|Finance and Insurance"
+40985,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204830,Other,Computer and Information Technology|Personal ASN
+213023,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213028,Other,"Service|Retail Stores, Wholesale, and E-commerce Sites"
+213030,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+213035,ISP,Content|Not Validating RPKI ROV|Hosting and Cloud Provider|Internet Service Provider (ISP)
+139308,ISP,Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+8238,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+49206,ISP,Software Development|Computer and Information Technology|Internet Service Provider (ISP)
+57400,Enterprise,"Law, Business, and Consulting Services|Service|IPv6 only"
+213050,Other,Service
+213052,Other,Personal ASN|Computer and Information Technology
+57409,ISP,"Law, Business, and Consulting Services|Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider"
+24642,ISP,Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)|Content
+24643,Other,Service
+213061,ISP,"Computer and Information Technology|Internet Service Provider (ISP)|Freight, Shipment, and Postal Services"
+41031,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213065,Government,Government|Other
+24652,ISP,"Internet Service Provider (ISP)|Computer and Information Technology|Military, Defense, National Security, and International Affairs|Government and Public Administration"
+41037,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+41038,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+41047,Other,"IPv6 only|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Media, Publishing, and Broadcasting|Online Informational Content"
+8283,Content/CDN,Content|Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+57440,ISP,Computer and Information Technology|Software Development|Internet Service Provider (ISP)
+49249,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+49250,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213099,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Government
+213100,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+213101,Other,"Food, Grocery, Beverages|Retail Stores, Wholesale, and E-commerce Sites"
+8312,Content/CDN,Computer and Information Technology|Validating RPKI ROV|Hosting and Cloud Provider
+8315,Content/CDN,Content|Not Validating RPKI ROV|Technology Consulting Services|Service
+213120,ISP,"Anycast|Media, Publishing, and Broadcasting|Computer and Information Technology|Online Music and Video Streaming Services"
+204933,Content/CDN,Health Care Services|Hosting and Cloud Provider|Service|Software Development
+8328,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+213132,Other,Travel and Accommodation
+57485,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+196752,ISP,Content|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+49305,Other,Computer and Information Technology|Software Development
+24730,Enterprise,"Corporate/Enterprise|Not Validating RPKI ROV|Museums, Libraries, and Entertainment"
+49307,Unknown,
+41117,Enterprise,"Computer and Information Technology|Service|Law, Business, and Consulting Services"
+57504,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204963,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+213161,Other,"Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
+57515,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204973,Academic/Edu,"Computer and Information Technology|Law, Business, and Consulting Services|Education and Research|Service"
+57518,Enterprise,"Service|Law, Business, and Consulting Services"
+204976,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+24753,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+204982,Academic/Edu,IPv6 only|Personal ASN|Education and Research
+57527,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204983,Content/CDN,Elementary and Secondary Schools|Education and Research|Server Hosting
+41153,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Validating RPKI ROV
+213192,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+24785,ISP,Carrier|Computer and Information Technology|Internet Service Provider (ISP)
+213208,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+205019,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)|Software Development
+205024,Enterprise,"Computer and Information Technology|Law, Business, and Consulting Services|Service"
+41193,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213233,Other,"Media, Publishing, and Broadcasting|Music and Video Industry"
+49405,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+8455,ISP,Carrier|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+41227,Other,Computer and Information Technology
+57617,Other,"Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
+205077,Other,Computer and Information Technology
+205079,Eyeball,"Eyeball|IPv6 only|Personal ASN|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)"
+41241,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+57626,ISP,Health Care Services|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+213279,ISP,Personal ASN|Internet Service Provider (ISP)|Software Development|Government and Public Administration
+8483,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+57638,ISP,Computer and Network Security|Internet Service Provider (ISP)|Computer and Information Technology
+24875,ISP,Carrier|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+213291,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+49453,ISP,Eyeball|Not Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+205111,Content/CDN,Corporate/Enterprise|Computer and Network Security|Service|Computer and Information Technology
+49471,Enterprise,"Service|Law, Business, and Consulting Services"
+213324,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+57685,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213333,ISP,"Retail Stores, Wholesale, and E-commerce Sites|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Internet Service Provider (ISP)"
+393559,ISP,Mobile Data/Carrier|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+49500,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213346,Academic/Edu,Education and Research|Personal ASN
+49509,Other,"Online Informational Content|Media, Publishing, and Broadcasting"
+213350,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+213351,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+213352,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+24938,Content/CDN,VPN Host|Computer and Information Technology|Hosting and Cloud Provider
+57706,ISP,"Internet Service Provider (ISP)|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation|Media, Publishing, and Broadcasting"
+57717,Content/CDN,Server Hosting|Validating RPKI ROV|Computer and Information Technology|Tor services
+213374,Other,Software Development|Computer and Information Technology
+205185,ISP,Carrier|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+8582,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+49544,ISP,Content|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+197000,ISP,Internet Critical Infra|Computer and Information Technology|Community Groups and Nonprofits|Internet Service Provider (ISP)
+8587,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+57744,Government,"Service|Government and Public Administration|Law Enforcement, Public Safety, and Justice|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
+197016,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Government
+213401,Enterprise,"Retail Stores, Wholesale, and E-commerce Sites|Law, Business, and Consulting Services|Service"
+49562,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+57758,ISP,Content|Computer and Information Technology|Internet Service Provider (ISP)|Server Hosting
+8608,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+57771,Other,"Community Groups and Nonprofits|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)"
+213427,Enterprise,Computer and Information Technology|Corporate/Enterprise|Content
+205247,Other,Computer and Information Technology
+57795,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+25049,Other,Service
+49627,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+41436,Content/CDN,VPN Host|Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+41441,ISP,"Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+41445,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+57845,Enterprise,"Service|Law, Business, and Consulting Services"
+8694,Other,"Validating RPKI ROV|Passenger Transit (Car, Bus, Taxi, Subway)|Freight, Shipment, and Postal Services"
+205307,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+213504,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+205316,Other,Computer and Information Technology
+213511,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+41480,ISP,Content|Computer and Information Technology|Internet Service Provider (ISP)|Server Hosting
+57866,ISP,Carrier|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+197132,ISP,Insurance Carriers and Agencies|Finance and Insurance|Health Care Services
+49685,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+213532,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider|Phone Provider
+213536,Other,Community Groups and Nonprofits
+8737,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Phone Provider
+197156,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+213542,Unknown,
+49713,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+41529,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+25151,ISP,VPN Host|Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+8768,ISP,Computer and Network Security|Computer and Information Technology|Internet Service Provider (ISP)
+25152,Government,"Anycast|Government and Public Administration|Community Groups and Nonprofits|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)"
+213567,Content/CDN,"Computer and Information Technology|Manufacturing|Electronics and Computer Components|Hosting, Cloud Provider, Data Center, Server Colocation"
+213577,Other,"Freight, Shipment, and Postal Services"
+57935,Other,"Retail Stores, Wholesale, and E-commerce Sites|Not Validating RPKI ROV"
+41552,Other,"Community Groups and Nonprofits|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Content"
+25181,Other,Manufacturing|Not Validating RPKI ROV|Online Music and Video Streaming Services|Electronics and Computer Components
+25182,ISP,Content|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+205406,Content/CDN,"Online Informational Content|Media, Publishing, and Broadcasting|Computer and Information Technology|Hosting and Cloud Provider"
+197219,Academic/Edu,"Computer and Information Technology|Education and Research|Colleges, Universities, and Professional Schools|Software Development"
+213619,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+49784,ISP,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+25222,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)|Satellite Communication
+205448,Other,"Freight, Shipment, and Postal Services"
+49812,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+205467,ISP,VPN Host|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+49820,ISP,"Media, Publishing, and Broadcasting|Computer and Information Technology|Online Informational Content|Internet Service Provider (ISP)"
+213672,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+49838,Other,"Software Development|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+205491,Other,Computer and Information Technology
+49846,ISP,Service|Computer and Network Security|Computer and Information Technology|Software Development
+197302,Other,Construction and Real Estate
+213687,Academic/Edu,Computer and Information Technology|Education and Research
+213695,Enterprise,"Health Care Services|Service|Law, Business, and Consulting Services"
+205508,Other,Finance and Insurance
+25288,Content/CDN,"Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites|Hosting and Cloud Provider"
+41677,ISP,Computer and Network Security|Internet Service Provider (ISP)|Computer and Information Technology
+49870,ISP,Carrier|Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+213713,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+205524,Other,Computer and Information Technology|Software Development
+58073,ISP,Home ISP|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+58075,ISP,"Eyeball|Validating RPKI ROV|Media, Publishing, and Broadcasting|Computer and Information Technology"
+41693,Other,"Online Informational Content|Media, Publishing, and Broadcasting"
+41696,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+205538,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+58083,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Government
+8935,Other,Validating RPKI ROV|Service
+58089,Academic/Edu,Education and Research
+213753,Other,Software Development|Real Estate (Residential and/or Commercial)|Construction and Real Estate|Computer and Information Technology
+8954,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+41725,Other,Computer and Information Technology|Technology Consulting Services
+49917,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213773,Other,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+197395,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+213784,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+58138,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+213788,Other,"Community Groups and Nonprofits|Service|Personal Care and Lifestyle (Barber Shops, Nail Salons, Diet Centers, Laundry, etc)"
+58141,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+25377,ISP,Software Development|Internet Service Provider (ISP)|Computer and Information Technology|Government
+205617,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Validating RPKI ROV
+9017,Academic/Edu,Education and Research|Personal ASN
+213817,Unknown,
+213819,Unknown,
+213820,Unknown,
+49981,ISP,Content|Not Validating RPKI ROV|Internet Service Provider (ISP)|Hosting and Cloud Provider
+213821,Unknown,
+205631,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology|VPN Host
+213822,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+213823,Unknown,
+205637,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services|Government"
+25413,Other,Service
+58181,Enterprise,"Service|Law, Business, and Consulting Services|Content"
+49992,Other,"Water Transportation|Retail Stores, Wholesale, and E-commerce Sites|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Freight, Shipment, and Postal Services"
+25418,ISP,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+58186,Other,"Phone Provider|Computer and Information Technology|Museums, Libraries, and Entertainment|Software Development"
+205644,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+25433,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+213857,Other,"Health Care Services|Nursing, Residential Care Facilities, Assisted Living, and Home Health Care"
+50018,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+205668,Content/CDN,Content|Hosting and Cloud Provider|Computer and Information Technology|VPN Host
+205670,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+50026,Academic/Edu,Education and Research
+25453,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+25459,ISP,Content|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+41846,Other,Community Groups and Nonprofits
+50049,Other,"Content|Retail Stores, Wholesale, and E-commerce Sites|Tor services"
+213892,Other,Travel and Accommodation|Air Travel
+50054,Other,Community Groups and Nonprofits
+41880,Other,"Online Music and Video Streaming Services|Media, Publishing, and Broadcasting|Retail Stores, Wholesale, and E-commerce Sites"
+25497,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+50072,Other,"Online Music and Video Streaming Services|Media, Publishing, and Broadcasting"
+197532,ISP,Personal ASN|IPv6 only|Manufacturing|Internet Service Provider (ISP)
+205726,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+41887,ISP,Content|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+58272,ISP,"Media, Publishing, and Broadcasting|Computer and Network Security|Internet Service Provider (ISP)|Computer and Information Technology"
+58291,ISP,Server Hosting|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+25525,ISP,Internet Service Provider (ISP)|Computer and Information Technology|VPN Host|Carrier
+9143,ISP,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
+205755,ISP,"Media, Publishing, and Broadcasting|Computer and Information Technology|Online Informational Content|Software Development"
+9150,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+25542,ISP,Computer and Information Technology|Internet Service Provider (ISP)|VPN Host
+50119,Content/CDN,"Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)|Banks, Credit Card Companies, Mortgage Providers|Computer and Information Technology"
+213959,ISP,Personal ASN|Computer and Information Technology|Internet Service Provider (ISP)|Tor services
+213968,Other,Computer and Information Technology
+50149,ISP,"Retail Stores, Wholesale, and E-commerce Sites|Internet Service Provider (ISP)|Computer and Information Technology|Construction and Real Estate"
+41960,ISP,Carrier|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+213999,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+50167,ISP,"Retail Stores, Wholesale, and E-commerce Sites|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Internet Service Provider (ISP)"
+25595,Academic/Edu,"Education and Research|Online Informational Content|Media, Publishing, and Broadcasting"
+25596,ISP,Eyeball|Validating RPKI ROV|IPv6 only|Home ISP
+197629,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Online Music and Video Streaming Services|Software Development
+41982,Content/CDN,"Law, Business, and Consulting Services|Service|Computer and Information Technology|Hosting and Cloud Provider"
+25599,ISP,"Law, Business, and Consulting Services|Technology Consulting Services|Computer and Information Technology|Service"
+197631,Other,Computer and Information Technology|Software Development
+214011,Enterprise,"Law, Business, and Consulting Services|Service"
+205838,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Server Hosting|Content
+205839,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+50208,Enterprise,"Computer and Information Technology|Service|Law, Business, and Consulting Services"
+205876,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+42050,Enterprise,"Law, Business, and Consulting Services|Service|Museums, Libraries, and Entertainment|Software Development"
+1101,ISP,Tor services|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+1102,ISP,Education and Research|Validating RPKI ROV|Computer and Information Technology|Tor services
+1103,ISP,Tor services|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+1104,Eyeball,Eyeball|Validating RPKI ROV|Research and Development Organizations|Education and Research
+1105,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1106,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1107,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1108,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+50266,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+205915,Other,Computer and Information Technology|Health Care Services
+197727,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Phone Provider
+197731,Content/CDN,Server Hosting|Hosting and Cloud Provider|Computer and Information Technology
+1125,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Education and Research
+1127,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1128,ISP,Eyeball|Validating RPKI ROV|Tranco 10k Host|Academic
+1129,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1130,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1131,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1132,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+42093,ISP,Server Hosting|Not Validating RPKI ROV|Hosting and Cloud Provider|Internet Service Provider (ISP)
+1133,Eyeball,Eyeball|Validating RPKI ROV|Academic|Tor services
+1134,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Phone Provider
+1136,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+33905,ISP,"Tranco 10k Host|Online Music and Video Streaming Services|Computer and Network Security|Media, Publishing, and Broadcasting"
+1138,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1139,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1140,ISP,Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+1141,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1142,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1143,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1144,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1145,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+42106,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development|Hosting and Cloud Provider
+33915,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+1146,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1147,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Education and Research
+1148,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1149,ISP,Anycast|Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1150,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1151,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1152,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1153,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1154,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1155,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1156,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1157,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Education and Research
+1158,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1159,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1160,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1161,ISP,Eyeball|Validating RPKI ROV|Tranco 10k Host|Academic
+1162,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1163,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1164,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1165,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1166,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1167,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+33938,Other,Buildings (Residential or Commercial)|Construction and Real Estate
+1168,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1169,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1170,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1171,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1172,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Education and Research
+1173,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1174,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1175,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1176,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1177,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1178,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1179,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1180,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1181,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1182,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1183,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+33955,Other,Chemical and Pharmaceutical Manufacturing|Manufacturing
+1184,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1185,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1186,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+1187,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1188,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1189,ISP,Education and Research|Internet Service Provider (ISP)|Computer and Information Technology
+1190,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1191,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1192,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1193,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1194,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Education and Research
+205999,Other,Service
+1195,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1196,ISP,Education and Research|Computer and Information Technology|Internet Service Provider (ISP)
+1198,ISP,Internet Service Provider (ISP)|Education and Research|Computer and Information Technology
+1199,ISP,Education and Research|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+1200,Other,Validating RPKI ROV|Community Groups and Nonprofits
+42156,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+42158,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+42161,Other,Computer and Information Technology|Technology Consulting Services
+206009,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+58560,Other,Community Groups and Nonprofits
+50381,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+214231,ISP,"Internet Service Provider (ISP)|Computer and Information Technology|Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
+214235,Unknown,
+34012,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+214236,Unknown,
+50399,Other,Service|Computer and Information Technology|Software Development
+1248,ISP,"Anycast|Validating RPKI ROV|Travel and Accommodation|Freight, Shipment, and Postal Services"
+50404,Enterprise,"Service|Law, Business, and Consulting Services"
+214259,Content/CDN,Electronics and Computer Components|Manufacturing|Server Hosting
+206073,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+206075,Content/CDN,Content|Computer and Information Technology|Server Hosting|Tor services
+214269,ISP,Internet Service Provider (ISP)|Computer and Information Technology|IPv6 only
+197902,ISP,Software Development|Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+34064,Other,Other
+197908,ISP,"Internet Service Provider (ISP)|Computer and Information Technology|Recreation, Sports, and Performing Arts|Museums, Libraries, and Entertainment"
+50453,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+197919,Eyeball,Eyeball|Personal ASN|IPv6 only
+9504,Academic/Edu,Education and Research
+214304,Other,Personal ASN|IPv6 only
+50470,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+206121,Other,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+42282,Other,Computer and Information Technology|Computer and Network Security
+214313,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+206126,ISP,Internet Service Provider (ISP)|Service|Computer and Network Security|Computer and Information Technology
+214320,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Internet Service Provider (ISP)|Server Hosting"
+206130,Academic/Edu,"Not Validating RPKI ROV|Colleges, Universities, and Professional Schools|Education and Research"
+34108,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+214333,Other,Computer and Information Technology
+214337,Other,Software Development|Computer and Information Technology
+42320,Other,"Media, Publishing, and Broadcasting|Online Informational Content|Software Development|Retail Stores, Wholesale, and E-commerce Sites"
+206168,Other,Service
+50522,ISP,Carrier|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+34141,ISP,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology|Hosting and Cloud Provider
+206176,ISP,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Computer and Information Technology|Software Development|Internet Service Provider (ISP)"
+197985,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+214371,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Personal ASN"
+206188,Academic/Edu,Education and Research
+214380,Other,"Personal ASN|Media, Publishing, and Broadcasting|Online Informational Content|Validating RPKI ROV"
+214386,Content/CDN,"Service|Hosting, Cloud Provider, Data Center, Server Colocation|Law, Business, and Consulting Services|Computer and Information Technology"
+34164,ISP,Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)|Online Music and Video Streaming Services
+34167,Other,Service
+206200,Government,"Not Validating RPKI ROV|Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration|Health Care Services"
+50554,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+198012,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+50559,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+214406,Academic/Edu,"Education and Research|Research and Development Organizations|Colleges, Universities, and Professional Schools"
+214408,Other,Personal ASN
+50570,ISP,"Internet Service Provider (ISP)|Freight, Shipment, and Postal Services|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+206218,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Internet Service Provider (ISP)|Computer and Information Technology"
+206221,Academic/Edu,Computer and Information Technology|Education and Research
+42383,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+214415,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+214423,Other,Construction and Real Estate|Real Estate (Residential and/or Commercial)
+206238,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Hosting and Cloud Provider
+34210,Other,Service
+34215,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+50601,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+198058,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+206249,Other,"Not Validating RPKI ROV|Service|Media, Publishing, and Broadcasting"
+206250,Other,"Media, Publishing, and Broadcasting"
+42416,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+34233,ISP,Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+198080,Other,Computer and Information Technology
+42433,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+214465,Unknown,
+198089,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+206281,ISP,Tranco 10k Host|Computer and Information Technology|Internet Service Provider (ISP)|VPN Host
+214481,Content/CDN,"Content|Recreation, Sports, and Performing Arts|Museums, Libraries, and Entertainment|VPN Host"
+206292,Other,"Personal ASN|Media, Publishing, and Broadcasting|Online Informational Content"
+206294,ISP,Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+50655,ISP,Server Hosting|Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+50673,ISP,Content|Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+214520,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+214521,Unknown,
+42492,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+50684,Other,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+34305,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+34307,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+34311,ISP,"Not Validating RPKI ROV|Law, Business, and Consulting Services|Computer and Information Technology|Internet Service Provider (ISP)"
+214538,Unknown,
+206348,Content/CDN,"Service|Law, Business, and Consulting Services|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+214542,Enterprise,"Service|Computer and Information Technology|Law, Business, and Consulting Services|IPv6 only"
+42517,ISP,Business Broadband|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+214561,Eyeball,Eyeball|IPv6 only|Personal ASN|Computer and Information Technology
+34343,ISP,Anycast|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+50737,ISP,Health Care Services|Insurance Carriers and Agencies|Finance and Insurance
+214578,Other,Health Care Services
+206389,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+198203,ISP,Eyeball|Computer and Information Technology|Internet Service Provider (ISP)
+34373,ISP,Server Hosting|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+42567,Content/CDN,"Server Hosting|Service|Media, Publishing, and Broadcasting|Hosting and Cloud Provider"
+42585,Other,Computer and Information Technology|Computer and Network Security
+198233,Other,Technology Consulting Services|Computer and Information Technology|Software Development
+206426,Enterprise,"Service|Law, Business, and Consulting Services"
+214621,Enterprise,"Law, Business, and Consulting Services|Service"
+206436,Other,Not Validating RPKI ROV|Service
+42604,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+34420,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+34427,ISP,Internet Service Provider (ISP)|Computer and Network Security|Computer and Information Technology
+34430,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+50814,Enterprise,"Service|Law, Business, and Consulting Services"
+206475,Other,"Freight, Shipment, and Postal Services"
+214668,Content/CDN,"Server Hosting|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation|Tor services"
+206477,Academic/Edu,Content|Education and Research
+214673,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+214679,Other,"Freight, Shipment, and Postal Services|Water Transportation"
+214689,Academic/Edu,"Other Schools, Instruction, and Exam Preparation (Trade Schools, Art Schools, Driving Instruction, etc.)|Health Care Services|Education and Research"
+50862,Other,"Retail Stores, Wholesale, and E-commerce Sites|Manufacturing|Chemical and Pharmaceutical Manufacturing"
+50867,Content/CDN,Server Hosting|Not Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+50868,Other,Chemical and Pharmaceutical Manufacturing|Manufacturing
+206516,Other,Search|Computer and Information Technology
+34486,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+206521,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+50874,Other,"Motor Vehicles and Parts|Retail Stores, Wholesale, and E-commerce Sites"
+214716,Content/CDN,"Content|Media, Publishing, and Broadcasting|Online Informational Content|Server Hosting"
+198334,Other,Computer and Information Technology|Software Development|Service
+214723,ISP,Software Development|IPv6 only|Personal ASN|Computer and Information Technology
+34507,Other,Health Care Services|Manufacturing
+42703,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+198352,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+214736,Unknown,
+42707,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+50901,Other,Software Development|Computer and Information Technology
+214741,Unknown,
+42718,Enterprise,"Law, Business, and Consulting Services|Service"
+50917,ISP,"Carrier|Internet Service Provider (ISP)|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+214758,Other,Computer and Information Technology
+198378,Other,Personal ASN|IPv6 only
+206570,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+214783,Other,"Anycast|Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
+34562,Enterprise,"Service|Law, Business, and Consulting Services"
+42755,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+214786,ISP,"Online Informational Content|Media, Publishing, and Broadcasting|Software Development|Internet Service Provider (ISP)"
+198407,Other,"Investment, Portfolio Management, Pensions and Funds|Media, Publishing, and Broadcasting|Finance and Insurance|Print Media (Newspapers, Magazines, Books)"
+206605,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+214798,Other,Electronics and Computer Components|Manufacturing
+214807,Enterprise,"Technology Consulting Services|Service|Law, Business, and Consulting Services|Computer and Information Technology"
+214810,Other,Personal ASN
+214829,Unknown,
+206643,Other,Service
+34612,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+42804,Other,"Software Development|Accountants, Tax Preparers, Payroll Services|Service|Finance and Insurance"
+214836,Enterprise,"Service|Law, Business, and Consulting Services"
+42812,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+214847,Eyeball,"Food, Beverage, and Tobacco|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Manufacturing|Eyeball"
+198468,Content/CDN,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers|Server Hosting|Content"
+42836,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+198485,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Hosting and Cloud Provider
+51030,Other,Manufacturing
+206676,ISP,"Computer and Information Technology|Media, Publishing, and Broadcasting|Internet Service Provider (ISP)|Radio and Television Providers"
+1888,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology|Tranco 10k Host
+26464,ISP,Service|Validating RPKI ROV|Automotive and Transportation|Computer and Information Technology
+1890,ISP,Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)
+51045,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+34663,Government,"Accountants, Tax Preparers, Payroll Services|Not Validating RPKI ROV|Government and Public Administration|Government"
+51050,ISP,Server Hosting|Computer and Information Technology|Internet Service Provider (ISP)
+198508,Enterprise,"Law, Business, and Consulting Services|Service"
+198513,Other,"Media, Publishing, and Broadcasting|Print Media (Newspapers, Magazines, Books)"
+206730,Other,"Validating RPKI ROV|Retail Stores, Wholesale, and E-commerce Sites|Community Groups and Nonprofits|Travel and Accommodation"
+42894,Academic/Edu,"Government|Community Groups and Nonprofits|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Education and Research"
+51088,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+51091,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+206741,Other,Computer and Information Technology|Health Care Services|Software Development
+34710,ISP,Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+51097,Academic/Edu,"Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting|Community Groups and Nonprofits|Education and Research"
+206751,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+34734,Other,Computer and Information Technology
+214966,Other,Real Estate (Residential and/or Commercial)|Construction and Real Estate
+214970,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+42946,Other,Technology Consulting Services|Computer and Information Technology
+34756,Other,"Music and Video Industry|Media, Publishing, and Broadcasting|Online Music and Video Streaming Services"
+214987,Other,Anycast|Electronics and Computer Components|Manufacturing
+214988,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+34766,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+2004,Other,Construction and Real Estate
+215019,ISP,"Computer and Information Technology|Freight, Shipment, and Postal Services|Internet Service Provider (ISP)"
+215020,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
+206836,Other,Computer and Network Security|Computer and Information Technology
+2043,ISP,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
+51198,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+59393,Other,Service
+206861,Other,Health Care Services
+59409,Other,Computer and Information Technology|Technology Consulting Services
+133142,Other,Other
+198687,Government,"Government and Public Administration|Travel and Accommodation|Government and Regulatory Agencies, Administrations, Departments, and Services|Government"
+34850,Content/CDN,"Computer and Network Security|Media, Publishing, and Broadcasting|Online Music and Video Streaming Services|Hosting and Cloud Provider"
+198692,ISP,Computer and Information Technology|Software Development|Internet Service Provider (ISP)
+215085,Content/CDN,"Content|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation|Validating RPKI ROV"
+43054,Other,Software Development|Computer and Information Technology
+206894,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+215088,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+215104,Academic/Edu,"Other Schools, Instruction, and Exam Preparation (Trade Schools, Art Schools, Driving Instruction, etc.)|Education and Research|Health Care Services"
+59464,Other,"Retail Stores, Wholesale, and E-commerce Sites|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Food, Grocery, Beverages"
+2121,ISP,Eyeball|Event|Internet Service Provider (ISP)|Community Groups and Nonprofits
+198730,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services|Government"
+206921,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Computer and Network Security
+2130,Other,Manufacturing|Health Care Services|Software Development|Electronics and Computer Components
+206932,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+215125,Other,Tor services|Churches and Religious Organizations|Community Groups and Nonprofits
+215131,Other,Computer and Information Technology|IPv6 only|Personal ASN
+198749,Government,"Government and Public Administration|Software Development|Computer and Network Security|Law, Business, and Consulting Services"
+51299,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+198759,Other,"Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Community Groups and Nonprofits"
+198761,ISP,Corporate/Enterprise|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+198763,Other,Computer and Information Technology|Computer and Network Security
+215164,Other,Personal ASN
+34942,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+59521,ISP,"Radio and Television Providers|Validating RPKI ROV|Internet Service Provider (ISP)|Media, Publishing, and Broadcasting"
+215169,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+198787,Other,"Not Validating RPKI ROV|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)"
+59524,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Phone Provider
+206982,ISP,"Freight, Shipment, and Postal Services|Computer and Information Technology|Internet Service Provider (ISP)"
+206989,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+206994,Content/CDN,Software Development|Computer and Information Technology|Hosting and Cloud Provider|Personal ASN
+59540,Other,Computer and Information Technology|Technology Consulting Services|Software Development
+59542,ISP,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
+59543,Enterprise,"Service|Law, Business, and Consulting Services|Utilities (Excluding Internet Service)|Electric Power Generation, Transmission, Distribution"
+34968,ISP,Eyeball|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+59545,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+59547,ISP,"Not Validating RPKI ROV|Hosting and Cloud Provider|Internet Service Provider (ISP)|Law, Business, and Consulting Services"
+59554,ISP,Server Hosting|Computer and Information Technology|Internet Service Provider (ISP)
+59560,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+198824,Other,Personal ASN|IPv6 only
+215212,Enterprise,"Anycast|Computer and Information Technology|Law, Business, and Consulting Services|Service"
+34989,ISP,Tor services|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+18607,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Personal ASN|IPv6 only
+215216,Other,IPv6 only
+43190,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+215224,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+59599,Other,Software Development|Computer and Information Technology
+35024,Enterprise,"Technology Consulting Services|Service|Law, Business, and Consulting Services|Computer and Information Technology"
+215248,Other,Personal ASN|Tor services|Validating RPKI ROV
+35027,Other,Software Development|Computer and Information Technology
+51412,Other,"Museums, Libraries, and Entertainment"
+215255,Unknown,
+43225,ISP,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
+43229,Other,Computer and Information Technology|Other|Software Development
+35040,Other,"Freight, Shipment, and Postal Services|Travel and Accommodation"
+51425,ISP,Computer and Information Technology|Software Development|Internet Service Provider (ISP)
+51430,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+207083,ISP,Content|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+59630,ISP,Insurance Carriers and Agencies|Finance and Insurance
+35055,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+35064,Other,"Investment, Portfolio Management, Pensions and Funds|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+59642,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology"
+215296,Other,Personal ASN|Computer and Information Technology|Tor services
+215299,Unknown,
+215300,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+215301,Other,Personal ASN
+207117,ISP,"Retail Stores, Wholesale, and E-commerce Sites|Internet Service Provider (ISP)|Construction and Real Estate|Computer and Information Technology"
+207119,Other,"Online Music and Video Streaming Services|Music and Video Industry|Service|Media, Publishing, and Broadcasting"
+215318,Content/CDN,"Validating RPKI ROV|Hosting, Cloud Provider, Data Center, Server Colocation|Manufacturing|Computer and Information Technology"
+215321,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+43293,ISP,Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+207135,Other,Chemical and Pharmaceutical Manufacturing|Manufacturing
+59685,Other,"Utilities (Excluding Internet Service)|Service|Freight, Shipment, and Postal Services|Construction and Real Estate"
+51514,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+215356,ISP,"Internet Service Provider (ISP)|Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites"
+35133,ISP,Carrier|Not Validating RPKI ROV|Computer and Information Technology|Education and Research
+51517,ISP,"Law, Business, and Consulting Services|Service|Internet Service Provider (ISP)|Community Groups and Nonprofits"
+207176,ISP,Business Broadband|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+215370,ISP,Server Hosting|Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+43339,ISP,"Service|Law, Business, and Consulting Services|Internet Service Provider (ISP)|Computer and Information Technology"
+207179,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Service
+149845,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+43350,ISP,Content|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+215386,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Personal ASN|IPv6 only"
+43366,ISP,Server Hosting|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+207220,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+207226,Content/CDN,Software Development|Computer and Information Technology|Hosting and Cloud Provider
+199036,Other,Community Groups and Nonprofits
+207230,Other,Construction and Real Estate|Buildings (Residential or Commercial)
+59776,ISP,"Media, Publishing, and Broadcasting|Hosting and Cloud Provider|Internet Service Provider (ISP)|Radio and Television Providers"
+35204,ISP,"Computer and Information Technology|Media, Publishing, and Broadcasting|Computer and Network Security|Hosting and Cloud Provider"
+141703,Other,"Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
+215433,Other,Computer and Information Technology
+59795,ISP,Content|Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+43414,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+35224,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+59800,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+59802,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+207257,Other,Computer and Information Technology|Software Development
+43432,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+207275,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration|Government"
+215473,Other,"Personal ASN|Museums, Libraries, and Entertainment|Computer and Information Technology|IPv6 only"
+207283,Other,Service|Software Development|Finance and Insurance|Computer and Information Technology
+215481,Other,Electronics and Computer Components|Manufacturing
+35260,ISP,Hosting and Cloud Provider|Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)
+51646,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+51647,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+215495,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Personal ASN
+43470,Academic/Edu,"Education and Research|Online Informational Content|Media, Publishing, and Broadcasting"
+141777,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+207315,Academic/Edu,Education and Research
+215512,Other,Computer and Information Technology
+59865,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+215513,Enterprise,Technology Consulting Services|Service|Software Development|Computer and Information Technology
+207323,ISP,"Law, Business, and Consulting Services|Service|Internet Service Provider (ISP)|Computer and Information Technology"
+51682,Other,Computer and Information Technology|Other|Software Development
+199139,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+51687,Other,Service
+59889,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+35316,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider|Server Hosting
+207357,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+215549,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Eyeball
+215553,ISP,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+35332,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+207366,Other,"Service|Media, Publishing, and Broadcasting"
+215558,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+199183,Enterprise,"Service|Law, Business, and Consulting Services|IPv6 only|Personal ASN"
+207375,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+35349,Other,"Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
+59929,ISP,Software Development|Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+215577,Other,IPv6 only|Electronics and Computer Components|Manufacturing|Personal ASN
+199196,ISP,Computer and Information Technology|Computer and Network Security|Phone Provider|Hosting and Cloud Provider
+207388,ISP,"Service|Law, Business, and Consulting Services|Internet Service Provider (ISP)|Computer and Information Technology"
+51749,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+215590,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+51752,Other,"Churches and Religious Organizations|Community Groups and Nonprofits|Freight, Shipment, and Postal Services|Music and Video Industry"
+51758,ISP,Tor services|Internet Service Provider (ISP)|Computer and Information Technology
+215603,Enterprise,"Service|Law, Business, and Consulting Services"
+35383,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+59964,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+59985,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+35414,Government,"Chemical and Pharmaceutical Manufacturing|Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services|Manufacturing"
+35415,ISP,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)|Software Development
+35421,Academic/Edu,Education and Research
+60000,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+215651,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Internet Service Provider (ISP)|IPv6 only"
+35430,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+60022,ISP,Carrier|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+43639,ISP,"Computer and Information Technology|Media, Publishing, and Broadcasting|Internet Service Provider (ISP)|Service"
+43641,ISP,"Content|Validating RPKI ROV|Software Development|Media, Publishing, and Broadcasting"
+207487,ISP,Personal ASN|Internet Service Provider (ISP)|Computer and Information Technology|Validating RPKI ROV
+215680,Content/CDN,"Content|Recreation, Sports, and Performing Arts|Museums, Libraries, and Entertainment|Server Hosting"
+207489,Other,Service
+51849,Other,Computer and Information Technology|Software Development
+35467,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+35470,Content/CDN,VPN Host|Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+51857,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+207513,ISP,Content|Computer and Information Technology|Internet Service Provider (ISP)|Server Hosting
+60064,Content/CDN,Server Hosting|Computer and Information Technology
+207523,Other,Other
+199332,Unknown,
+60084,Other,"Media, Publishing, and Broadcasting"
+215737,Other,IPv6 only
+207551,Other,Finance and Insurance
+215743,Academic/Edu,Software Development|Computer and Information Technology|Education and Research|IPv6 only
+215747,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+60107,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+51923,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+142039,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+215771,Other,Software Development|Computer and Information Technology|IPv6 only
+60126,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Military, Defense, National Security, and International Affairs|Government and Public Administration|Computer and Information Technology"
+60131,Content/CDN,Content|Service|Tor services|Server Hosting
+51942,ISP,Computer and Information Technology|Not Validating RPKI ROV|Hosting and Cloud Provider|Internet Service Provider (ISP)
+207595,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Corporate/Enterprise
+133868,ISP,"Not Validating RPKI ROV|Insurance Carriers and Agencies|Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+60142,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+60144,ISP,Content|Validating RPKI ROV|Computer and Information Technology|Software Development
+199408,Other,"Manufacturing|Retail Stores, Wholesale, and E-commerce Sites|Electronics and Computer Components|Computer and Information Technology"
+215799,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+43777,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+51969,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+207627,Other,"Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
+2830,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)|Phone Provider
+215834,Other,Service
+207647,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+52000,ISP,Content|Validating RPKI ROV|Internet Service Provider (ISP)|Hosting and Cloud Provider
+215841,ISP,Computer and Information Technology|Other|Internet Service Provider (ISP)
+215842,Other,Content|Anycast|Personal ASN|IPv6 only
+215865,Content/CDN,Software Development|Computer and Information Technology|Server Hosting|Content
+60222,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+142144,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+207682,Other,"Retail Stores, Wholesale, and E-commerce Sites|Museums, Libraries, and Entertainment|Service|Media, Publishing, and Broadcasting"
+215877,Other,IPv6 only|Personal ASN
+207699,Other,"Manufacturing|Retail Stores, Wholesale, and E-commerce Sites|Electronics and Computer Components"
+43861,ISP,Server Hosting|Computer and Information Technology|Internet Service Provider (ISP)
+207711,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+199523,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Finance and Insurance
+60262,Other,IPv6 only|Computer and Information Technology
+215914,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+215922,Content/CDN,Computer and Information Technology|Software Development|Hosting and Cloud Provider
+35705,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+215932,Other,IPv6 only
+35709,Government,"Law, Business, and Consulting Services|Service|Government"
+199556,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+52102,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+215942,Other,Computer and Information Technology
+35735,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+35744,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+207777,Eyeball,"Business Broadband|Retail Stores, Wholesale, and E-commerce Sites"
+60322,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+207778,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+52132,Academic/Edu,Education and Research
+199590,ISP,"Finance and Insurance|Computer and Information Technology|Internet Service Provider (ISP)|Investment, Portfolio Management, Pensions and Funds"
+52138,Academic/Edu,Education and Research
+215982,Other,Health Care Services
+52144,Enterprise,Content|Corporate/Enterprise|Computer and Information Technology|Software Development
+60341,Content/CDN,Not Validating RPKI ROV|Computer and Information Technology|Software Development|Hosting and Cloud Provider
+207803,Academic/Edu,Education and Research|IPv6 only
+52161,ISP,"Computer and Network Security|Law, Business, and Consulting Services|Service|Computer and Information Technology"
+216005,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+35782,ISP,Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)
+60358,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+142289,ISP,Eyeball|Computer and Information Technology|Internet Service Provider (ISP)|IPv6 only
+207829,Other,"Machinery|Retail Stores, Wholesale, and E-commerce Sites|Manufacturing"
+216022,Content/CDN,"Electronics and Computer Components|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Manufacturing"
+207831,Unknown,
+52186,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+43995,ISP,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+43996,Other,"Hotels, Motels, Inns, Other Traveler Accommodation|Travel and Accommodation|Investment, Portfolio Management, Pensions and Funds|Service"
+43997,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+216031,Other,Community Groups and Nonprofits
+207843,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+52199,Other,Hospitals and Medical Centers|Health Care Services
+216040,Other,Computer and Network Security|Computer and Information Technology
+44016,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Content
+207856,Other,Finance and Insurance
+60402,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+216048,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Content
+60404,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+207866,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+216071,ISP,Content|Computer and Information Technology|Internet Service Provider (ISP)|Tor services
+199689,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Manufacturing|Computer and Information Technology|Electronics and Computer Components"
+207891,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+199700,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+207894,Academic/Edu,Education and Research|Research and Development Organizations|Government|Validating RPKI ROV
+216092,Other,Software Development|Computer and Information Technology
+207903,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+44074,Other,Search|Computer and Information Technology
+216107,ISP,"Content|Manufacturing|Electronics and Computer Components|Hosting, Cloud Provider, Data Center, Server Colocation"
+60472,Enterprise,"Service|Law, Business, and Consulting Services|Computer and Information Technology"
+199740,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+60479,Academic/Edu,Not Validating RPKI ROV|Education and Research
+199743,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+207942,ISP,Internet Service Provider (ISP)|Service|Hosting and Cloud Provider|Software Development
+44103,ISP,Content|Computer and Information Technology|Internet Service Provider (ISP)|Server Hosting
+199752,ISP,Business Broadband|Internet Service Provider (ISP)|Computer and Information Technology|Server Hosting
+216139,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology|Server Hosting
+142419,ISP,Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology|Home ISP
+60505,Eyeball,Eyeball
+216154,Content/CDN,"Tranco 10k Host|Electronics and Computer Components|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+199779,Enterprise,"Service|Law, Business, and Consulting Services"
+60526,Other,"Utilities (Excluding Internet Service)|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Computer and Information Technology|Community Groups and Nonprofits"
+207982,Other,"Food, Grocery, Beverages|Retail Stores, Wholesale, and E-commerce Sites"
+199792,Enterprise,"Service|Law, Business, and Consulting Services|Anycast"
+3185,ISP,Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)
+216182,ISP,Content|Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+44155,Other,"Music and Video Industry|Media, Publishing, and Broadcasting|Online Music and Video Streaming Services"
+216195,Unknown,
+199816,Content/CDN,Software Development|Hosting and Cloud Provider|Computer and Information Technology|Anycast
+216204,Content/CDN,"Electronics and Computer Components|Manufacturing|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+60557,Other,Personal ASN|Automotive and Transportation|Manufacturing
+44187,ISP,Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+208033,ISP,Health Care Services|Internet Service Provider (ISP)|Computer and Information Technology
+208034,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+216226,Content/CDN,"Retail Stores, Wholesale, and E-commerce Sites|Server Hosting"
+216228,Other,"Freight, Shipment, and Postal Services|Computer and Information Technology|Automotive and Transportation|Travel and Accommodation"
+199850,Other,Computer and Information Technology|Search
+44214,Other,Service
+208055,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+3257,ISP,T1|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+216251,Other,Computer and Information Technology
+199870,Academic/Edu,Computer and Information Technology|Education and Research
+208064,ISP,Internet Service Provider (ISP)|Phone Provider|Computer and Information Technology
+3265,ISP,Eyeball|Validating RPKI ROV|Home ISP|Computer and Information Technology
+60626,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology|VPN Host
+216279,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+44253,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+60649,Other,Service
+3317,Other,"Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Community Groups and Nonprofits"
+134390,ISP,"Media, Publishing, and Broadcasting|Computer and Information Technology|Internet Service Provider (ISP)|Service"
+199927,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+60665,Content/CDN,Hosting and Cloud Provider|Software Development|Service|Computer and Information Technology
+3327,ISP,Carrier|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+60671,Other,Not Validating RPKI ROV|Construction and Real Estate|Computer and Information Technology
+142592,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+199937,Other,"Not Validating RPKI ROV|Retail Stores, Wholesale, and E-commerce Sites|Travel and Accommodation"
+199939,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+3333,ISP,Content|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+142597,Other,Food Services and Drinking Places|Travel and Accommodation|IPv6 only
+60679,ISP,"Corporate/Enterprise|Internet Service Provider (ISP)|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+208133,Other,"Not Validating RPKI ROV|Health Care Services|Nursing, Residential Care Facilities, Assisted Living, and Home Health Care"
+44299,Academic/Edu,"Education and Research|Computer and Network Security|Computer and Information Technology|Other Schools, Instruction, and Exam Preparation (Trade Schools, Art Schools, Driving Instruction, etc.)"
+208152,Eyeball,Not Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider|Business Broadband
+208153,Government,"Computer and Information Technology|Government and Regulatory Agencies, Administrations, Departments, and Services|Government|Government and Public Administration"
+216345,Other,Computer and Information Technology
+44316,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+216355,Academic/Edu,Education and Research|IPv6 only
+208164,Enterprise,"Law, Business, and Consulting Services|Service"
+142635,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+60719,ISP,Health Care Services|Insurance Carriers and Agencies|Finance and Insurance
+199995,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+200005,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+60750,Other,Computer and Information Technology
+208209,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+200020,ISP,DDoS Mitigation|Internet Service Provider (ISP)|Computer and Information Technology
+200023,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+200028,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+60775,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+60780,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+60781,ISP,Content|Internet Service Provider (ISP)|Computer and Information Technology|Hosting and Cloud Provider
+208240,Government,"Museums, Libraries, and Entertainment|Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration|Government"
+60790,ISP,Content|Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+208247,ISP,Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+208249,Eyeball,"Online Informational Content|Media, Publishing, and Broadcasting|Computer and Information Technology|Software Development"
+208251,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+208258,ISP,Content|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+60805,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+134535,ISP,"Service|Internet Service Provider (ISP)|Law, Business, and Consulting Services|Computer and Information Technology"
+200071,Enterprise,"Computer and Information Technology|Law, Business, and Consulting Services|Service|Software Development"
+216455,Eyeball,Eyeball|Personal ASN
+216456,Other,Computer and Information Technology
+60820,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+44437,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+44439,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+216475,ISP,Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology|Tor services
+200101,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+200132,ISP,Carrier|Computer and Information Technology|Internet Service Provider (ISP)|Personal ASN
+60874,Other,IPv6 only
+208332,ISP,Computer and Information Technology|Hosting and Cloud Provider|Software Development|Internet Service Provider (ISP)
+60880,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+60883,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+200149,Other,IPv6 only|Personal ASN
+208344,Other,Other
+60893,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+208364,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology|Computer and Network Security
+208368,Other,"Computer and Information Technology|Computer and Network Security|Online Informational Content|Media, Publishing, and Broadcasting"
+200184,Other,Computer and Information Technology|Search
+44541,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+60927,Academic/Edu,Education and Research|Personal ASN
+200191,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+208390,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+60938,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+44557,Other,"Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
+60941,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Service|Software Development
+60950,Other,"Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
+200223,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology|Server Hosting
+60961,Other,"Validating RPKI ROV|Manufacturing|Automotive and Transportation|Freight, Shipment, and Postal Services"
+200226,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+208418,Other,"Service|Construction and Real Estate|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
+200232,Other,Computer and Information Technology
+44591,Other,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+44592,ISP,Carrier|Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+44608,Other,"Media, Publishing, and Broadcasting"
+44612,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+200261,Enterprise,"Computer and Information Technology|Software Development|Law, Business, and Consulting Services|Service"
+61005,Enterprise,Internet Critical Infra|Computer and Information Technology|Software Development|Anycast
+61007,Enterprise,Corporate/Enterprise|Computer and Information Technology|Software Development|Internet Critical Infra
+61013,Enterprise,Corporate/Enterprise|Utilities (Excluding Internet Service)|Computer and Information Technology|Finance and Insurance
+61018,Other,"Not Validating RPKI ROV|Personal Care and Lifestyle (Barber Shops, Nail Salons, Diet Centers, Laundry, etc)|Service|Clothing, Fashion, Luggage"
+61029,ISP,Content|Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+208490,Other,Computer and Information Technology
+61044,ISP,Validating RPKI ROV|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+208501,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+200317,ISP,Internet Service Provider (ISP)|Software Development|Hosting and Cloud Provider|Computer and Information Technology
+200318,Other,Service
+61060,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+208530,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+44694,Other,Service
+200342,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+208537,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+200347,Other,"Retail Stores, Wholesale, and E-commerce Sites|Health Care Services"
+200352,Other,"Freight, Shipment, and Postal Services"
+134828,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+61107,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+44733,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Internet Service Provider (ISP)|Computer and Information Technology"
+200382,Enterprise,"Not Validating RPKI ROV|Law, Business, and Consulting Services|Service"
+200386,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider|Software Development|IPv6 only
+208584,Other,"Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
+61147,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider|Software Development
+200415,Other,Computer and Information Technology
+61161,Academic/Edu,Education and Research
+200428,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+200429,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+208622,ISP,Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+61180,ISP,Computer and Information Technology|Internet Service Provider (ISP)|IPv6 only
+208654,ISP,Finance and Insurance|Insurance Carriers and Agencies|Government
+61199,Enterprise,"Service|Law, Business, and Consulting Services"
+61200,Enterprise,"Media, Publishing, and Broadcasting|Technology Consulting Services|Computer and Information Technology|Law, Business, and Consulting Services"
+200470,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+61212,ISP,"Not Validating RPKI ROV|Law, Business, and Consulting Services|Computer and Information Technology|Service"
+61214,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+208683,Other,Computer and Information Technology
+208685,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider"
+208688,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+208693,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+44854,Enterprise,"Service|Law, Business, and Consulting Services"
+44858,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+61258,Enterprise,"Law, Business, and Consulting Services|Service"
+208715,Other,"Not Validating RPKI ROV|Construction and Real Estate|Civil Engineering Construction (Utility Lines, Roads and Bridges)"
+3917,Other,Service|Validating RPKI ROV
+3918,Other,Service|Validating RPKI ROV
+208717,Academic/Edu,Education and Research|Personal ASN
+208728,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+200549,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology|IPv6 only
+61295,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Software Development|Computer and Information Technology
+44912,Academic/Edu,Education and Research|Computer and Information Technology
+200560,Other,"Recreation, Sports, and Performing Arts|Museums, Libraries, and Entertainment"
+208751,Academic/Edu,Education and Research|Personal ASN
+205943,Other,"Media, Publishing, and Broadcasting|Computer and Information Technology|Software Development|Service"
+200569,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+44926,Academic/Edu,Education and Research
+44928,Enterprise,"Law, Business, and Consulting Services|Service|IPv6 only"
+44931,Other,"Postal Services and Couriers|Air Transportation|Freight, Shipment, and Postal Services"
+44935,Other,"Online Music and Video Streaming Services|Music and Video Industry|Media, Publishing, and Broadcasting"
+200587,ISP,Satellite Communication|Internet Service Provider (ISP)|Computer and Information Technology|Corporate/Enterprise
+44940,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+61329,Other,"Nursing, Residential Care Facilities, Assisted Living, and Home Health Care|Health Care Services"
+61331,ISP,Manufacturing|Automotive and Transportation|Finance and Insurance|Insurance Carriers and Agencies
+200596,Other,"Banks, Credit Card Companies, Mortgage Providers|Computer and Information Technology|Software Development|Finance and Insurance"
+44953,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+61346,Other,Not Validating RPKI ROV|Construction and Real Estate
+61349,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+61351,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+61357,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+200632,ISP,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+208826,Other,Computer and Information Technology|Search
+208831,ISP,Insurance Carriers and Agencies|Finance and Insurance|Health Care Services
+61385,Academic/Edu,Education and Research|Personal ASN
+208844,Other,Service
+45009,ISP,Hosting and Cloud Provider|Technology Consulting Services|Computer and Information Technology|Internet Service Provider (ISP)
+208853,Academic/Edu,"Education and Research|Other Schools, Instruction, and Exam Preparation (Trade Schools, Art Schools, Driving Instruction, etc.)"
+61404,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+208864,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+61421,ISP,Computer and Information Technology|Technology Consulting Services|Hosting and Cloud Provider|Internet Service Provider (ISP)
+45040,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+61428,Other,Search|Computer and Information Technology
+61429,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+20492,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+28685,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+20495,ISP,Carrier|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+208911,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology|IPv6 only
+208917,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+20504,Other,"Music and Video Industry|Radio and Television Providers|Media, Publishing, and Broadcasting"
+12315,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+20507,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+200746,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+200756,ISP,Internet Service Provider (ISP)|Government and Public Administration|Hosting and Cloud Provider|Computer and Information Technology
+208951,ISP,Internet Critical Infra|Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+200763,Other,Service
+214125,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+28744,Content/CDN,VPN Host|Computer and Information Technology|Hosting and Cloud Provider
+208973,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services|Government"
+20559,ISP,VPN Host|Not Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+200784,Other,Software Development|Computer and Information Technology|Tranco 10k Host
+20562,ISP,Carrier|Computer and Information Technology|Internet Service Provider (ISP)
+12393,ISP,Internet Service Provider (ISP)|Phone Provider|Computer and Information Technology
+209010,Other,"Media, Publishing, and Broadcasting|Service"
+209011,Content/CDN,Software Development|Computer and Information Technology|Hosting and Cloud Provider
+28788,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Corporate/Enterprise|Eyeball
+12414,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+200831,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+200837,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology|VPN Host
+28806,Other,"Freight, Shipment, and Postal Services|Air Travel|Travel and Accommodation"
+209048,Other,Software Development|Computer and Information Technology
+209051,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+28836,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+209063,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+12459,ISP,Software Development|Not Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+209072,ISP,Service|Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+209083,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+209094,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+12488,ISP,Content|Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+28878,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+214155,Other,Validating RPKI ROV
+20710,ISP,Software Development|Hosting and Cloud Provider|Online Music and Video Streaming Services|Internet Service Provider (ISP)
+200934,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+209145,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+12561,Enterprise,"Construction and Real Estate|Service|Civil Engineering Construction (Utility Lines, Roads and Bridges)|Law, Business, and Consulting Services"
+12573,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+200991,Enterprise,"Computer and Information Technology|Service|Law, Business, and Consulting Services"
+20769,Other,Service
+200995,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+200998,Other,Computer and Information Technology
+12595,Other,"Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology|Software Development"
+12600,Content/CDN,VPN Host|Hosting and Cloud Provider|Computer and Information Technology
+201017,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+28995,Enterprise,"Service|Law, Business, and Consulting Services"
+28997,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+209223,Other,Service
+29001,ISP,Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+20828,ISP,"Radio and Television Providers|Computer and Information Technology|Media, Publishing, and Broadcasting|Internet Service Provider (ISP)"
+29028,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Hosting and Cloud Provider
+209258,Other,"Validating RPKI ROV|Banks, Credit Card Companies, Mortgage Providers|Software Development|Computer and Information Technology"
+12654,ISP,Anycast|Internet Service Provider (ISP)|Computer and Information Technology|Community Groups and Nonprofits
+20847,ISP,VPN Host|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+209267,Academic/Edu,Elementary and Secondary Schools|Education and Research
+20857,ISP,Content|Not Validating RPKI ROV|Internet Service Provider (ISP)|Hosting and Cloud Provider
+12666,ISP,"Software Development|Media, Publishing, and Broadcasting|Computer and Information Technology|Internet Service Provider (ISP)"
+201082,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+20867,Enterprise,"Law, Business, and Consulting Services|Service|Media, Publishing, and Broadcasting|Finance and Insurance"
+29063,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Software Development|Service
+209288,ISP,Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)|Server Hosting
+201117,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+12702,ISP,Internet Service Provider (ISP)|Computer and Network Security|Computer and Information Technology
+20896,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+209330,Enterprise,"Law, Business, and Consulting Services|Service|Computer and Information Technology|Software Development"
+209334,Academic/Edu,Education and Research
+209355,Other,"Retail Stores, Wholesale, and E-commerce Sites|Manufacturing|IPv6 only"
+20940,ISP,Content|Validating RPKI ROV|Software Development|Online Music and Video Streaming Services
+20953,Other,"Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
+209377,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+20965,Academic/Edu,Academic|Not Validating RPKI ROV|Computer and Information Technology|Education and Research
+201191,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Law, Business, and Consulting Services|Service"
+20969,ISP,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
+209390,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+209407,Other,Search|Computer and Information Technology
+61956,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+61957,Other,Computer and Information Technology
+209445,ISP,"Not Validating RPKI ROV|Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites|Internet Service Provider (ISP)"
+61999,Other,Computer and Information Technology
+62003,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
+12854,Other,Computer and Information Technology
+12859,ISP,VPN Host|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+12871,ISP,Eyeball|Home ISP|Computer and Information Technology|Phone Provider
+201290,ISP,Eyeball|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+29263,Government,Government|Community Groups and Nonprofits
+21073,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+209495,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+201311,Enterprise,"Law, Business, and Consulting Services|Service|Media, Publishing, and Broadcasting|Print Media (Newspapers, Magazines, Books)"
+12902,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+29290,Content/CDN,IPv6 only|Hosting and Cloud Provider|Computer and Information Technology
+201330,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+62068,ISP,Tor services|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+29311,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)|Hosting and Cloud Provider
+209549,Other,Computer and Information Technology|Not Validating RPKI ROV|Software Development
+12945,Other,"Museums, Libraries, and Entertainment|Computer and Information Technology|Software Development"
+62097,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Computer and Network Security
+21139,Other,"Electronics and Computer Components|Music and Video Industry|Manufacturing|Media, Publishing, and Broadcasting"
+62105,ISP,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology|Home ISP
+209561,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+201372,Other,Buildings (Residential or Commercial)|Construction and Real Estate|Service
+209566,Other,Computer and Information Technology
+21155,ISP,Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)|VPN Host
+209573,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+12967,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+21159,ISP,Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)|VPN Host
+21162,Enterprise,"Service|Law, Business, and Consulting Services|Media, Publishing, and Broadcasting|Retail Stores, Wholesale, and E-commerce Sites"
+62125,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Software Development
+201391,Other,Computer and Information Technology|Computer and Network Security|Service
+12980,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+209590,Other,Not Validating RPKI ROV|Service
+201401,ISP,Server Hosting|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+201402,Other,Service|Computer and Information Technology|Computer and Network Security
+201403,ISP,Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+201404,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Hosting and Cloud Provider
+12989,ISP,Content|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+201405,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+201411,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+201424,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Software Development
+29396,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+21205,Other,Finance and Insurance
+62167,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+209626,ISP,Tranco 10k Host|Anycast|Internet Service Provider (ISP)|Computer and Information Technology
+21221,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+62188,Content/CDN,Software Development|Computer and Information Technology|Hosting and Cloud Provider
+201460,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+209653,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+62215,Other,"Service|Pet Care|Food, Grocery, Beverages|Retail Stores, Wholesale, and E-commerce Sites"
+209675,Content/CDN,"Computer and Network Security|Technology Consulting Services|Service|Law, Business, and Consulting Services"
+62245,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+21286,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology|Phone Provider
+201510,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Phone Provider
+13100,Content/CDN,VPN Host|Hosting and Cloud Provider|Computer and Information Technology
+209712,Other,Service
+62257,Other,Service
+201521,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+21302,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+209721,Government,"Government and Public Administration|Service|Law, Business, and Consulting Services|Government"
+21315,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+13127,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+21320,ISP,Carrier|Computer and Information Technology|Education and Research|Academic
+201546,Other,Computer and Information Technology
+21326,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+29519,ISP,"Software Development|Computer and Information Technology|Law, Business, and Consulting Services|Technology Consulting Services"
+13136,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+209754,Other,Construction and Real Estate|Not Validating RPKI ROV
+21342,ISP,Anycast|Internet Service Provider (ISP)|Software Development|Service
+201566,Enterprise,"Service|Computer and Network Security|Computer and Information Technology|Law, Business, and Consulting Services"
+21357,Content/CDN,Computer and Network Security|Software Development|Online Music and Video Streaming Services|Hosting and Cloud Provider
+13169,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+201597,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+21388,Other,Computer and Information Technology|Software Development
+62349,ISP,"Software Development|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation|Internet Service Provider (ISP)"
+152460,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider|Server Hosting
+21392,ISP,"Internet Service Provider (ISP)|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+62353,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+201622,Other,"Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+201623,Other,Personal ASN|IPv6 only|Computer and Information Technology|Software Development
+29590,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+21399,Content/CDN,"Media, Publishing, and Broadcasting|Computer and Information Technology|Online Music and Video Streaming Services|Computer and Network Security"
+29591,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+209819,Enterprise,"Service|Retail Stores, Wholesale, and E-commerce Sites|Law, Business, and Consulting Services"
+201629,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+62370,Content/CDN,Tor services|Not Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+209829,Content/CDN,Not Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+62377,Other,Not Validating RPKI ROV|Service
+201644,Other,Validating RPKI ROV|Service
+201650,Other,Computer and Information Technology
+209845,ISP,"Personal ASN|Not Validating RPKI ROV|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+209847,Content/CDN,"Validating RPKI ROV|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|VPN Host"
+21443,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+5060,Academic/Edu,Education and Research
+5061,Academic/Edu,Education and Research
+29640,Other,Computer and Information Technology
+209871,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+13266,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+209884,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+21478,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+136175,ISP,Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology|Eyeball
+201712,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+201718,Other,Computer and Information Technology|Service
+201723,Other,"Online Informational Content|Media, Publishing, and Broadcasting"
+201731,Other,Computer and Information Technology|Software Development
+209936,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+201766,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+209976,Unknown,
+201789,ISP,Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+201791,ISP,"Museums, Libraries, and Entertainment|Software Development|Internet Service Provider (ISP)|Computer and Information Technology"
+209983,Other,"Media, Publishing, and Broadcasting|Online Informational Content"
+209985,Other,Service
+209990,Eyeball,"Eyeball|Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites|Service"
+201801,Enterprise,"Computer and Information Technology|Service|Software Development|Law, Business, and Consulting Services"
+210004,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Content Delivery Network|Anycast
+201866,ISP,"Internet Service Provider (ISP)|Service|Media, Publishing, and Broadcasting|Computer and Information Technology"
+201873,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+201875,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+210074,Eyeball,"Government and Public Administration|Media, Publishing, and Broadcasting|Government and Regulatory Agencies, Administrations, Departments, and Services|IPv6 only"
+201883,Enterprise,"Clothing, Fashion, Luggage|Service|Retail Stores, Wholesale, and E-commerce Sites|Law, Business, and Consulting Services"
+201891,Content/CDN,Hosting and Cloud Provider|Government and Public Administration|Software Development|Computer and Network Security
+210091,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+201940,Other,Health Care Services
+210151,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
+201965,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Community Groups and Nonprofits
+210157,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+201968,Other,Manufacturing
+210161,Content/CDN,"Hosting and Cloud Provider|Service|Computer and Information Technology|Law, Business, and Consulting Services"
+201975,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+201989,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+201995,Other,Service
+5390,ISP,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+210193,Other,Computer and Information Technology|Software Development
+202012,Other,Service
+202014,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+210207,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+202016,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+202019,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202022,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+5418,Other,Community Groups and Nonprofits
+5419,Other,Validating RPKI ROV|Service
+210225,Content/CDN,Not Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology|Personal ASN
+202037,Other,"Media, Publishing, and Broadcasting"
+38230,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+202072,ISP,Phone Provider|Hosting and Cloud Provider|Internet Service Provider (ISP)|Service
+202075,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+210269,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202120,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+210320,Content/CDN,"Server Hosting|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+5524,ISP,Business Broadband|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+202134,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+210332,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+210345,ISP,Internet Service Provider (ISP)|Computer and Network Security|Computer and Information Technology
+210354,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+210355,Other,Computer and Information Technology
+5562,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+210372,Other,Air Travel|Travel and Accommodation
+210375,Academic/Edu,Education and Research
+5580,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+202189,Other,Travel and Accommodation
+210383,Other,IPv6 only
+210385,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+202196,Other,"Validating RPKI ROV|Hotels, Motels, Inns, Other Traveler Accommodation|Retail Stores, Wholesale, and E-commerce Sites|Travel and Accommodation"
+210389,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+5623,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+62972,Other,Community Groups and Nonprofits
+210429,Content/CDN,Server Hosting|Real Estate (Residential and/or Commercial)|Construction and Real Estate
+62981,Other,Community Groups and Nonprofits
+210449,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+202262,Other,IPv6 only|Computer and Information Technology
+210454,Other,"Community Groups and Nonprofits|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)"
+202268,Other,"Freight, Shipment, and Postal Services|Trucking|Retail Stores, Wholesale, and E-commerce Sites"
+202270,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+210501,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202315,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+202338,Other,Service
+210539,Unknown,
+202374,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+210578,ISP,Personal ASN|Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+202418,Academic/Edu,Personal ASN|Education and Research
+202419,Other,Software Development|Computer and Information Technology
+202425,ISP,Content|Validating RPKI ROV|Hosting and Cloud Provider|Internet Service Provider (ISP)
+136918,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+210649,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+210654,Other,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+202477,Government,"Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)|Service|Law Enforcement, Public Safety, and Justice|Government and Public Administration"
+202482,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+210694,Other,Service
+210710,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+210728,Other,Service
+202553,Content/CDN,Government|Computer and Information Technology|Hosting and Cloud Provider|Tranco 10k Host
+202562,Academic/Edu,Personal ASN|Education and Research
+202581,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+210776,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202585,Other,"Content|Computer and Information Technology|Freight, Shipment, and Postal Services|Validating RPKI ROV"
+202591,ISP,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+210789,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202606,ISP,Not Validating RPKI ROV|Computer and Information Technology|Technology Consulting Services|Internet Service Provider (ISP)
+210798,Other,"Retail Stores, Wholesale, and E-commerce Sites|Food, Grocery, Beverages"
+202612,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
+202614,ISP,Software Development|Computer and Information Technology|Internet Service Provider (ISP)|Tranco 10k Host
+202625,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+202649,Other,"Finance and Insurance|Computer and Information Technology|Banks, Credit Card Companies, Mortgage Providers"
+38816,Other,Service
+210856,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202666,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+210882,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202692,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+210897,Enterprise,"Service|Law, Business, and Consulting Services"
+202706,ISP,Computer and Information Technology|Internet Service Provider (ISP)|IPv6 only
+210907,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+210930,Content/CDN,"Service|Media, Publishing, and Broadcasting|Server Hosting"
+30720,Other,"Radio and Television Providers|Media, Publishing, and Broadcasting"
+38913,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+38915,Government,"Government|Not Validating RPKI ROV|Computer and Information Technology|Government and Regulatory Agencies, Administrations, Departments, and Services"
+38919,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+6152,Academic/Edu,Education and Research
+47121,Other,Service
+38930,ISP,Carrier|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+210977,Content/CDN,Education and Research|Server Hosting
+38946,ISP,"Online Informational Content|Internet Service Provider (ISP)|Media, Publishing, and Broadcasting|Computer and Information Technology"
+202786,Academic/Edu,"Retail Stores, Wholesale, and E-commerce Sites|Education and Research|Other Schools, Instruction, and Exam Preparation (Trade Schools, Art Schools, Driving Instruction, etc.)"
+202794,Enterprise,"Law, Business, and Consulting Services|Service"
+202796,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+47153,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+38965,ISP,Content|Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+38970,Other,Community Groups and Nonprofits|Personal ASN|Content
+202811,ISP,"Community Groups and Nonprofits|Law, Business, and Consulting Services|Service|Internet Service Provider (ISP)"
+211005,ISP,"Computer and Information Technology|Freight, Shipment, and Postal Services|Internet Service Provider (ISP)"
+6206,ISP,"Tor services|Software Development|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+47167,ISP,"Law, Business, and Consulting Services|Hosting and Cloud Provider|Internet Service Provider (ISP)|Service"
+47172,Eyeball,Eyeball|Not Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+38983,Other,"Computer and Information Technology|Not Validating RPKI ROV|Retail Stores, Wholesale, and E-commerce Sites"
+47175,Content/CDN,"Hosting and Cloud Provider|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+47179,ISP,Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+211031,Other,Service
+39003,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+47197,Other,Computer and Information Technology
+211041,ISP,"Service|Law, Business, and Consulting Services|Computer and Information Technology|Internet Service Provider (ISP)"
+211043,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+47207,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+202855,Other,Computer and Information Technology|Service
+211052,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+202861,Content/CDN,Not Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider|VPN Host
+30830,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology|Software Development
+39022,Other,"Media, Publishing, and Broadcasting|Service"
+211061,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+39030,Other,Service
+202882,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+202893,Other,Service
+30870,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+30875,Other,Computer and Information Technology|Technology Consulting Services
+22683,Other,Health Care Services|Electronics and Computer Components|Service|Software Development
+30879,Other,"Museums, Libraries, and Entertainment"
+47265,ISP,Internet Service Provider (ISP)|Service|Software Development|Computer and Information Technology
+202916,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+202918,Other,Service|Computer and Information Technology|Computer and Network Security
+202932,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+30903,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+202938,Other,Health Care Services|Community Groups and Nonprofits
+202947,ISP,Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+39114,Other,Computer and Information Technology|Not Validating RPKI ROV
+202956,Other,Computer and Information Technology
+30925,ISP,Business Broadband|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+202970,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+211177,Academic/Edu,"Service|Law, Business, and Consulting Services|Education and Research"
+39146,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+47339,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+211208,Other,"Museums, Libraries, and Entertainment|Personal ASN|IPv6 only"
+211217,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+137490,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+211220,Content/CDN,"Computer and Information Technology|Law, Business, and Consulting Services|Service|Hosting and Cloud Provider"
+203037,Enterprise,"Service|Computer and Information Technology|Law, Business, and Consulting Services"
+47392,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Software Development
+137509,Other,Software Development|Computer and Information Technology
+31019,Academic/Edu,Personal ASN|Education and Research
+211251,ISP,Business Broadband|Internet Service Provider (ISP)|Computer and Information Technology|Server Hosting
+211253,Unknown,
+203071,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+47425,Other,Service
+211267,ISP,Computer and Network Security|Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+211269,Enterprise,"Law, Business, and Consulting Services|Finance and Insurance|Service"
+39244,Academic/Edu,Software Development|Computer and Information Technology|Education and Research
+31064,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+203096,Other,"Banks, Credit Card Companies, Mortgage Providers|Computer and Information Technology|Finance and Insurance"
+47450,Other,Food Services and Drinking Places|Travel and Accommodation
+31079,ISP,Radio and Television Providers|Internet Service Provider (ISP)|Computer and Information Technology|Hosting and Cloud Provider
+203111,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Software Development
+211316,Other,"Finance and Insurance|Computer and Information Technology|Banks, Credit Card Companies, Mortgage Providers|Software Development"
+203126,Other,Service
+211318,ISP,Software Development|Computer and Information Technology|Internet Service Provider (ISP)
+211321,ISP,"Internet Service Provider (ISP)|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Computer and Information Technology|Community Groups and Nonprofits"
+47482,Enterprise,"Not Validating RPKI ROV|Service|Law, Business, and Consulting Services"
+39292,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+203135,Enterprise,"Computer and Information Technology|Service|Law, Business, and Consulting Services|Technology Consulting Services"
+203138,Other,"IPv6 only|Clothing, Fashion, Luggage|Retail Stores, Wholesale, and E-commerce Sites"
+31107,Content/CDN,Software Development|Online Music and Video Streaming Services|Computer and Information Technology|Hosting and Cloud Provider
+31108,ISP,"Computer and Network Security|Service|Computer and Information Technology|Media, Publishing, and Broadcasting"
+31109,ISP,Software Development|Hosting and Cloud Provider|Service|Internet Service Provider (ISP)
+31110,ISP,Computer and Network Security|Service|Online Music and Video Streaming Services|Computer and Information Technology
+39309,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203151,ISP,Internet Service Provider (ISP)|Computer and Information Technology|IPv6 only
+203152,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+211344,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+203159,Enterprise,"Law, Business, and Consulting Services|Manufacturing|Service|Electric Power Generation, Transmission, Distribution"
+203166,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+203170,Other,Health Care Services
+203172,Other,"Manufacturing|Freight, Shipment, and Postal Services|Chemical and Pharmaceutical Manufacturing|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)"
+203179,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+47532,Academic/Edu,"Finance and Insurance|Computer and Information Technology|Law, Business, and Consulting Services|Education and Research"
+203181,Enterprise,"Computer and Information Technology|Law, Business, and Consulting Services|Service|Software Development"
+211381,Content/CDN,Server Hosting
+47543,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+31172,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203205,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+63942,ISP,"Hosting and Cloud Provider|Internet Service Provider (ISP)|Freight, Shipment, and Postal Services|Software Development"
+203209,ISP,Insurance Carriers and Agencies|Finance and Insurance
+39371,ISP,Computer and Information Technology|Software Development|Internet Service Provider (ISP)|Server Hosting
+47580,ISP,"Service|Law, Business, and Consulting Services|Computer and Information Technology|Internet Service Provider (ISP)"
+39390,ISP,"Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology|Freight, Shipment, and Postal Services"
+203233,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+203234,Other,"Media, Publishing, and Broadcasting|Computer and Information Technology|Service|Software Development"
+31209,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203242,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Government
+203256,ISP,Phone Provider|Electronics and Computer Components|Computer and Information Technology|Manufacturing
+211465,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+47628,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+47629,Eyeball,"Travel and Accommodation|Food, Grocery, Beverages|Retail Stores, Wholesale, and E-commerce Sites|Food Services and Drinking Places"
+47632,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+203281,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Phone Provider
+31251,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203291,Enterprise,"Service|Law, Business, and Consulting Services|Personal ASN"
+6686,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+6688,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+211499,ISP,Computer and Information Technology|Software Development|Hosting and Cloud Provider|Internet Service Provider (ISP)
+203318,ISP,Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)|Hosting and Cloud Provider
+203320,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+203323,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Content
+211524,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+6729,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+47690,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+6742,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203351,Other,"Not Validating RPKI ROV|Software Development|Travel and Accommodation|Freight, Shipment, and Postal Services"
+211543,ISP,"Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology|Internet Service Provider (ISP)"
+6748,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+211550,Enterprise,"Service|Law, Business, and Consulting Services"
+39521,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+203368,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+211566,Other,"Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)|Travel and Accommodation|Service"
+203379,ISP,Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)
+6777,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+203388,ISP,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
+203396,Government,"Government|Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+211588,ISP,"Server Hosting|Law, Business, and Consulting Services|Technology Consulting Services|Internet Service Provider (ISP)"
+39563,Other,Computer and Information Technology|Not Validating RPKI ROV
+203406,Content/CDN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+31377,ISP,"Software Development|Hosting and Cloud Provider|Internet Service Provider (ISP)|Media, Publishing, and Broadcasting"
+39572,ISP,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)|Hosting and Cloud Provider
+31383,ISP,Server Hosting|Computer and Information Technology|Internet Service Provider (ISP)
+6815,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+6816,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+6817,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+6819,ISP,Computer and Information Technology|Phone Provider|Internet Service Provider (ISP)
+39587,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+39591,ISP,Server Hosting|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+211623,Enterprise,"Validating RPKI ROV|Service|Law, Business, and Consulting Services"
+6830,ISP,T1|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+203439,ISP,Service|Manufacturing|Software Development|Computer and Information Technology
+211636,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+47816,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+31433,Other,"Freight, Shipment, and Postal Services"
+47825,Enterprise,"Real Estate (Residential and/or Commercial)|Computer and Information Technology|Construction and Real Estate|Law, Business, and Consulting Services"
+203474,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration|Government"
+211668,ISP,"Law, Business, and Consulting Services|Service|Internet Service Provider (ISP)|Computer and Information Technology"
+39637,ISP,Carrier|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+47829,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider|Service
+6872,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+39647,ISP,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+47848,Other,"Banks, Credit Card Companies, Mortgage Providers|Postal Services and Couriers|Software Development|Finance and Insurance"
+31477,ISP,Eyeball|Not Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+47863,Other,Computer and Information Technology
+6904,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+6905,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Carrier
+47864,ISP,Eyeball|Computer and Information Technology|Internet Service Provider (ISP)
+211713,ISP,Server Hosting|Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+39686,ISP,Carrier|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+47886,ISP,VPN Host|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+211728,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology|Content
+39700,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+39704,Content/CDN,Computer and Information Technology|Not Validating RPKI ROV|Hosting and Cloud Provider
+400158,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+64289,ISP,"Carrier|Retail Stores, Wholesale, and E-commerce Sites|Server Hosting|Tor services"
+211745,Other,"Media, Publishing, and Broadcasting|Computer and Information Technology|Print Media (Newspapers, Magazines, Books)|IPv6 only"
+211748,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+211750,ISP,Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology|Tor services
+31537,Other,Community Groups and Nonprofits|Churches and Religious Organizations
+47926,ISP,Internet Service Provider (ISP)|Computer and Information Technology|IPv6 only
+211769,Other,"Travel and Accommodation|Health Care Services|Media, Publishing, and Broadcasting|Freight, Shipment, and Postal Services"
+211786,ISP,Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)
+39757,Content/CDN,VPN Host|Computer and Information Technology|Computer and Network Security|Hosting and Cloud Provider
+7007,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+31584,Other,Other
+31586,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+47973,ISP,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+203623,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology|Construction and Real Estate
+211822,Enterprise,"Service|Law, Business, and Consulting Services"
+31615,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+211840,Enterprise,"Law, Business, and Consulting Services|Finance and Insurance|Service|Investment, Portfolio Management, Pensions and Funds"
+31624,ISP,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance|Internet Service Provider (ISP)|Retail Stores, Wholesale, and E-commerce Sites"
+48011,Content/CDN,"Server Hosting|Not Validating RPKI ROV|Media, Publishing, and Broadcasting|Computer and Information Technology"
+211856,Other,"Not Validating RPKI ROV|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+64404,Eyeball,Eyeball|Education and Research|Event
+39832,ISP,"Eyeball|Not Validating RPKI ROV|Service|Law, Business, and Consulting Services"
+39836,Content/CDN,"Computer and Network Security|Computer and Information Technology|Media, Publishing, and Broadcasting|Online Music and Video Streaming Services"
+64416,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203681,Other,Service
+48037,Government,"Government|Validating RPKI ROV|Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
+64437,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+211895,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)"
+48056,ISP,Computer and Information Technology|Phone Provider|Internet Service Provider (ISP)
+31673,ISP,Server Hosting|Not Validating RPKI ROV|Hosting and Cloud Provider|Internet Service Provider (ISP)
+203708,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+400328,Other,Computer and Information Technology|IPv6 only|Content
+203722,Enterprise,"Service|Law, Business, and Consulting Services"
+64463,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+48083,ISP,"Hosting and Cloud Provider|Computer and Information Technology|Law, Business, and Consulting Services|Internet Service Provider (ISP)"
+211926,Enterprise,"Service|Law, Business, and Consulting Services|Computer and Information Technology|Software Development"
+48088,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+203740,Other,Health Care Services
+64487,Other,Manufacturing|Machinery|Electronics and Computer Components
+48105,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203755,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology|Anycast
+64495,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Software Development
+203762,ISP,Not Validating RPKI ROV|Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+203769,Other,Computer and Information Technology
+203774,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+211982,Enterprise,"Law, Business, and Consulting Services|Service"
+211993,Other,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)"
+203807,ISP,Computer and Information Technology|Hosting and Cloud Provider|Internet Service Provider (ISP)|IPv6 only
+48163,Content/CDN,"Software Development|Media, Publishing, and Broadcasting|Service|Computer and Network Security"
+203815,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+203822,ISP,Internet Service Provider (ISP)|Hosting and Cloud Provider|Computer and Information Technology
+56372,Other,Computer and Information Technology
+48186,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+15426,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Eyeball
+56393,Enterprise,"Service|Law, Business, and Consulting Services"
+15435,ISP,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+212051,ISP,"Education Software|Internet Service Provider (ISP)|Online Informational Content|Media, Publishing, and Broadcasting"
+203860,Other,Validating RPKI ROV|Software Development|Electronics and Computer Components|Manufacturing
+15447,Other,Software Development|Computer and Information Technology
+212061,ISP,Computer and Information Technology|Technology Consulting Services|Internet Service Provider (ISP)
+23649,Other,"Radio and Television Providers|Media, Publishing, and Broadcasting"
+15466,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+42152,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+50295,ISP,"Media, Publishing, and Broadcasting|Technology Consulting Services|Computer and Information Technology|Internet Service Provider (ISP)"
+15480,ISP,Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+212098,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+203928,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+48283,ISP,Anycast|Computer and Information Technology|Internet Service Provider (ISP)|Internet Critical Infra
+203932,Other,"Finance and Insurance|Accountants, Tax Preparers, Payroll Services"
+48300,Other,"Utilities (Excluding Internet Service)|Electronics and Computer Components|Electric Power Generation, Transmission, Distribution|Manufacturing"
+15535,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+203952,Other,Travel and Accommodation
+56500,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+15542,ISP,Eyeball|Not Validating RPKI ROV|Home ISP|Computer and Information Technology
+203959,ISP,Internet Service Provider (ISP)|Computer and Information Technology|IPv6 only
+56504,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Hosting and Cloud Provider
+212150,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+212151,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services|Government"
+212156,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
+212157,Government,"Government|Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+203966,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+212162,ISP,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+56517,Other,Not Validating RPKI ROV|Service
+56518,ISP,Computer and Information Technology|Software Development|Hosting and Cloud Provider|Internet Service Provider (ISP)
+15562,Academic/Edu,Personal ASN|Education and Research
+203993,Academic/Edu,Education and Research
+212202,Other,"Search|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+50319,Enterprise,"Service|Retail Stores, Wholesale, and E-commerce Sites|Law, Business, and Consulting Services"
+204030,Content/CDN,"Computer and Information Technology|Law, Business, and Consulting Services|Service|Hosting and Cloud Provider"
+48392,Other,"Travel and Accommodation|Museums, Libraries, and Entertainment"
+15625,Other,"Finance and Insurance|Not Validating RPKI ROV|Banks, Credit Card Companies, Mortgage Providers"
+56584,Other,"Software Development|Real Estate (Residential and/or Commercial)|Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites"
+212242,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Content
+56599,Content/CDN,"Service|Law, Business, and Consulting Services|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+212253,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+56611,ISP,Tor services|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+15670,ISP,Internet Service Provider (ISP)|Validating RPKI ROV|Computer and Information Technology
+56633,Other,Travel and Accommodation|Air Travel
+15693,ISP,Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+15695,ISP,Eyeball|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+56655,ISP,Content|Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+15703,ISP,Content|Not Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+212311,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+48501,Other,"Computer and Information Technology|Software Development|Casinos and Gambling|Museums, Libraries, and Entertainment"
+56698,Other,Validating RPKI ROV|Manufacturing|Chemical and Pharmaceutical Manufacturing
+15740,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+48520,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Software Development|Finance and Insurance
+48522,ISP,"Finance and Insurance|Insurance Carriers and Agencies|Freight, Shipment, and Postal Services|Computer and Information Technology"
+56722,Other,Construction and Real Estate
+212380,Other,Validating RPKI ROV|Service
+204196,ISP,Software Development|Not Validating RPKI ROV|Hosting and Cloud Provider|Computer and Information Technology
+48554,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+15791,Other,Computer and Information Technology|Software Development|Service|Phone Provider
+212408,Enterprise,"Law, Business, and Consulting Services|Service"
+204230,Enterprise,"Not Validating RPKI ROV|Search|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Law, Business, and Consulting Services"
+56789,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+15830,ISP,Carrier|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+56790,ISP,"Internet Service Provider (ISP)|Computer and Information Technology|Military, Defense, National Security, and International Affairs|Government and Public Administration"
+48603,Other,Construction and Real Estate|Buildings (Residential or Commercial)
+15840,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204262,ISP,"Service|Media, Publishing, and Broadcasting|Hosting and Cloud Provider|Internet Service Provider (ISP)"
+212468,Other,"Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)|Software Development|Service|Computer and Information Technology"
+48635,Content/CDN,Content|Not Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+212477,ISP,Content|Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+48645,ISP,Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+15879,ISP,Home ISP|Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+212488,ISP,Internet Service Provider (ISP)|Computer and Information Technology|IPv6 only
+58516,Other,Computer and Information Technology
+204312,ISP,Hosting and Cloud Provider|Computer and Information Technology|Internet Service Provider (ISP)
+204319,Government,"Law Enforcement, Public Safety, and Justice|Military, Defense, National Security, and International Affairs|Service|Government and Public Administration"
+204325,ISP,"Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Internet Service Provider (ISP)|Computer and Information Technology|Community Groups and Nonprofits"
+15916,Other,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+48684,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+212540,Other,"Retail Stores, Wholesale, and E-commerce Sites|IPv6 only"
+56898,ISP,Tranco 10k Host|Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+48714,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+48729,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+15966,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+58535,Other,"Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
+212585,Government,"Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+56943,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+212591,Other,"Service|Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites|Technology Consulting Services"
+204401,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+204406,ISP,IPv6 only|Manufacturing|Internet Service Provider (ISP)|Trucking
+56953,Government,"Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services|Corporate/Enterprise"
+204417,Other,"Community Groups and Nonprofits|Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Utilities (Excluding Internet Service)|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)"
+212610,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+212624,Other,"Buildings (Residential or Commercial)|Construction and Real Estate|Civil Engineering Construction (Utility Lines, Roads and Bridges)"
+212635,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204450,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+56999,ISP,"Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology|Manufacturing|Buildings (Residential or Commercial)"
+204456,Enterprise,"Service|Law, Business, and Consulting Services"
+48812,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204465,ISP,Software Development|Computer and Information Technology|Internet Service Provider (ISP)
+57012,Other,"Service|Freight, Shipment, and Postal Services|Water Transportation"
+57029,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+57032,Unknown,
+16074,Enterprise,"Law, Business, and Consulting Services|Validating RPKI ROV|Service|Software Development"
+212689,Other,"Computer and Information Technology|Hotels, Motels, Inns, Other Traveler Accommodation|Retail Stores, Wholesale, and E-commerce Sites|Travel and Accommodation"
+57043,ISP,Tor services|Validating RPKI ROV|Computer and Information Technology|Internet Service Provider (ISP)
+16087,Academic/Edu,Education and Research
+57048,Other,IPv6 only|Personal ASN|Community Groups and Nonprofits
+16089,ISP,Computer and Information Technology|Internet Service Provider (ISP)|Carrier
+212703,Eyeball,"Media, Publishing, and Broadcasting|Computer and Information Technology|Online Informational Content|Software Development"
+48869,Other,"Accountants, Tax Preparers, Payroll Services|Finance and Insurance"
+204526,Academic/Edu,Education and Research|Personal ASN
+57075,Academic/Edu,"Media, Publishing, and Broadcasting|Education and Research|Online Informational Content"
+48886,ISP,Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Network Security
+57088,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+57090,ISP,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers|Insurance Carriers and Agencies|Retail Stores, Wholesale, and E-commerce Sites"
+16131,Content/CDN,Hosting and Cloud Provider|Computer and Information Technology
+16147,Government,"Law Enforcement, Public Safety, and Justice|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)|Government and Regulatory Agencies, Administrations, Departments, and Services|Service"
+57112,ISP,Computer and Information Technology|Validating RPKI ROV|Internet Service Provider (ISP)
+48921,ISP,VPN Host|Internet Service Provider (ISP)|Hosting and Cloud Provider|Software Development
+212762,ISP,"Hosting, Cloud Provider, Data Center, Server Colocation|Trucking|Internet Service Provider (ISP)|Freight, Shipment, and Postal Services"
+48925,Content/CDN,Anycast|Electronics and Computer Components|Manufacturing|Server Hosting
+57124,Government,Government|Health Care Services|Community Groups and Nonprofits
+212773,Other,Manufacturing|Software Development|Automotive and Transportation|Computer and Information Technology
+57129,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204586,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+212778,Government,"Media, Publishing, and Broadcasting|Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration|Computer and Information Technology"
+204589,Enterprise,"Technology Consulting Services|Service|Law, Business, and Consulting Services|Computer and Information Technology"
+212782,Other,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+16177,ISP,Software Development|Computer and Information Technology|Internet Service Provider (ISP)
+212785,Other,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Community Groups and Nonprofits|Human Rights and Social Advocacy (Human Rights, Environment and Wildlife Conservation, Other)|Utilities (Excluding Internet Service)"
+204601,Eyeball,Eyeball|Validating RPKI ROV|Computer and Information Technology|Hosting and Cloud Provider
+57146,ISP,Internet Service Provider (ISP)|Computer and Network Security|Computer and Information Technology
+48972,Enterprise,Corporate/Enterprise|Automotive and Transportation|Construction and Real Estate|Computer and Information Technology
+212818,Other,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+204627,Eyeball,Hosting and Cloud Provider|Computer and Information Technology|Eyeball
+57172,Content/CDN,"Validating RPKI ROV|Hosting and Cloud Provider|Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology"
+204635,Government,Government|Manufacturing|Automotive and Transportation
+48997,Other,Health Care Services
+212839,Other,Computer and Information Technology|Software Development
+16237,ISP,Internet Service Provider (ISP)|Computer and Information Technology|Phone Provider
+16243,ISP,Computer and Information Technology|Software Development|Internet Service Provider (ISP)
+212855,Other,Personal ASN|Community Groups and Nonprofits|Validating RPKI ROV
+49018,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+16265,ISP,VPN Host|Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+16266,Other,"Museums, Libraries, and Entertainment|Retail Stores, Wholesale, and E-commerce Sites"
+49033,ISP,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+212877,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+16278,ISP,Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+16281,ISP,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology
+204698,Other,Not Validating RPKI ROV|Computer and Network Security|Computer and Information Technology
+212892,Other,"Retail Stores, Wholesale, and E-commerce Sites|Food, Grocery, Beverages"
+16289,Other,"Finance and Insurance|Accountants, Tax Preparers, Payroll Services|Service|Banks, Credit Card Companies, Mortgage Providers"
+16298,ISP,Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology
+204727,Other,Service
+204729,Content/CDN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Content"
+212922,Content/CDN,Computer and Information Technology|Hosting and Cloud Provider
+212928,Other,Computer and Information Technology
+204737,Other,"Retail Stores, Wholesale, and E-commerce Sites"
+204751,ISP,Computer and Information Technology|Internet Service Provider (ISP)
+204754,Other,Computer and Information Technology
+212953,Content/CDN,"Computer and Information Technology|Law, Business, and Consulting Services|Service|Software Development"
+16350,ISP,"Media, Publishing, and Broadcasting|Not Validating RPKI ROV|Internet Service Provider (ISP)|Computer and Information Technology"
+212965,Other,Travel and Accommodation
+49127,ISP,Carrier|Internet Service Provider (ISP)|Computer and Information Technology|Tranco 10k Host
+57325,ISP,Internet Service Provider (ISP)|Computer and Information Technology
+204790,ISP,Internet Service Provider (ISP)|Computer and Information Technology|IPv6 only
+57335,Other,"Retail Stores, Wholesale, and E-commerce Sites"

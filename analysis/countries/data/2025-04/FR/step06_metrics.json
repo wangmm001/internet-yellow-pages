@@ -1,0 +1,16 @@
+{
+  "step": 6,
+  "country": "FR",
+  "snapshot": "2025-04",
+  "title_zh": "全球中心性位置",
+  "title_en": "Global centrality ranks",
+  "metrics": {
+    "count_with_centrality": 1527,
+    "best_ranks": {
+      "degree": 5,
+      "betweenness": 34,
+      "eigenvector": 34,
+      "pagerank": 3
+    }
+  }
+}

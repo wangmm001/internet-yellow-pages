@@ -1,0 +1,13 @@
+{
+  "step": 7,
+  "country": "RU",
+  "snapshot": "2025-04",
+  "title_zh": "k-core 层级位置",
+  "title_en": "k-core depth",
+  "metrics": {
+    "global_max_k": 194,
+    "deepest_k_in_country": 194,
+    "count_k_ge_30": 350,
+    "count_k_ge_100": 54
+  }
+}

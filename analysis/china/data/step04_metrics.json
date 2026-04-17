@@ -1,0 +1,34 @@
+{
+  "step": 4,
+  "title_zh": "中国 BGP 前缀空间与 RPKI 覆盖度",
+  "title_en": "China BGP Prefix Footprint & RPKI Coverage",
+  "metrics": {
+    "cn_originators": 5211,
+    "v4_prefixes": 71967,
+    "v6_prefixes": 48702,
+    "rpki_rate_pct": 15.59,
+    "anycast_prefixes": 372,
+    "top5_originators": [
+      [
+        9808,
+        21046
+      ],
+      [
+        4538,
+        10327
+      ],
+      [
+        56046,
+        5209
+      ],
+      [
+        23910,
+        4104
+      ],
+      [
+        56041,
+        3768
+      ]
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "step": 13,
+  "title_zh": "IXP + 机房 三部图：中国互联\"物理桥梁\"",
+  "title_en": "IXP + Facility Tripartite Bridge",
+  "metrics": {
+    "total_tripartite_rows": 19414,
+    "distinct_ixps_cn_used": 198,
+    "distinct_facilities_used_via_ixp": 658,
+    "top5_ixps_for_cn": [
+      [
+        "DE-CIX Frankfurt",
+        4862,
+        "DE"
+      ],
+      [
+        "NL-ix",
+        1458,
+        "NL"
+      ],
+      [
+        "LINX LON1",
+        1386,
+        "GB"
+      ],
+      [
+        "IX.br (PTT.br) São Paulo",
+        1170,
+        "BR"
+      ],
+      [
+        "DE-CIX New York",
+        660,
+        "US"
+      ]
+    ]
+  }
+}

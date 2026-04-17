@@ -1,0 +1,23 @@
+{
+  "step": 5,
+  "title_zh": "中国 AS 对等互联子图",
+  "title_en": "China AS Peering Subgraph",
+  "metrics": {
+    "nodes_total": 400,
+    "cn_nodes": 60,
+    "foreign_nodes": 340,
+    "edges": 2450,
+    "top_foreign_countries": {
+      "US": 48,
+      "DE": 26,
+      "CH": 23,
+      "HK": 22,
+      "FR": 19,
+      "GB": 19,
+      "NL": 18,
+      "AU": 16,
+      "SG": 12,
+      "BR": 11
+    }
+  }
+}

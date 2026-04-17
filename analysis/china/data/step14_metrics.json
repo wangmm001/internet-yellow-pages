@@ -1,0 +1,37 @@
+{
+  "step": 14,
+  "title_zh": "中国 DNS 主机托管版图",
+  "title_en": "China DNS Hosting Footprint",
+  "metrics": {
+    "cn_hosting_ases": 437,
+    "cn_total_hostnames_hosted": 280224,
+    "top5_cn_hosters": [
+      [
+        45102,
+        41109
+      ],
+      [
+        37963,
+        27578
+      ],
+      [
+        24429,
+        24082
+      ],
+      [
+        4837,
+        17840
+      ],
+      [
+        132203,
+        14653
+      ]
+    ],
+    "global_rank_of_cn_by_hosting": 42,
+    "cloud_vs_isp_split_hostnames": {
+      "cloud_cdn": 199163,
+      "isp": 60124,
+      "other": 20937
+    }
+  }
+}

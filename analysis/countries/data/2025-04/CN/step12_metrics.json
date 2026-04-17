@@ -1,0 +1,40 @@
+{
+  "step": 12,
+  "country": "CN",
+  "snapshot": "2025-04",
+  "title_zh": "机房分布",
+  "title_en": "Facility distribution",
+  "metrics": {
+    "total_facility_records": 289,
+    "distinct_facilities_with_country": 144,
+    "top_countries_by_facility_presence": {
+      "HK": 59,
+      "US": 57,
+      "CN": 31,
+      "JP": 29,
+      "DE": 20
+    },
+    "top_facilities": [
+      [
+        "MEGA-i (iAdvantage Hong Kong)",
+        15
+      ],
+      [
+        "Equinix SV1/SV5/SV10 - Silicon Valley, San Jose",
+        9
+      ],
+      [
+        "Equinix HK2 - Hong Kong",
+        9
+      ],
+      [
+        "Equinix HK1 - Hong Kong",
+        7
+      ],
+      [
+        "Digital Realty Frankfurt FRA1-16",
+        7
+      ]
+    ]
+  }
+}

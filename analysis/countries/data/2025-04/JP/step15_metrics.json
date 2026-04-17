@@ -1,0 +1,23 @@
+{
+  "step": 15,
+  "country": "JP",
+  "snapshot": "2025-04",
+  "title_zh": "DNS 主权率",
+  "title_en": "DNS sovereignty",
+  "metrics": {
+    "total_domains": 21925,
+    "ns_sampled": 300,
+    "domestic_pct": 1.24,
+    "operator_country_distribution": {
+      "tld:jp": 14481,
+      "tld:net": 2927,
+      "tld:com": 2824,
+      "US": 1115,
+      "JP": 272,
+      "tld:io": 159,
+      "tld:info": 77,
+      "tld:org": 42,
+      "tld:uk": 28
+    }
+  }
+}

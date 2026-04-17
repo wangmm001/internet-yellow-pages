@@ -1,0 +1,33 @@
+{
+  "step": 6,
+  "title_zh": "中国 AS 在全球中心性指标中的位置",
+  "title_en": "China ASes in Global Centrality Rankings",
+  "metrics": {
+    "cn_count": 5221,
+    "best_pagerank_rank": 1,
+    "best_degree_rank": 23,
+    "best_betweenness_rank": 3,
+    "top5_by_pagerank": [
+      [
+        38255,
+        1
+      ],
+      [
+        4134,
+        205
+      ],
+      [
+        4837,
+        390
+      ],
+      [
+        24429,
+        521
+      ],
+      [
+        9425,
+        575
+      ]
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "step": 11,
+  "title_zh": "中国 IXP 互联生态",
+  "title_en": "China IXP Landscape",
+  "metrics": {
+    "cn_ixp_memberships_total": 839,
+    "distinct_cn_ixps_participated": 198,
+    "domestic_ixps_with_cn": 6,
+    "foreign_ixps_with_cn": 19,
+    "top5_foreign_ixps": [
+      [
+        "ZXIX Hong Kong",
+        35
+      ],
+      [
+        "4b42 Internet Exchange Point",
+        30
+      ],
+      [
+        "FogIXP",
+        26
+      ],
+      [
+        "Protocol 7 IX - Hong Kong",
+        22
+      ],
+      [
+        "Poema IX",
+        18
+      ]
+    ],
+    "top5_domestic_ixps": [
+      [
+        "CNIX",
+        20
+      ],
+      [
+        "SHIXP",
+        19
+      ],
+      [
+        "ZXIX Hangzhou",
+        18
+      ],
+      [
+        "LoLi-IX - NGB",
+        10
+      ],
+      [
+        "NNIX",
+        10
+      ]
+    ],
+    "top5_countries_hosting_cn_presence": {
+      "US": 127,
+      "CN": 127,
+      "HK": 123,
+      "DE": 79,
+      "CH": 74
+    }
+  }
+}

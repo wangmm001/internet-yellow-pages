@@ -1,0 +1,20 @@
+{
+  "step": 1,
+  "country": "FR",
+  "snapshot": "2026-04",
+  "title_zh": "AS 清册与标签分布",
+  "title_en": "AS inventory & tag breakdown",
+  "metrics": {
+    "total_ases": 2238,
+    "tag_distribution": {
+      "Other": 690,
+      "ISP": 1177,
+      "Government": 36,
+      "Academic/Edu": 41,
+      "Content/CDN": 112,
+      "Eyeball": 30,
+      "Enterprise": 125,
+      "Unknown": 27
+    }
+  }
+}

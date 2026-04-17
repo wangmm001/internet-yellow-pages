@@ -1,0 +1,43 @@
+{
+  "step": 9,
+  "title_zh": "谁依赖中国? · 入向 AS Hegemony",
+  "title_en": "Who Depends on China? (Inbound Hegemony)",
+  "metrics": {
+    "total_inbound_edges_hege_ge_003": 144,
+    "foreign_dependents": 88,
+    "top5_cn_upstream": [
+      [
+        10111,
+        33
+      ],
+      [
+        213605,
+        14
+      ],
+      [
+        4837,
+        12
+      ],
+      [
+        4134,
+        7
+      ],
+      [
+        134578,
+        7
+      ]
+    ],
+    "top_dependent_countries": {
+      "US": 15,
+      "HK": 12,
+      "GB": 9,
+      "ZZ": 6,
+      "TW": 3,
+      "JP": 2,
+      "CA": 2,
+      "IT": 2,
+      "SG": 1,
+      "MY": 1
+    }
+  }
+}

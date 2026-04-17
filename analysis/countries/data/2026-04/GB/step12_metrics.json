@@ -1,0 +1,40 @@
+{
+  "step": 12,
+  "country": "GB",
+  "snapshot": "2026-04",
+  "title_zh": "机房分布",
+  "title_en": "Facility distribution",
+  "metrics": {
+    "total_facility_records": 4316,
+    "distinct_facilities_with_country": 1090,
+    "top_countries_by_facility_presence": {
+      "GB": 2124,
+      "US": 528,
+      "DE": 259,
+      "NL": 202,
+      "JP": 100
+    },
+    "top_facilities": [
+      [
+        "Telehouse - London (Docklands North)",
+        307
+      ],
+      [
+        "Equinix LD8 - London, Docklands",
+        170
+      ],
+      [
+        "Telehouse - London (Docklands East)",
+        145
+      ],
+      [
+        "Telehouse - London (Docklands West)",
+        123
+      ],
+      [
+        "Equinix MA1 - Manchester, Williams/Kilburn",
+        94
+      ]
+    ]
+  }
+}

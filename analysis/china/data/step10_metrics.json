@@ -1,0 +1,19 @@
+{
+  "step": 10,
+  "title_zh": "中国互联网集中度与 HHI 分析",
+  "title_en": "China Internet Concentration & HHI",
+  "metrics": {
+    "cn_gini_prefix": 0.9429,
+    "global_gini_prefix": 0.8495,
+    "cn_gini_hostname": 0.9016,
+    "global_gini_hostname": 0.9921,
+    "cn_gini_org": 0.3119,
+    "global_gini_org": 0.1994,
+    "cn_gini_ixp": 0.5303,
+    "global_gini_ixp": 0.522,
+    "cn_hhi_prefix": 0.0475,
+    "global_hhi_prefix": 0.0014,
+    "cn_hhi_hostname": 0.054,
+    "global_hhi_hostname": 0.0081
+  }
+}

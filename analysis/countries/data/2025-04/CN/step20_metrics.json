@@ -1,0 +1,17 @@
+{
+  "step": 20,
+  "country": "CN",
+  "snapshot": "2025-04",
+  "title_zh": "综合主权指数",
+  "title_en": "Composite sovereignty index",
+  "metrics": {
+    "composite_sovereignty_index": 0.2195,
+    "components": {
+      "hosting_sovereignty": 0.6224,
+      "dns_sovereignty": 0.1913,
+      "rpki_adoption": 0.0479,
+      "ixp_domesticization": 0.2209,
+      "hub_ratio": 0.0149
+    }
+  }
+}

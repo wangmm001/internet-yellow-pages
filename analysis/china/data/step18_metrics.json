@@ -1,0 +1,55 @@
+{
+  "step": 18,
+  "title_zh": "中国 AS 审查与阻断拓扑",
+  "title_en": "Censorship Topology in China",
+  "metrics": {
+    "cn_ases_with_censorship_signal": 23,
+    "cn_total_detections": 637,
+    "top5_censoring_ases": [
+      [
+        45102,
+        81
+      ],
+      [
+        4837,
+        48
+      ],
+      [
+        4134,
+        45
+      ],
+      [
+        24400,
+        44
+      ],
+      [
+        4538,
+        43
+      ]
+    ],
+    "top5_tests": [
+      [
+        "ooni.tor",
+        352
+      ],
+      [
+        "ooni.stunreachability",
+        157
+      ],
+      [
+        "ooni.whatsapp",
+        18
+      ],
+      [
+        "ooni.httpinvalidrequestline",
+        18
+      ],
+      [
+        "ooni.psiphon",
+        17
+      ]
+    ],
+    "coreness_median_censoring": 5,
+    "coreness_median_non_censoring": 1.0
+  }
+}

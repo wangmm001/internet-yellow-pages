@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "NL",
+  "snapshot": "2026-04",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": 3,
+    "best_ranks_per_system": {
+      "IHR country ranking: Total AS (TK)": 1,
+      "APNIC eyeball estimates (NL)": 1,
+      "IHR country ranking: Total AS (MF)": 1,
+      "IHR country ranking: Total eyeball (NL)": 1,
+      "IHR country ranking: Total AS (GR)": 2,
+      "IHR country ranking: Total eyeball (DJ)": 2,
+      "IHR country ranking: Total AS (PF)": 2,
+      "IHR country ranking: Total eyeball (PF)": 2,
+      "IHR country ranking: Total AS (MH)": 2,
+      "IHR country ranking: Total eyeball (CH)": 3
+    }
+  }
+}

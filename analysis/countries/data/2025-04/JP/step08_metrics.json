@@ -1,0 +1,44 @@
+{
+  "step": 8,
+  "country": "JP",
+  "snapshot": "2025-04",
+  "title_zh": "出向 Hegemony",
+  "title_en": "Outbound hegemony",
+  "metrics": {
+    "outbound_edges": 3423,
+    "top_destination_countries": {
+      "HK": 973,
+      "DE": 643,
+      "SG": 480,
+      "AR": 432,
+      "FR": 386,
+      "US": 167,
+      "CA": 89,
+      "AT": 73,
+      "IT": 71,
+      "NL": 19
+    },
+    "top5_upstream_ases": [
+      [
+        2914,
+        725
+      ],
+      [
+        1299,
+        593
+      ],
+      [
+        6939,
+        466
+      ],
+      [
+        3356,
+        424
+      ],
+      [
+        174,
+        386
+      ]
+    ]
+  }
+}
