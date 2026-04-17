@@ -5,6 +5,51 @@
   "title_zh": "审查拓扑",
   "title_en": "Censorship topology",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "censoring_ases": 29,
+    "total_detections": 1225,
+    "top5_tests": [
+      [
+        "ooni.tor",
+        704
+      ],
+      [
+        "ooni.stunreachability",
+        271
+      ],
+      [
+        "ooni.whatsapp",
+        34
+      ],
+      [
+        "ooni.httpinvalidrequestline",
+        34
+      ],
+      [
+        "ooni.httpheaderfieldmanipulation",
+        34
+      ]
+    ],
+    "top5_censoring_ases": [
+      [
+        16276,
+        228
+      ],
+      [
+        3215,
+        116
+      ],
+      [
+        63023,
+        71
+      ],
+      [
+        12876,
+        53
+      ],
+      [
+        12322,
+        48
+      ]
+    ]
   }
 }

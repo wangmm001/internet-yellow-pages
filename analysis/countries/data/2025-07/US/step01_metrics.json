@@ -5,6 +5,16 @@
   "title_zh": "AS 清册与标签分布",
   "title_en": "AS inventory & tag breakdown",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "total_ases": 32106,
+    "tag_distribution": {
+      "Academic/Edu": 2523,
+      "ISP": 12671,
+      "Eyeball": 192,
+      "Enterprise": 1762,
+      "Government": 1468,
+      "Other": 10842,
+      "Content/CDN": 844,
+      "Unknown": 1804
+    }
   }
 }

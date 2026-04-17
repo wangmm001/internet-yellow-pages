@@ -5,6 +5,36 @@
   "title_zh": "机房分布",
   "title_en": "Facility distribution",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "total_facility_records": 2820,
+    "distinct_facilities_with_country": 557,
+    "top_countries_by_facility_presence": {
+      "DE": 2168,
+      "NL": 172,
+      "US": 106,
+      "GB": 53,
+      "CH": 38
+    },
+    "top_facilities": [
+      [
+        "Digital Realty Frankfurt FRA1-16",
+        266
+      ],
+      [
+        "Equinix FR5 - Frankfurt, KleyerStrasse",
+        145
+      ],
+      [
+        "Digital Realty Dusseldorf DUS1-2",
+        99
+      ],
+      [
+        "NTT Frankfurt 1 Data Center (FRA1)",
+        78
+      ],
+      [
+        "CarrierColo Berlin Luetzow (I/P/B/ site B)",
+        66
+      ]
+    ]
   }
 }

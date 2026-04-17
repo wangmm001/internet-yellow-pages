@@ -5,6 +5,40 @@
   "title_zh": "出向 Hegemony",
   "title_en": "Outbound hegemony",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "outbound_edges": 8447,
+    "top_destination_countries": {
+      "US": 4720,
+      "GB": 1560,
+      "BG": 979,
+      "IT": 380,
+      "AG": 303,
+      "SI": 96,
+      "CA": 80,
+      "AE": 74,
+      "CZ": 50,
+      "NL": 38
+    },
+    "top5_upstream_ases": [
+      [
+        6939,
+        3895
+      ],
+      [
+        9002,
+        1529
+      ],
+      [
+        1299,
+        965
+      ],
+      [
+        3356,
+        496
+      ],
+      [
+        6762,
+        380
+      ]
+    ]
   }
 }

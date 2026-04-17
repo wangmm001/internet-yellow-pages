@@ -5,6 +5,36 @@
   "title_zh": "机房分布",
   "title_en": "Facility distribution",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "total_facility_records": 269,
+    "distinct_facilities_with_country": 145,
+    "top_countries_by_facility_presence": {
+      "US": 55,
+      "HK": 55,
+      "CN": 23,
+      "JP": 23,
+      "SG": 14
+    },
+    "top_facilities": [
+      [
+        "MEGA-i (iAdvantage Hong Kong)",
+        13
+      ],
+      [
+        "Equinix HK2 - Hong Kong",
+        12
+      ],
+      [
+        "Equinix SV1/SV5/SV10 - Silicon Valley, San Jose",
+        8
+      ],
+      [
+        "Digital Realty Frankfurt FRA1-16",
+        7
+      ],
+      [
+        "CoreSite - Los Angeles (LA1) One Wilshire",
+        6
+      ]
+    ]
   }
 }

@@ -5,6 +5,36 @@
   "title_zh": "机房分布",
   "title_en": "Facility distribution",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "total_facility_records": 1033,
+    "distinct_facilities_with_country": 144,
+    "top_countries_by_facility_presence": {
+      "RU": 881,
+      "DE": 38,
+      "NL": 16,
+      "SE": 15,
+      "GB": 11
+    },
+    "top_facilities": [
+      [
+        "Moscow M9",
+        216
+      ],
+      [
+        "Bolshaya Morskaya 18",
+        59
+      ],
+      [
+        "Raduga-2",
+        51
+      ],
+      [
+        "Tsvetochnaya Data Center",
+        40
+      ],
+      [
+        "Moscow M10",
+        36
+      ]
+    ]
   }
 }

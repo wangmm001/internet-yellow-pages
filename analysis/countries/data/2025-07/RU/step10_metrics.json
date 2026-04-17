@@ -5,6 +5,11 @@
   "title_zh": "集中度 Gini/HHI",
   "title_en": "Concentration",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "gini_prefix": 0.7976,
+    "hhi_prefix": 0.0119,
+    "gini_hostname": 0.9593,
+    "hhi_hostname": 0.0426,
+    "gini_org": 0.2175,
+    "hhi_org": 0.0015
   }
 }

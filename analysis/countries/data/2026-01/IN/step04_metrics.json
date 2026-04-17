@@ -5,6 +5,10 @@
   "title_zh": "BGP 前缀与 RPKI",
   "title_en": "BGP prefixes & RPKI",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "v4_prefixes": 53498,
+    "v6_prefixes": 20574,
+    "total_prefixes": 74072,
+    "rpki_rate_pct": 70.42,
+    "anycast_prefixes": 32
   }
 }

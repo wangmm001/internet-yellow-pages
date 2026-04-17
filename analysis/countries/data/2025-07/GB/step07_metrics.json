@@ -5,6 +5,9 @@
   "title_zh": "k-core 层级位置",
   "title_en": "k-core depth",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "global_max_k": 195,
+    "deepest_k_in_country": 195,
+    "count_k_ge_30": 384,
+    "count_k_ge_100": 230
   }
 }

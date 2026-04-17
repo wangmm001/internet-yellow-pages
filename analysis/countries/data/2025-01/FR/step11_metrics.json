@@ -5,6 +5,19 @@
   "title_zh": "IXP 会员分布",
   "title_en": "IXP landscape",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "ixp_memberships_domestic": 699,
+    "ixp_memberships_foreign": 574,
+    "top_ixp_host_countries": {
+      "FR": 699,
+      "DE": 115,
+      "NL": 98,
+      "US": 79,
+      "CH": 59,
+      "GB": 38,
+      "ES": 21,
+      "IT": 19,
+      "LU": 17,
+      "SG": 14
+    }
   }
 }

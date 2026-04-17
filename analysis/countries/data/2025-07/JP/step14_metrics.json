@@ -5,6 +5,32 @@
   "title_zh": "DNS 托管版图",
   "title_en": "DNS hosting",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "total_hosted_hostnames": 842755,
+    "hosting_ases": 540,
+    "top5_hosting_ases": [
+      [
+        131965,
+        178428
+      ],
+      [
+        7506,
+        118853
+      ],
+      [
+        9371,
+        91519
+      ],
+      [
+        9370,
+        51638
+      ],
+      [
+        2497,
+        49426
+      ]
+    ],
+    "cloud_hostnames": 577748,
+    "isp_hostnames": 150175,
+    "other_hostnames": 114832
   }
 }

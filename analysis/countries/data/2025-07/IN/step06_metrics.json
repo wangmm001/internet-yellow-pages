@@ -5,6 +5,12 @@
   "title_zh": "全球中心性位置",
   "title_en": "Global centrality ranks",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "count_with_centrality": 2888,
+    "best_ranks": {
+      "degree": 14,
+      "betweenness": 11,
+      "eigenvector": 16,
+      "pagerank": 12
+    }
   }
 }

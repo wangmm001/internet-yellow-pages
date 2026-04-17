@@ -5,6 +5,19 @@
   "title_zh": "对等互联伙伴",
   "title_en": "Peering partners",
   "metrics": {
-    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+    "internal_edges": 2105,
+    "cross_border_edges": 8083,
+    "top_peer_countries": {
+      "US": 2125,
+      "SG": 703,
+      "HK": 617,
+      "GB": 606,
+      "AU": 595,
+      "NL": 573,
+      "ID": 361,
+      "FR": 339,
+      "DE": 245,
+      "PH": 221
+    }
   }
 }
