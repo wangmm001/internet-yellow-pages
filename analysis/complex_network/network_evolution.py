@@ -51,11 +51,17 @@ def extract_snapshot(snapshot):
         'MATCH ()-[r:PEERS_WITH]->() RETURN count(r) AS c')
     metrics['dependency_edges'] = _q1(
         'MATCH ()-[r:DEPENDS_ON]->() RETURN count(r) AS c')
-    metrics['prefix_count'] = _q1(
-        'MATCH (p:BGPPrefix) RETURN count(p) AS c')
-    metrics['rpki_valid_prefixes'] = _q1(
-        "MATCH (p:BGPPrefix)-[:CATEGORIZED]->(t:Tag {label:'RPKI Valid'}) "
-        'RETURN count(DISTINCT p) AS c')
+    # Prefix label varies across snapshots: 2025-04+ uses BGPPrefix,
+    # older snapshots sometimes only carry the generic Prefix label.
+    # Try specific first, fallback to generic.
+    metrics['prefix_count'] = (
+        _q1('MATCH (p:BGPPrefix) RETURN count(p) AS c')
+        or _q1('MATCH (p:Prefix) RETURN count(p) AS c'))
+    metrics['rpki_valid_prefixes'] = (
+        _q1("MATCH (p:BGPPrefix)-[:CATEGORIZED]->(t:Tag {label:'RPKI Valid'}) "
+            'RETURN count(DISTINCT p) AS c')
+        or _q1("MATCH (p:Prefix)-[:CATEGORIZED]->(t:Tag {label:'RPKI Valid'}) "
+               'RETURN count(DISTINCT p) AS c'))
     if metrics['prefix_count'] and metrics['rpki_valid_prefixes'] is not None:
         metrics['rpki_pct'] = round(
             metrics['rpki_valid_prefixes'] / metrics['prefix_count'] * 100, 2)
@@ -64,11 +70,15 @@ def extract_snapshot(snapshot):
         metrics['mean_peering_degree'] = round(
             2 * metrics['peering_edges'] / metrics['as_count'], 3)
 
-    top_recs = _q1(
-        'MATCH (a:AS)-[:ORIGINATE]->(p:BGPPrefix) '
-        'WITH a, count(DISTINCT p) AS pfx '
-        'ORDER BY pfx DESC LIMIT 10 '
-        'RETURN collect(pfx) AS counts')
+    top_recs = (
+        _q1('MATCH (a:AS)-[:ORIGINATE]->(p:BGPPrefix) '
+            'WITH a, count(DISTINCT p) AS pfx '
+            'ORDER BY pfx DESC LIMIT 10 '
+            'RETURN collect(pfx) AS counts')
+        or _q1('MATCH (a:AS)-[:ORIGINATE]->(p:Prefix) '
+               'WITH a, count(DISTINCT p) AS pfx '
+               'ORDER BY pfx DESC LIMIT 10 '
+               'RETURN collect(pfx) AS counts'))
     if isinstance(top_recs, list):
         top10 = sum(top_recs)
         if metrics['prefix_count']:
