@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block body %}
+<article class="page">
+  <nav class="breadcrumb">
+    <a href="{{ assets_prefix }}index.html">首页 · Home</a>
+    <span class="sep">›</span>
+    <span class="cur">{{ track.title_zh }}</span>
+  </nav>
+
+  <header class="page-head">
+    <div class="row-1">
+      <span class="tier-badge {{ badge_variant }}">{{ track.slug[0]|upper }}</span>
+      <p class="eyebrow" style="margin:0;">Track · {{ track.title_en }} · {{ pages_total }} pages</p>
+    </div>
+    <h1>{{ track.title_zh }}</h1>
+    <p class="en">{{ track.title_en }}</p>
+    <p class="sub">{{ track.tagline_zh }}<br><span style="color:var(--text-2);">{{ track.tagline_en }}</span></p>
+  </header>
+
+  {% if show_phase_filter %}
+  <div class="filter-row">
+    <button class="filter-chip is-active" data-filter-group="{{ track.slug }}" data-filter-chip="all" type="button">全部 · All</button>
+    {% for phase in track.phases %}
+    <button class="filter-chip" data-filter-group="{{ track.slug }}" data-filter-chip="{{ phase.key }}" type="button">
+      {{ phase.key }} · {{ phase.title_zh }}
+    </button>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% for phase in track.phases %}
+  <section data-filter-target="{{ track.slug }}" data-filter-phase="{{ phase.key }}">
+    <div class="phase-head">
+      <span class="letter {{ phase_variants[phase.key] }}">{{ phase.key }}</span>
+      <div>
+        <h2>{{ phase.title_zh }}</h2>
+        <div class="en">{{ phase.title_en }}</div>
+      </div>
+    </div>
+    <div class="grid-auto">
+      {% for page in phase.pages %}
+      <a class="step-card" style="--track-accent: {{ track.accent }};"
+         href="{{ assets_prefix }}{{ page.url.lstrip('/') }}index.html">
+        <div class="step-n">
+          {% if page.step is not none %}STEP {{ '%02d'|format(page.step) }}{% else %}{{ page.slug|upper }}{% endif %}
+          {% if page.part %}<span class="part-badge">part {{ page.part }}</span>{% endif %}
+        </div>
+        <h3>{{ page.title_zh }}</h3>
+        <div class="en">{{ page.title_en }}</div>
+        {% if page.kpis %}
+        <div class="kpi">
+          {% for k in page.kpis %}<span class="chip">{{ k }}</span>{% endfor %}
+        </div>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</article>
+{% endblock %}

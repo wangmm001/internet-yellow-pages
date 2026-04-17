@@ -152,3 +152,10 @@ dmypy.json
 neo4j/
 tmp/
 analysis/complex_network/network_evolution.log
+
+# macOS Finder noise
+.DS_Store
+
+# Web build cache (regenerable)
+analysis/web/build_manifest.json
+analysis/web/__pycache__/

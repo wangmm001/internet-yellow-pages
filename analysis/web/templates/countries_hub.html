@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block body %}
+<article class="page">
+  <nav class="breadcrumb">
+    <a href="{{ assets_prefix }}index.html">首页 · Home</a>
+    <span class="sep">›</span>
+    <span class="cur">{{ track.title_zh }}</span>
+  </nav>
+
+  <header class="page-head">
+    <div class="row-1">
+      <span class="tier-badge">C</span>
+      <p class="eyebrow" style="margin:0;">Track · {{ track.title_en }} · {{ pages_total }} pages</p>
+    </div>
+    <h1>{{ track.title_zh }}</h1>
+    <p class="en">{{ track.title_en }}</p>
+    <p class="sub">{{ track.tagline_zh }}<br><span style="color:var(--text-2);">{{ track.tagline_en }}</span></p>
+  </header>
+
+  <div class="section-head">
+    <h2>综合仪表板</h2>
+    <span class="en">Synthesis Dashboards</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="grid-auto">
+    {% for page in dashboard_pages %}
+    <a class="step-card" style="--track-accent: {{ track.accent }};"
+       href="{{ assets_prefix }}{{ page.url.lstrip('/') }}index.html">
+      <div class="step-n">DASHBOARD</div>
+      <h3>{{ page.title_zh }}</h3>
+      <div class="en">{{ page.title_en }}</div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="section-head">
+    <h2>九国画像 · {{ snapshot_latest }}</h2>
+    <span class="en">Country Profiles · Δ vs {{ snapshot_prev }}</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="grid-auto">
+    {% for page in profile_pages %}
+    {% set ctx = page.extra %}
+    <a class="step-card" style="--track-accent: {{ track.accent }};"
+       href="{{ assets_prefix }}{{ page.url.lstrip('/') }}index.html">
+      <div class="step-n">{{ ctx.cc }} · {{ ctx.country_en }}</div>
+      <h3>{{ ctx.country_zh }}互联网分层</h3>
+      <div class="en">{{ ctx.country_en }} · Internet Hierarchy</div>
+      <div class="kpi">
+        {% if ctx.sov_now is not none %}
+          <span class="chip is-accent">主权 {{ '%.3f'|format(ctx.sov_now) }}</span>
+          {% if ctx.sov_prev is not none %}
+            {% set delta = ctx.sov_now - ctx.sov_prev %}
+            <span class="chip {% if delta > 0 %}is-green{% elif delta < 0 %}is-red{% endif %}">
+              Δ {{ '%+.3f'|format(delta) }}
+            </span>
+          {% endif %}
+        {% endif %}
+        {% if ctx.tot_now %}<span class="chip">{{ '{:,}'.format(ctx.tot_now) }} ASes</span>{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</article>
+{% endblock %}

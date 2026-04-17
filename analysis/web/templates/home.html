@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block body %}
+<section class="hero">
+  <div class="shell">
+    <p class="hero-eyebrow eyebrow fade-up">Internet Yellow Pages · 分析全景 · {{ snapshot_latest }}</p>
+    <h1 class="fade-up" style="animation-delay:0.08s;">
+      看见互联网的<br>
+      <span class="hero-grad">全局分层</span>
+    </h1>
+    <p class="hero-lede fade-up" style="animation-delay:0.16s;">
+      基于 <strong style="color:var(--text-0)">IYP</strong>（Neo4j 知识图谱 · {{ totals.all_pages }} 页分析）把全球互联网看成
+      <strong style="color:var(--text-0)">BGP × DNS × 物理 × 组织</strong>四层多重网络——
+      从中国专题、九国对比，到复杂网络科学的全栈体检。
+    </p>
+    <p class="hero-lede-en fade-up" style="animation-delay:0.20s;">
+      A unified scientific atlas over the IYP knowledge graph: three viewpoints
+      (China · Nine Countries · Complex Network) across one consistent dark-theme frame.
+    </p>
+
+    <div class="hero-stats fade-up" style="animation-delay:0.24s;">
+      <div class="hero-stat">
+        <div class="n mono-num" data-counter data-target="{{ totals.china_steps }}">0</div>
+        <div class="k">中国专题步骤 · China steps</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n mono-num" data-counter data-target="{{ totals.countries_profiles }}">0</div>
+        <div class="k">国别画像 · Country profiles</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n mono-num" data-counter data-target="{{ totals.network_steps }}">0</div>
+        <div class="k">复杂网络章节 · Network chapters</div>
+      </div>
+      <div class="hero-stat">
+        <div class="n mono-num" data-counter data-target="{{ totals.all_pages }}">0</div>
+        <div class="k">总页面 · Total pages</div>
+      </div>
+    </div>
+
+    <div class="hero-cta fade-up" style="animation-delay:0.32s;">
+      <a class="btn-primary" href="china/index.html">开始浏览 · Start with China</a>
+      <button class="btn-ghost" data-toc-trigger type="button">
+        打开全局目录 <kbd>G</kbd>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="shell">
+  <div class="section-head">
+    <h2>三条研究路径</h2>
+    <span class="en">Three research tracks</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="grid-3">
+    {% for track in tracks_list %}
+    <a class="track-card" href="{{ track.slug }}/index.html" style="--track-accent: {{ track.accent }};">
+      <span class="num">Track · {{ track.slug|upper }}</span>
+      <div>
+        <h3>{{ track.title_zh }}</h3>
+        <p class="en">{{ track.title_en }}</p>
+      </div>
+      <p class="desc">{{ track.tagline_zh }}</p>
+      <div class="meta">
+        {% if track.slug == 'china' %}
+          <span class="chip">{{ totals.china_steps }} 步 · {{ totals.china_pages }} 子页</span>
+          <span class="chip is-red">主权指数 0.269</span>
+        {% elif track.slug == 'countries' %}
+          <span class="chip">{{ totals.countries_profiles }} 国画像</span>
+          <span class="chip is-accent">{{ totals.countries_dashboards }} 综合仪表板</span>
+        {% else %}
+          <span class="chip">{{ totals.network_steps }} 个章节</span>
+          <span class="chip is-green">多重网络 · 四层</span>
+        {% endif %}
+      </div>
+      <span class="cta">进入 → Explore</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="section-head">
+    <h2>时序演化 · Time-Series</h2>
+    <span class="en">{{ snapshot_baseline }} → {{ snapshot_latest }} · {{ snapshots_all|length }} quarters</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="grid-3">
+    <a class="track-card" href="china/evolution/index.html" style="--track-accent: #ff453a;">
+      <span class="num">China · CN 深度</span>
+      <div>
+        <h3>中国 15 个月轨迹</h3>
+        <p class="en">CN across 6 quarterly snapshots</p>
+      </div>
+      <p class="desc">主权指数、依赖结构、全球排名的季度演化</p>
+      <span class="cta">查看 → View</span>
+    </a>
+    <a class="track-card" href="countries/evolution.html" style="--track-accent: #0071e3;">
+      <span class="num">Countries · 九国对比</span>
+      <div>
+        <h3>九国趋势 + CAGR</h3>
+        <p class="en">9 countries × 12 metrics × 6 quarters</p>
+      </div>
+      <p class="desc">趋势线、CAGR 热图、拐点榜、排名波动带</p>
+      <span class="cta">查看 → View</span>
+    </a>
+    <a class="track-card" href="network/evolution/index.html" style="--track-accent: #30d158;">
+      <span class="num">Network · 全球拓扑</span>
+      <div>
+        <h3>网络规模 + 集中度演化</h3>
+        <p class="en">10 global aggregates across 6 quarters</p>
+      </div>
+      <p class="desc">规模、拓扑、集中度、RPKI、区域分布</p>
+      <span class="cta">查看 → View</span>
+    </a>
+  </div>
+
+  <div class="section-head">
+    <h2>九国主权指数排名 · {{ snapshot_latest }}</h2>
+    <span class="en">Sovereignty Index leaderboard · Δ vs {{ snapshot_baseline }} (15 months)</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="leader">
+    <div class="leader-row is-head">
+      <div class="rank">#</div>
+      <div>国家 · Country</div>
+      <div></div>
+      <div>主权指数</div>
+      <div>Δ {{ snapshot_baseline }}</div>
+    </div>
+    {% for row in leaderboard %}
+    <a class="leader-row" href="countries/{{ row.cc }}/index.html">
+      <div class="rank">{{ '%02d'|format(loop.index) }}</div>
+      <div>
+        <span class="cc">{{ row.cc }}</span>
+        &nbsp;{{ row.zh }}
+        <span class="name-en"> · {{ row.en }}</span>
+      </div>
+      <div></div>
+      <div class="sov mono-num">{{ '%.3f'|format(row.sov_now) }}</div>
+      <div class="d {% if row.delta_baseline is none %}zero{% elif row.delta_baseline > 0 %}up{% elif row.delta_baseline < 0 %}down{% else %}zero{% endif %} mono-num">
+        {% if row.delta_baseline is none %}—
+        {% elif row.delta_baseline > 0 %}+{{ '%.3f'|format(row.delta_baseline) }}
+        {% else %}{{ '%.3f'|format(row.delta_baseline) }}{% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<div style="height: 80px;"></div>
+{% endblock %}

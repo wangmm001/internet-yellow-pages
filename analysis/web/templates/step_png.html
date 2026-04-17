@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block body %}
+<article class="page">
+  <nav class="breadcrumb">
+    <a href="{{ assets_prefix }}index.html">首页 · Home</a>
+    <span class="sep">›</span>
+    <a href="{{ assets_prefix }}{{ track.slug }}/index.html">{{ track.title_zh }}</a>
+    <span class="sep">›</span>
+    <span class="cur">{{ page.title_zh }}</span>
+  </nav>
+
+  <header class="page-head">
+    <div class="row-1">
+      <span class="tier-badge is-green">N</span>
+      <p class="eyebrow" style="margin:0;">
+        {{ track.title_en }}
+        {% if page.phase %}· Phase {{ page.phase }}{% endif %}
+        {% if page.step %}· Step {{ '%02d'|format(page.step) }}{% endif %}
+      </p>
+    </div>
+    <h1>{{ page.title_zh }}</h1>
+    <p class="en">{{ page.title_en }}</p>
+    {% if page.subtitle_zh %}<p class="sub">{{ page.subtitle_zh }}</p>{% endif %}
+  </header>
+
+  <section class="chart-card">
+    <div class="chart-head">
+      <div>
+        <h3>{{ page.title_zh }}</h3>
+        <span class="en">{{ page.title_en }}</span>
+      </div>
+      <div class="right">
+        {% if explainer %}
+        <button class="cap-btn" data-cap-trigger type="button" aria-label="打开图解">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          图解 · Explainer
+          <kbd style="font-family:var(--font-mono);font-size:10px;padding:1px 4px;background:rgba(0,0,0,.2);border-radius:3px;margin-left:2px;">D</kbd>
+        </button>
+        {% endif %}
+        <span class="chip is-dim">image · static analysis</span>
+        <a href="{{ page.src }}" target="_blank" rel="noopener">查看原图 · Full-res ↗</a>
+      </div>
+    </div>
+    {% if page.kpis %}
+    <div class="chart-caption">
+      {% for k in page.kpis %}<span class="chip" style="margin-right:6px;">{{ k }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    <div class="chart-png-wrap">
+      <img class="chart-png" src="{{ page.src }}" alt="{{ page.title_en }}"
+           loading="lazy" decoding="async" data-lightbox>
+    </div>
+  </section>
+
+  <nav class="nav-foot">
+    {% if prev_page %}
+    <a class="nav-link-card" data-nav="prev" href="{{ assets_prefix }}{{ prev_page.url.lstrip('/') }}index.html">
+      <div class="lab">← 上一页 · Prev</div>
+      <div class="title">{{ prev_page.title_zh }}</div>
+      <div class="en">{{ prev_page.title_en }}</div>
+    </a>
+    {% else %}<span class="nav-link-card is-pad"></span>{% endif %}
+
+    {% if next_page %}
+    <a class="nav-link-card is-next" data-nav="next" href="{{ assets_prefix }}{{ next_page.url.lstrip('/') }}index.html">
+      <div class="lab">下一页 · Next →</div>
+      <div class="title">{{ next_page.title_zh }}</div>
+      <div class="en">{{ next_page.title_en }}</div>
+    </a>
+    {% else %}<span class="nav-link-card is-pad"></span>{% endif %}
+  </nav>
+</article>
+{% endblock %}
