@@ -1,0 +1,10 @@
+{
+  "step": 7,
+  "country": "FR",
+  "snapshot": "2026-01",
+  "title_zh": "k-core 层级位置",
+  "title_en": "k-core depth",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}

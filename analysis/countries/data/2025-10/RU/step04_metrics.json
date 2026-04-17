@@ -1,0 +1,10 @@
+{
+  "step": 4,
+  "country": "RU",
+  "snapshot": "2025-10",
+  "title_zh": "BGP 前缀与 RPKI",
+  "title_en": "BGP prefixes & RPKI",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "GB",
+  "snapshot": "2025-01",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": 3,
+    "best_ranks_per_system": {
+      "APNIC eyeball estimates (NU)": 1,
+      "APNIC eyeball estimates (ZW)": 1,
+      "APNIC eyeball estimates (PN)": 1,
+      "APNIC eyeball estimates (GB)": 1,
+      "APNIC eyeball estimates (BL)": 1,
+      "APNIC eyeball estimates (GG)": 1,
+      "APNIC eyeball estimates (AQ)": 1,
+      "APNIC eyeball estimates (RU)": 1,
+      "APNIC eyeball estimates (CX)": 1,
+      "APNIC eyeball estimates (VU)": 1
+    }
+  }
+}

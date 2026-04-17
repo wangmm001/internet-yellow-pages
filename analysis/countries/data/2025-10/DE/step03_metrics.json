@@ -1,0 +1,25 @@
+{
+  "step": 3,
+  "country": "DE",
+  "snapshot": "2025-10",
+  "title_zh": "全球规模排名",
+  "title_en": "Global scale rank",
+  "metrics": {
+    "as_count": {
+      "rank": 8,
+      "value": 3272
+    },
+    "prefix_count": {
+      "rank": 9,
+      "value": 38558
+    },
+    "ixp_count": {
+      "rank": 3,
+      "value": 53
+    },
+    "facility_count": {
+      "rank": 2,
+      "value": 274
+    }
+  }
+}

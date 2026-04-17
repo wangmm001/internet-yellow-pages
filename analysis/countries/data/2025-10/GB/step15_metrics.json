@@ -1,0 +1,11 @@
+{
+  "step": 15,
+  "country": "GB",
+  "snapshot": "2025-10",
+  "title_zh": "DNS 主权率",
+  "title_en": "DNS sovereignty",
+  "metrics": {
+    "total_domains": 0,
+    "domestic_pct": 0.0
+  }
+}

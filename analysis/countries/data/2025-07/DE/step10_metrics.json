@@ -1,0 +1,10 @@
+{
+  "step": 10,
+  "country": "DE",
+  "snapshot": "2025-07",
+  "title_zh": "集中度 Gini/HHI",
+  "title_en": "Concentration",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}

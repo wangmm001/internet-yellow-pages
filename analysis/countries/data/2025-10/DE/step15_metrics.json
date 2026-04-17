@@ -1,0 +1,24 @@
+{
+  "step": 15,
+  "country": "DE",
+  "snapshot": "2025-10",
+  "title_zh": "DNS 主权率",
+  "title_en": "DNS sovereignty",
+  "metrics": {
+    "total_domains": 344063,
+    "ns_sampled": 300,
+    "domestic_pct": 1.03,
+    "operator_country_distribution": {
+      "tld:de": 164005,
+      "tld:com": 68656,
+      "tld:net": 39322,
+      "US": 29293,
+      "tld:info": 9666,
+      "tld:org": 9382,
+      "tld:eu": 6794,
+      "tld:biz": 6287,
+      "DE": 3550,
+      "tld:co": 2914
+    }
+  }
+}

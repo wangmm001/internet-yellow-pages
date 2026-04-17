@@ -1,0 +1,10 @@
+{
+  "step": 6,
+  "country": "GB",
+  "snapshot": "2025-10",
+  "title_zh": "全球中心性位置",
+  "title_en": "Global centrality ranks",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}

@@ -2,18 +2,23 @@
 
 ## Nine-Country Cross-Country + Time-Series Internet Hierarchy Analysis
 
-> 基于 Internet Yellow Pages (IYP) Neo4j 知识图谱 · 快照 2026-04 与 2025-04
-> Based on IYP knowledge graph · snapshots 2026-04 and 2025-04
+> 基于 Internet Yellow Pages (IYP) Neo4j 知识图谱 · 6 个季度快照
+> 2025-01 / 2025-04 / 2025-07 / 2025-10 / 2026-01 / 2026-04
+> Based on IYP knowledge graph · 6 quarterly snapshots (2025-01 … 2026-04)
 
 ## 概览 · Overview
 
 在 `analysis/china/` 20 步方法论基础上，将同样的"本体全覆盖 + 多尺度"分析方法
-扩展到 **9 个重点国家**（US / CN / JP / IN / DE / GB / FR / NL / RU），并进一步
-对比 **2025-04 → 2026-04** 两个快照的演化。
+扩展到 **9 个重点国家**（US / CN / JP / IN / DE / GB / FR / NL / RU），并对比
+**2025-01 → 2026-04 六个季度快照**的时序演化——从原来的年度双点升级为季度六点，
+可以计算趋势斜率、CAGR、拐点（方向反转）与全球排名波动带。
 
 Extends the `analysis/china/` 20-step methodology to **9 countries**
-(US / CN / JP / IN / DE / GB / FR / NL / RU) on the current 2026-04 snapshot,
-then adds **2025-04 → 2026-04** year-over-year time-series evolution.
+(US / CN / JP / IN / DE / GB / FR / NL / RU) across **6 quarterly snapshots
+from 2025-01 to 2026-04**. Upgraded from the previous 2-point annual
+comparison to a 6-point quarterly time-series — now supporting trend slopes,
+CAGR, inflection (direction-reversal) detection, and global-rank fluctuation
+bands.
 
 ## 目录结构 · Layout
 
@@ -26,12 +31,18 @@ analysis/countries/
 ├── cross_country.py            # 跨国对比合成仪表板（2026-04）
 ├── dependency_matrix.py        # 9×9 跨国依赖矩阵
 ├── content_geography.py        # 可见 Web 的物理托管分布
-├── evolution.py                # 2025 vs 2026 时序演化
+├── evolution.py                # 6-快照 N 点时序演化（趋势/CAGR/拐点/排名波动带）
 ├── run_all.py                  # 主编排（--snapshot / --countries / --verify / --report）
-├── snapshot_swap.sh            # 辅助脚本：数据库 dump 切换
+├── extract_snapshot.sh         # 单快照生命周期：download → load → extract → purge
+├── run_pipeline.sh             # 顺序跑多个新季度快照（dumps 保留在 dumps_archive/）
+├── snapshot_swap.sh            # 旧脚本：原地覆盖式切换（已被 extract_snapshot.sh 取代）
 ├── data/
-│   ├── 2026-04/<CC>/step*_metrics.json + *.csv
-│   └── 2025-04/<CC>/...（dump swap 后）
+│   ├── 2025-01/<CC>/step*_metrics.json + *.csv
+│   ├── 2025-04/<CC>/...
+│   ├── 2025-07/<CC>/...
+│   ├── 2025-10/<CC>/...
+│   ├── 2026-01/<CC>/...
+│   └── 2026-04/<CC>/...
 └── html/
     ├── index.html              # 主导航
     ├── profile_<CC>.html       # 9 个国家 profile（~4.9 MB each）

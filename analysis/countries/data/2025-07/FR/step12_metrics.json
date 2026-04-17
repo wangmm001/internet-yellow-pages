@@ -1,0 +1,10 @@
+{
+  "step": 12,
+  "country": "FR",
+  "snapshot": "2025-07",
+  "title_zh": "机房分布",
+  "title_en": "Facility distribution",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}

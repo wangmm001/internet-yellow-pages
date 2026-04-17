@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "IN",
+  "snapshot": "2025-01",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 24,
+    "best_caida_rank": 22,
+    "best_ranks_per_system": {
+      "APNIC eyeball estimates (IN)": 1,
+      "APNIC eyeball estimates (KH)": 1,
+      "APNIC eyeball estimates (SG)": 8,
+      "APNIC eyeball estimates (SI)": 10,
+      "APNIC eyeball estimates (PT)": 13,
+      "APNIC eyeball estimates (LU)": 15,
+      "APNIC eyeball estimates (BE)": 17,
+      "APNIC eyeball estimates (EE)": 19,
+      "APNIC eyeball estimates (GR)": 20,
+      "CAIDA ASRank": 22
+    }
+  }
+}

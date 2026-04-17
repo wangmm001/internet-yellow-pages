@@ -1,0 +1,10 @@
+{
+  "step": 9,
+  "country": "RU",
+  "snapshot": "2025-01",
+  "title_zh": "入向 Hegemony",
+  "title_en": "Inbound hegemony",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "step": 1,
+  "country": "CN",
+  "snapshot": "2025-10",
+  "title_zh": "AS 清册与标签分布",
+  "title_en": "AS inventory & tag breakdown",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}

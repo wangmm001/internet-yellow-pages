@@ -1,0 +1,25 @@
+{
+  "step": 3,
+  "country": "JP",
+  "snapshot": "2025-07",
+  "title_zh": "全球规模排名",
+  "title_en": "Global scale rank",
+  "metrics": {
+    "as_count": {
+      "rank": 17,
+      "value": 1339
+    },
+    "prefix_count": {
+      "rank": 27,
+      "value": 13603
+    },
+    "ixp_count": {
+      "rank": 9,
+      "value": 26
+    },
+    "facility_count": {
+      "rank": 14,
+      "value": 74
+    }
+  }
+}

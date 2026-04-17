@@ -1,0 +1,21 @@
+{
+  "step": 15,
+  "country": "CN",
+  "snapshot": "2025-10",
+  "title_zh": "DNS 主权率",
+  "title_en": "DNS sovereignty",
+  "metrics": {
+    "total_domains": 182742,
+    "ns_sampled": 300,
+    "domestic_pct": 2.45,
+    "operator_country_distribution": {
+      "tld:com": 171455,
+      "CN": 4479,
+      "tld:net": 3195,
+      "US": 1797,
+      "tld:cn": 1679,
+      "tld:biz": 77,
+      "tld:info": 60
+    }
+  }
+}

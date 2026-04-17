@@ -124,11 +124,14 @@ echo "$LOG_PREFIX === start $(date -Iseconds) ==="
 
 mkdir -p "$ARCHIVE" "$DUMPS" "$DATA"
 
+# Portable file-size helper (macOS `stat -f%z`, Linux `stat -c%s`)
+fsize() { stat -f%z "$1" 2>/dev/null || stat -c%s "$1" 2>/dev/null || echo 0; }
+
 # 1. Download (resumeable, skipped if file already complete)
 if [ -f "$DUMP_FILE" ]; then
     REMOTE_SIZE=$(curl -sI "$DUMP_URL" --max-time 30 \
         | awk -v IGNORECASE=1 '/content-length/{print $2}' | tr -d '\r')
-    LOCAL_SIZE=$(stat -c%s "$DUMP_FILE" 2>/dev/null || echo 0)
+    LOCAL_SIZE=$(fsize "$DUMP_FILE")
     if [ "$LOCAL_SIZE" = "$REMOTE_SIZE" ]; then
         echo "$LOG_PREFIX dump already complete: $DUMP_FILE"
     else
@@ -146,15 +149,15 @@ cp "$DUMP_FILE" "$DUMPS/neo4j.dump"
 
 # 3. Purge previously loaded DB so loader will re-run
 echo "$LOG_PREFIX stopping any running Neo4j"
-sg docker -c 'docker stop iyp iyp_loader 2>/dev/null' || true
-sg docker -c 'docker rm iyp iyp_loader 2>/dev/null' || true
+docker stop iyp iyp_loader 2>/dev/null || true
+docker rm iyp iyp_loader 2>/dev/null || true
 echo "$LOG_PREFIX purging loaded database"
 rm -rf "$DATA/databases" "$DATA/transactions"
 
 # 4. Bring up loader + DB
 echo "$LOG_PREFIX starting docker compose --profile local"
 cd "$REPO"
-uid="$(id -u)" gid="$(id -g)" sg docker -c 'docker compose --profile local up -d'
+uid="$(id -u)" gid="$(id -g)" docker compose --profile local up -d
 
 # 5. Wait for Neo4j readiness (up to 60 min)
 echo "$LOG_PREFIX waiting for Neo4j readiness"
@@ -191,8 +194,8 @@ python3 -m analysis.countries.run_all --verify --snapshot "$SNAP" || true
 
 # 8. Tear down
 echo "$LOG_PREFIX stopping Neo4j and purging loaded DB"
-sg docker -c 'docker stop iyp iyp_loader 2>/dev/null' || true
-sg docker -c 'docker rm iyp iyp_loader 2>/dev/null' || true
+docker stop iyp iyp_loader 2>/dev/null || true
+docker rm iyp iyp_loader 2>/dev/null || true
 rm -rf "$DATA/databases" "$DATA/transactions"
 # Remove transient symlink; keep archive copy
 rm -f "$DUMPS/neo4j.dump"
@@ -587,17 +590,25 @@ def build(snapshots=None):
     )
     apply_plotly_theme(panel5)
 
-    # Stitch to a single HTML file
+    # Stitch all panels into a single body, then wrap with the banner template.
+    # save_consolidated_html(body_html, name, title_zh, title_en, subtitle=''):
+    intro = (
+        f'<p style="color:{TEXT_SECONDARY};padding:0 16px;font-size:14px">'
+        f'基于 {len(snapshots)} 个季度快照（{", ".join(snapshots)}）对 '
+        f'{len(countries)} 国 × {len(METRICS_TRACKED)} 指标的时序分析。'
+        f'CAGR = 按月复利折算到年。'
+        f'<br>Time-series analysis across {len(snapshots)} quarterly snapshots '
+        f'for {len(countries)} countries × {len(METRICS_TRACKED)} metrics. '
+        f'CAGR is monthly-compounded, annualized.'
+        f'</p>'
+    )
+    body = intro + plotly_inline_once(
+        [panel1, panel2, panel3, panel4, panel5])
     save_consolidated_html(
+        body,
         'evolution.html',
-        title_zh=f'时序演化 · {snapshots[0]} → {snapshots[-1]}（{len(snapshots)} 季度）',
-        title_en=f'Time-Series Evolution · {snapshots[0]} → {snapshots[-1]} ({len(snapshots)} quarters)',
-        figs=[panel1, panel2, panel3, panel4, panel5],
-        intro_zh=(f'基于 {len(snapshots)} 个季度快照（{", ".join(snapshots)}）对 {len(countries)} 国 '
-                  f'× {len(METRICS_TRACKED)} 指标的时序分析。CAGR = 按月复利折算到年。'),
-        intro_en=(f'Time-series analysis across {len(snapshots)} quarterly snapshots '
-                  f'({", ".join(snapshots)}) for {len(countries)} countries × '
-                  f'{len(METRICS_TRACKED)} metrics. CAGR is monthly-compounded, annualized.'),
+        f'时序演化 · {snapshots[0]} → {snapshots[-1]}（{len(snapshots)} 季度）',
+        f'Time-Series Evolution · {snapshots[0]} → {snapshots[-1]} ({len(snapshots)} quarters)',
     )
 ```
 

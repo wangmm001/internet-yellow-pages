@@ -1,0 +1,22 @@
+{
+  "step": 15,
+  "country": "IN",
+  "snapshot": "2026-01",
+  "title_zh": "DNS 主权率",
+  "title_en": "DNS sovereignty",
+  "metrics": {
+    "total_domains": 159271,
+    "ns_sampled": 300,
+    "domestic_pct": 0.41,
+    "operator_country_distribution": {
+      "tld:com": 70954,
+      "US": 66641,
+      "tld:in": 15159,
+      "tld:pro": 2246,
+      "tld:net": 2209,
+      "tld:org": 995,
+      "IN": 649,
+      "tld:eu": 418
+    }
+  }
+}

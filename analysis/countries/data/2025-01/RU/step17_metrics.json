@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "RU",
+  "snapshot": "2025-01",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": 13,
+    "best_ranks_per_system": {
+      "APNIC eyeball estimates (RU)": 2,
+      "APNIC eyeball estimates (IS)": 5,
+      "APNIC eyeball estimates (CY)": 6,
+      "APNIC eyeball estimates (MD)": 11,
+      "APNIC eyeball estimates (EE)": 11,
+      "CAIDA ASRank": 13,
+      "APNIC eyeball estimates (FI)": 14,
+      "APNIC eyeball estimates (BE)": 15,
+      "APNIC eyeball estimates (GE)": 16,
+      "APNIC eyeball estimates (UA)": 16
+    }
+  }
+}

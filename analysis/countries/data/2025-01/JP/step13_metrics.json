@@ -1,0 +1,12 @@
+{
+  "step": 13,
+  "country": "JP",
+  "snapshot": "2025-01",
+  "title_zh": "IXP × 机房 桥梁",
+  "title_en": "IXP × Facility bridge",
+  "metrics": {
+    "distinct_ixps": 185,
+    "distinct_facilities": 916,
+    "tripartite_rows": 84256
+  }
+}

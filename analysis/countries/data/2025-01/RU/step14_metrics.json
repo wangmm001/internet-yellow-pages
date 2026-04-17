@@ -1,0 +1,10 @@
+{
+  "step": 14,
+  "country": "RU",
+  "snapshot": "2025-01",
+  "title_zh": "DNS 托管版图",
+  "title_en": "DNS hosting",
+  "metrics": {
+    "_error": "exception: FileNotFoundError(2, 'No such file or directory')"
+  }
+}
