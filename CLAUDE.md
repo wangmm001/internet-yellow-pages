@@ -97,3 +97,62 @@ Controls which crawlers/post-processors to run and stores API keys for data sour
 ## Git Branch Naming
 
 `<type>/<issue|issue-number>/{<additional-fixes>}` where type is one of: `wip`, `feat`, `bug`, `exp`.
+
+## Analysis Code (`analysis/`)
+
+This directory is separate from the crawler pipeline and contains *read-only* scientific
+analysis of the IYP knowledge graph. See `analysis/README.md` for the bilingual index.
+
+Three primary studies exist, each with its own `README.md`:
+
+- `analysis/complex_network/` — 24-step global complex-network analysis (degree
+  distribution, k-core, rich-club, community detection, percolation, cascades, null
+  models). Matplotlib PNG outputs land in `analysis/complex_network_images/`.
+- `analysis/china/` — 20-step "China in the Global Internet Hierarchy" study; produces
+  interactive Plotly/Pyvis HTMLs in `analysis/china/html/` with bilingual banners.
+  Entry point: `python3 -m analysis.china.run_all [--step N | --verify | --report]`.
+- `analysis/cloudflare_analysis.py` — 25-step Cloudflare single-AS deep dive.
+
+### Data-cache convention (important)
+
+The analysis scripts read *large regeneratable CSVs* that were extracted from Neo4j into
+**`data_cache/complex_network/`** at the repo root. This directory is git-ignored
+because the files are large (>200 MB combined) and can be rebuilt from Neo4j at any time.
+
+- `DATA_DIR` is defined in `analysis/complex_network/utils.py` and defaults to
+  `<repo_root>/data_cache/complex_network/`. Override with
+  `IYP_ANALYSIS_DATA_DIR=/other/path`.
+- To rebuild the cache, run the extractor scripts (they require Neo4j to be up):
+  ```bash
+  python3 -m analysis.complex_network.step01_extract_bgp_layer
+  python3 -m analysis.complex_network.step02_extract_dns_layer
+  python3 -m analysis.complex_network.step03_extract_physical_layer
+  python3 -m analysis.complex_network.step04_extract_org_censorship
+  ```
+- Small CN-specific analysis results (`analysis/china/data/cn_*.csv` + per-step metrics
+  JSON) are *committed* — they are tiny and serve as provenance for the HTMLs.
+
+### Conventions for new analysis scripts
+
+- Dark theme colors are centralized in `analysis/complex_network/utils.py` (`COLORS`
+  dict, `DARK_BG`, `DARK_PANEL`, `DARK_BORDER`, `TEXT_PRIMARY/SECONDARY`). Reuse them
+  rather than introducing new palettes.
+- Complex-network scripts (`step13_concentration_hhi.py`, `step07_centrality_analysis.py`,
+  etc.) export reusable functions — import them rather than reimplementing (e.g.
+  `from analysis.complex_network.step13_concentration_hhi import gini_coefficient,
+  hhi_index, lorenz_curve`).
+- HTML outputs use Plotly with `include_plotlyjs='inline'` (for offline viewing) or
+  Pyvis for network graphs; see `analysis/china/common.py` for `save_plotly_html()`,
+  `save_pyvis_html()`, `save_placeholder_html()`, and the `try_neo4j_or_cached()`
+  fallback pattern.
+- Every analysis step in the `analysis/china/` convention emits four artifacts: CSV +
+  metrics JSON + HTML + a writeup sidebar paragraph. The `run_all.py --report` mode
+  regenerates the bilingual `README.md` from metrics JSONs.
+
+### Other gitignored paths
+
+- `data_cache/` — regeneratable analysis inputs (see above).
+- `plugins/` — Neo4j plugin jars (e.g. `apoc.jar`), downloaded separately.
+- `dumps/`, `data/` — Neo4j database dumps and live database files (per the upstream
+  README).
+- `config.json` — credentials and API keys (`config.json.example` is the template).
