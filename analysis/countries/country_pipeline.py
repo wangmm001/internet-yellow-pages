@@ -220,19 +220,31 @@ def build_profile(country, snapshot, results):
     else:
         radar = go.Figure()
 
-    # Narrative
+    # Narrative — use safe formatters so missing / non-numeric values don't crash
+    def _n(v):
+        try:
+            return f'{int(v):,}'
+        except (TypeError, ValueError):
+            return '?'
+
+    def _f(v, spec='.1f'):
+        try:
+            return format(float(v), spec)
+        except (TypeError, ValueError):
+            return '?'
+
     narr = f'''
     <div class="sidebar-note">
     <b>摘要 · Summary</b><br><br>
-    {bilingual(country)} 拥有 AS {s1.get("total_ases", "?"):,} 个，全球排名
-    #{s3.get("as_count", {}).get("rank", "?")}；BGP 前缀 {s4.get("total_prefixes", "?")}
-    (IPv4 {s4.get("v4_prefixes", "?"):,} / IPv6 {s4.get("v6_prefixes", "?"):,})，
-    RPKI 覆盖 {s4.get("rpki_rate_pct", 0):.1f}%。<br>
+    {bilingual(country)} 拥有 AS {_n(s1.get("total_ases"))} 个，全球排名
+    #{s3.get("as_count", {}).get("rank", "?")}；BGP 前缀 {_n(s4.get("total_prefixes"))}
+    (IPv4 {_n(s4.get("v4_prefixes"))} / IPv6 {_n(s4.get("v6_prefixes"))})，
+    RPKI 覆盖 {_f(s4.get("rpki_rate_pct"))}%。<br>
     全球最佳 PageRank 排名 #{(s6.get("best_ranks") or {}).get("pagerank", "?")}，
     深入 k-core 达 {s7.get("deepest_k_in_country", "?")} 层。<br>
-    出向依赖边 {s8.get("outbound_edges", 0)}，入向依赖边 {s9.get("inbound_edges", 0)}；
-    DNS 本土运营商占比 {dns_sov_pct:.1f}%。<br>
-    <b>综合主权指数 · Sovereignty Index = {s20.get("composite_sovereignty_index", 0):.3f}</b>
+    出向依赖边 {_n(s8.get("outbound_edges"))}，入向依赖边 {_n(s9.get("inbound_edges"))}；
+    DNS 本土运营商占比 {_f(dns_sov_pct)}%。<br>
+    <b>综合主权指数 · Sovereignty Index = {_f(s20.get("composite_sovereignty_index"), ".3f")}</b>
     </div>
     '''
 
