@@ -33,13 +33,16 @@ if [ -f "$DUMP_FILE" ]; then
     if [ "$LOCAL_SIZE" = "$REMOTE_SIZE" ]; then
         echo "$LOG_PREFIX dump already complete: $DUMP_FILE"
     else
-        echo "$LOG_PREFIX resume download (local=$LOCAL_SIZE remote=$REMOTE_SIZE)"
-        curl -L -C - --progress-bar "$DUMP_URL" -o "$DUMP_FILE"
+        PCT=$(( LOCAL_SIZE * 100 / (REMOTE_SIZE + 1) ))
+        echo "$LOG_PREFIX resume download from ${PCT}% (local=$LOCAL_SIZE remote=$REMOTE_SIZE)"
+        curl -L -C - --no-progress-meter "$DUMP_URL" -o "$DUMP_FILE"
     fi
 else
-    echo "$LOG_PREFIX downloading $DUMP_URL"
-    curl -L --progress-bar "$DUMP_URL" -o "$DUMP_FILE"
+    echo "$LOG_PREFIX downloading $DUMP_URL (quiet; expect 5–30 min)"
+    curl -L --no-progress-meter "$DUMP_URL" -o "$DUMP_FILE"
 fi
+FINAL_SIZE=$(fsize "$DUMP_FILE")
+echo "$LOG_PREFIX dump size: $((FINAL_SIZE / 1024 / 1024)) MB"
 
 # 2. Stage dump for loader
 echo "$LOG_PREFIX staging dump → $DUMPS/neo4j.dump"
