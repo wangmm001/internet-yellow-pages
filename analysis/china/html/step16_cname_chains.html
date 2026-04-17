@@ -1,35 +1,25 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        
-            <script src="lib/bindings/utils.js"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            
-        
-<center>
-<h1></h1>
-</center>
-
-<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
-<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
-        <link
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Step 16 · CNAME 跨境链 · 中国互联网全球位置</title>
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
           crossorigin="anonymous"
         />
-        <script
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
           crossorigin="anonymous"
         ></script>
-
-
-        <center>
-          <h1></h1>
-        </center>
-        <style type="text/css">
+<script src="lib/bindings/utils.js"></script>
+<style type="text/css">
 
              #mynetwork {
                  width: 100%;
@@ -46,37 +36,44 @@
 
              
         </style>
-    
-<style>
-  body { background:#0D1117; color:#E6EDF3; margin:0; padding:0;
-         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
-  .step-banner { background:#161B22; border-left:6px solid #FF6B6B; padding:18px 28px;
-                  border-bottom:1px solid #30363D; }
-  .step-banner h1 { margin:0 0 4px 0; font-size:22px; color:#E6EDF3; }
-  .step-banner h2 { margin:0; font-size:14px; font-weight:400; color:#8B949E; }
-  .step-footer { padding:12px 28px; font-size:12px; color:#8B949E;
-                  border-top:1px solid #30363D; margin-top:18px; }
-  a { color:#FF6B6B; text-decoration:none; }
-  a:hover { text-decoration:underline; }
-  .content { padding:18px 28px; }
-  .sidebar-note { background:#161B22; border:1px solid #30363D; padding:10px 14px;
-                   margin:10px 0; border-radius:6px; font-size:13px; color:#8B949E; }
-  table { border-collapse:collapse; width:100%; color:#E6EDF3; font-size:13px; }
-  th, td { border:1px solid #30363D; padding:6px 10px; text-align:left; }
-  th { background:#161B22; }
-</style>
+</head>
+<body>
+<header class="top-nav">
+  <a class="nav-brand" href="index.html">
+    <span class="logo">中</span>
+    <span>
+      <div class="brand-title">CN in Global Internet</div>
+      <div class="brand-sub">中国互联网全球位置 · 20-Step IYP Analysis</div>
+    </span>
+  </a>
+  <span class="nav-spacer"></span>
+  <nav class="nav-tabs"><a class="nav-tab" href="index.html#phase-A">A · 范围与身份</a><a class="nav-tab" href="index.html#phase-B">B · BGP 拓扑位置</a><a class="nav-tab" href="index.html#phase-C">C · 依赖与 Hegemony</a><a class="nav-tab" href="index.html#phase-D">D · 物理基础设施</a><a class="nav-tab active" href="index.html#phase-E">E · DNS / 内容 / 排名</a><a class="nav-tab" href="index.html#phase-F">F · 安全 / 测量 / 综合</a></nav>
+  <div class="nav-actions">
+    <button class="icon-btn" data-action="toggle-theme" aria-label="切换主题 / Toggle theme" title="切换主题 · toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+    <a class="icon-btn" href="index.html" aria-label="返回首页 / Home" title="首页 · home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 2l9 7.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg></a>
+  </div>
+</header>
+<div class="shell">
+<aside class="side-toc"><h4>A · 范围与身份</h4><ul><li><a href="step01_scope.html" data-current="false"><span class="sn">01</span><span>中国自治系统清册</span></a></li><li><a href="step02_top_as.html" data-current="false"><span class="sn">02</span><span>头部自治系统身份档案</span></a></li><li><a href="step03_part1.html" data-current="false"><span class="sn">03</span><span>全球规模排名 <span style="font-size:10px;color:#8B949E;">×4</span></span></a></li></ul><h4>B · BGP 拓扑位置</h4><ul><li><a href="step04_part1.html" data-current="false"><span class="sn">04</span><span>BGP 前缀与 RPKI <span style="font-size:10px;color:#8B949E;">×2</span></span></a></li><li><a href="step05_peering_graph.html" data-current="false"><span class="sn">05</span><span>对等互联子图</span></a></li><li><a href="step06_centrality.html" data-current="false"><span class="sn">06</span><span>全球中心性位置</span></a></li><li><a href="step07_kcore.html" data-current="false"><span class="sn">07</span><span>k-core 层级位置</span></a></li></ul><h4>C · 依赖与 Hegemony</h4><ul><li><a href="step08_depends_on_world.html" data-current="false"><span class="sn">08</span><span>出向 Hegemony</span></a></li><li><a href="step09_dependents.html" data-current="false"><span class="sn">09</span><span>入向 Hegemony</span></a></li><li><a href="step10_concentration.html" data-current="false"><span class="sn">10</span><span>集中度与 HHI</span></a></li></ul><h4>D · 物理基础设施</h4><ul><li><a href="step11_part1.html" data-current="false"><span class="sn">11</span><span>IXP 互联生态 <span style="font-size:10px;color:#8B949E;">×2</span></span></a></li><li><a href="step12_facilities.html" data-current="false"><span class="sn">12</span><span>机房部署</span></a></li><li><a href="step13_ixp_fac_bridge.html" data-current="false"><span class="sn">13</span><span>IXP × 机房三部图</span></a></li></ul><h4>E · DNS / 内容 / 排名</h4><ul><li><a href="step14_dns_hosting.html" data-current="false"><span class="sn">14</span><span>DNS 托管版图</span></a></li><li><a href="step15_dns_authority.html" data-current="false"><span class="sn">15</span><span>.cn DNS 主权</span></a></li><li><a href="step16_cname_chains.html" data-current="true"><span class="sn">16</span><span>CNAME 跨境链</span></a></li><li><a href="step17_rankings.html" data-current="false"><span class="sn">17</span><span>多排名位置</span></a></li></ul><h4>F · 安全 / 测量 / 综合</h4><ul><li><a href="step18_censorship.html" data-current="false"><span class="sn">18</span><span>审查拓扑</span></a></li><li><a href="step19_atlas.html" data-current="false"><span class="sn">19</span><span>Atlas 观测点</span></a></li><li><a href="step20_part1.html" data-current="false"><span class="sn">20</span><span>综合仪表板 <span style="font-size:10px;color:#8B949E;">×3</span></span></a></li></ul></aside>
+<main class="step-page">
+<nav class="breadcrumb"><a href="index.html">首页 Home</a><span class="sep">›</span><a href="index.html#phase-E">E · DNS / 内容 / 排名</a><span class="sep">›</span><span class="current">Step 16 · CNAME 跨境链</span></nav>
+<section class="step-hero">
+  <div class="eyebrow">Phase E · DNS / 内容 / 排名</div>
+  <h1>Step 16 · CNAME 跨境链</h1>
+  <p class="en-sub">Cross-Border CNAME Chains</p>
+  <div class="kpi-strip"><div class="kpi"><div class="v">跨境链</div><div class="k">CNAME 桥接</div></div><div class="kpi"><div class="v">外部 CDN</div><div class="k">大量使用</div></div></div>
+</section>
 
-<style>
-  .chart-caption { background:#161B22; border-left:3px solid #4ECDC4;
-                   padding:14px 20px 14px 22px; margin:10px 0 28px 0;
-                   border-radius:0 6px 6px 0; color:#C9D1D9; font-size:14px;
-                   line-height:1.85; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; }
-  .chart-caption b { color:#E6EDF3; }
-  .chart-caption .label { display:inline-block; background:#4ECDC4; color:#0D1117;
-                          padding:2px 8px; border-radius:10px; font-size:12px;
-                          font-weight:600; margin-right:10px; vertical-align:middle; }
-</style>
-</head><body style="background:#0D1117;"><div class="step-banner"><h1>Step 16 · 跨境 CNAME 别名链<span style="margin-left:16px;color:#4ECDC4;font-size:12px;">[Neo4j live]</span></h1><h2>CNAME Chains Crossing China</h2></div><div class="content"><div class="sidebar-note"><b>假设 Hypothesis:</b> CNAME 链揭示"运营依赖"而非 IP 层依赖。大量全球网站把 CDN/WAF 外包到 Cloudflare / Akamai；中国云服务的 CNAME 受众范围可反映"被中国 Cloud 承载"的海外流量。<br>CNAME chains reveal operational dependencies invisible at the IP layer. The population of hosts CNAMEd into Chinese clouds reflects foreign traffic operationally hosted by CN providers.<br><br><b>中国数据结果 CN Finding:</b> 已采样 2500 条 CNAME 边指向中国云/CDN 目标；涉及目标主机名 1472 个。最受欢迎的运营商家族：Aliyun(1323), Huawei CDN(944), Tencent Cloud(141), Aliyun CDN(58), Baidu(17)。<br>2500 sampled alias edges pointing to CN cloud/CDN targets covering 1472 distinct CN target hostnames. Top families: Aliyun(1323), Huawei CDN(944), Tencent Cloud(141), Aliyun CDN(58), Baidu(17).<br><i style="color:#8B949E">参考 Reference: OpenINTEL ALIAS_OF via IYP live query</i></div><div style="background:#161B22;border:1px solid #30363D;border-radius:8px;">
+<article class="chart-card" id="chart-1">
+  <header class="chart-head">
+    <h2 class="plain-title">.cn 域名的 CNAME 链跨境指向谁？</h2>
+    <p class="analyst-sub">CNAME 跨境链路图</p>
+    <div class="chart-meta">
+      <button class="copy-btn" data-target="chart-1" title="复制图表链接" aria-label="Copy chart link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+      <button class="cap-btn" data-cap="cap-16-1" aria-controls="cap-16-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>图解</span></button>
+    </div>
+  </header>
+  <div class="chart-mount pyvis-mount"><div style="background:#161B22;border:1px solid #30363D;border-radius:8px;">
         <div class="card" style="width: 100%">
             
             
@@ -150,7 +147,14 @@
               }
               drawGraph();
         </script>
-    </div></div><div class="chart-caption"><span class="label">图解</span><b>这是什么图？</b> Pyvis 网络——展示中国域名 CNAME 链最终
+    </div></div></div>
+  <dialog id="cap-16-1" class="cap-dialog" aria-labelledby="cap-16-1-t">
+    <header class="cap-head">
+      <span class="cap-label">图解</span>
+      <span class="cap-title" id="cap-16-1-t">.cn 域名的 CNAME 链跨境指向谁？</span>
+      <button class="cap-close" aria-label="关闭 / close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </header>
+    <div class="cap-body"><b>这是什么图？</b> Pyvis 网络——展示中国域名 CNAME 链最终
         指向的"云服务家族"。
         <b>什么是 CNAME 链？</b> 一个域名 A.com 在 DNS 里可能指向 B.cloudfront.net
         (CNAME 别名)，B 又指向 C.aliyuncs.com——链一路追下去才能找到最终承载服务器。
@@ -164,4 +168,12 @@
         ⑤ Baidu 17、华为 11、网宿 CDN 3。
         <b>启示？</b> 阿里云和华为 CDN 构成"中国云 CNAME"的两大集合；
         腾讯、百度规模远小。这与各家在公有云/CDN 市场的格局一致——
-        阿里云是公有云第一、华为 CDN 是企业上云第一入口。</div><div class="step-footer">中国互联网全球位置分析 · Internet Yellow Pages · Step 16 / 20 · <a href="index.html">← 返回目录 / Back to index</a></div></body></html>
+        阿里云是公有云第一、华为 CDN 是企业上云第一入口。</div>
+  </dialog>
+</article>
+<footer class="step-foot"><a class="prev" href="step15_dns_authority.html"><span class="label">← 上一步</span><span class="title">Step 15 · .cn DNS 主权</span></a><a class="next" href="step17_rankings.html"><span class="label">下一步 →</span><span class="title">Step 17 · 多排名位置</span></a></footer>
+</main>
+</div>
+<script src="site.js" defer></script>
+</body>
+</html>

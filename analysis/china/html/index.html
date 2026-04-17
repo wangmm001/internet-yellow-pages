@@ -1,83 +1,58 @@
-<!doctype html><html lang="zh"><head><meta charset="utf-8">
-<title>中国互联网全球位置全景分析</title>
-
-<style>
-  body { background:#0D1117; color:#E6EDF3; margin:0; padding:0;
-         font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
-  .step-banner { background:#161B22; border-left:6px solid #FF6B6B; padding:18px 28px;
-                  border-bottom:1px solid #30363D; }
-  .step-banner h1 { margin:0 0 4px 0; font-size:22px; color:#E6EDF3; }
-  .step-banner h2 { margin:0; font-size:14px; font-weight:400; color:#8B949E; }
-  .step-footer { padding:12px 28px; font-size:12px; color:#8B949E;
-                  border-top:1px solid #30363D; margin-top:18px; }
-  a { color:#FF6B6B; text-decoration:none; }
-  a:hover { text-decoration:underline; }
-  .content { padding:18px 28px; }
-  .sidebar-note { background:#161B22; border:1px solid #30363D; padding:10px 14px;
-                   margin:10px 0; border-radius:6px; font-size:13px; color:#8B949E; }
-  table { border-collapse:collapse; width:100%; color:#E6EDF3; font-size:13px; }
-  th, td { border:1px solid #30363D; padding:6px 10px; text-align:left; }
-  th { background:#161B22; }
-</style>
-
-<style>
-  .headline { background:#161B22; padding:32px 28px 20px;
-               border-bottom:2px solid #FF6B6B; }
-  .headline h1 { margin:0 0 4px 0; color:#E6EDF3; font-size:28px; }
-  .headline h2 { margin:0 0 18px 0; color:#8B949E; font-size:16px;
-                  font-weight:400; }
-  .stats { display:flex; gap:14px; flex-wrap:wrap; }
-  .stat { background:#0D1117; border:1px solid #30363D; padding:12px 20px;
-           border-radius:8px; min-width:110px; text-align:center; }
-  .stat.hi { border-color:#FF6B6B; background:rgba(255,107,107,0.08); }
-  .stat-v { font-size:24px; color:#FF6B6B; font-weight:700; }
-  .stat-l { font-size:11px; color:#8B949E; margin-top:4px; line-height:1.3; }
-  .phase { color:#4ECDC4; margin-top:26px; padding-bottom:4px;
-            border-bottom:1px solid #30363D; font-size:16px; }
-  .ph-letter { background:#4ECDC4; color:#0D1117;
-                padding:2px 8px; border-radius:4px; font-size:14px; margin-right:8px; }
-  ol { list-style:none; padding:0; margin:6px 0 14px 0; }
-  ol li { margin:6px 0; }
-  ol li a { display:block; background:#161B22; border:1px solid #30363D;
-             border-left:4px solid #FF6B6B;
-             padding:10px 14px; border-radius:6px;
-             color:#E6EDF3; text-decoration:none; font-size:14px; }
-  ol li a:hover { border-left-color:#4ECDC4; background:#1a2028; }
-  ol li a .snum { color:#4ECDC4; font-weight:700; margin-right:8px; }
-  ol li a .en { color:#8B949E; font-size:12px; }
-</style></head><body>
-
-    <div class="headline">
-      <h1>中国互联网全球位置全景分析</h1>
-      <h2>China's Position in the Global Internet Hierarchy · 20-Step IYP Analysis</h2>
-      <div class="stats">
-        <div class="stat"><div class="stat-v">#3</div>
-             <div class="stat-l">AS 数<br>AS Count Rank</div></div>
-        <div class="stat"><div class="stat-v">#3</div>
-             <div class="stat-l">前缀数<br>Prefix Rank</div></div>
-        <div class="stat"><div class="stat-v">#16</div>
-             <div class="stat-l">IXP 数<br>IXP Rank</div></div>
-        <div class="stat"><div class="stat-v">#33</div>
-             <div class="stat-l">机房数<br>Facility Rank</div></div>
-        <div class="stat hi"><div class="stat-v">0.256</div>
-             <div class="stat-l">主权指数<br>Sovereignty Index</div></div>
-      </div>
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中国互联网全球位置全景 · China in Global Internet Hierarchy</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header class="top-nav">
+  <a class="nav-brand" href="index.html">
+    <span class="logo">中</span>
+    <span>
+      <div class="brand-title">CN in Global Internet</div>
+      <div class="brand-sub">中国互联网全球位置 · 20-Step IYP Analysis</div>
+    </span>
+  </a>
+  <span class="nav-spacer"></span>
+  <nav class="nav-tabs"><a class="nav-tab" href="index.html#phase-A">A · 范围与身份</a><a class="nav-tab" href="index.html#phase-B">B · BGP 拓扑位置</a><a class="nav-tab" href="index.html#phase-C">C · 依赖与 Hegemony</a><a class="nav-tab" href="index.html#phase-D">D · 物理基础设施</a><a class="nav-tab" href="index.html#phase-E">E · DNS / 内容 / 排名</a><a class="nav-tab" href="index.html#phase-F">F · 安全 / 测量 / 综合</a></nav>
+  <div class="nav-actions">
+    <button class="icon-btn" data-action="toggle-theme" aria-label="切换主题 / Toggle theme" title="切换主题 · toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+    <a class="icon-btn" href="index.html" aria-label="返回首页 / Home" title="首页 · home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 2l9 7.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg></a>
+  </div>
+</header>
+<main class="hub">
+  <section class="hub-hero">
+    <div class="eyebrow"><span class="dot"></span> IYP Snapshot 2026-04 · 20-Step Analysis</div>
+    <h1>中国互联网全球位置全景分析</h1>
+    <p class="en-title">China's Position in the Global Internet Hierarchy · built on the Internet Yellow Pages (IYP) Neo4j knowledge graph</p>
+    <p class="lede">
+      本分析以复杂网络科学、互联网主权与测量拓扑三重视角，系统考察中国在全球互联网 20 个维度上的分层位置与依赖关系。
+      每一张图附“图解”按钮，点击可查看 ~300 字的通俗解读，专业而不晦涩。
+      <br>
+      <span style="color:var(--muted);font-size:13px;">
+        This study examines China across 20 dimensions of the global Internet using complex-network science,
+        Internet sovereignty, and measurement topology. Click the "图解" badge on any chart for a plain-language explanation.
+      </span>
+    </p>
+    <div class="stat-rail"><div class="stat"><div class="big">#3</div><div class="k">AS 数</div><div class="en">AS Count Rank</div></div><div class="stat"><div class="big">#3</div><div class="k">前缀数</div><div class="en">Prefix Rank</div></div><div class="stat"><div class="big">#16</div><div class="k">IXP 数</div><div class="en">IXP Rank</div></div><div class="stat"><div class="big">#33</div><div class="k">机房数</div><div class="en">Facility Rank</div></div><div class="stat hi"><div class="big">0.256</div><div class="k">主权指数</div><div class="en">Sovereignty Index</div></div></div>
+    <div class="hub-actions">
+      <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="搜索步骤 / Search steps…" aria-label="search"><span class="search-kbd">/</span></div>
+      <div class="filter-row"><button class="filter-chip active" data-filter="all">全部</button><button class="filter-chip" data-filter="A">A · 范围与身份</button><button class="filter-chip" data-filter="B">B · BGP 拓扑位置</button><button class="filter-chip" data-filter="C">C · 依赖与 Hegemony</button><button class="filter-chip" data-filter="D">D · 物理基础设施</button><button class="filter-chip" data-filter="E">E · DNS / 内容 / 排名</button><button class="filter-chip" data-filter="F">F · 安全 / 测量 / 综合</button></div>
     </div>
-    
-<div class="content">
-<p style="color:#8B949E;font-size:14px;">
-本分析基于 Internet Yellow Pages (IYP) Neo4j 知识图谱（快照 2026-04），沿用
-<b>复杂网络科学 · 互联网主权 · 测量拓扑</b>的学术视角，按 20 个分析步骤考察中国
-在全球互联网体系中的分层位置与依赖关系。<br>
-This analysis uses the IYP Neo4j knowledge graph (snapshot 2026-04) to examine China's
-position in the global Internet hierarchy across 20 steps, framed by complex-network science,
-Internet sovereignty, and measurement-topology lenses.
-</p>
-<h3 class="phase"><span class="ph-letter">A</span> 范围与身份 Scope & Identity</h3><ol><li><a href="step01_scope.html"><span class="snum">01</span> 中国自治系统清册<br><span class="en">China AS Inventory & Scope</span></a></li><li><a href="step02_top_as.html"><span class="snum">02</span> 头部自治系统身份档案<br><span class="en">Top-20 Chinese ASes · Identity</span></a></li><li><a href="step03_global_ranks.html"><span class="snum">03</span> 全球规模排名<br><span class="en">China vs World at a Glance</span></a></li></ol><h3 class="phase"><span class="ph-letter">B</span> BGP 拓扑位置 BGP Topology</h3><ol><li><a href="step04_prefixes.html"><span class="snum">04</span> BGP 前缀与 RPKI<br><span class="en">CN BGP Prefix Footprint</span></a></li><li><a href="step05_peering_graph.html"><span class="snum">05</span> 对等互联子图<br><span class="en">CN AS Peering Subgraph</span></a></li><li><a href="step06_centrality.html"><span class="snum">06</span> 全球中心性位置<br><span class="en">CN in Global Centrality</span></a></li><li><a href="step07_kcore.html"><span class="snum">07</span> k-core 层级位置<br><span class="en">CN in Global k-Core</span></a></li></ol><h3 class="phase"><span class="ph-letter">C</span> 依赖与 Hegemony</h3><ol><li><a href="step08_depends_on_world.html"><span class="snum">08</span> 出向 Hegemony<br><span class="en">Who Does China Depend On</span></a></li><li><a href="step09_dependents.html"><span class="snum">09</span> 入向 Hegemony<br><span class="en">Who Depends on China</span></a></li><li><a href="step10_concentration.html"><span class="snum">10</span> 集中度与 HHI<br><span class="en">China Concentration & HHI</span></a></li></ol><h3 class="phase"><span class="ph-letter">D</span> 物理基础设施 Physical</h3><ol><li><a href="step11_ixp_landscape.html"><span class="snum">11</span> IXP 互联生态<br><span class="en">Chinese IXP Landscape</span></a></li><li><a href="step12_facilities.html"><span class="snum">12</span> 机房部署<br><span class="en">CN AS Facility Co-location</span></a></li><li><a href="step13_ixp_fac_bridge.html"><span class="snum">13</span> IXP×机房三部图<br><span class="en">IXP+Facility Tripartite</span></a></li></ol><h3 class="phase"><span class="ph-letter">E</span> DNS / 内容 / 排名 DNS/Content</h3><ol><li><a href="step14_dns_hosting.html"><span class="snum">14</span> DNS 托管版图<br><span class="en">CN DNS Hosting Footprint</span></a></li><li><a href="step15_dns_authority.html"><span class="snum">15</span> .cn DNS 主权<br><span class="en">.cn DNS Sovereignty</span></a></li><li><a href="step16_cname_chains.html"><span class="snum">16</span> CNAME 跨境链<br><span class="en">Cross-Border CNAME Chains</span></a></li><li><a href="step17_rankings.html"><span class="snum">17</span> 多排名位置<br><span class="en">CN in Global Rankings</span></a></li></ol><h3 class="phase"><span class="ph-letter">F</span> 安全 / 测量 / 综合 Security & Synthesis</h3><ol><li><a href="step18_censorship.html"><span class="snum">18</span> 审查拓扑<br><span class="en">Censorship Topology in CN</span></a></li><li><a href="step19_atlas.html"><span class="snum">19</span> Atlas 观测点<br><span class="en">RIPE Atlas Presence in CN</span></a></li><li><a href="step20_synthesis.html"><span class="snum">20</span> 综合仪表板<br><span class="en">Synthesis Dashboard</span></a></li></ol>
-<div class="step-footer">
-  产出：20 个交互式 HTML 图表 · 20 个 CSV 数据文件 · 20 个 metrics JSON · 1 个综合仪表板<br>
-  Artifacts: 20 interactive HTMLs, 20 CSVs, 20 metrics JSONs, 1 synthesis dashboard.
-  <br>Data source: IYP snapshot 2026-04 · Generated by analysis/china/run_all.py
-</div>
-</div>
-</body></html>
+  </section>
+
+  <div class="phase-board">
+    <section class="phase" id="phase-A" data-phase="A"><header class="phase-head"><span class="letter">A</span><div><h2>范围与身份</h2><div class="en">Scope &amp; Identity</div></div></header><div class="step-grid"><a class="step-card" href="step01_scope.html" data-phase="A"><div class="num">Step 01</div><h3>中国自治系统清册</h3><div class="en-sub">AS Inventory &amp; Scope</div><div class="kpi-row"><span>6,660 大陆 · 1,468 港 · 474 台</span></div></a><a class="step-card" href="step02_top_as.html" data-phase="A"><div class="num">Step 02</div><h3>头部自治系统身份档案</h3><div class="en-sub">Top-20 Chinese ASes · Identity</div><div class="kpi-row"><span>Top-20 持 44% 前缀</span></div></a><a class="step-card" href="step03_part1.html" data-phase="A"><span class="parts-badge">4 subpages</span><div class="num">Step 03</div><h3>全球规模排名</h3><div class="en-sub">China vs World at a Glance</div><div class="kpi-row"><span>全球 #3 AS · #3 前缀 · #16 IXP</span></div></a></div></section><section class="phase" id="phase-B" data-phase="B"><header class="phase-head"><span class="letter">B</span><div><h2>BGP 拓扑位置</h2><div class="en">BGP Topology</div></div></header><div class="step-grid"><a class="step-card" href="step04_part1.html" data-phase="B"><span class="parts-badge">2 subpages</span><div class="num">Step 04</div><h3>BGP 前缀与 RPKI</h3><div class="en-sub">CN BGP Prefix Footprint</div><div class="kpi-row"><span>109,409 前缀 · RPKI 中等</span></div></a><a class="step-card" href="step05_peering_graph.html" data-phase="B"><div class="num">Step 05</div><h3>对等互联子图</h3><div class="en-sub">CN AS Peering Subgraph</div><div class="kpi-row"><span>400 节点 · 2,450 对等边</span></div></a><a class="step-card" href="step06_centrality.html" data-phase="B"><div class="num">Step 06</div><h3>全球中心性位置</h3><div class="en-sub">CN in Global Centrality</div><div class="kpi-row"><span>PageRank 中等 · 度数偏高</span></div></a><a class="step-card" href="step07_kcore.html" data-phase="B"><div class="num">Step 07</div><h3>k-core 层级位置</h3><div class="en-sub">CN in Global k-Core</div><div class="kpi-row"><span>少数 CN AS 入深层核心</span></div></a></div></section><section class="phase" id="phase-C" data-phase="C"><header class="phase-head"><span class="letter">C</span><div><h2>依赖与 Hegemony</h2><div class="en">Dependency &amp; Hegemony</div></div></header><div class="step-grid"><a class="step-card" href="step08_depends_on_world.html" data-phase="C"><div class="num">Step 08</div><h3>出向 Hegemony</h3><div class="en-sub">Who Does China Depend On</div><div class="kpi-row"><span>70%+ 依赖境外上游</span></div></a><a class="step-card" href="step09_dependents.html" data-phase="C"><div class="num">Step 09</div><h3>入向 Hegemony</h3><div class="en-sub">Who Depends on China</div><div class="kpi-row"><span>外国依赖 CN 的程度有限</span></div></a><a class="step-card" href="step10_concentration.html" data-phase="C"><div class="num">Step 10</div><h3>集中度与 HHI</h3><div class="en-sub">China Concentration &amp; HHI</div><div class="kpi-row"><span>HHI 偏高 · 头部集中</span></div></a></div></section><section class="phase" id="phase-D" data-phase="D"><header class="phase-head"><span class="letter">D</span><div><h2>物理基础设施</h2><div class="en">Physical Infrastructure</div></div></header><div class="step-grid"><a class="step-card" href="step11_part1.html" data-phase="D"><span class="parts-badge">2 subpages</span><div class="num">Step 11</div><h3>IXP 互联生态</h3><div class="en-sub">Chinese IXP Landscape</div><div class="kpi-row"><span>IXP #16 · 密度低</span></div></a><a class="step-card" href="step12_facilities.html" data-phase="D"><div class="num">Step 12</div><h3>机房部署</h3><div class="en-sub">CN AS Facility Co-location</div><div class="kpi-row"><span>机房 #33 · 重心在境外</span></div></a><a class="step-card" href="step13_ixp_fac_bridge.html" data-phase="D"><div class="num">Step 13</div><h3>IXP × 机房三部图</h3><div class="en-sub">IXP + Facility Tripartite</div><div class="kpi-row"><span>HK 为主要跨境枢纽</span></div></a></div></section><section class="phase" id="phase-E" data-phase="E"><header class="phase-head"><span class="letter">E</span><div><h2>DNS / 内容 / 排名</h2><div class="en">DNS · Content · Ranking</div></div></header><div class="step-grid"><a class="step-card" href="step14_dns_hosting.html" data-phase="E"><div class="num">Step 14</div><h3>DNS 托管版图</h3><div class="en-sub">CN DNS Hosting Footprint</div><div class="kpi-row"><span>云厂商 + 海外 ISP 主导</span></div></a><a class="step-card" href="step15_dns_authority.html" data-phase="E"><div class="num">Step 15</div><h3>.cn DNS 主权</h3><div class="en-sub">.cn DNS Sovereignty</div><div class="kpi-row"><span>.cn 权威自持度高</span></div></a><a class="step-card" href="step16_cname_chains.html" data-phase="E"><div class="num">Step 16</div><h3>CNAME 跨境链</h3><div class="en-sub">Cross-Border CNAME Chains</div><div class="kpi-row"><span>大量跨境 CNAME 桥接</span></div></a><a class="step-card" href="step17_rankings.html" data-phase="E"><div class="num">Step 17</div><h3>多排名位置</h3><div class="en-sub">CN in Global Rankings</div><div class="kpi-row"><span>Tranco / CrUX / APNIC</span></div></a></div></section><section class="phase" id="phase-F" data-phase="F"><header class="phase-head"><span class="letter">F</span><div><h2>安全 / 测量 / 综合</h2><div class="en">Security · Measurement · Synthesis</div></div></header><div class="step-grid"><a class="step-card" href="step18_censorship.html" data-phase="F"><div class="num">Step 18</div><h3>审查拓扑</h3><div class="en-sub">Censorship Topology in CN</div><div class="kpi-row"><span>审查网络与非审查网络有别</span></div></a><a class="step-card" href="step19_atlas.html" data-phase="F"><div class="num">Step 19</div><h3>Atlas 观测点</h3><div class="en-sub">RIPE Atlas Presence in CN</div><div class="kpi-row"><span>少量 CN Atlas 探针</span></div></a><a class="step-card" href="step20_part1.html" data-phase="F"><span class="parts-badge">3 subpages</span><div class="num">Step 20</div><h3>综合仪表板</h3><div class="en-sub">Synthesis Dashboard</div><div class="kpi-row"><span>主权指数 0.256 · 全球第 9</span></div></a></div></section>
+  </div>
+
+  <footer class="site-foot">
+    产出：27 个子页面 · 63 张交互图表 · 20 个 metrics JSON · 1 个主导航<br>
+    Artifacts: 27 subpages · 63 charts · 20 metrics files · 1 hub index<br>
+    Data: IYP snapshot 2026-04 · generated 2026-04-17 by <code>analysis/china/build_site.py</code>
+  </footer>
+</main>
+<script src="site.js" defer></script>
+</body>
+</html>

@@ -4,6 +4,9 @@ config.json
 # Large raw/derived data caches (regeneratable from Neo4j)
 data_cache/
 
+# analysis/china site-build safety archives
+analysis/china/html_legacy_*.tar.gz
+
 # Neo4j plugin binaries
 plugins/
 
