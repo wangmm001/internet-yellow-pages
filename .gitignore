@@ -20,6 +20,9 @@ analysis/countries/extract.log
 analysis/countries/backfill_2024.log
 analysis/new_angles/extract.log
 
+# Claude Code local tooling state
+.claude/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
