@@ -1,0 +1,14 @@
+{
+  "step": 1,
+  "title_zh": "Step 01 · 从 BGPKit + NRO 直接抽取底表",
+  "title_en": "Step 01 · Direct extract from BGPKit + NRO (no Neo4j)",
+  "metrics": {
+    "source": "bgpkit + nro (direct)",
+    "as_with_country": 120925,
+    "as_with_ipv4": 79263,
+    "peering_edges": 637916,
+    "as_with_geo": 0,
+    "cache_dir": "/Users/wangmm/work/inter-fabric/internet-yellow-pages/data_cache/as_globe",
+    "elapsed_sec": 17.3
+  }
+}

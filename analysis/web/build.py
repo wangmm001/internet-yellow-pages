@@ -45,12 +45,15 @@ PHASE_VARIANTS = {
     'α': 'is-green', 'β': 'is-purple', 'γ': 'is-red',
     # countries
     'profiles': '', 'dashboards': 'is-purple',
+    # globe
+    'views': 'is-purple',
 }
 
 TRACK_BADGES = {
     'china': 'is-red',
     'countries': '',
     'network': 'is-green',
+    'globe': 'is-purple',
 }
 
 

@@ -21,6 +21,8 @@ CHINA_DATA = ANALYSIS / 'china' / 'data'
 COUNTRIES_HTML = ANALYSIS / 'countries' / 'html'
 COUNTRIES_DATA = ANALYSIS / 'countries' / 'data'
 NETWORK_IMG = ANALYSIS / 'complex_network_images'
+GLOBE_HTML = ANALYSIS / 'as_globe' / 'html'
+GLOBE_DATA = ANALYSIS / 'as_globe' / 'data'
 
 SNAPSHOT_LATEST = '2026-04'
 SNAPSHOT_PREV = '2025-04'         # retained for 12-month Δ display
@@ -393,13 +395,53 @@ def _build_network_track() -> Track:
     )
 
 
+# --- Globe (3D AS interconnect) track -----------------------------------
+
+GLOBE_VIEWS: list[tuple[str, str, str, str, str, list[str]]] = [
+    ('globe', 'as_globe.html', '地球视图', 'Geographic Globe',
+     'globe.gl · 真实坐标 + 国家质心抖动 + 对等弧',
+     ['5,000 AS', '地理坐标', 'globe.gl']),
+    ('force', 'as_force.html', '拓扑力图', 'Force Topology',
+     '3d-force-graph · 力导布局暴露对等社群',
+     ['5,000 AS', '拓扑布局', '3d-force-graph']),
+]
+
+
+def _build_globe_track() -> Track:
+    pages: list[Page] = []
+    for slug, src_file, title_zh, title_en, subtitle_zh, kpis in GLOBE_VIEWS:
+        pages.append(Page(
+            slug=slug,
+            url=f'/globe/{slug}/',
+            track='globe',
+            title_zh=title_zh,
+            title_en=title_en,
+            kind='plotly',  # reuses step_plotly.html iframe wrapper
+            src=f'../../../../as_globe/html/{src_file}',
+            phase='views',
+            kpis=kpis,
+            subtitle_zh=subtitle_zh,
+        ))
+    return Track(
+        slug='globe',
+        title_zh='全球 AS 互联立体图',
+        title_en='Global AS Interconnect · 3D',
+        tagline_zh='把 5,000 头部 AS 与其对等关系搬到三维地球与拓扑空间，一眼看全球互联架构',
+        tagline_en='Top 5K ASes × WebGL 3D — geographic globe + force topology, region-colored, IPv4-sized.',
+        accent='#5E5CE6',
+        phases=[Phase('views', '三维视图', '3D Views', pages)],
+        hub_url='/globe/',
+    )
+
+
 # --- Unified structure --------------------------------------------------
 
 def build_site_model() -> dict:
     china = _build_china_track()
     countries = _build_countries_track()
     network = _build_network_track()
-    tracks = [china, countries, network]
+    globe = _build_globe_track()
+    tracks = [china, countries, network, globe]
 
     flat: list[Page] = []
     for t in tracks:
@@ -448,6 +490,7 @@ def build_site_model() -> dict:
             'countries_profiles': len([p for p in countries.all_pages() if p.phase == 'profiles']),
             'countries_dashboards': len([p for p in countries.all_pages() if p.phase == 'dashboards']),
             'network_steps': len(network.all_pages()),
+            'globe_views': len(globe.all_pages()),
             'all_pages': len(flat),
         },
     }

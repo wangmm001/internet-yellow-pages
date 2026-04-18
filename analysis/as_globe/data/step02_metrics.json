@@ -1,0 +1,90 @@
+{
+  "step": 2,
+  "title_zh": "Step 02 · 降采样到 5,000 个头部 AS",
+  "title_en": "Step 02 · Decimate to ~5K head ASes",
+  "metrics": {
+    "pool_size": 5000,
+    "edges_in_pool": 286754,
+    "edges_emitted": 30000,
+    "max_emit_links": 30000,
+    "as_with_real_geo": 0,
+    "real_geo_pct": 0.0,
+    "region_histogram": {
+      "cn": 270,
+      "na": 1308,
+      "ea": 223,
+      "eu": 1833,
+      "ot": 1366
+    },
+    "region_color": {
+      "cn": "#FF453A",
+      "na": "#0A84FF",
+      "ea": "#FF9F0A",
+      "eu": "#30D158",
+      "ot": "#8E8E93"
+    },
+    "top10_by_ipv4": [
+      {
+        "asn": 3356,
+        "cc": "US",
+        "ipv4": 4334053823,
+        "degree": 1290
+      },
+      {
+        "asn": 174,
+        "cc": "US",
+        "ipv4": 4332682240,
+        "degree": 1569
+      },
+      {
+        "asn": 9121,
+        "cc": "TR",
+        "ipv4": 4314819840,
+        "degree": 76
+      },
+      {
+        "asn": 26615,
+        "cc": "BR",
+        "ipv4": 4307520577,
+        "degree": 41
+      },
+      {
+        "asn": 3257,
+        "cc": "US",
+        "ipv4": 4304021554,
+        "degree": 683
+      },
+      {
+        "asn": 2914,
+        "cc": "US",
+        "ipv4": 4302266368,
+        "degree": 756
+      },
+      {
+        "asn": 6057,
+        "cc": "UY",
+        "ipv4": 4300592384,
+        "degree": 1711
+      },
+      {
+        "asn": 10429,
+        "cc": "BR",
+        "ipv4": 4297391888,
+        "degree": 66
+      },
+      {
+        "asn": 12302,
+        "cc": "RO",
+        "ipv4": 4296899728,
+        "degree": 26
+      },
+      {
+        "asn": 8708,
+        "cc": "RO",
+        "ipv4": 4296780055,
+        "degree": 517
+      }
+    ],
+    "elapsed_sec": 4.81
+  }
+}

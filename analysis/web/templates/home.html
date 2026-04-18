@@ -47,8 +47,8 @@
 
 <section class="shell">
   <div class="section-head">
-    <h2>三条研究路径</h2>
-    <span class="en">Three research tracks</span>
+    <h2>四条研究路径</h2>
+    <span class="en">Four research tracks</span>
     <span class="rule"></span>
   </div>
 
@@ -68,9 +68,12 @@
         {% elif track.slug == 'countries' %}
           <span class="chip">{{ totals.countries_profiles }} 国画像</span>
           <span class="chip is-accent">{{ totals.countries_dashboards }} 综合仪表板</span>
-        {% else %}
+        {% elif track.slug == 'network' %}
           <span class="chip">{{ totals.network_steps }} 个章节</span>
           <span class="chip is-green">多重网络 · 四层</span>
+        {% elif track.slug == 'globe' %}
+          <span class="chip">{{ totals.globe_views }} 视图 · 5,000 AS</span>
+          <span class="chip is-accent">3D · WebGL</span>
         {% endif %}
       </div>
       <span class="cta">进入 → Explore</span>
