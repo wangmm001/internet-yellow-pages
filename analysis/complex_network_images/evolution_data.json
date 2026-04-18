@@ -208,5 +208,145 @@
       "NL": 1665,
       "RU": 5855
     }
+  },
+  "2024-01": {
+    "as_count": 122126,
+    "ixp_count": 1067,
+    "facility_count": 4963,
+    "peering_edges": 1223116,
+    "dependency_edges": 6495262,
+    "prefix_count": 1956011,
+    "rpki_valid_prefixes": 557824,
+    "rpki_pct": 28.52,
+    "mean_peering_degree": 20.03,
+    "top10_prefix_share_pct": 5.92,
+    "top10_prefix_counts": [
+      14745,
+      14330,
+      14018,
+      12838,
+      11905,
+      10907,
+      10015,
+      9214,
+      8925,
+      8920
+    ],
+    "as_by_country": {
+      "US": 30813,
+      "CN": 6801,
+      "JP": 1301,
+      "IN": 5708,
+      "DE": 3103,
+      "GB": 3226,
+      "FR": 2295,
+      "NL": 1609,
+      "RU": 5950
+    }
+  },
+  "2024-04": {
+    "as_count": 123189,
+    "ixp_count": 1473,
+    "facility_count": 5369,
+    "peering_edges": 1152917,
+    "dependency_edges": 6639941,
+    "prefix_count": 3054464,
+    "rpki_valid_prefixes": 596736,
+    "rpki_pct": 19.54,
+    "mean_peering_degree": 18.718,
+    "top10_prefix_share_pct": 5.27,
+    "top10_prefix_counts": [
+      54837,
+      14838,
+      14787,
+      12944,
+      11355,
+      11131,
+      10923,
+      10777,
+      10205,
+      9245
+    ],
+    "as_by_country": {
+      "US": 31048,
+      "CN": 6779,
+      "JP": 1298,
+      "IN": 5747,
+      "DE": 3129,
+      "GB": 3281,
+      "FR": 2320,
+      "NL": 1633,
+      "RU": 5933
+    }
+  },
+  "2024-07": {
+    "as_count": 124310,
+    "ixp_count": 1510,
+    "facility_count": 5456,
+    "peering_edges": 1157630,
+    "dependency_edges": 0,
+    "prefix_count": 1583646,
+    "rpki_valid_prefixes": 0,
+    "rpki_pct": 0.0,
+    "mean_peering_degree": 18.625,
+    "top10_prefix_share_pct": 7.14,
+    "top10_prefix_counts": [
+      15209,
+      15016,
+      12400,
+      11406,
+      10913,
+      10875,
+      10798,
+      9261,
+      9048,
+      8139
+    ],
+    "as_by_country": {
+      "US": 31353,
+      "CN": 6812,
+      "JP": 1312,
+      "IN": 5815,
+      "DE": 3173,
+      "GB": 3362,
+      "FR": 2340,
+      "NL": 1653,
+      "RU": 5983
+    }
+  },
+  "2024-10": {
+    "as_count": 125541,
+    "ixp_count": 1522,
+    "facility_count": 5570,
+    "peering_edges": 1199022,
+    "dependency_edges": 6184708,
+    "prefix_count": 2092970,
+    "rpki_valid_prefixes": 649878,
+    "rpki_pct": 31.05,
+    "mean_peering_degree": 19.102,
+    "top10_prefix_share_pct": 7.11,
+    "top10_prefix_counts": [
+      34833,
+      16221,
+      15336,
+      14632,
+      12420,
+      12287,
+      10967,
+      10893,
+      10706,
+      10579
+    ],
+    "as_by_country": {
+      "US": 31419,
+      "CN": 6813,
+      "JP": 1332,
+      "IN": 5863,
+      "DE": 3185,
+      "GB": 3327,
+      "FR": 2324,
+      "NL": 1670,
+      "RU": 5879
+    }
   }
 }

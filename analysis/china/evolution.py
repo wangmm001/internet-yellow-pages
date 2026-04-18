@@ -272,26 +272,35 @@ def build(snapshots=None):
         f'</p>'
     )
 
-    incomplete = []
+    no_prefix, no_rpki = [], []
     for s in snapshots:
         step4 = (data.get(s, {}).get(4) or {})
-        if step4.get('total_prefixes') in (None, 0):
-            incomplete.append(s)
-    if incomplete:
-        joined = ', '.join(incomplete)
+        tot = step4.get('total_prefixes')
+        rpki = step4.get('rpki_rate_pct')
+        if tot in (None, 0):
+            no_prefix.append(s)
+        elif rpki in (None, 0):
+            no_rpki.append(s)
+    if no_prefix or no_rpki:
+        bits = []
+        if no_prefix:
+            bits.append(
+                f'快照 <code>{", ".join(no_prefix)}</code> 缺 '
+                f'<code>:BGPPrefix</code>/<code>:Prefix</code> 节点 → '
+                f'① IPv4/IPv6/总前缀 · RPKI % 全部读 0')
+        if no_rpki:
+            bits.append(
+                f'快照 <code>{", ".join(no_rpki)}</code> 有前缀但缺 '
+                f'<code>(:Prefix)-[:CATEGORIZED]->(Tag "RPKI Valid")</code> → '
+                f'① RPKI % 单独读 0（IPv4/IPv6/总前缀正常）')
         narrative += (
             f'<p style="margin:4px 16px 12px;padding:10px 14px;'
             f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
             f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-            f'⚠️ <b>Baseline 数据空洞 · Incomplete baseline:</b> 快照 '
-            f'<code>{joined}</code> 早于 IYP <code>:BGPPrefix</code> 标签 '
-            f'+ <code>AS_DEPENDS_ON</code> 关系的引入，'
-            f'① 面板中 IPv4/IPv6/总前缀 · RPKI% 在该点读作 0 — 非真实下跌'
-            f'（依赖边 ④⑤ 不受影响）。'
-            f'<br>Snapshot(s) <code>{joined}</code> predate the '
-            f'<code>:BGPPrefix</code> label; prefix / RPKI series in panel ① '
-            f'show 0 at those points — not a real drop. Dependency panels '
-            f'④⑤ are unaffected.</p>'
+            f'⚠️ <b>数据空洞 · Data gap:</b> ' + '；'.join(bits) +
+            f'。依赖边面板 ④⑤ 不受影响。'
+            f'<br>Prefix/RPKI gaps: the affected panels show 0 at those '
+            f'points — not real dips. Dependency panels are unaffected.</p>'
         )
 
     body = narrative + _plotly_inline(

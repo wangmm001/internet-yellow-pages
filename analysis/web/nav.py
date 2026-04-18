@@ -170,7 +170,7 @@ def _build_china_track() -> Track:
         kind='plotly',
         src='../../../../china/html/evolution.html',
         phase='dashboards',
-        kpis=['6 季度', 'CN 深度'],
+        kpis=['10 季度', 'CN 深度'],
     )]
     phases.insert(0, Phase('dashboards', '综合仪表板', 'Dashboards', dash_pages))
 
@@ -377,7 +377,7 @@ def _build_network_track() -> Track:
         kind='plotly',
         src='../../../../complex_network_images/evolution.html',
         phase='dashboards',
-        kpis=['6 季度', '10 指标'],
+        kpis=['10 季度', '10 指标'],
     )]
     phases.insert(0, Phase('dashboards', '综合仪表板', 'Dashboards', dash_pages))
 
