@@ -272,6 +272,28 @@ def build(snapshots=None):
         f'</p>'
     )
 
+    incomplete = []
+    for s in snapshots:
+        step4 = (data.get(s, {}).get(4) or {})
+        if step4.get('total_prefixes') in (None, 0):
+            incomplete.append(s)
+    if incomplete:
+        joined = ', '.join(incomplete)
+        narrative += (
+            f'<p style="margin:4px 16px 12px;padding:10px 14px;'
+            f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
+            f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
+            f'⚠️ <b>Baseline 数据空洞 · Incomplete baseline:</b> 快照 '
+            f'<code>{joined}</code> 早于 IYP <code>:BGPPrefix</code> 标签 '
+            f'+ <code>AS_DEPENDS_ON</code> 关系的引入，'
+            f'① 面板中 IPv4/IPv6/总前缀 · RPKI% 在该点读作 0 — 非真实下跌'
+            f'（依赖边 ④⑤ 不受影响）。'
+            f'<br>Snapshot(s) <code>{joined}</code> predate the '
+            f'<code>:BGPPrefix</code> label; prefix / RPKI series in panel ① '
+            f'show 0 at those points — not a real drop. Dependency panels '
+            f'④⑤ are unaffected.</p>'
+        )
+
     body = narrative + _plotly_inline(
         [panel1, panel2, panel3, panel4, panel5])
     _write_html(

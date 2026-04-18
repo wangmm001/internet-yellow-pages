@@ -252,6 +252,11 @@ def render():
         height=460, hovermode='x unified',
     )
 
+    incomplete = [
+        s for s in snapshots
+        if (store[s].get('rpki_pct') in (None, 0)
+            and store[s].get('dependency_edges') in (None, 0))
+    ]
     intro = (
         f'<p style="color:{TEXT_SECONDARY};padding:0 16px;font-size:14px">'
         f'快照区间：<b>{snapshots[0]} → {snapshots[-1]}</b>'
@@ -261,6 +266,22 @@ def render():
         f'per snapshot ({len(snapshots)} quarters).'
         f'</p>'
     )
+    if incomplete:
+        joined = ', '.join(incomplete)
+        intro += (
+            f'<p style="margin:4px 16px 12px;padding:10px 14px;'
+            f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
+            f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
+            f'⚠️ <b>Baseline 数据空洞 · Incomplete baseline:</b> 快照 '
+            f'<code>{joined}</code> 早于 IYP <code>:BGPPrefix</code> 标签 '
+            f'+ <code>AS_DEPENDS_ON</code> 关系的引入，'
+            f'③ Top-10 prefix share、④ RPKI% 及 ① Dependency edges '
+            f'在该点读作 0 — 非真实下跌。'
+            f'<br>Snapshot(s) <code>{joined}</code> predate the '
+            f'<code>:BGPPrefix</code> label and <code>AS_DEPENDS_ON</code> '
+            f'edges; panels ③ ④ and dependency-edge series of ① show 0 '
+            f'at those points — not a real drop.</p>'
+        )
     body = intro + _plotly_inline(
         [panel1, panel2, panel3, panel4, panel5])
 
