@@ -1,6 +1,18 @@
 """Time-series evolution dashboard (N quarterly snapshots).
 
-Reads per-snapshot per-country metrics and renders 5 panels:
+⚠ DEPRECATED in favor of analysis/new_angles/evolution.py.
+The new version is more honest: it plots only metrics that genuinely vary
+per-snapshot (BGP prefix footprint, RPKI, anycast, CAIDA rank, CNAME
+flows). This older version mixes in `total_ases`, `internal_edges`,
+`ixp_memberships_*` etc. which are sticky across 5-6 consecutive upstream
+IYP dumps because those crawler layers don't re-run per quarter — lines
+look flat, reader gets confused.
+
+Kept here for reference. Do NOT call from run_all.py; that file's entry
+has been removed. If regenerated manually it will overwrite the honest
+version in analysis/countries/html/evolution.html.
+
+Original 5 panels:
   ① Trend small-multiples — 9 countries × 12 key metrics across all snapshots
   ② CAGR heatmap — country × metric, monthly-compounded annualized growth
   ③ Sovereignty Index trajectory
