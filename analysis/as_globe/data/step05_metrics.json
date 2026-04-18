@@ -1,0 +1,41 @@
+{
+  "step": 5,
+  "title_zh": "Step 05 · 分层占比图渲染",
+  "title_en": "Step 05 · Render AS Strata (country canopy)",
+  "metrics": {
+    "cells": 94,
+    "named_countries": 91,
+    "residual_cells": 3,
+    "nodes_placed": 5000,
+    "bundles": 1850,
+    "intra_bundles": 56,
+    "inter_bundles": 1794,
+    "top5_inter_bundles": [
+      {
+        "a": "GB",
+        "b": "US",
+        "count": 679
+      },
+      {
+        "a": "AU",
+        "b": "US",
+        "count": 425
+      },
+      {
+        "a": "CH",
+        "b": "DE",
+        "count": 412
+      },
+      {
+        "a": "BR",
+        "b": "US",
+        "count": 373
+      },
+      {
+        "a": "CH",
+        "b": "US",
+        "count": 360
+      }
+    ]
+  }
+}
