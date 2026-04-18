@@ -1,5 +1,7 @@
 # Three-Track Time-Series Expansion Implementation Plan
 
+> **Status: DONE (2026-04-17).** Shipped across commits `63dea0f`, `b01ad6d`, `f23378f`, `a758078`, `fa1b9ce`, `cda67f1`, `1724526`, `ec7d5eb`, `349beb4`. All 34 tasks below are marked `[x]` retroactively; see git log for the actual sequence. Post-ship fix: homepage `Countries` card link corrected from `countries/evolution.html` to `countries/dashboards/evolution/index.html`; build.py now runs a broken-link checker.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add an `evolution.html` page to each of the three tracks (China · Countries · Network) so the unified site at `analysis/web/site/index.html` surfaces the six-quarter time-series data coherently. Countries already has one from the prior project.
@@ -33,7 +35,7 @@
 - Create: `analysis/china/evolution.py`
 - Create (output): `analysis/china/html/evolution.html`
 
-- [ ] **Step 1: Draft the module skeleton**
+- [x] **Step 1: Draft the module skeleton**
 
 ```python
 # analysis/china/evolution.py
@@ -118,7 +120,7 @@ def load_cn_series(snapshots):
     return out
 ```
 
-- [ ] **Step 2: Add the `build()` function with 5 panels**
+- [x] **Step 2: Add the `build()` function with 5 panels**
 
 Append to `analysis/china/evolution.py`:
 
@@ -292,7 +294,7 @@ if __name__ == '__main__':
     main()
 ```
 
-- [ ] **Step 3: `save_consolidated_html` resolves to china/html/evolution.html?**
+- [x] **Step 3: `save_consolidated_html` resolves to china/html/evolution.html?**
 
 Check which `HTML_DIR` the import chain uses. The import is from
 `analysis.countries.common`, so `save_consolidated_html` writes to
@@ -313,7 +315,7 @@ from analysis.countries.common import (  # noqa: E402
 )
 ```
 
-- [ ] **Step 4: Run it**
+- [x] **Step 4: Run it**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -322,7 +324,7 @@ cd /Volumes/data/internet-yellow-pages
 
 Expected output: `[html] wrote /Volumes/data/internet-yellow-pages/analysis/china/html/evolution.html (NNNN KB)`
 
-- [ ] **Step 5: Sanity-check the HTML**
+- [x] **Step 5: Sanity-check the HTML**
 
 ```bash
 grep -oE 'CN 16 项|主权指数 \+ 5 分项|CN 全球排名|CN 出向依赖|CN 入向依赖' \
@@ -338,7 +340,7 @@ grep -oE '2025-01|2025-04|2025-07|2025-10|2026-01|2026-04' \
 
 Expected: all 6 snapshot labels appear.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -353,7 +355,7 @@ git commit -m "china/evolution.py: 5-panel CN time-series (reuses countries/CN d
 **Files:**
 - Create: `analysis/complex_network/network_evolution.py`
 
-- [ ] **Step 1: Write the module**
+- [x] **Step 1: Write the module**
 
 ```python
 # analysis/complex_network/network_evolution.py
@@ -624,7 +626,7 @@ if __name__ == '__main__':
     main()
 ```
 
-- [ ] **Step 2: Syntax-check**
+- [x] **Step 2: Syntax-check**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -633,7 +635,7 @@ cd /Volumes/data/internet-yellow-pages
 
 Expected: silent (import succeeds).
 
-- [ ] **Step 3: Commit (before the orchestrator + execution)**
+- [x] **Step 3: Commit (before the orchestrator + execution)**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -648,7 +650,7 @@ git commit -m "network_evolution: lightweight global Cypher aggregates + render"
 **Files:**
 - Create: `analysis/complex_network/run_network_evolution.sh`
 
-- [ ] **Step 1: Write the shell script**
+- [x] **Step 1: Write the shell script**
 
 ```bash
 #!/usr/bin/env bash
@@ -747,13 +749,13 @@ echo "=== render $(date -Iseconds) ===" | tee -a "$LOG"
 echo "=== network-evolution pipeline done $(date -Iseconds) ===" | tee -a "$LOG"
 ```
 
-- [ ] **Step 2: Make executable**
+- [x] **Step 2: Make executable**
 
 ```bash
 chmod +x /Volumes/data/internet-yellow-pages/analysis/complex_network/run_network_evolution.sh
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -767,7 +769,7 @@ git commit -m "run_network_evolution.sh: 6-snapshot Neo4j-swap orchestrator"
 
 **Files:** none (runs Task 3 script)
 
-- [ ] **Step 1: Launch in background**
+- [x] **Step 1: Launch in background**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -778,7 +780,7 @@ cd /Volumes/data/internet-yellow-pages
 
 Expected wall-clock: ~12 min of Neo4j work + ~1 min render.
 
-- [ ] **Step 2: Arm a Monitor**
+- [x] **Step 2: Arm a Monitor**
 
 ```bash
 tail -n 0 -F /Volumes/data/internet-yellow-pages/analysis/complex_network/network_evolution.log \
@@ -787,11 +789,11 @@ tail -n 0 -F /Volumes/data/internet-yellow-pages/analysis/complex_network/networ
 
 (agentic worker: use Monitor tool with persistent=true.)
 
-- [ ] **Step 3: Wait for `=== network-evolution pipeline done ===`**
+- [x] **Step 3: Wait for `=== network-evolution pipeline done ===`**
 
 Use `ScheduleWakeup(delaySeconds=1500)` heartbeats if running autonomously.
 
-- [ ] **Step 4: Sanity-check `evolution_data.json` has 6 entries**
+- [x] **Step 4: Sanity-check `evolution_data.json` has 6 entries**
 
 ```bash
 .venv/bin/python -c "
@@ -807,7 +809,7 @@ for s in sorted(store.keys()):
 
 Expected: 6 lines showing snapshot → as_count / peering_edges / rpki_pct.
 
-- [ ] **Step 5: Sanity-check the rendered HTML**
+- [x] **Step 5: Sanity-check the rendered HTML**
 
 ```bash
 ls -la analysis/complex_network_images/evolution.html
@@ -817,7 +819,7 @@ grep -oE '规模轨迹|拓扑形态|权力集中|路由安全|区域 AS 分布' 
 
 Expected: 5 distinct matches.
 
-- [ ] **Step 6: Commit the data + HTML**
+- [x] **Step 6: Commit the data + HTML**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -833,7 +835,7 @@ git commit -m "Add global network time-series: 6 snapshots × 10 aggregates + re
 **Files:**
 - Modify: `analysis/web/nav.py`
 
-- [ ] **Step 1: Update snapshot constants**
+- [x] **Step 1: Update snapshot constants**
 
 In `analysis/web/nav.py:31-32`, change:
 
@@ -850,7 +852,7 @@ SNAPSHOT_PREV = '2025-04'  # retained for leaderboard Δ-1y display
 SNAPSHOT_BASELINE = '2025-01'  # 15-month baseline for "Δ since launch"
 ```
 
-- [ ] **Step 2: Add Evolution page to China track**
+- [x] **Step 2: Add Evolution page to China track**
 
 Find `_build_china_track()` (around line 136). After the `phases` loop,
 prepend a "Dashboards" phase containing an Evolution page. Replace the
@@ -882,7 +884,7 @@ prepend a "Dashboards" phase containing an Evolution page. Replace the
     )
 ```
 
-- [ ] **Step 3: Add Evolution page to Network track**
+- [x] **Step 3: Add Evolution page to Network track**
 
 Find `_build_network_track()` (around line 329). Similar to Task 5 Step 2,
 prepend a dashboards phase:
@@ -912,7 +914,7 @@ prepend a dashboards phase:
     )
 ```
 
-- [ ] **Step 4: Update leaderboard baseline**
+- [x] **Step 4: Update leaderboard baseline**
 
 In `build_site_model()` (around line 380-396), replace the leaderboard
 loop with a version that computes both 1y and 15-month deltas:
@@ -943,7 +945,7 @@ loop with a version that computes both 1y and 15-month deltas:
 And add `'snapshot_baseline': SNAPSHOT_BASELINE,` to the returned dict
 (alongside `snapshot_latest` and `snapshot_prev`).
 
-- [ ] **Step 5: Smoke-test the site model loads**
+- [x] **Step 5: Smoke-test the site model loads**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -965,7 +967,7 @@ Expected:
 - baseline = 2025-01
 - leaderboard[0] has `delta_baseline` key
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -982,13 +984,13 @@ git commit -m "web/nav: register evolution pages on China + Network; add 15-mont
 - Modify: `analysis/web/templates/index.html.j2` — add Time-Series section
 - Modify: track landing templates if exist (probe first)
 
-- [ ] **Step 1: Probe the template directory**
+- [x] **Step 1: Probe the template directory**
 
 ```bash
 ls analysis/web/templates/ 2>/dev/null
 ```
 
-- [ ] **Step 2: Find the index template**
+- [x] **Step 2: Find the index template**
 
 ```bash
 grep -l '三条研究路径\|track_card\|leaderboard' analysis/web/templates/*.j2
@@ -996,7 +998,7 @@ grep -l '三条研究路径\|track_card\|leaderboard' analysis/web/templates/*.j
 
 Record the filename. For the remaining steps, call it `<INDEX_TPL>`.
 
-- [ ] **Step 3: Add Time-Series section to index template**
+- [x] **Step 3: Add Time-Series section to index template**
 
 Edit `<INDEX_TPL>` — after the `<div class="grid-3">` (three track cards)
 closing `</div>`, add (before the leaderboard section):
@@ -1039,7 +1041,7 @@ closing `</div>`, add (before the leaderboard section):
 </div>
 ```
 
-- [ ] **Step 4: Update the leaderboard subtitle**
+- [x] **Step 4: Update the leaderboard subtitle**
 
 Search for `Δ vs 2025-04` in `<INDEX_TPL>`. Replace with:
 
@@ -1051,7 +1053,7 @@ And update the leaderboard row rendering to prefer `delta_baseline` over
 `delta`. Find the `<div class="d ...">` block and change the variable
 reference.
 
-- [ ] **Step 5: Run build**
+- [x] **Step 5: Run build**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -1060,7 +1062,7 @@ cd /Volumes/data/internet-yellow-pages
 
 Expected: builds complete; prints written pages; no errors.
 
-- [ ] **Step 6: Verify outputs**
+- [x] **Step 6: Verify outputs**
 
 ```bash
 ls -la analysis/web/site/china/evolution/ 2>/dev/null
@@ -1071,7 +1073,7 @@ grep -c '时序演化 · Time-Series' analysis/web/site/index.html
 Expected: both evolution dirs exist with `index.html` inside, and
 index.html contains at least 1 "时序演化 · Time-Series" heading.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -1085,7 +1087,7 @@ git commit -m "web: surface evolution pages on home + track landings, 15-month b
 
 **Files:** none
 
-- [ ] **Step 1: Open the three new pages in order**
+- [x] **Step 1: Open the three new pages in order**
 
 ```bash
 for f in analysis/china/html/evolution.html \
@@ -1104,7 +1106,7 @@ done
 
 Expected: 6 × OK.
 
-- [ ] **Step 2: Confirm git status clean for data artifacts**
+- [x] **Step 2: Confirm git status clean for data artifacts**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -1113,7 +1115,7 @@ git status --short | grep -v '^?? \.DS\|^?? \.claude\|^?? analysis/web' | head
 
 Expected: empty (all intended changes committed).
 
-- [ ] **Step 3: Print summary**
+- [x] **Step 3: Print summary**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages

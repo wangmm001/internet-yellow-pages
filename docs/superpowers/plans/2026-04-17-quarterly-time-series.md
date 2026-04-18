@@ -1,5 +1,7 @@
 # Quarterly Time-Series Implementation Plan
 
+> **Status: DONE (2026-04-17).** Shipped across commits `5538ca3`, `a99bdd7`, `e8421d3`, `1049035`, `d89cede`, `c7894b9`. All 34 tasks below are marked `[x]` retroactively; see git log for the actual sequence. Post-ship follow-up: 2025-01 snapshot lacks `:BGPPrefix` → `evolution.html` flags that baseline gap inline.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Extend `analysis/countries/evolution.html` from 2 annual snapshots to 6 quarterly snapshots (2025-01, 2025-04, 2025-07, 2025-10, 2026-01, 2026-04) by downloading 4 new IYP Neo4j dumps, running the 9-country × 20-step extractor against each, keeping dumps on disk, and upgrading the evolution dashboard to multi-point trend panels.
@@ -34,7 +36,7 @@
 - Create: `dumps_archive/`, `dumps/`, `data/`
 - Modify: `.gitignore`
 
-- [ ] **Step 1: Check disk and docker availability**
+- [x] **Step 1: Check disk and docker availability**
 
 ```bash
 df -h /Volumes/data | head -2
@@ -43,7 +45,7 @@ sg docker -c 'docker ps' | head -3
 
 Expected: ≥ 300 GB free; docker command succeeds (IYP-specific containers may or may not be up).
 
-- [ ] **Step 2: Create directories**
+- [x] **Step 2: Create directories**
 
 ```bash
 mkdir -p /Volumes/data/internet-yellow-pages/dumps_archive \
@@ -51,7 +53,7 @@ mkdir -p /Volumes/data/internet-yellow-pages/dumps_archive \
          /Volumes/data/internet-yellow-pages/data
 ```
 
-- [ ] **Step 3: Add dumps_archive to .gitignore**
+- [x] **Step 3: Add dumps_archive to .gitignore**
 
 Confirm `.gitignore` already anchors `/dumps/` and `/data/`. Add one line:
 
@@ -59,7 +61,7 @@ Confirm `.gitignore` already anchors `/dumps/` and `/data/`. Add one line:
 /dumps_archive/
 ```
 
-- [ ] **Step 4: Commit gitignore change**
+- [x] **Step 4: Commit gitignore change**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -73,7 +75,7 @@ git commit -m "gitignore: exclude /dumps_archive/ (per-snapshot dump retention)"
 
 **Files:** none (probe only)
 
-- [ ] **Step 1: HEAD-request each dump URL**
+- [x] **Step 1: HEAD-request each dump URL**
 
 ```bash
 for d in 2025/01/08 2025/07/08 2025/10/08 2026/01/08; do
@@ -98,7 +100,7 @@ If any `MISS` appears, stop and pick the nearest available day-of-month for that
 **Files:**
 - Create: `analysis/countries/extract_snapshot.sh`
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 ```bash
 #!/usr/bin/env bash
@@ -203,13 +205,13 @@ rm -f "$DUMPS/neo4j.dump"
 echo "$LOG_PREFIX === done $(date -Iseconds) ==="
 ```
 
-- [ ] **Step 2: Make executable**
+- [x] **Step 2: Make executable**
 
 ```bash
 chmod +x /Volumes/data/internet-yellow-pages/analysis/countries/extract_snapshot.sh
 ```
 
-- [ ] **Step 3: Smoke-test the help path**
+- [x] **Step 3: Smoke-test the help path**
 
 ```bash
 /Volumes/data/internet-yellow-pages/analysis/countries/extract_snapshot.sh 2>&1 | head -5
@@ -217,7 +219,7 @@ chmod +x /Volumes/data/internet-yellow-pages/analysis/countries/extract_snapshot
 
 Expected: `usage: ... YYYY-MM-DD` (script's set-u default on missing arg).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -232,7 +234,7 @@ git commit -m "Add per-snapshot extract script (keeps dumps in dumps_archive/)"
 **Files:**
 - Create: `analysis/countries/run_pipeline.sh`
 
-- [ ] **Step 1: Write the loop script**
+- [x] **Step 1: Write the loop script**
 
 ```bash
 #!/usr/bin/env bash
@@ -265,13 +267,13 @@ done
 echo "=== pipeline done $(date -Iseconds) ==="            | tee -a "$LOG"
 ```
 
-- [ ] **Step 2: Make executable**
+- [x] **Step 2: Make executable**
 
 ```bash
 chmod +x /Volumes/data/internet-yellow-pages/analysis/countries/run_pipeline.sh
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -285,7 +287,7 @@ git commit -m "Add serial pipeline loop for 4 new quarterly snapshots"
 
 **Files:** none (executes Task 4)
 
-- [ ] **Step 1: Kick off**
+- [x] **Step 1: Kick off**
 
 Run via `Bash` with `run_in_background: true`:
 
@@ -295,11 +297,11 @@ cd /Volumes/data/internet-yellow-pages && ./analysis/countries/run_pipeline.sh
 
 Expected wall-clock: 6–8 hours. Returns a background shell ID.
 
-- [ ] **Step 2: Record the shell ID**
+- [x] **Step 2: Record the shell ID**
 
 Save the returned shell ID in conversation context — used in Task 6.
 
-- [ ] **Step 3: Schedule first progress check**
+- [x] **Step 3: Schedule first progress check**
 
 Use `ScheduleWakeup` with `delaySeconds: 1800` (30 min) and a reason like "check first snapshot download/load progress".
 
@@ -309,13 +311,13 @@ Use `ScheduleWakeup` with `delaySeconds: 1800` (30 min) and a reason like "check
 
 **Files:** `analysis/countries/extract.log` (appended)
 
-- [ ] **Step 1: On each wake-up, tail the log**
+- [x] **Step 1: On each wake-up, tail the log**
 
 ```bash
 tail -40 /Volumes/data/internet-yellow-pages/analysis/countries/extract.log
 ```
 
-- [ ] **Step 2: Count completed snapshots**
+- [x] **Step 2: Count completed snapshots**
 
 ```bash
 for s in 2025-01 2025-07 2025-10 2026-01; do
@@ -326,11 +328,11 @@ done
 
 Expected final: each line `180/180`.
 
-- [ ] **Step 3: If still running, reschedule**
+- [x] **Step 3: If still running, reschedule**
 
 If the pipeline log hasn't emitted `=== pipeline done ===`, schedule another wake-up (`delaySeconds: 1800`) and do nothing else. If the background shell exited with failure, inspect the log and decide whether to restart the failing snapshot manually (by re-running `./extract_snapshot.sh <date>` — it's idempotent thanks to resume logic).
 
-- [ ] **Step 4: When complete, confirm all 6 snapshots visible**
+- [x] **Step 4: When complete, confirm all 6 snapshots visible**
 
 ```bash
 python3 - <<'PY'
@@ -343,7 +345,7 @@ PY
 
 Expected: `['2025-01', '2025-04', '2025-07', '2025-10', '2026-01', '2026-04']`.
 
-- [ ] **Step 5: Commit the 4 new metrics JSON directories**
+- [x] **Step 5: Commit the 4 new metrics JSON directories**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -361,7 +363,7 @@ git commit -m "Add per-country metrics for 4 new quarterly snapshots (2025-01/07
 
 **Context:** the current script hard-codes `build(snap_old='2025-04', snap_new='2026-04')` and renders 4 panels (slope chart, YoY heatmap, per-component slope, rank bump). With 6 quarterly points we can compute CAGR and detect direction changes, both of which require ≥ 3 points.
 
-- [ ] **Step 1: Rewrite the module-level constants and helpers**
+- [x] **Step 1: Rewrite the module-level constants and helpers**
 
 Replace the top of `evolution.py` (after the imports) with:
 
@@ -443,7 +445,7 @@ def inflection_count(series):
     return reversals
 ```
 
-- [ ] **Step 2: Replace `build()` with N-point version**
+- [x] **Step 2: Replace `build()` with N-point version**
 
 Delete the existing `build(snap_old, snap_new)` body and replace with:
 
@@ -612,7 +614,7 @@ def build(snapshots=None):
     )
 ```
 
-- [ ] **Step 3: Update the `__main__` block**
+- [x] **Step 3: Update the `__main__` block**
 
 Replace the existing `if __name__ == '__main__':` block with:
 
@@ -625,7 +627,7 @@ if __name__ == '__main__':
     build(snapshots=args.snapshots)
 ```
 
-- [ ] **Step 4: Run the upgraded script against current 2-snapshot data (pre-pipeline smoke test)**
+- [x] **Step 4: Run the upgraded script against current 2-snapshot data (pre-pipeline smoke test)**
 
 This is the fallback path — if only 2 snapshots exist it should still produce a working chart:
 
@@ -636,7 +638,7 @@ python3 -m analysis.countries.evolution
 
 Expected: writes `analysis/countries/html/evolution.html`; no exception.
 
-- [ ] **Step 5: Verify the HTML**
+- [x] **Step 5: Verify the HTML**
 
 ```bash
 ls -la /Volumes/data/internet-yellow-pages/analysis/countries/html/evolution.html
@@ -645,7 +647,7 @@ head -5 /Volumes/data/internet-yellow-pages/analysis/countries/html/evolution.ht
 
 Expected: file exists, starts with `<!DOCTYPE html>` or `<html …`.
 
-- [ ] **Step 6: Commit evolution.py change (but not the regenerated HTML yet — do that in Task 8)**
+- [x] **Step 6: Commit evolution.py change (but not the regenerated HTML yet — do that in Task 8)**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -660,21 +662,21 @@ git commit -m "evolution.py: generalize from 2-point slope to N-point trend/CAGR
 **Files:**
 - Modify: `analysis/countries/html/evolution.html`, `analysis/countries/html/index.html`, `analysis/countries/README.md`
 
-- [ ] **Step 1: Rebuild evolution dashboard against 6 snapshots**
+- [x] **Step 1: Rebuild evolution dashboard against 6 snapshots**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
 python3 -m analysis.countries.evolution
 ```
 
-- [ ] **Step 2: Rebuild index + README (pulls from all metrics JSONs)**
+- [x] **Step 2: Rebuild index + README (pulls from all metrics JSONs)**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
 python3 -m analysis.countries.run_all --report
 ```
 
-- [ ] **Step 3: Sanity-check that 6 snapshots show up**
+- [x] **Step 3: Sanity-check that 6 snapshots show up**
 
 ```bash
 grep -c 'quarterly\|2025-01\|2025-07\|2025-10\|2026-01' \
@@ -683,7 +685,7 @@ grep -c 'quarterly\|2025-01\|2025-07\|2025-10\|2026-01' \
 
 Expected: ≥ 4 matches.
 
-- [ ] **Step 4: Commit regenerated artifacts**
+- [x] **Step 4: Commit regenerated artifacts**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -699,7 +701,7 @@ git commit -m "Regenerate dashboards and README with 6 quarterly snapshots"
 
 **Files:** none
 
-- [ ] **Step 1: `git status` should be clean except gitignored paths**
+- [x] **Step 1: `git status` should be clean except gitignored paths**
 
 ```bash
 cd /Volumes/data/internet-yellow-pages
@@ -708,7 +710,7 @@ git status --short
 
 Expected: empty output, or only `dumps_archive/` noise (which `.gitignore` should have absorbed — if any line references `dumps_archive` check the gitignore anchor).
 
-- [ ] **Step 2: Disk usage snapshot**
+- [x] **Step 2: Disk usage snapshot**
 
 ```bash
 du -sh /Volumes/data/internet-yellow-pages/dumps_archive/*.dump 2>/dev/null
@@ -717,11 +719,11 @@ df -h /Volumes/data | head -2
 
 Expected: 4 dumps × ~15 GB each = ~60 GB in `dumps_archive/`. Free space remains comfortable.
 
-- [ ] **Step 3: Confirm pipeline log is committed to log dir**
+- [x] **Step 3: Confirm pipeline log is committed to log dir**
 
 Nothing to commit for `extract.log` (it's a runtime artifact; check whether `analysis/countries/.gitignore` or repo `.gitignore` excludes it; if not, add `analysis/countries/extract.log` to `.gitignore`).
 
-- [ ] **Step 4: Print summary report**
+- [x] **Step 4: Print summary report**
 
 ```bash
 python3 - <<'PY'
