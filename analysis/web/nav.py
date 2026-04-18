@@ -207,6 +207,7 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('evolution', 'evolution.html', '时序演化', 'Time-Series Evolution'),
     ('matrix', 'dependency_matrix.html', '跨国依赖矩阵', 'Cross-Country Dependency Matrix'),
     ('geography', 'content_geography.html', '内容地理', 'Content Geography'),
+    ('eyeball', 'eyeball_weighted.html', '用户加权视角', 'User-weighted Sovereignty'),
 ]
 
 

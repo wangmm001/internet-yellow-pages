@@ -18,6 +18,7 @@ plugins/
 # Pipeline log from analysis/countries/run_pipeline.sh
 analysis/countries/extract.log
 analysis/countries/backfill_2024.log
+analysis/new_angles/extract.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
