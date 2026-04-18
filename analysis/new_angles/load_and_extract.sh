@@ -19,13 +19,13 @@ mkdir -p "$DUMPS" "$DATA"
 cp "$DUMP" "$DUMPS/neo4j.dump"
 
 echo "stopping any iyp containers" | tee -a "$LOG"
-docker stop iyp iyp_loader 2>/dev/null || true
-docker rm iyp iyp_loader 2>/dev/null || true
+sg docker -c "docker stop iyp iyp_loader 2>/dev/null || true"
+sg docker -c "docker rm iyp iyp_loader 2>/dev/null || true"
 rm -rf "$DATA/databases" "$DATA/transactions"
 
 echo "starting docker compose --profile local" | tee -a "$LOG"
 cd "$REPO"
-uid="$(id -u)" gid="$(id -g)" docker compose --profile local up -d 2>&1 \
+sg docker -c "uid=$(id -u) gid=$(id -g) docker compose --profile local up -d" 2>&1 \
     | tee -a "$LOG"
 
 echo "waiting for Neo4j (up to 30 min)" | tee -a "$LOG"
@@ -51,8 +51,8 @@ echo "running extract_data.py" | tee -a "$LOG"
 EXIT=$?
 
 echo "tearing down" | tee -a "$LOG"
-docker stop iyp iyp_loader 2>/dev/null || true
-docker rm iyp iyp_loader 2>/dev/null || true
+sg docker -c "docker stop iyp iyp_loader 2>/dev/null || true"
+sg docker -c "docker rm iyp iyp_loader 2>/dev/null || true"
 rm -rf "$DATA/databases" "$DATA/transactions"
 rm -f "$DUMPS/neo4j.dump"
 

@@ -427,6 +427,18 @@ def build():
          'GoDaddy 1.3M · dns-parking 728K · Google 652K'),
         ('15', '9×9 国家依赖矩阵', 'country-dep/',
          f'US 唯一净出口 +13.6K · CN 最大净进口 -5.0K · 比 253:1'),
+        ('16', 'IXP 会话真伪对照', 'ixp-reality/',
+         'Alice-LG 13 IXP 实测 vs PeeringDB 声称'),
+        ('17', '多 collector 一致性', 'collector-consensus/',
+         'PCH 单一 collector 看到的可疑前缀'),
+        ('18', '反 eyeball 对照', 'real-traffic/',
+         'Cloudflare DNS + Google CRUX vs APNIC eyeball'),
+        ('19', '应用级封锁矩阵', 'app-censorship/',
+         '12 OONI app × 9 国封锁率 + 相似度'),
+        ('20', 'Anycast 地理普查', 'anycast-census/',
+         'UTwente LACES · per-PoP v4/v6 对齐度'),
+        ('21', 'DNS 权威深度图', 'dns-authority-deep/',
+         '正向 × 反向 × 根区 运营商宇宙'),
     ]
     cat_rows = ''.join(
         f'<tr style="border-bottom:1px solid {DARK_BORDER}">'
@@ -438,7 +450,7 @@ def build():
     )
     catalog = f"""
     <h2 style="color:{TEXT_PRIMARY};margin-top:40px">
-    15 个 topic 索引 · Topic catalog
+    21 个 topic 索引 · Topic catalog
     </h2>
     <table style="width:100%;border-collapse:collapse;margin-top:12px">
     <thead><tr style="border-bottom:2px solid {DARK_BORDER}">

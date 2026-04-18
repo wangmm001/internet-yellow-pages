@@ -384,6 +384,240 @@ def extract_ihr_hegemony():
               ['asn', 'incoming', 'n_deps'])
 
 
+# ---- T16: Alice-LG live IXP members (13 IXPs) ----
+
+def extract_alice_lg_members():
+    """13 alice_lg crawlers produce MEMBER_OF edges with live session state.
+
+    Reference-name filter picks out alice_lg-sourced records specifically
+    (vs peeringdb-sourced MEMBER_OF which lacks the live props).
+    """
+    print('[alice_lg] live IXP member sessions', flush=True)
+    q = """
+        MATCH (a:AS)-[m:MEMBER_OF]->(i:IXP)
+        WHERE m.reference_name STARTS WITH 'alice_lg.'
+        RETURN a.asn AS asn, i.name AS ixp_name,
+               m.reference_name AS source,
+               m.state AS state,
+               m.uptime AS uptime,
+               m.routes_received AS routes_received,
+               m.description AS description,
+               m.address AS address
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  alice_lg query failed: {e}', flush=True)
+        rows = []
+    write_csv('ixp_live_members.csv', rows,
+              ['asn', 'ixp_name', 'source', 'state',
+               'uptime', 'routes_received', 'description', 'address'])
+
+
+# ---- T17: PCH multi-collector consensus ----
+
+def extract_pch_collectors():
+    """PCH ORIGINATE edges carry collector count + collector list.
+
+    Compares to BGPKit/RIS coverage via separate datasets.
+    """
+    print('[pch] per-prefix collector consensus', flush=True)
+    q = """
+        MATCH (a:AS)-[o:ORIGINATE]->(p:Prefix)
+        WHERE o.reference_name STARTS WITH 'pch.'
+        RETURN a.asn AS asn, p.prefix AS prefix, p.af AS af,
+               o.count AS n_collectors,
+               o.seen_by_collectors AS seen_by,
+               o.reference_name AS source
+        LIMIT 500000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  pch query failed: {e}', flush=True)
+        rows = []
+    write_csv('pch_prefix_collectors.csv', rows,
+              ['asn', 'prefix', 'af', 'n_collectors', 'seen_by', 'source'])
+
+
+# ---- T18a/b: Cloudflare DNS traffic ----
+
+def extract_cf_dns_countries():
+    """Cloudflare 1.1.1.1 DNS query origins per country.
+
+    Schema: (DomainName)-[:DNS_ACTIVITY {value, clientCountryAlpha2}]->...
+    """
+    print('[cf_dns_country] Cloudflare DNS by country', flush=True)
+    q = """
+        MATCH (d:DomainName)-[r:DNS_ACTIVITY]->(c:Country)
+        WHERE r.reference_name = 'cloudflare.dns_top_locations'
+        RETURN d.name AS domain, c.country_code AS cc,
+               r.value AS value_pct
+        ORDER BY value_pct DESC
+        LIMIT 50000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  cf_dns_country query failed: {e}', flush=True)
+        rows = []
+    write_csv('cf_dns_top_countries.csv', rows,
+              ['domain', 'cc', 'value_pct'])
+
+
+def extract_cf_dns_ases():
+    """Cloudflare 1.1.1.1 DNS query origins per AS."""
+    print('[cf_dns_as] Cloudflare DNS by AS', flush=True)
+    q = """
+        MATCH (d:DomainName)-[r:DNS_ACTIVITY]->(a:AS)
+        WHERE r.reference_name = 'cloudflare.dns_top_ases'
+        RETURN d.name AS domain, a.asn AS asn,
+               r.value AS value_pct
+        ORDER BY value_pct DESC
+        LIMIT 100000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  cf_dns_as query failed: {e}', flush=True)
+        rows = []
+    write_csv('cf_dns_top_ases.csv', rows, ['domain', 'asn', 'value_pct'])
+
+
+# ---- T18c: Google CRUX per country ----
+
+def extract_crux_by_country():
+    """Google CRUX top 1M hostnames per country — real browser data."""
+    print('[crux] Google CRUX top by country', flush=True)
+    q = """
+        MATCH (h:HostName)-[rk:RANK]->(r:Ranking)
+        WHERE rk.reference_name = 'google.crux_top1m_country'
+        RETURN h.name AS hostname, r.name AS ranking,
+               rk.rank AS rank, rk.country_code AS cc
+        ORDER BY rank ASC
+        LIMIT 200000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  crux query failed: {e}', flush=True)
+        rows = []
+    write_csv('crux_top_by_country.csv', rows,
+              ['hostname', 'ranking', 'rank', 'cc'])
+
+
+# ---- T19: OONI 12-app censorship ----
+
+def extract_ooni_apps():
+    """All OONI app-specific tests (non-webconnectivity).
+
+    Each app crawler produces CENSORED edges with Tag labels like
+    "OONI Telegram Test" etc. We union everything, per-AS per-country.
+    """
+    print('[ooni_apps] 12 app-specific tests', flush=True)
+    q = """
+        MATCH (a:AS)-[r:CENSORED]->(t:Tag)
+        WHERE t.label STARTS WITH 'OONI '
+          AND t.label <> 'OONI Web Connectivity Test'
+        RETURN a.asn AS asn, t.label AS app_tag,
+               r.country_code AS cc,
+               r.total_count AS total,
+               r.percentage_total_blocked AS pct_blocked,
+               r.percentage_total_ok AS pct_ok,
+               r.percentage_dns_blocking AS pct_dns,
+               r.percentage_tcp_blocking AS pct_tcp
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  ooni apps query failed: {e}', flush=True)
+        rows = []
+    write_csv('ooni_apps_matrix.csv', rows,
+              ['asn', 'app_tag', 'cc', 'total',
+               'pct_blocked', 'pct_ok', 'pct_dns', 'pct_tcp'])
+
+
+# ---- T20: UTwente LACES anycast geographic census ----
+
+def extract_laces_geoprefix():
+    """LACES v4/v6 GeoPrefixes with location points."""
+    print('[laces] GeoPrefix locations', flush=True)
+    q = """
+        MATCH (g:GeoPrefix)-[:LOCATED_IN]->(p:Point)
+        OPTIONAL MATCH (g)-[:COUNTRY]->(c:Country)
+        OPTIONAL MATCH (g)-[:CATEGORIZED]->(t:Tag {label:'Anycast'})
+        RETURN g.prefix AS prefix, g.af AS af,
+               c.country_code AS cc,
+               p.lat AS lat, p.lng AS lng,
+               CASE WHEN t IS NOT NULL THEN 1 ELSE 0 END AS is_anycast
+        LIMIT 500000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  laces query failed: {e}', flush=True)
+        rows = []
+    write_csv('laces_geoprefix_countries.csv', rows,
+              ['prefix', 'af', 'cc', 'lat', 'lng', 'is_anycast'])
+
+
+# ---- T21: DNS authority (forward + reverse + root) ----
+
+def extract_ns_authority_forward():
+    """openintel.infra_ns MANAGED_BY — forward DNS authority."""
+    print('[ns_forward] infra_ns forward authority', flush=True)
+    q = """
+        MATCH (d:DomainName)-[m:MANAGED_BY]->(n)
+        WHERE m.reference_name = 'openintel.infra_ns'
+          AND (n:HostName OR n:AuthoritativeNameServer)
+        RETURN d.name AS domain, n.name AS ns_host
+        LIMIT 1000000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  ns_forward query failed: {e}', flush=True)
+        rows = []
+    write_csv('ns_authority_forward.csv', rows, ['domain', 'ns_host'])
+
+
+def extract_ns_authority_rdns():
+    """simulamet.rirdata_rdns MANAGED_BY — reverse DNS authority per prefix."""
+    print('[ns_reverse] rirdata_rdns reverse authority', flush=True)
+    q = """
+        MATCH (p)-[m:MANAGED_BY]->(n)
+        WHERE m.reference_name = 'simulamet.rirdata_rdns'
+          AND (p:RDNSPrefix OR p:Prefix)
+          AND (n:HostName OR n:AuthoritativeNameServer)
+        RETURN p.prefix AS prefix, n.name AS ns_host,
+               m.source AS rir_source
+        LIMIT 500000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  ns_reverse query failed: {e}', flush=True)
+        rows = []
+    write_csv('rdns_authority.csv', rows, ['prefix', 'ns_host', 'rir_source'])
+
+
+def extract_root_zone_ns():
+    """iana.root_zone — who manages each TLD."""
+    print('[root_ns] IANA root zone NS', flush=True)
+    q = """
+        MATCH (d:DomainName)-[m:MANAGED_BY]->(n)
+        WHERE m.reference_name = 'iana.root_zone'
+          AND (n:HostName OR n:AuthoritativeNameServer)
+        RETURN d.name AS tld, n.name AS ns_host
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  root_ns query failed: {e}', flush=True)
+        rows = []
+    write_csv('root_zone_ns.csv', rows, ['tld', 'ns_host'])
+
+
 def main():
     print(f'output dir: {OUT_DIR}', flush=True)
     extract_as_country()
@@ -402,6 +636,17 @@ def main():
     extract_bgp_collector()
     extract_iana_nro()
     extract_ihr_hegemony()
+    # T16-T21 new extractions
+    extract_alice_lg_members()
+    extract_pch_collectors()
+    extract_cf_dns_countries()
+    extract_cf_dns_ases()
+    extract_crux_by_country()
+    extract_ooni_apps()
+    extract_laces_geoprefix()
+    extract_ns_authority_forward()
+    extract_ns_authority_rdns()
+    extract_root_zone_ns()
     print('done', flush=True)
 
 

@@ -151,6 +151,54 @@ GAPS = [
         'upstream': 'IYP archive 需要对所有层按季度重 crawl，或明确声明'
                     '哪些层是"latest-only"',
     },
+    {
+        'id': 'G11', 'name': 'Cloudflare DNS + Google CRUX 层缺失',
+        'path': '(:DomainName)-[:DNS_ACTIVITY]->(:Country|:AS); '
+                '(:HostName)-[:RANK]->(:Ranking {name:"CrUX*"})',
+        'finding': 'cloudflare.dns_top_locations / dns_top_ases / '
+                   'google.crux_top1m_country 查询均返回 0 行——'
+                   '2024-10 dump 里这些 crawler 未运行或 reference_name '
+                   '过滤不匹配',
+        'finding_en': 'Cloudflare DNS + Google CRUX crawlers returned '
+                      '0 rows — not run in 2024-10 dump, or reference_name '
+                      'filter mismatch',
+        'topics': ['topic18 (placeholder)'],
+        'snapshots': '2024-10 (tested)',
+        'severity': 'Medium',
+        'workaround': 'topic18 降级为 placeholder + banner；2026-04 dump '
+                      '可能已补充（size 19.8GB 对 2024-10 的 4.5GB）',
+        'upstream': '需要确认 config.json 里这些 crawler 在 2024-10 pipeline '
+                    '实际运行了；或 reference_name 字段格式有变',
+    },
+    {
+        'id': 'G12', 'name': 'UTwente LACES GeoPrefix 层缺失',
+        'path': '(:GeoPrefix)-[:LOCATED_IN]->(:Point); '
+                '(:GeoPrefix)-[:COUNTRY]->(:Country)',
+        'finding': 'utwente.laces_v4/v6 crawler 未暴露 GeoPrefix-Point 关系',
+        'finding_en': 'utwente LACES crawler did not expose GeoPrefix-Point '
+                      'relations in 2024-10',
+        'topics': ['topic20 (placeholder)'],
+        'snapshots': '2024-10 (tested)',
+        'severity': 'Medium',
+        'workaround': 'topic20 降级；bgptools.anycast tag 仍可提供 '
+                      '"是否 anycast" 但无 PoP 位置',
+        'upstream': 'laces crawler 需要重跑或节点 label 对齐',
+    },
+    {
+        'id': 'G13', 'name': 'DNS 权威三源全缺（forward / reverse / root）',
+        'path': '(:DomainName)-[:MANAGED_BY]->(:HostName) '
+                '× infra_ns / rirdata_rdns / iana.root_zone',
+        'finding': 'openintel.infra_ns / simulamet.rirdata_rdns / '
+                   'iana.root_zone 查询都返回 0 行；RDNSPrefix label 也不存在',
+        'finding_en': 'infra_ns / rirdata_rdns / iana.root_zone all 0 rows; '
+                      'RDNSPrefix label absent in dump',
+        'topics': ['topic21 (placeholder)'],
+        'snapshots': '2024-10 (tested)',
+        'severity': 'Medium',
+        'workaround': 'topic21 降级；topic14 的 dns_authority_top500 依旧'
+                      '给出 operator 视角',
+        'upstream': '多个 openintel/simulamet/iana crawler 需重跑',
+    },
 ]
 
 
