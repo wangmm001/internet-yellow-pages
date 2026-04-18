@@ -210,6 +210,9 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('eyeball', 'eyeball_weighted.html', '用户加权视角', 'User-weighted Sovereignty'),
     ('routing-security', 'routing_security.html', '路由安全真身', 'Routing Security Reality'),
     ('toplist', 'toplist.html', 'Tranco Top-10k 深度', 'Tranco Top-10k Deep-dive'),
+    ('asdb', 'asdb_category.html', 'AS 业务类型图谱', 'ASDB Category Map'),
+    ('archetype', 'as_archetype.html', 'AS 业务原型', 'AS Business Archetype'),
+    ('bgp-tags', 'bgp_tags.html', 'AS 行为标签地图', 'BGP-tools AS Tags'),
 ]
 
 

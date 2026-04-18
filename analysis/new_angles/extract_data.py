@@ -146,6 +146,65 @@ def extract_top_lists():
         write_csv(f'toplist_{slug}.csv', rows, ['domain', 'rank'])
 
 
+# ---- Topic 4/5/6 extract (AS categories / hyperscaler / bgptools tags) ----
+
+def extract_as_categorized():
+    """All (AS)-[:CATEGORIZED]->(Tag) with source discriminator.
+
+    Stanford ASDB + bgptools.tags + RPKI + anycast + ... all land on
+    the same relation; we keep r.reference_name to separate sources.
+    """
+    print('[as_categorized] all AS→Tag links with source', flush=True)
+    q = """
+        MATCH (a:AS)-[r:CATEGORIZED]->(t:Tag)
+        RETURN a.asn AS asn, t.label AS tag,
+               r.reference_name AS source, r.layer AS layer
+    """
+    rows = [dict(r) for r in run_query(q, {})]
+    write_csv('as_categorized.csv', rows,
+              ['asn', 'tag', 'source', 'layer'])
+
+
+def extract_aws_prefixes():
+    """Amazon AWS GeoPrefix → service + country.
+
+    crawler writes (GeoPrefix)-[:CATEGORIZED]->(Tag {label:'<service>'}),
+    (GeoPrefix)-[:COUNTRY]->(Country).
+    """
+    print('[aws] AWS GeoPrefix → service + country', flush=True)
+    q = """
+        MATCH (p:GeoPrefix)-[r:CATEGORIZED]->(t:Tag)
+        WHERE r.reference_name CONTAINS 'amazon'
+        OPTIONAL MATCH (p)-[:COUNTRY]->(c:Country)
+        RETURN p.prefix AS prefix, t.label AS service,
+               c.country_code AS cc
+    """
+    rows = [dict(r) for r in run_query(q, {})]
+    write_csv('aws_prefixes.csv', rows, ['prefix', 'service', 'cc'])
+
+
+def extract_hyperscaler_origin():
+    """ASes that originate AWS/hyperscaler prefixes."""
+    print('[hyperscaler] ASes originating AWS/cloud prefixes', flush=True)
+    q = """
+        MATCH (a:AS)-[:ORIGINATE]->(p:Prefix)<-[r:CATEGORIZED]-(:AS {asn:0})
+        RETURN a.asn AS asn LIMIT 0
+    """
+    # Fallback: look at ASes managing AWS-tagged prefixes
+    q2 = """
+        MATCH (a:AS)-[:ORIGINATE]->(p:GeoPrefix)-[r:CATEGORIZED]->(t:Tag)
+        WHERE r.reference_name CONTAINS 'amazon'
+        RETURN DISTINCT a.asn AS asn, t.label AS service
+        LIMIT 5000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q2, {})]
+    except Exception as e:
+        print(f'  hyperscaler query failed: {e}', flush=True)
+        rows = []
+    write_csv('hyperscaler_originators.csv', rows, ['asn', 'service'])
+
+
 def main():
     print(f'output dir: {OUT_DIR}', flush=True)
     extract_as_country()
@@ -155,6 +214,9 @@ def main():
     extract_manrs()
     extract_rpki_per_as()
     extract_top_lists()
+    extract_as_categorized()
+    extract_aws_prefixes()
+    extract_hyperscaler_origin()
     print('done', flush=True)
 
 
