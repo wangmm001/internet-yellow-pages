@@ -216,6 +216,9 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('ooni', 'ooni_tests.html', 'OONI 审查测试图谱', 'OONI Censorship Tests'),
     ('rovista-country', 'rovista_by_country.html', 'ROV 执行国别地图', 'ROV Enforcement by Country'),
     ('atlas', 'atlas_probes.html', 'Atlas 探针全球覆盖', 'RIPE Atlas Probes'),
+    ('bgp-obs', 'bgp_observation.html', 'BGP 观测多样性', 'BGP Observation Diversity'),
+    ('org-concentration', 'org_concentration.html', 'AS 所有权集中度', 'AS Ownership Concentration'),
+    ('ihr-hegemony', 'ihr_hegemony.html', '全球依赖中心性', 'Global IHR Hegemony'),
 ]
 
 

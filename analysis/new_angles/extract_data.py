@@ -288,6 +288,102 @@ def extract_atlas_probes():
     write_csv('atlas_probes.csv', rows, ['id', 'cc', 'status', 'tags'])
 
 
+# ---- Topic 10/11/12: BGP collector / IANA allocation / IHR hegemony ----
+
+def extract_bgp_collector():
+    """BGP collector observations: how many collectors see each AS.
+
+    PCH + BGPKit snapshots should provide per-collector AS visibility.
+    Schema assumption: (BGPCollector)-[:PART_OF|...]->? or tag-based.
+    Probe label existence first.
+    """
+    print('[bgp_collector] collector → AS visibility', flush=True)
+    try:
+        label_chk = run_query(
+            'MATCH (c:BGPCollector) RETURN count(c) AS c', {})
+        n = list(label_chk[0].values())[0] if label_chk else 0
+        print(f'  BGPCollector nodes: {n}', flush=True)
+    except Exception as e:
+        print(f'  BGPCollector label missing: {e}', flush=True)
+        n = 0
+    if n == 0:
+        write_csv('bgp_collectors.csv', [], ['collector', 'n_asns'])
+        write_csv('collector_per_as.csv', [], ['asn', 'n_collectors'])
+        return
+
+    q = """
+        MATCH (a:AS)-[r:PEERS_WITH]->(b:AS)
+        WITH a.asn AS asn, r.reference_name AS src, count(*) AS peer_count
+        WHERE src CONTAINS 'pch' OR src CONTAINS 'bgpkit'
+        RETURN asn, src, peer_count
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  collector query failed: {e}', flush=True)
+        rows = []
+    write_csv('collector_observations.csv', rows,
+              ['asn', 'src', 'peer_count'])
+
+
+def extract_iana_nro():
+    """Country-level IANA + NRO address allocation.
+
+    Schema probe: IANAPrefix / RIRPrefix labels, ASSIGNED/RESERVED relations.
+    """
+    print('[iana_nro] registry-level allocations', flush=True)
+    for label in ('IANAPrefix', 'RIRPrefix'):
+        try:
+            r = run_query(
+                f'MATCH (p:{label}) RETURN count(p) AS c', {})
+            n = list(r[0].values())[0] if r else 0
+            print(f'  {label} nodes: {n}', flush=True)
+        except Exception as e:
+            print(f'  {label} missing: {e}', flush=True)
+
+    # Country-level RIR allocations via NRO delegated stats
+    q = """
+        MATCH (p:RIRPrefix)-[r:ASSIGNED]->(c:Country)
+        RETURN c.country_code AS cc, p.prefix AS prefix,
+               r.reference_name AS src
+        LIMIT 100000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  NRO query failed: {e}', flush=True)
+        rows = []
+    write_csv('nro_country_prefixes.csv', rows, ['cc', 'prefix', 'src'])
+
+
+def extract_ihr_hegemony():
+    """IHR local hegemony scores per AS.
+
+    Schema: (AS)-[:DEPENDS_ON {hege}]->(AS) — already used indirectly.
+    Here we aggregate to per-AS hegemony centrality.
+    """
+    print('[ihr] AS-level hegemony detail', flush=True)
+    # Each dependency edge has a hege score. We aggregate:
+    #   incoming_hege = sum of hege on edges ending at AS (how much others
+    #     depend on this AS)
+    #   outgoing_hege = sum of hege on edges starting from AS
+    q = """
+        MATCH (a:AS)-[r:DEPENDS_ON]->(b:AS)
+        WHERE r.hege IS NOT NULL
+        WITH b.asn AS dep_on, sum(r.hege) AS incoming,
+             count(a) AS n_deps
+        RETURN dep_on AS asn, incoming, n_deps
+        ORDER BY incoming DESC LIMIT 5000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  hegemony query failed: {e}', flush=True)
+        rows = []
+    write_csv('ihr_hegemony_incoming.csv', rows,
+              ['asn', 'incoming', 'n_deps'])
+
+
 def main():
     print(f'output dir: {OUT_DIR}', flush=True)
     extract_as_country()
@@ -303,6 +399,9 @@ def main():
     extract_ooni()
     extract_peeringdb_orgs()
     extract_atlas_probes()
+    extract_bgp_collector()
+    extract_iana_nro()
+    extract_ihr_hegemony()
     print('done', flush=True)
 
 
