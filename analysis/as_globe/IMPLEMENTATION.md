@@ -48,8 +48,22 @@ analysis/as_globe/
 ├── step01_extract.py           # Neo4j → 4 份 CSV（AS-country / IPv4 / peers / geo）
 ├── step02_decimate.py          # CSV → nodes.json + links.json（池选择 + 区域桶 + 半径）
 ├── step03_render_globe.py      # nodes/links → html/as_globe.html（globe.gl）
-└── step04_render_force.py      # nodes/links → html/as_force.html（3d-force-graph）
+├── step04_render_force.py      # nodes/links → html/as_force.html（3d-force-graph）
+└── step05_render_strata.py     # nodes/links → html/as_strata.html（raw Three.js + ESM importmap）
 ```
+
+### v2 追加 · `step05_render_strata.py`（2026-04-18 · AS 都会）
+
+在原有两个视图的基础上，针对"有限空间内表达占比 + 对等关系"两个失败点新增一条旗舰视图：
+
+- **几何**：平面圆盘用「区域 → 国家」嵌套饼状扇区占比显示；大国扇区上立一根高度∝log10(IPv4) 的柱（mesa）；每个 AS 为 3D 球体浮在扇区上方，`z ∝ log10(IPv4)`，半径**未截断**（解决原 12 px 饱和问题）。
+- **边**：30K 原始对等聚合为 ~1.85K **国家对丝带**，用 `TubeGeometry` 渲染，丝带**粗细=log10(对等边数)**。默认不画逐边；点击 AS 才展开其邻接扇。
+- **栈**：`three@0.160.0` via **ESM importmap** — 避开此前 `three@0.161` UMD 下线导致的白屏事故；红色错误横幅 + `window.onerror` 兜底。
+- **学术依据**：Krzywinski 2012（hive 抛弃 hairball）、Holten 2006（hierarchical edge bundles）、Balzer 2005 / Bruls 2000（treemap 面积比例）、CAIDA AS Core / Walrus H3。详见 plan 文件 §Research。
+
+运行：`python3 -m analysis.as_globe.step05_render_strata` → `html/as_strata.html` (~780 KB)。渲染顶点对照（2026-04 pool）：
+- Top 5 国家对丝带：GB↔US 679 · AU↔US 425 · CH↔DE 412 · BR↔US 373 · CH↔US 360 条对等边。
+- 94 cells（91 named + 3 region-residual），1,850 bundles（56 intra + 1,794 inter）。
 
 ### 修改文件 Modified files（4）
 

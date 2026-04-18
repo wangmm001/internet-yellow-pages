@@ -423,6 +423,9 @@ def _build_network_track() -> Track:
 # --- Globe (3D AS interconnect) track -----------------------------------
 
 GLOBE_VIEWS: list[tuple[str, str, str, str, str, list[str]]] = [
+    ('strata', 'as_strata.html', '分层占比图', 'AS Strata · Country Canopy',
+     '扇区面积=占比 · 柱高=国家 IPv4 · 丝带粗细=对等量',
+     ['94 国扇区', '1.8K 对等丝带', 'Three.js']),
     ('globe', 'as_globe.html', '地球视图', 'Geographic Globe',
      'globe.gl · 真实坐标 + 国家质心抖动 + 对等弧',
      ['5,000 AS', '地理坐标', 'globe.gl']),

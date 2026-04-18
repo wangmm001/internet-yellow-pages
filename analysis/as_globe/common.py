@@ -42,7 +42,7 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 REGION_ORDER = ['cn', 'na', 'ea', 'eu', 'ot']
 
 REGION_LABEL = {
-    'cn': ('大中华', 'Greater China'),
+    'cn': ('中国区', 'Greater China'),
     'na': ('北美', 'North America'),
     'ea': ('东亚', 'East Asia (ex-GC)'),
     'eu': ('欧洲', 'Europe (EU+EEA+UK+CH)'),
