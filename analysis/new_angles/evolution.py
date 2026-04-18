@@ -142,8 +142,9 @@ def build():
     if gap_snaps:
         p3.add_annotation(
             xref='paper', yref='paper', x=0.02, y=1.08,
-            text=f'⚠ {", ".join(gap_snaps)} 点 Tag schema 失配 '
-                 f'(留白, not interpolated)',
+            text=f'⚠ {", ".join(gap_snaps)}: IYP 那代 dump 在 Prefix 节点上 '
+                 f'只挂了 Anycast tag，没有 RPKI Valid tag（AS 级 '
+                 f'Validating RPKI ROV 仍在） · probe-confirmed',
             showarrow=False, bgcolor='rgba(255,159,10,0.12)',
             bordercolor=COLORS['orange'], borderwidth=1,
             font=dict(color=COLORS['orange'], size=11),
