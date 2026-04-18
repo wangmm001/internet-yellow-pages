@@ -219,6 +219,9 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('bgp-obs', 'bgp_observation.html', 'BGP 观测多样性', 'BGP Observation Diversity'),
     ('org-concentration', 'org_concentration.html', 'AS 所有权集中度', 'AS Ownership Concentration'),
     ('ihr-hegemony', 'ihr_hegemony.html', '全球依赖中心性', 'Global IHR Hegemony'),
+    ('multinational', 'multinational.html', '跨国组织 AS 足迹', 'Multinational Org Footprint'),
+    ('dns-authority', 'dns_authority.html', '全球 DNS 权威集中度', 'Global DNS Authority'),
+    ('country-dep', 'country_dep_matrix.html', '9×9 国家依赖矩阵', 'Country Dependency Matrix'),
 ]
 
 
