@@ -25,6 +25,7 @@ from analysis.china.common import (  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent.parent
 CACHE = REPO / 'data_cache' / 'new_angles'
+COMPLEX_CACHE = REPO / 'data_cache' / 'complex_network'
 OUT = REPO / 'analysis' / 'new_angles' / 'html'
 OUT.mkdir(parents=True, exist_ok=True)
 METRICS = REPO / 'analysis' / 'countries' / 'data' / '2026-04'
@@ -53,6 +54,54 @@ def _read_csv(name):
         return []
     with open(path, encoding='utf-8') as f:
         return list(csv.DictReader(f))
+
+
+def _load_coreness():
+    p = COMPLEX_CACHE / 'step08_coreness.csv'
+    out = {}
+    if not p.exists():
+        return out
+    import csv as _csv
+    with open(p, encoding='utf-8') as f:
+        for r in _csv.DictReader(f):
+            try:
+                out[int(r['asn'])] = int(r['coreness'])
+            except (ValueError, KeyError):
+                continue
+    return out
+
+
+def _load_ixp_membership():
+    p = COMPLEX_CACHE / 'as_ixp_membership.csv'
+    out = defaultdict(set)
+    if not p.exists():
+        return out
+    import csv as _csv
+    with open(p, encoding='utf-8') as f:
+        for r in _csv.DictReader(f):
+            try:
+                asn = int(r['asn'])
+                for c in (r.get('ixp_countries') or '').split(';'):
+                    c = c.strip()
+                    if c:
+                        out[asn].add(c)
+            except (ValueError, KeyError):
+                continue
+    return out
+
+
+def _load_as_country():
+    p = CACHE / 'as_country.csv'
+    out = {}
+    if not p.exists():
+        return out
+    with open(p, encoding='utf-8') as f:
+        for r in csv.DictReader(f):
+            try:
+                out[int(r['asn'])] = r['cc']
+            except (ValueError, KeyError):
+                continue
+    return out
 
 
 def _gini(xs):
@@ -223,11 +272,98 @@ def build():
     )
 
     from plotly.io import to_html
-    for fig in (p1, p2, p3, p4):
+    # ---- Panel 5: deep-core density — equal-weight vs user-weighted ----
+    coreness = _load_coreness()
+    as_cc_map = _load_as_country()
+    ixp_membership = _load_ixp_membership()
+    THRESHOLD = 30
+    p5 = go.Figure()
+    dc_rows = []
+    for cc in TARGET:
+        country_as = {a for a, c in as_cc_map.items() if c == cc}
+        eye_sub = {t[0] for t in per_cc.get(cc, [])} & country_as
+        if not country_as or not eye_sub:
+            continue
+        deep_country = sum(1 for a in country_as
+                           if coreness.get(a, 0) >= THRESHOLD)
+        deep_eye = sum(1 for a in eye_sub
+                       if coreness.get(a, 0) >= THRESHOLD)
+        dc_rows.append({
+            'cc': cc,
+            'infra': deep_country / len(country_as) * 100,
+            'user': deep_eye / len(eye_sub) * 100,
+            'ratio': (deep_eye / len(eye_sub))
+            / max(deep_country / len(country_as), 1e-4),
+        })
+    dc_rows.sort(key=lambda r: -r['ratio'])
+    p5.add_trace(go.Bar(
+        x=[f'{COUNTRY_NAME[r["cc"]]} {r["cc"]}' for r in dc_rows],
+        y=[r['infra'] for r in dc_rows],
+        name='Infra view (所有 AS)', marker_color='#8e8e93',
+        text=[f'{r["infra"]:.1f}%' for r in dc_rows], textposition='outside',
+    ))
+    p5.add_trace(go.Bar(
+        x=[f'{COUNTRY_NAME[r["cc"]]} {r["cc"]}' for r in dc_rows],
+        y=[r['user'] for r in dc_rows],
+        name='User view (只看 eyeball AS)',
+        marker_color=[country_color(r['cc']) for r in dc_rows],
+        text=[f'{r["user"]:.1f}%<br>({r["ratio"]:.1f}×)'
+              for r in dc_rows], textposition='outside',
+    ))
+    p5.update_layout(
+        title=f'⑤ 深层 k-core 密度（coreness ≥ {THRESHOLD}）· '
+              f'Infra 视角 vs User 视角 — CN 扭曲最大',
+        barmode='group', height=520,
+        yaxis=dict(title='% of subset in deep k-core'),
+        xaxis=dict(title='', tickangle=-20),
+        legend=dict(orientation='h', y=-0.15),
+    )
+
+    # ---- Panel 6: domestic IXP membership under 2 views ----
+    p6 = go.Figure()
+    ixp_rows = []
+    for cc in TARGET:
+        country_as = {a for a, c in as_cc_map.items() if c == cc}
+        eye_sub = {t[0] for t in per_cc.get(cc, [])} & country_as
+        if not country_as or not eye_sub:
+            continue
+        dom_country = sum(1 for a in country_as
+                          if cc in ixp_membership.get(a, set()))
+        dom_eye = sum(1 for a in eye_sub
+                      if cc in ixp_membership.get(a, set()))
+        ixp_rows.append({
+            'cc': cc,
+            'infra': dom_country / len(country_as) * 100,
+            'user': dom_eye / len(eye_sub) * 100,
+        })
+    ixp_rows.sort(key=lambda r: -r['user'])
+    p6.add_trace(go.Bar(
+        x=[f'{COUNTRY_NAME[r["cc"]]} {r["cc"]}' for r in ixp_rows],
+        y=[r['infra'] for r in ixp_rows],
+        name='Infra view', marker_color='#8e8e93',
+        text=[f'{r["infra"]:.1f}%' for r in ixp_rows], textposition='outside',
+    ))
+    p6.add_trace(go.Bar(
+        x=[f'{COUNTRY_NAME[r["cc"]]} {r["cc"]}' for r in ixp_rows],
+        y=[r['user'] for r in ixp_rows],
+        name='User view',
+        marker_color=[country_color(r['cc']) for r in ixp_rows],
+        text=[f'{r["user"]:.1f}%' for r in ixp_rows], textposition='outside',
+    ))
+    p6.update_layout(
+        title='⑥ 本地 IXP 接入比例 · '
+              'Infra vs User 视角 — 差距说明 CN IXP 确实是真差（非纯扭曲）',
+        barmode='group', height=520,
+        yaxis=dict(title='% with membership in domestic IXP', range=[0, 100]),
+        xaxis=dict(title='', tickangle=-20),
+        legend=dict(orientation='h', y=-0.15),
+    )
+
+    for fig in (p1, p2, p3, p4, p5, p6):
         apply_plotly_theme(fig)
     body_parts = []
     first = True
-    for fig in (p1, p2, p3, p4):
+    for fig in (p1, p2, p3, p4, p5, p6):
         body_parts.append(to_html(
             fig, include_plotlyjs=('inline' if first else False),
             full_html=False, default_height='520px'))
@@ -239,6 +375,10 @@ def build():
         f'1 个服务 10 个用户的企业网 = 1 个服务 3 亿人的 ISP。'
         f'本页引入 <b>APNIC Eyeball</b>（每 AS 在该国用户份额）+ '
         f'<b>Worldbank</b> 人口作为新维度。'
+        f'<br><b>Panel ⑤ ⑥</b> 是此问题的直接证据：同一指标在 '
+        f'<b>infra 视角</b>（所有 AS）vs <b>user 视角</b>'
+        f'（仅 APNIC 可见 AS）下的差异。CN 在深层 k-core 上有 ~23× 扭曲，'
+        f'但在本地 IXP 接入上仍是真差——混合信号。'
         f'<br><b>Scope:</b> 9 target countries · 2024-10 snapshot · '
         f'{sum(len(per_cc[c]) for c in have):,} eyeball AS entries across '
         f'{len(have)} countries.</p>'
