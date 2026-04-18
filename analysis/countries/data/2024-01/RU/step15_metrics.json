@@ -1,0 +1,24 @@
+{
+  "step": 15,
+  "country": "RU",
+  "snapshot": "2024-01",
+  "title_zh": "DNS 主权率",
+  "title_en": "DNS sovereignty",
+  "metrics": {
+    "total_domains": 82128,
+    "ns_sampled": 300,
+    "domestic_pct": 19.45,
+    "operator_country_distribution": {
+      "tld:ru": 28124,
+      "RU": 15970,
+      "US": 11899,
+      "tld:net": 8348,
+      "tld:com": 7654,
+      "tld:pro": 5294,
+      "tld:org": 3228,
+      "tld:link": 610,
+      "tld:biz": 476,
+      "tld:eu": 436
+    }
+  }
+}

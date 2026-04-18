@@ -5,39 +5,39 @@
   "title_zh": "出向 Hegemony",
   "title_en": "Outbound hegemony",
   "metrics": {
-    "outbound_edges": 7895,
+    "outbound_edges": 8228,
     "top_destination_countries": {
-      "US": 5081,
-      "BG": 1060,
-      "DE": 223,
-      "NL": 216,
-      "HK": 115,
-      "AD": 100,
-      "CH": 83,
-      "IT": 78,
-      "RU": 76,
-      "AF": 63
+      "US": 2284,
+      "BE": 1128,
+      "FR": 1000,
+      "AR": 896,
+      "HK": 591,
+      "NL": 493,
+      "CA": 307,
+      "DE": 265,
+      "IE": 98,
+      "RU": 88
     },
     "top5_upstream_ases": [
       [
         6939,
-        1271
+        1760
       ],
       [
         174,
-        1020
+        1109
       ],
       [
         1299,
-        1014
+        879
       ],
       [
         3356,
-        895
+        870
       ],
       [
         2914,
-        558
+        401
       ]
     ]
   }

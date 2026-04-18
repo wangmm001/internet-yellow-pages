@@ -1,0 +1,44 @@
+{
+  "step": 8,
+  "country": "JP",
+  "snapshot": "2024-01",
+  "title_zh": "出向 Hegemony",
+  "title_en": "Outbound hegemony",
+  "metrics": {
+    "outbound_edges": 3102,
+    "top_destination_countries": {
+      "US": 1423,
+      "HK": 572,
+      "SE": 439,
+      "BE": 290,
+      "AT": 82,
+      "CH": 53,
+      "GB": 48,
+      "NL": 34,
+      "BH": 31,
+      "AU": 25
+    },
+    "top5_upstream_ases": [
+      [
+        6939,
+        970
+      ],
+      [
+        1299,
+        439
+      ],
+      [
+        3356,
+        378
+      ],
+      [
+        2914,
+        340
+      ],
+      [
+        174,
+        287
+      ]
+    ]
+  }
+}

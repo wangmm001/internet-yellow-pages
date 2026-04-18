@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "JP",
+  "snapshot": "2024-04",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": 4,
+    "best_ranks_per_system": {
+      "APNIC eyeball estimates (JP)": 1,
+      "IHR country ranking: Total AS (JP)": 1,
+      "IHR country ranking: Total eyeball (JP)": 1,
+      "IHR country ranking: Total AS (HK)": 2,
+      "IHR country ranking: Total eyeball (BN)": 2,
+      "IHR country ranking: Total eyeball (SR)": 2,
+      "IHR country ranking: Total AS (SR)": 2,
+      "IHR country ranking: Total AS (BN)": 3,
+      "IHR country ranking: Total eyeball (MO)": 3,
+      "IHR country ranking: Total eyeball (KR)": 4
+    }
+  }
+}

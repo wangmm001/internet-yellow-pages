@@ -1,0 +1,13 @@
+{
+  "step": 7,
+  "country": "NL",
+  "snapshot": "2024-07",
+  "title_zh": "k-core 层级位置",
+  "title_en": "k-core depth",
+  "metrics": {
+    "global_max_k": 197,
+    "deepest_k_in_country": 197,
+    "count_k_ge_30": 315,
+    "count_k_ge_100": 164
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "step": 12,
+  "country": "JP",
+  "snapshot": "2024-10",
+  "title_zh": "机房分布",
+  "title_en": "Facility distribution",
+  "metrics": {
+    "total_facility_records": 470,
+    "distinct_facilities_with_country": 103,
+    "top_countries_by_facility_presence": {
+      "JP": 386,
+      "US": 35,
+      "HK": 17,
+      "SG": 13,
+      "PH": 8
+    },
+    "top_facilities": [
+      [
+        "AT TOKYO (CC1/CC2)",
+        62
+      ],
+      [
+        "NTT DATA Otemachi Bldg",
+        33
+      ],
+      [
+        "NTT DATA Dojima (building #4)",
+        30
+      ],
+      [
+        "Equinix TY4 - Tokyo",
+        25
+      ],
+      [
+        "Digital Edge TYO2 (ComSpace 1) - Tokyo",
+        22
+      ]
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "step": 3,
+  "country": "NL",
+  "snapshot": "2024-01",
+  "title_zh": "全球规模排名",
+  "title_en": "Global scale rank",
+  "metrics": {
+    "as_count": {
+      "rank": 15,
+      "value": 1665
+    },
+    "prefix_count": {
+      "rank": 17,
+      "value": 23774
+    },
+    "ixp_count": {
+      "rank": 8,
+      "value": 34
+    },
+    "facility_count": {
+      "rank": 8,
+      "value": 136
+    }
+  }
+}

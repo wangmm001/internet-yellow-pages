@@ -1,0 +1,23 @@
+{
+  "step": 11,
+  "country": "DE",
+  "snapshot": "2024-01",
+  "title_zh": "IXP 会员分布",
+  "title_en": "IXP landscape",
+  "metrics": {
+    "ixp_memberships_domestic": 1626,
+    "ixp_memberships_foreign": 1113,
+    "top_ixp_host_countries": {
+      "DE": 1626,
+      "NL": 313,
+      "CH": 162,
+      "US": 148,
+      "GB": 56,
+      "FR": 41,
+      "ES": 37,
+      "SE": 33,
+      "DK": 22,
+      "IT": 20
+    }
+  }
+}

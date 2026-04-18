@@ -1,0 +1,20 @@
+{
+  "step": 1,
+  "country": "GB",
+  "snapshot": "2024-04",
+  "title_zh": "AS 清册与标签分布",
+  "title_en": "AS inventory & tag breakdown",
+  "metrics": {
+    "total_ases": 3330,
+    "tag_distribution": {
+      "Other": 927,
+      "ISP": 1665,
+      "Eyeball": 67,
+      "Government": 76,
+      "Content/CDN": 258,
+      "Enterprise": 133,
+      "Unknown": 118,
+      "Academic/Edu": 86
+    }
+  }
+}

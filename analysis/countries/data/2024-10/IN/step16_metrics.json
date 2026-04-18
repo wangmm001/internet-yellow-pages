@@ -1,0 +1,11 @@
+{
+  "step": 16,
+  "country": "IN",
+  "snapshot": "2024-10",
+  "title_zh": "跨境 CNAME 链",
+  "title_en": "Cross-border CNAME",
+  "metrics": {
+    "alias_edges": 0,
+    "_note": "no-keywords-for-country"
+  }
+}

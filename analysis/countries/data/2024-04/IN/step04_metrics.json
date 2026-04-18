@@ -1,0 +1,14 @@
+{
+  "step": 4,
+  "country": "IN",
+  "snapshot": "2024-04",
+  "title_zh": "BGP 前缀与 RPKI",
+  "title_en": "BGP prefixes & RPKI",
+  "metrics": {
+    "v4_prefixes": 52328,
+    "v6_prefixes": 19612,
+    "total_prefixes": 71940,
+    "rpki_rate_pct": 56.82,
+    "anycast_prefixes": 9
+  }
+}

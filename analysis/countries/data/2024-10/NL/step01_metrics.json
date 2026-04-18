@@ -1,0 +1,20 @@
+{
+  "step": 1,
+  "country": "NL",
+  "snapshot": "2024-10",
+  "title_zh": "AS 清册与标签分布",
+  "title_en": "AS inventory & tag breakdown",
+  "metrics": {
+    "total_ases": 1665,
+    "tag_distribution": {
+      "Content/CDN": 162,
+      "ISP": 857,
+      "Other": 419,
+      "Government": 44,
+      "Enterprise": 82,
+      "Unknown": 24,
+      "Academic/Edu": 58,
+      "Eyeball": 19
+    }
+  }
+}

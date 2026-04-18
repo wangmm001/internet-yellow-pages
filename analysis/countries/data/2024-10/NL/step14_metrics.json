@@ -1,0 +1,36 @@
+{
+  "step": 14,
+  "country": "NL",
+  "snapshot": "2024-10",
+  "title_zh": "DNS 托管版图",
+  "title_en": "DNS hosting",
+  "metrics": {
+    "total_hosted_hostnames": 2832141,
+    "hosting_ases": 723,
+    "top5_hosting_ases": [
+      [
+        3257,
+        862866
+      ],
+      [
+        51088,
+        832614
+      ],
+      [
+        60781,
+        285892
+      ],
+      [
+        35133,
+        233425
+      ],
+      [
+        20940,
+        196384
+      ]
+    ],
+    "cloud_hostnames": 1620808,
+    "isp_hostnames": 1196726,
+    "other_hostnames": 14607
+  }
+}

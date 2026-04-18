@@ -1,0 +1,23 @@
+{
+  "step": 5,
+  "country": "RU",
+  "snapshot": "2024-04",
+  "title_zh": "对等互联伙伴",
+  "title_en": "Peering partners",
+  "metrics": {
+    "internal_edges": 12380,
+    "cross_border_edges": 33787,
+    "top_peer_countries": {
+      "US": 2886,
+      "DE": 2868,
+      "GB": 2546,
+      "NL": 2204,
+      "FR": 2195,
+      "CH": 1873,
+      "IT": 1578,
+      "BG": 1577,
+      "AU": 1296,
+      "SG": 1037
+    }
+  }
+}

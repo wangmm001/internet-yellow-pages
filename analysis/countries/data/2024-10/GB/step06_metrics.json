@@ -1,0 +1,16 @@
+{
+  "step": 6,
+  "country": "GB",
+  "snapshot": "2024-10",
+  "title_zh": "全球中心性位置",
+  "title_en": "Global centrality ranks",
+  "metrics": {
+    "count_with_centrality": 2310,
+    "best_ranks": {
+      "degree": 41,
+      "betweenness": 22,
+      "eigenvector": 32,
+      "pagerank": 28
+    }
+  }
+}

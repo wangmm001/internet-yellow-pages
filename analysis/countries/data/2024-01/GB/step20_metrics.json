@@ -1,0 +1,17 @@
+{
+  "step": 20,
+  "country": "GB",
+  "snapshot": "2024-01",
+  "title_zh": "综合主权指数",
+  "title_en": "Composite sovereignty index",
+  "metrics": {
+    "composite_sovereignty_index": 0.5779,
+    "components": {
+      "hosting_sovereignty": 1.0,
+      "dns_sovereignty": 0.0,
+      "rpki_adoption": 0.458,
+      "ixp_domesticization": 0.4313,
+      "hub_ratio": 1.0
+    }
+  }
+}

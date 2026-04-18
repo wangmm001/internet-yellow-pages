@@ -1,0 +1,44 @@
+{
+  "step": 9,
+  "country": "NL",
+  "snapshot": "2024-01",
+  "title_zh": "入向 Hegemony",
+  "title_en": "Inbound hegemony",
+  "metrics": {
+    "inbound_edges": 10364,
+    "top_source_countries": {
+      "US": 3160,
+      "GB": 603,
+      "CA": 457,
+      "DE": 448,
+      "TR": 399,
+      "UA": 344,
+      "AU": 327,
+      "ES": 228,
+      "FR": 206,
+      "IN": 187
+    },
+    "top5_country_upstream_ases": [
+      [
+        3257,
+        6728
+      ],
+      [
+        6830,
+        959
+      ],
+      [
+        15830,
+        858
+      ],
+      [
+        21320,
+        211
+      ],
+      [
+        199995,
+        162
+      ]
+    ]
+  }
+}

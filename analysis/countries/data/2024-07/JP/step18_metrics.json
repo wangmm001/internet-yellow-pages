@@ -1,0 +1,55 @@
+{
+  "step": 18,
+  "country": "JP",
+  "snapshot": "2024-07",
+  "title_zh": "审查拓扑",
+  "title_en": "Censorship topology",
+  "metrics": {
+    "censoring_ases": 22,
+    "total_detections": 910,
+    "top5_tests": [
+      [
+        "ooni.tor",
+        572
+      ],
+      [
+        "ooni.stunreachability",
+        150
+      ],
+      [
+        "ooni.whatsapp",
+        27
+      ],
+      [
+        "ooni.psiphon",
+        27
+      ],
+      [
+        "ooni.facebookmessenger",
+        26
+      ]
+    ],
+    "top5_censoring_ases": [
+      [
+        208172,
+        230
+      ],
+      [
+        55392,
+        39
+      ],
+      [
+        63806,
+        39
+      ],
+      [
+        2518,
+        38
+      ],
+      [
+        3258,
+        38
+      ]
+    ]
+  }
+}

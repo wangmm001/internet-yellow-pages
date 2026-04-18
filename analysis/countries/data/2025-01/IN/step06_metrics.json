@@ -5,12 +5,12 @@
   "title_zh": "全球中心性位置",
   "title_en": "Global centrality ranks",
   "metrics": {
-    "count_with_centrality": 2888,
+    "count_with_centrality": 2903,
     "best_ranks": {
-      "degree": 14,
-      "betweenness": 11,
-      "eigenvector": 16,
-      "pagerank": 12
+      "degree": 17,
+      "betweenness": 8,
+      "eigenvector": 20,
+      "pagerank": 14
     }
   }
 }

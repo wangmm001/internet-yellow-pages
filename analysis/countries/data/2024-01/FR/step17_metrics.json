@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "FR",
+  "snapshot": "2024-01",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": null,
+    "best_ranks_per_system": {
+      "IHR country ranking: Total eyeball (SE)": 1,
+      "IHR country ranking: Total AS (CZ)": 1,
+      "IHR country ranking: Total eyeball (KM)": 1,
+      "IHR country ranking: Total AS (SE)": 1,
+      "IHR country ranking: Total AS (DE)": 1,
+      "IHR country ranking: Total AS (CY)": 1,
+      "IHR country ranking: Total AS (GF)": 1,
+      "IHR country ranking: Total AS (KM)": 1,
+      "IHR country ranking: Total AS (SV)": 1,
+      "IHR country ranking: Total eyeball (US)": 1
+    }
+  }
+}

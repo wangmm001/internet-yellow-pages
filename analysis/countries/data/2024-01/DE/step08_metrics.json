@@ -1,0 +1,44 @@
+{
+  "step": 8,
+  "country": "DE",
+  "snapshot": "2024-01",
+  "title_zh": "出向 Hegemony",
+  "title_en": "Outbound hegemony",
+  "metrics": {
+    "outbound_edges": 7323,
+    "top_destination_countries": {
+      "US": 3570,
+      "SE": 731,
+      "BE": 692,
+      "AT": 423,
+      "NL": 357,
+      "HK": 319,
+      "GB": 278,
+      "CH": 235,
+      "IE": 98,
+      "AU": 96
+    },
+    "top5_upstream_ases": [
+      [
+        6939,
+        2127
+      ],
+      [
+        3356,
+        1226
+      ],
+      [
+        1299,
+        711
+      ],
+      [
+        174,
+        627
+      ],
+      [
+        8220,
+        319
+      ]
+    ]
+  }
+}

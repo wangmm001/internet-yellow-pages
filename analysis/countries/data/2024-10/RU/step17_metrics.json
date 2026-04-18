@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "RU",
+  "snapshot": "2024-10",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": null,
+    "best_ranks_per_system": {
+      "IHR country ranking: Total AS (VA)": 1,
+      "IHR country ranking: Total AS (VE)": 1,
+      "IHR country ranking: Total eyeball (MM)": 1,
+      "IHR country ranking: Total AS (IE)": 1,
+      "IHR country ranking: Total AS (KY)": 1,
+      "APNIC eyeball estimates (SY)": 1,
+      "IHR country ranking: Total AS (KN)": 1,
+      "IHR country ranking: Total AS (NL)": 1,
+      "IHR country ranking: Total AS (MA)": 1,
+      "IHR country ranking: Total AS (MX)": 1
+    }
+  }
+}

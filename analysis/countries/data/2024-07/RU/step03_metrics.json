@@ -1,0 +1,25 @@
+{
+  "step": 3,
+  "country": "RU",
+  "snapshot": "2024-07",
+  "title_zh": "全球规模排名",
+  "title_en": "Global scale rank",
+  "metrics": {
+    "as_count": {
+      "rank": 5,
+      "value": 5855
+    },
+    "prefix_count": {
+      "rank": 6,
+      "value": 52185
+    },
+    "ixp_count": {
+      "rank": 5,
+      "value": 40
+    },
+    "facility_count": {
+      "rank": 12,
+      "value": 80
+    }
+  }
+}

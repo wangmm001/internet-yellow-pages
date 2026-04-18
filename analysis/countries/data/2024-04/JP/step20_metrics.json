@@ -1,0 +1,17 @@
+{
+  "step": 20,
+  "country": "JP",
+  "snapshot": "2024-04",
+  "title_zh": "综合主权指数",
+  "title_en": "Composite sovereignty index",
+  "metrics": {
+    "composite_sovereignty_index": 0.4314,
+    "components": {
+      "hosting_sovereignty": 1.0,
+      "dns_sovereignty": 0.0115,
+      "rpki_adoption": 0.2888,
+      "ixp_domesticization": 0.7599,
+      "hub_ratio": 0.097
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "CN",
+  "snapshot": "2024-01",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": null,
+    "best_ranks_per_system": {
+      "APNIC eyeball estimates (CN)": 1,
+      "IHR country ranking: Total eyeball (CN)": 1,
+      "IHR country ranking: Total AS (CN)": 1,
+      "APNIC eyeball estimates (MO)": 2,
+      "IHR country ranking: Total eyeball (KP)": 3,
+      "IHR country ranking: Total eyeball (VN)": 4,
+      "APNIC eyeball estimates (HK)": 4,
+      "IHR country ranking: Total AS (KP)": 4,
+      "IHR country ranking: Total eyeball (ET)": 5,
+      "IHR country ranking: Total AS (BY)": 6
+    }
+  }
+}

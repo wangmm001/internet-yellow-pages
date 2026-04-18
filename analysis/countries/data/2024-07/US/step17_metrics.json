@@ -1,0 +1,23 @@
+{
+  "step": 17,
+  "country": "US",
+  "snapshot": "2024-07",
+  "title_zh": "多排名位置",
+  "title_en": "Multi-ranking positions",
+  "metrics": {
+    "rankings_count": 30,
+    "best_caida_rank": 1,
+    "best_ranks_per_system": {
+      "IHR country ranking: Total AS (PR)": 1,
+      "IHR country ranking: Total AS (NZ)": 1,
+      "IHR country ranking: Total eyeball (PR)": 1,
+      "IHR country ranking: Total eyeball (TH)": 1,
+      "IHR country ranking: Total AS (PW)": 1,
+      "IHR country ranking: Total eyeball (NZ)": 1,
+      "IHR country ranking: Total eyeball (MF)": 1,
+      "IHR country ranking: Total eyeball (BL)": 1,
+      "IHR country ranking: Total AS (TT)": 1,
+      "IHR country ranking: Total AS (TH)": 1
+    }
+  }
+}
