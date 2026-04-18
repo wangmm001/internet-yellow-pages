@@ -18,11 +18,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import shutil
 import sys
 import time
 from dataclasses import asdict, is_dataclass
 from pathlib import Path
+from urllib.parse import urlparse
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -123,6 +125,45 @@ def _country_delta_strip(page: nav.Page) -> list[dict]:
     })
 
     return strip
+
+
+_HREF_RE = re.compile(r'''<a\s[^>]*href=["']([^"']+)["']''', re.IGNORECASE)
+
+
+def _scan_site_links(site_root: Path) -> list[dict]:
+    '''Walk every rendered HTML under site_root and return broken local links.
+
+    Skips: external URLs, fragments, mailto:, tel:, javascript:, data: URIs.
+    For directory-style hrefs ending in '/', accepts either the directory or
+    its index.html. For anchor links with a fragment, strips it before
+    filesystem resolution.
+    '''
+    broken: list[dict] = []
+    for html_path in site_root.rglob('*.html'):
+        text = html_path.read_text(encoding='utf-8', errors='replace')
+        seen: set[str] = set()
+        for raw in _HREF_RE.findall(text):
+            if raw in seen:
+                continue
+            seen.add(raw)
+            parsed = urlparse(raw)
+            if parsed.scheme or parsed.netloc:
+                continue
+            href = parsed.path
+            if not href or href.startswith('#'):
+                continue
+            if raw.startswith(('mailto:', 'tel:', 'javascript:', 'data:')):
+                continue
+            target = (html_path.parent / href).resolve()
+            if target.is_dir():
+                target = target / 'index.html'
+            if not target.exists():
+                broken.append({
+                    'page': str(html_path.relative_to(site_root)),
+                    'href': raw,
+                    'resolved': str(target),
+                })
+    return broken
 
 
 def build(dry: bool = False) -> dict:
@@ -240,10 +281,14 @@ def build(dry: bool = False) -> dict:
                 'src_sha': _sha1(src_abs) if src_abs else None,
             })
 
+    # ---- link checker (only meaningful when files are actually written) ----
+    manifest['broken_links'] = [] if dry else _scan_site_links(SITE)
+
     # ---- manifest ----
     manifest['stats'] = {
         'pages': len(manifest['pages']),
         'missing': len(manifest['missing']),
+        'broken_links': len(manifest['broken_links']),
         'elapsed_sec': round(time.time() - t_start, 3),
     }
     if not dry:
@@ -266,6 +311,11 @@ def main(argv: list[str] | None = None) -> int:
         print(f"!! {len(result['missing'])} missing iframe/img sources — fix before shipping", file=sys.stderr)
         for row in result['missing'][:10]:
             print(f"   - {row['page']} → {row['src']}", file=sys.stderr)
+        return 1
+    if result.get('broken_links'):
+        print(f"!! {len(result['broken_links'])} broken <a href> targets — fix before shipping", file=sys.stderr)
+        for row in result['broken_links'][:10]:
+            print(f"   - {row['page']} → {row['href']}", file=sys.stderr)
         return 1
     print(f'site root: {SITE}')
     return 0
