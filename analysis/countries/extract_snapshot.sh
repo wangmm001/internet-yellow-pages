@@ -13,7 +13,8 @@ REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 ARCHIVE="$REPO/dumps_archive"
 DUMPS="$REPO/dumps"
 DATA="$REPO/data"
-VENV_PY="$REPO/.venv/bin/python"
+VENV_PY="${VENV_PY:-$REPO/.venv/bin/python}"
+[ -x "$VENV_PY" ] || VENV_PY="$(command -v python3)"
 DUMP_URL="https://archive.ihr.live/ihr/iyp/$YEAR/$MONTH/$DAY/iyp-$TARGET.dump"
 DUMP_FILE="$ARCHIVE/iyp-$TARGET.dump"
 LOG_PREFIX="[$SNAP]"
@@ -93,6 +94,12 @@ cd "$REPO"
 # 7. Verify extraction
 echo "$LOG_PREFIX verifying"
 "$VENV_PY" -m analysis.countries.run_all --verify --snapshot "$SNAP" || true
+
+# 7b. Piggyback global-network Cypher aggregates on the same Neo4j load
+echo "$LOG_PREFIX running network_evolution.py --extract --snapshot $SNAP"
+"$VENV_PY" -m analysis.complex_network.network_evolution \
+    --extract --snapshot "$SNAP" || \
+    echo "$LOG_PREFIX WARN network_evolution extract failed (non-fatal)"
 
 # 8. Tear down (keeps dump in dumps_archive/)
 echo "$LOG_PREFIX stopping Neo4j and purging loaded DB"

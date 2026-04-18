@@ -338,14 +338,19 @@ def step04_prefix(country, snapshot):
             'rpki_rate_pct': None, 'anycast_prefixes': None,
             '_source': 'cache-only',
         }
-    try:
-        recs = run_query("""
-            MATCH (a:AS)-[:COUNTRY]->(:Country {country_code:$cc})
-            MATCH (a)-[:ORIGINATE]->(pfx:BGPPrefix)
+    def _fetch(label):
+        return run_query(f"""
+            MATCH (a:AS)-[:COUNTRY]->(:Country {{country_code:$cc}})
+            MATCH (a)-[:ORIGINATE]->(pfx:{label})
             OPTIONAL MATCH (pfx)-[:CATEGORIZED]->(t:Tag)
             WITH pfx, collect(DISTINCT t.label) AS tags
             RETURN pfx.af AS af, tags
         """, {'cc': country})
+
+    try:
+        recs = _fetch('BGPPrefix')
+        if not recs:
+            recs = _fetch('Prefix')
     except Exception as e:
         return {'_error': str(e)[:100]}
     v4 = v6 = roa = any_tagged = 0

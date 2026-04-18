@@ -8,7 +8,8 @@ REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 ARCHIVE="$REPO/dumps_archive"
 DUMPS="$REPO/dumps"
 DATA="$REPO/data"
-VENV_PY="$REPO/.venv/bin/python"
+VENV_PY="${VENV_PY:-$REPO/.venv/bin/python}"
+[ -x "$VENV_PY" ] || VENV_PY="$(command -v python3)"
 LOG="$REPO/analysis/complex_network/network_evolution.log"
 
 SNAPS=(

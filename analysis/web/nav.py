@@ -24,8 +24,10 @@ NETWORK_IMG = ANALYSIS / 'complex_network_images'
 
 SNAPSHOT_LATEST = '2026-04'
 SNAPSHOT_PREV = '2025-04'         # retained for 12-month Δ display
-SNAPSHOT_BASELINE = '2025-01'     # 15-month baseline for "Δ since launch"
-SNAPSHOTS_ALL = ['2025-01', '2025-04', '2025-07', '2025-10', '2026-01', '2026-04']
+SNAPSHOT_BASELINE = '2024-01'     # 27-month baseline for "Δ since launch"
+SNAPSHOTS_ALL = ['2024-01', '2024-04', '2024-07', '2024-10',
+                 '2025-01', '2025-04', '2025-07', '2025-10',
+                 '2026-01', '2026-04']
 
 
 @dataclass
