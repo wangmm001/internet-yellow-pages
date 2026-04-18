@@ -204,6 +204,7 @@ COUNTRY_NAMES: list[tuple[str, str, str]] = [
 
 COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('new-angles', 'new_angles_synthesis.html', '15 个新角度汇总', 'New Angles Synthesis'),
+    ('scorecards', 'scorecards.html', '9 国综合 scorecard', '9-Country Scorecard'),
     ('cross-country', 'cross_country.html', '跨国对比', 'Cross-Country Dashboard'),
     ('evolution', 'evolution.html', '时序演化', 'Time-Series Evolution'),
     ('matrix', 'dependency_matrix.html', '跨国依赖矩阵', 'Cross-Country Dependency Matrix'),
