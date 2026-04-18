@@ -208,6 +208,8 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('matrix', 'dependency_matrix.html', '跨国依赖矩阵', 'Cross-Country Dependency Matrix'),
     ('geography', 'content_geography.html', '内容地理', 'Content Geography'),
     ('eyeball', 'eyeball_weighted.html', '用户加权视角', 'User-weighted Sovereignty'),
+    ('routing-security', 'routing_security.html', '路由安全真身', 'Routing Security Reality'),
+    ('toplist', 'toplist.html', 'Tranco Top-10k 深度', 'Tranco Top-10k Deep-dive'),
 ]
 
 
