@@ -207,6 +207,7 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('scorecards', 'scorecards.html', '9 国综合 scorecard', '9-Country Scorecard'),
     ('cross-country', 'cross_country.html', '跨国对比', 'Cross-Country Dashboard'),
     ('evolution', 'evolution.html', '时序演化', 'Time-Series Evolution'),
+    ('correlations', 'correlations.html', '跨 Topic 相关性', 'Cross-Topic Correlation Scatters'),
     ('schema-gaps', 'schema_gaps.html', 'Schema 缺口清单', 'Upstream Schema Gap Report'),
     ('matrix', 'dependency_matrix.html', '跨国依赖矩阵', 'Cross-Country Dependency Matrix'),
     ('geography', 'content_geography.html', '内容地理', 'Content Geography'),
