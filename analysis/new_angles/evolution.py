@@ -199,8 +199,73 @@ def build():
         legend=dict(orientation='h', y=-0.25),
     )
 
+    # --- P7: summary CAGR bars (start → end, annualized) ----------------
+    # 27-month span: 2024-01 → 2026-04 is 27 months
+    months = 27
+
+    def _cagr(start, end):
+        if start and end and start > 0 and end > 0:
+            return round(((end / start) ** (12 / months) - 1) * 100, 1)
+        return None
+
+    def _delta_pp(start, end):
+        """Percentage-point change — for already-% metrics like RPKI."""
+        if start is None or end is None:
+            return None
+        return round(end - start, 1)
+
+    cagr_rows = []
+    for cc in COUNTRIES:
+        pfx = series['total_prefixes'][cc]
+        rpki = [v for v in series['rpki_rate_pct'][cc] if v is not None]
+        any_ = series['anycast_prefixes'][cc]
+        cagr_rows.append({
+            'cc': cc,
+            'prefix_cagr': _cagr(pfx[0], pfx[-1]),
+            'rpki_delta': _delta_pp(rpki[0] if rpki else None,
+                                    rpki[-1] if rpki else None),
+            'anycast_cagr': _cagr(any_[0], any_[-1]),
+        })
+    cagr_rows.sort(key=lambda r: -(r['prefix_cagr'] or -999))
+
+    p7 = go.Figure()
+    xs = [f'{COUNTRY_NAME[r["cc"]]} {r["cc"]}' for r in cagr_rows]
+    p7.add_trace(go.Bar(
+        name='prefix CAGR %', x=xs,
+        y=[r['prefix_cagr'] for r in cagr_rows],
+        marker_color=COLORS['cyan'],
+        text=[f'{r["prefix_cagr"]:+.1f}%' if r['prefix_cagr'] is not None
+              else '—' for r in cagr_rows],
+        textposition='outside',
+    ))
+    p7.add_trace(go.Bar(
+        name='anycast CAGR %', x=xs,
+        y=[r['anycast_cagr'] for r in cagr_rows],
+        marker_color=COLORS['orange'],
+        text=[f'{r["anycast_cagr"]:+.0f}%' if r['anycast_cagr'] is not None
+              else '—' for r in cagr_rows],
+        textposition='outside',
+    ))
+    p7.add_trace(go.Bar(
+        name='RPKI Δpp (not annualized)', x=xs,
+        y=[r['rpki_delta'] for r in cagr_rows],
+        marker_color=COLORS['green'],
+        text=[f'{r["rpki_delta"]:+.1f}pp' if r['rpki_delta'] is not None
+              else '—' for r in cagr_rows],
+        textposition='outside',
+    ))
+    p7.add_hline(y=0, line=dict(color='#8e8e93', width=1, dash='dash'))
+    p7.update_layout(
+        title='⑦ 27 个月增长率汇总 · CAGR summary '
+              f'(2024-01 → 2026-04, {months} mo; RPKI shown as Δ percentage '
+              f'points)',
+        barmode='group', yaxis=dict(title='% / percentage points'),
+        xaxis=dict(title='', tickangle=-15),
+        height=520, legend=dict(orientation='h', y=-0.22),
+    )
+
     from plotly.io import to_html
-    figs = [p1, p2, p3, p4, p5, p6]
+    figs = [p1, p2, p3, p4, p5, p6, p7]
     for f in figs:
         apply_plotly_theme(f)
     parts = []; first = True
