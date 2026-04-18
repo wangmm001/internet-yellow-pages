@@ -213,6 +213,9 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('asdb', 'asdb_category.html', 'AS 业务类型图谱', 'ASDB Category Map'),
     ('archetype', 'as_archetype.html', 'AS 业务原型', 'AS Business Archetype'),
     ('bgp-tags', 'bgp_tags.html', 'AS 行为标签地图', 'BGP-tools AS Tags'),
+    ('ooni', 'ooni_tests.html', 'OONI 审查测试图谱', 'OONI Censorship Tests'),
+    ('rovista-country', 'rovista_by_country.html', 'ROV 执行国别地图', 'ROV Enforcement by Country'),
+    ('atlas', 'atlas_probes.html', 'Atlas 探针全球覆盖', 'RIPE Atlas Probes'),
 ]
 
 

@@ -205,6 +205,89 @@ def extract_hyperscaler_origin():
     write_csv('hyperscaler_originators.csv', rows, ['asn', 'service'])
 
 
+# ---- Topic 7/8/9 extract: OONI, PeeringDB, Atlas ----
+
+def extract_ooni():
+    """OONI per-test censorship measurements.
+
+    Schema: (AS)-[:CENSORED {country_code, percentage_*, count_*, total_count}]
+            ->(Tag {label: 'OONI <TestName> Test'})
+    """
+    print('[ooni] per-test measurements', flush=True)
+    q = """
+        MATCH (a:AS)-[r:CENSORED]->(t:Tag)
+        WHERE t.label STARTS WITH 'OONI'
+        RETURN a.asn AS asn, t.label AS test,
+               r.country_code AS cc,
+               r.total_count AS total,
+               r.percentage_dns_blocking AS pct_dns,
+               r.percentage_tcp_blocking AS pct_tcp,
+               r.percentage_both_blocked AS pct_both,
+               r.percentage_unblocked AS pct_ok
+    """
+    rows = [dict(r) for r in run_query(q, {})]
+    write_csv('ooni_censored.csv', rows,
+              ['asn', 'test', 'cc', 'total',
+               'pct_dns', 'pct_tcp', 'pct_both', 'pct_ok'])
+
+
+def extract_peeringdb_orgs():
+    """PeeringDB org full-record view.
+
+    Crawler stores the flattened org json as props on :EXTERNAL_ID edge.
+    """
+    print('[peeringdb] org records', flush=True)
+    q = """
+        MATCH (org:Organization)-[r:EXTERNAL_ID]->(o:OpaqueID)
+        WHERE r.reference_name = 'peeringdb.org'
+        RETURN o.id AS pdb_id,
+               r.name AS name,
+               r.info_type AS info_type,
+               r.info_ratio AS info_ratio,
+               r.info_traffic AS info_traffic,
+               r.info_scope AS info_scope,
+               r.policy_general AS policy_general,
+               r.policy_locations AS policy_locations,
+               r.policy_ratio AS policy_ratio,
+               r.policy_contracts AS policy_contracts,
+               r.country AS country
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  peeringdb query failed: {e}', flush=True)
+        rows = []
+    write_csv('peeringdb_orgs.csv', rows,
+              ['pdb_id', 'name', 'info_type', 'info_ratio', 'info_traffic',
+               'info_scope', 'policy_general', 'policy_locations',
+               'policy_ratio', 'policy_contracts', 'country'])
+
+
+def extract_atlas_probes():
+    """RIPE Atlas probe distribution + capability tags."""
+    print('[atlas] probes + tags', flush=True)
+    q = """
+        MATCH (p:AtlasProbe)
+        OPTIONAL MATCH (p)-[:COUNTRY]->(c:Country)
+        OPTIONAL MATCH (p)-[:ASSIGNED]->(t:Tag)
+        RETURN p.id AS id, c.country_code AS cc,
+               p.status AS status,
+               collect(DISTINCT t.label) AS tags
+    """
+    try:
+        recs = run_query(q, {})
+    except Exception as e:
+        print(f'  atlas query failed: {e}', flush=True)
+        write_csv('atlas_probes.csv', [], ['id', 'cc', 'status', 'tags'])
+        return
+    rows = []
+    for r in recs:
+        d = dict(r)
+        d['tags'] = '|'.join(sorted(d.get('tags') or []))
+        rows.append(d)
+    write_csv('atlas_probes.csv', rows, ['id', 'cc', 'status', 'tags'])
+
+
 def main():
     print(f'output dir: {OUT_DIR}', flush=True)
     extract_as_country()
@@ -217,6 +300,9 @@ def main():
     extract_as_categorized()
     extract_aws_prefixes()
     extract_hyperscaler_origin()
+    extract_ooni()
+    extract_peeringdb_orgs()
+    extract_atlas_probes()
     print('done', flush=True)
 
 
