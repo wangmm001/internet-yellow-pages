@@ -1,0 +1,15 @@
+{
+  "step": 10,
+  "country": "FR",
+  "snapshot": "2026-02",
+  "title_zh": "集中度 Gini/HHI",
+  "title_en": "Concentration",
+  "metrics": {
+    "gini_prefix": 0.7542,
+    "hhi_prefix": 0.0167,
+    "gini_hostname": 0.9893,
+    "hhi_hostname": 0.112,
+    "gini_org": 0.3049,
+    "hhi_org": 0.0213
+  }
+}

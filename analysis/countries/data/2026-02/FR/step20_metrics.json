@@ -1,0 +1,17 @@
+{
+  "step": 20,
+  "country": "FR",
+  "snapshot": "2026-02",
+  "title_zh": "综合主权指数",
+  "title_en": "Composite sovereignty index",
+  "metrics": {
+    "composite_sovereignty_index": 0.7509,
+    "components": {
+      "hosting_sovereignty": 1.0,
+      "dns_sovereignty": 0.4442,
+      "rpki_adoption": 0.7624,
+      "ixp_domesticization": 0.5477,
+      "hub_ratio": 1.0
+    }
+  }
+}

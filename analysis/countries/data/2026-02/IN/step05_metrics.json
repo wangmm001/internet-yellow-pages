@@ -1,0 +1,23 @@
+{
+  "step": 5,
+  "country": "IN",
+  "snapshot": "2026-02",
+  "title_zh": "对等互联伙伴",
+  "title_en": "Peering partners",
+  "metrics": {
+    "internal_edges": 5316,
+    "cross_border_edges": 6855,
+    "top_peer_countries": {
+      "BR": 1619,
+      "US": 1109,
+      "FR": 506,
+      "GB": 344,
+      "BD": 321,
+      "BT": 310,
+      "SG": 309,
+      "DE": 269,
+      "LK": 213,
+      "NL": 189
+    }
+  }
+}

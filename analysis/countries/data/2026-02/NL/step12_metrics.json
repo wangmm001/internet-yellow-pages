@@ -1,0 +1,40 @@
+{
+  "step": 12,
+  "country": "NL",
+  "snapshot": "2026-02",
+  "title_zh": "机房分布",
+  "title_en": "Facility distribution",
+  "metrics": {
+    "total_facility_records": 3035,
+    "distinct_facilities_with_country": 668,
+    "top_countries_by_facility_presence": {
+      "NL": 1962,
+      "US": 267,
+      "DE": 177,
+      "GB": 80,
+      "BE": 56
+    },
+    "top_facilities": [
+      [
+        "NIKHEF Amsterdam",
+        243
+      ],
+      [
+        "Equinix AM7 - Amsterdam, Kuiperberweg",
+        101
+      ],
+      [
+        "Digital Realty Amsterdam AMS17",
+        72
+      ],
+      [
+        "Equinix AM5 - Amsterdam, Schepenbergweg",
+        66
+      ],
+      [
+        "Global Switch Amsterdam",
+        59
+      ]
+    ]
+  }
+}

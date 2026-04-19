@@ -348,5 +348,40 @@
       "NL": 1670,
       "RU": 5879
     }
+  },
+  "2026-02": {
+    "as_count": 129278,
+    "ixp_count": 1277,
+    "facility_count": 5828,
+    "peering_edges": 1876090,
+    "dependency_edges": 6113671,
+    "prefix_count": 1544927,
+    "rpki_valid_prefixes": 788022,
+    "rpki_pct": 51.01,
+    "mean_peering_degree": 29.024,
+    "top10_prefix_share_pct": 8.45,
+    "top10_prefix_counts": [
+      20981,
+      19657,
+      16076,
+      13662,
+      11022,
+      10850,
+      10397,
+      10207,
+      8950,
+      8778
+    ],
+    "as_by_country": {
+      "US": 32194,
+      "CN": 6656,
+      "JP": 1341,
+      "IN": 6170,
+      "DE": 3242,
+      "GB": 3259,
+      "FR": 2222,
+      "NL": 1644,
+      "RU": 5815
+    }
   }
 }

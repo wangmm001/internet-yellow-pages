@@ -29,7 +29,7 @@ SNAPSHOT_PREV = '2025-04'         # retained for 12-month Δ display
 SNAPSHOT_BASELINE = '2024-01'     # 27-month baseline for "Δ since launch"
 SNAPSHOTS_ALL = ['2024-01', '2024-04', '2024-07', '2024-10',
                  '2025-01', '2025-04', '2025-07', '2025-10',
-                 '2026-01', '2026-04']
+                 '2026-01', '2026-02', '2026-04']
 
 
 @dataclass
@@ -207,6 +207,7 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('scorecards', 'scorecards.html', '9 国综合 scorecard', '9-Country Scorecard'),
     ('cross-country', 'cross_country.html', '跨国对比', 'Cross-Country Dashboard'),
     ('evolution', 'evolution.html', '时序演化', 'Time-Series Evolution'),
+    ('evolution-narrative', 'evolution_narrative.html', '演化叙事', 'Evolution Narrative'),
     ('correlations', 'correlations.html', '跨 Topic 相关性', 'Cross-Topic Correlation Scatters'),
     ('ixp-reality', 'topic16_ixp_reality.html', 'IXP 会话真伪', 'IXP Session Reality Check'),
     ('collector-consensus', 'topic17_collector_consensus.html', '多 collector 一致性', 'Multi-Collector Consensus'),
