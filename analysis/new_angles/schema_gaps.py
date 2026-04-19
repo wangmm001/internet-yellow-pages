@@ -221,13 +221,14 @@ GAPS = [
         'finding_en': 'PCH crawler ran in 2024-10 (500K records) but did '
                       'NOT run in 2026-04 (probe shows ORIGINATE only has '
                       'bgpkit + ihr.rov). Regression',
-        'topics': ['topic17 (placeholder in 2026-04)'],
+        'topics': ['topic17 (rewired to bgpkit.peerstats)'],
         'snapshots': '2024-10 had data, 2026-04 missing',
-        'severity': 'High',
-        'workaround': 'topic17 用 2024-10 dump 跑得到完整结果；'
-                      '2026-04 placeholder 解释 regression',
+        'severity': 'Medium',
+        'workaround': 'topic17 重写用 bgpkit peerstats 作功能等价——'
+                      '改测"per-AS peer-edge count 在 v4/v6 里分别多少"，'
+                      '同样反映观测冗余度但粒度从 prefix 变为 edge',
         'upstream': 'pch.daily_routing_snapshots_v4/v6 crawler 需在 '
-                    '2026-04 重新启用',
+                    '2026-04 重新启用；修好后可补充 per-prefix 视角',
     },
 ]
 

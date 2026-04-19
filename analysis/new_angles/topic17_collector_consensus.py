@@ -1,15 +1,20 @@
-"""Topic 17: Multi-collector consensus — PCH route snapshots.
+"""Topic 17: BGP peering visibility across sources.
 
-PCH publishes ORIGINATE edges with {count, seen_by_collectors}:
-how many PCH collectors agree on each (AS, prefix) pair. Prefixes
-visible to only 1-2 collectors may be regional-only, brand-new,
-or mis-originated. Cross-references RouteViews/RIS via existing
-bgpkit cached CSVs.
+Originally intended for PCH daily routing snapshots (ORIGINATE edges with
+per-prefix collector counts). That crawler did not run in the 2026-04 dump
+(G14 in schema_gaps). This version uses the bgpkit peerstats crawler
+instead — it gives the same "observation redundancy" signal at the
+peer-edge level: for each AS, how many peer-ASes are visible via
+bgpkit.as2rel_v4 vs as2rel_v6.
+
+Analytical angle:
+ · v4 vs v6 observation asymmetry — ASes visible in one family only
+ · top by total peer visibility — who sits most-connected in the graph
+ · distribution shapes per source
+ · country aggregation: where are the v6-invisible ASes
 """
 import csv
-import json
 import os
-import re
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -23,7 +28,6 @@ from analysis.china.common import (  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent.parent
 CACHE = REPO / 'data_cache' / 'new_angles'
-COMPLEX = REPO / 'data_cache' / 'complex_network'
 OUT = REPO / 'analysis' / 'new_angles' / 'html'
 OUT.mkdir(parents=True, exist_ok=True)
 
@@ -34,18 +38,19 @@ COUNTRY_NAME = {
 }
 
 
-def _read(p):
-    return list(csv.DictReader(open(p, encoding='utf-8'))) \
-        if p.exists() else []
+def _read_stream(p):
+    if not p.exists():
+        return iter([])
+    return csv.DictReader(open(p, encoding='utf-8'))
 
 
 def _placeholder(reason):
     banner = (
         '<div class="step-banner">'
-        '<h1>多 collector 一致性 · Multi-Collector Consensus</h1>'
-        '<h2>PCH daily snapshots: how many collectors agree on each '
-        'prefix origin</h2></div>'
-        '<div class="step-footer">topic 17 · placeholder</div>'
+        '<h1>BGP 观测冗余度 · Multi-Source Peering Visibility</h1>'
+        '<h2>bgpkit peerstats: who is visible in v4 vs v6 sources · '
+        'per-AS peer-edge count</h2>'
+        '</div><div class="step-footer">topic 17 · placeholder</div>'
     )
     intro = (
         f'<p style="padding:0 16px;margin:16px 0;color:{COLORS["orange"]};'
@@ -54,7 +59,7 @@ def _placeholder(reason):
     )
     html = (
         '<!doctype html><html lang="zh"><head><meta charset="utf-8">'
-        '<title>多 collector 一致性 · Multi-Collector Consensus</title>'
+        '<title>BGP 观测冗余度 · Peering Visibility</title>'
         f'{BANNER_CSS}</head><body>{banner}'
         f'<div class="content">{intro}</div></body></html>'
     )
@@ -69,160 +74,141 @@ def build():
     import plotly.graph_objects as go
     from plotly.io import to_html
 
-    pch_path = CACHE / 'pch_prefix_collectors.csv'
-    if not pch_path.exists() or pch_path.stat().st_size < 200:
+    cs = CACHE / 'collector_observations.csv'
+    if not cs.exists() or cs.stat().st_size < 200:
         return _placeholder(
-            '<code>pch_prefix_collectors.csv</code> 为空——'
-            'pch.daily_routing_snapshots_* crawler 未运行或 reference_name '
-            '模式不匹配。')
+            '<code>collector_observations.csv</code> 为空——'
+            'bgpkit.peerstats crawler 未产生 PEERS_WITH 边。')
 
-    as_cc = {int(r['asn']): r['cc'] for r in _read(CACHE / 'as_country.csv')
-             if r.get('asn', '').isdigit()}
+    # Stream once, build per-AS v4/v6/other peer counts
+    as_v4 = {}; as_v6 = {}; as_other = {}
+    src_count = Counter()
+    for r in _read_stream(cs):
+        try:
+            asn = int(r['asn']); pc = int(r['peer_count'])
+        except (ValueError, KeyError):
+            continue
+        src = r.get('src', '')
+        src_count[src] += 1
+        if 'as2rel_v4' in src:
+            as_v4[asn] = pc
+        elif 'as2rel_v6' in src:
+            as_v6[asn] = pc
+        else:
+            as_other[asn] = pc
 
-    # ⚠ pch CSV is ~1 GB; full list-load = ~9 GB Python heap → OOM risk.
-    # Stream once, accumulate every needed aggregate in counters.
-    bucket = Counter()
-    low_cc = Counter()
-    all_cc = Counter()
-    solo_by_asn = Counter()
-    v4_by_buck = Counter()
-    v6_by_buck = Counter()
-    total = 0
-    distinct_asns = set()
+    as_cc = {}
+    for r in _read_stream(CACHE / 'as_country.csv'):
+        try:
+            as_cc[int(r['asn'])] = r['cc']
+        except (ValueError, KeyError):
+            continue
 
-    with open(pch_path, encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        for r in reader:
-            total += 1
-            try:
-                n = int(r.get('n_collectors') or 0)
-            except (ValueError, KeyError):
-                continue
-            try:
-                asn = int(r['asn'])
-                distinct_asns.add(asn)
-            except (ValueError, KeyError):
-                asn = None
-            try:
-                af = int(r.get('af') or 4)
-            except (ValueError, KeyError):
-                af = 4
-            # Bucket distribution
-            if n == 1:
-                bucket['1 collector'] += 1
-            elif n <= 3:
-                bucket['2-3'] += 1
-            elif n <= 7:
-                bucket['4-7'] += 1
-            elif n <= 15:
-                bucket['8-15'] += 1
-            else:
-                bucket['16+'] += 1
-            # Per-country
-            if asn is not None:
-                cc = as_cc.get(asn)
-                if cc:
-                    all_cc[cc] += 1
-                    if n <= 2:
-                        low_cc[cc] += 1
-                if n == 1:
-                    solo_by_asn[asn] += 1
-            # v4/v6 buckets
-            bk = '1' if n == 1 else '2-3' if n <= 3 else '4+'
-            if af == 6:
-                v6_by_buck[bk] += 1
-            else:
-                v4_by_buck[bk] += 1
-
-    distinct_asns_n = len(distinct_asns)
-    distinct_asns = None  # release set memory
-
-    order = ['1 collector', '2-3', '4-7', '8-15', '16+']
+    # --- P1: source breakdown + v4/v6/dual counts
+    v4_set = set(as_v4)
+    v6_set = set(as_v6)
+    dual = v4_set & v6_set
+    v4_only = v4_set - v6_set
+    v6_only = v6_set - v4_set
     p1 = go.Figure()
     p1.add_trace(go.Bar(
-        x=order, y=[bucket.get(b, 0) for b in order],
-        marker_color=[COLORS['red'], COLORS['orange'], COLORS['yellow'],
-                      COLORS['cyan'], COLORS['green']],
-        text=[f'{bucket.get(b, 0):,}' for b in order],
+        x=['v4 only', 'v4+v6 双栈', 'v6 only'],
+        y=[len(v4_only), len(dual), len(v6_only)],
+        marker_color=[COLORS['cyan'], COLORS['green'], COLORS['orange']],
+        text=[f'{len(v4_only):,}', f'{len(dual):,}', f'{len(v6_only):,}'],
         textposition='outside',
     ))
     p1.update_layout(
-        title='① PCH collector 覆盖分布 · # prefixes by # '
-              'PCH collectors seeing them',
-        xaxis=dict(title=''), yaxis=dict(title='# prefixes (log)',
-                                         type='log'),
-        height=440, showlegend=False,
+        title='① v4 / v6 观测分组 · # ASes visible in each BGP source',
+        xaxis=dict(title=''), yaxis=dict(title='# ASes'),
+        height=460, showlegend=False,
     )
 
-    # --- P2: Low-consensus prefixes per country ---
-    rows2 = []
-    for cc in set(TARGET) | {c for c, _ in all_cc.most_common(12)}:
-        if all_cc[cc] < 100:
-            continue
-        rows2.append({
-            'cc': cc, 'low': low_cc[cc], 'total': all_cc[cc],
-            'pct': low_cc[cc] / all_cc[cc] * 100,
-        })
-    rows2.sort(key=lambda r: -r['pct'])
-    rows2 = rows2[:15]
+    # --- P2: peer-count distribution per source (log-log)
     p2 = go.Figure()
-    p2.add_trace(go.Bar(
-        x=[r['cc'] for r in rows2],
-        y=[r['pct'] for r in rows2],
-        marker_color=[country_color(r['cc']) if r['cc'] in TARGET
-                      else COLORS['purple'] for r in rows2],
-        text=[f'{r["pct"]:.1f}%<br>({r["low"]:,}/{r["total"]:,})'
-              for r in rows2],
+    for name, d, color in [
+        ('as2rel_v4', as_v4, COLORS['cyan']),
+        ('as2rel_v6', as_v6, COLORS['orange']),
+    ]:
+        counts = Counter(d.values())
+        if not counts:
+            continue
+        xs = sorted(counts.keys())
+        ys = [counts[x] for x in xs]
+        p2.add_trace(go.Scatter(
+            x=xs, y=ys, mode='markers', name=name,
+            marker=dict(size=6, color=color, opacity=0.6),
+        ))
+    p2.update_layout(
+        title='② 每 AS 可见 peer 数量分布 · Per-AS peer-count distribution',
+        xaxis=dict(title='# peers observed', type='log'),
+        yaxis=dict(title='# ASes', type='log'),
+        height=440,
+    )
+
+    # --- P3: Top-20 by total visibility (v4 + v6 + other)
+    total = {}
+    for s in (as_v4, as_v6, as_other):
+        for a, c in s.items():
+            total[a] = total.get(a, 0) + c
+    top20 = sorted(total.items(), key=lambda t: -t[1])[:20]
+    p3 = go.Figure()
+    p3.add_trace(go.Bar(
+        orientation='h',
+        y=[f'AS{a} ({as_cc.get(a, "?")})' for a, _ in top20][::-1],
+        x=[c for _, c in top20][::-1],
+        marker_color=[country_color(as_cc.get(a, '?'))
+                      if as_cc.get(a) in TARGET else COLORS['purple']
+                      for a, _ in top20][::-1],
+        text=[f'{c:,}' for _, c in top20][::-1],
         textposition='outside',
     ))
-    p2.update_layout(
-        title='② 每国低共识前缀占比 · % prefixes seen by ≤2 PCH collectors '
-              'per country',
-        yaxis=dict(title='% low-consensus prefixes', rangemode='tozero'),
-        xaxis=dict(title=''), height=460,
-    )
-
-    # --- P3: Top-20 ASes with most 1-collector prefixes (already aggregated) ---
-    top_solo = solo_by_asn.most_common(20)
-    p3 = go.Figure()
-    if top_solo:
-        p3.add_trace(go.Bar(
-            orientation='h',
-            y=[f'AS{a} ({as_cc.get(a, "?")})'
-               for a, _ in top_solo][::-1],
-            x=[c for _, c in top_solo][::-1],
-            marker_color=[country_color(as_cc.get(a, '?'))
-                          if as_cc.get(a) in TARGET else COLORS['purple']
-                          for a, _ in top_solo][::-1],
-            text=[f'{c:,}' for _, c in top_solo][::-1],
-            textposition='outside',
-        ))
     p3.update_layout(
-        title='③ Top-20 AS · # prefixes seen by only 1 PCH collector',
-        xaxis=dict(title='# single-collector prefixes'),
+        title='③ Top-20 观测最广 AS · sum of peer counts across v4+v6',
+        xaxis=dict(title='# peer edges'),
         height=560, margin=dict(l=180), showlegend=False,
     )
 
-    # --- P4: v4 vs v6 coverage asymmetry (already aggregated) ---
+    # --- P4: country aggregation — v4/v6 dual-stack rate per country
+    cc_v4 = defaultdict(set); cc_v6 = defaultdict(set)
+    for asn in v4_set:
+        cc = as_cc.get(asn)
+        if cc:
+            cc_v4[cc].add(asn)
+    for asn in v6_set:
+        cc = as_cc.get(asn)
+        if cc:
+            cc_v6[cc].add(asn)
+    rows4 = []
+    for cc in set(cc_v4) | set(cc_v6):
+        v4n = len(cc_v4.get(cc, set()))
+        v6n = len(cc_v6.get(cc, set()))
+        union = len(cc_v4.get(cc, set()) | cc_v6.get(cc, set()))
+        dual_n = len(cc_v4.get(cc, set()) & cc_v6.get(cc, set()))
+        if union < 10:
+            continue
+        rows4.append({
+            'cc': cc, 'dual': dual_n, 'union': union,
+            'rate': dual_n / union * 100,
+        })
+    rows4.sort(key=lambda r: -r['rate'])
+    top_cc = rows4[:20]
     p4 = go.Figure()
-    bkts = ['1', '2-3', '4+']
     p4.add_trace(go.Bar(
-        name='IPv4', x=bkts, y=[v4_by_buck.get(b, 0) for b in bkts],
-        marker_color=COLORS['cyan'],
-        text=[f'{v4_by_buck.get(b, 0):,}' for b in bkts],
-        textposition='outside',
-    ))
-    p4.add_trace(go.Bar(
-        name='IPv6', x=bkts, y=[v6_by_buck.get(b, 0) for b in bkts],
-        marker_color=COLORS['orange'],
-        text=[f'{v6_by_buck.get(b, 0):,}' for b in bkts],
+        x=[r['cc'] for r in top_cc],
+        y=[r['rate'] for r in top_cc],
+        marker_color=[country_color(r['cc']) if r['cc'] in TARGET
+                      else COLORS['purple'] for r in top_cc],
+        text=[f'{r["rate"]:.0f}%<br>({r["dual"]}/{r["union"]})'
+              for r in top_cc],
         textposition='outside',
     ))
     p4.update_layout(
-        title='④ v4 vs v6 共识分布 · IPv4 vs IPv6 coverage buckets',
-        barmode='group', height=440,
-        yaxis=dict(title='# prefixes', type='log'),
-        xaxis=dict(title='# PCH collectors'),
+        title='④ 国家双栈率 · % of observed ASes visible in BOTH v4 and v6 '
+              '(top 20 by rate, min 10 ASes)',
+        yaxis=dict(title='% dual-stack'),
+        xaxis=dict(title=''),
+        height=460, showlegend=False,
     )
 
     figs = [p1, p2, p3, p4]
@@ -235,34 +221,34 @@ def build():
             full_html=False, default_height='500px'))
         first = False
 
-    # Top-level stats (total accumulated during stream pass)
-    solo = bucket.get('1 collector', 0)
-
+    n_total = len(v4_set | v6_set)
+    dual_pct = len(dual) / max(n_total, 1) * 100
     intro = (
         f'<p style="color:{TEXT_SECONDARY};padding:0 16px;font-size:14px">'
-        f'<b>数据：</b>PCH Packet Clearing House 每日路由快照——总计 '
-        f'<b>{total:,}</b> 条 ORIGINATE 记录，分布在 '
-        f'<b>{distinct_asns_n:,}</b> 个 AS。其中 <b>{solo:,}</b>'
-        f'（{solo/max(total,1)*100:.1f}%）仅被 <b>1</b> 个 collector 看到——'
-        f'这些可能是地域性 route leak、新出生前缀、或测试路由。'
-        f'<br><b>对照：</b>RouteViews 全球 ~30 collector，RIS ~20，PCH 约 60+ '
-        f'（按地区分布更分散）。PCH single-collector 信号因此更宝贵——'
-        f'通常只在一地可见。此视图可辅助安全分析找"非正常"路由。'
+        f'<b>数据：</b>bgpkit peerstats crawler 产生的 '
+        f'PEERS_WITH 边——按源分类后每 AS 在 as2rel_v4 / as2rel_v6 '
+        f'里分别有多少可见 peer。共观察到 <b>{n_total:,}</b> 个 AS；'
+        f'其中 <b>{len(dual):,}</b>（{dual_pct:.1f}%）同时在 v4 和 v6 '
+        f'数据集里被看到（"双栈可见"）。'
+        f'<br><b>原计划：</b>本 topic 原设计读 PCH daily_routing_snapshots_* '
+        f'的 ORIGINATE 边（每前缀被多少 collector 看到）。但 2026-04 IYP '
+        f'dump 未跑 PCH crawler（G14 gap）——现用 bgpkit peerstats '
+        f'作功能等价：同样测"观测冗余度"，但粒度是 peer-edge 而非 prefix。'
         f'</p>'
     )
 
     banner = (
         '<div class="step-banner">'
-        '<h1>多 collector 一致性 · Multi-Collector Consensus</h1>'
-        '<h2>PCH daily routing snapshots · who sees what</h2>'
-        '</div>'
-        '<div class="step-footer">topic 17 · offline · '
-        'pch.daily_routing_snapshots_v4/v6</div>'
+        '<h1>BGP 观测冗余度 · Multi-Source Peering Visibility</h1>'
+        '<h2>bgpkit peerstats · who is visible in v4 vs v6 · '
+        'per-AS peer-edge count</h2>'
+        '</div><div class="step-footer">topic 17 · offline · '
+        'bgpkit.as2rel_v4 + as2rel_v6</div>'
     )
 
     html = (
         '<!doctype html><html lang="zh"><head><meta charset="utf-8">'
-        '<title>多 collector 一致性 · Multi-Collector Consensus</title>'
+        '<title>BGP 观测冗余度 · Peering Visibility</title>'
         f'{BANNER_CSS}</head><body>{banner}'
         f'<div class="content">{intro}{"".join(parts)}</div></body></html>'
     )
@@ -272,8 +258,9 @@ def build():
         'topic17_collector_consensus.html'
     mirror.write_text(html, encoding='utf-8')
     print(f'wrote {out_path} ({out_path.stat().st_size // 1024} KB)')
-    print(f'total={total}  single-collector={solo}  '
-          f'distinct_asns={distinct_asns_n}')
+    print(f'v4: {len(v4_set)}  v6: {len(v6_set)}  dual: {len(dual)} '
+          f'({dual_pct:.1f}%)')
+    print(f'top-5 by visibility: {top20[:5]}')
 
 
 if __name__ == '__main__':

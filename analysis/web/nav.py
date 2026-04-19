@@ -210,7 +210,7 @@ COUNTRY_DASHBOARDS: list[tuple[str, str, str, str]] = [
     ('evolution-narrative', 'evolution_narrative.html', '演化叙事', 'Evolution Narrative'),
     ('correlations', 'correlations.html', '跨 Topic 相关性', 'Cross-Topic Correlation Scatters'),
     ('ixp-reality', 'topic16_ixp_reality.html', 'IXP 会话真伪', 'IXP Session Reality Check'),
-    ('collector-consensus', 'topic17_collector_consensus.html', '多 collector 一致性', 'Multi-Collector Consensus'),
+    ('collector-consensus', 'topic17_collector_consensus.html', 'BGP 观测冗余度', 'Multi-Source Peering Visibility'),
     ('real-traffic', 'topic18_real_traffic.html', '反 eyeball 对照', 'Counter-Eyeball Demand Signal'),
     ('app-censorship', 'topic19_app_censorship.html', '应用级封锁矩阵', 'App-Level Censorship Matrix'),
     ('anycast-census', 'topic20_anycast_census.html', 'Anycast 地理普查', 'Anycast Geographic Census'),
