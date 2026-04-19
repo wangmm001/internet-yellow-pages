@@ -5,9 +5,9 @@
   "title_zh": "k-core 层级位置",
   "title_en": "k-core depth",
   "metrics": {
-    "global_max_k": 194,
-    "deepest_k_in_country": 194,
-    "count_k_ge_30": 7,
-    "count_k_ge_100": 4
+    "global_max_k": 197,
+    "deepest_k_in_country": 197,
+    "count_k_ge_30": 8,
+    "count_k_ge_100": 2
   }
 }

@@ -1,6 +1,5 @@
 asn,rank,name
 174,3,COGENT-174
-3257,4,GTT-BACKBONE GTT Communications Inc.
 9002,11,RETN-AS RETN Limited
 15412,37,FLAG-AS FLAG TELECOM UK LIMITED
 8220,40,COLT COLT Technology Services Group Limited
@@ -9,3 +8,4 @@ asn,rank,name
 3223,89,VOXILITY Voxility LLP
 60068,122,CDN77 Datacamp Limited
 30844,125,LIQUID-AS Liquid Telecommunications Ltd
+41095,154,IPTP IPTP LTD

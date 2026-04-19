@@ -6,49 +6,49 @@
   "title_en": "Censorship topology",
   "metrics": {
     "censoring_ases": 50,
-    "total_detections": 57183,
+    "total_detections": 2634,
     "top5_tests": [
       [
-        "ooni.webconnectivity",
-        53799
-      ],
-      [
         "ooni.tor",
-        1892
+        1540
       ],
       [
         "ooni.stunreachability",
-        789
+        554
       ],
       [
         "ooni.telegram",
-        93
+        73
       ],
       [
-        "ooni.httpheaderfieldmanipulation",
-        92
+        "ooni.whatsapp",
+        72
+      ],
+      [
+        "ooni.osignal",
+        72
       ]
     ],
     "top5_censoring_ases": [
       [
-        212238,
-        12133
+        209847,
+        398
       ],
       [
-        14061,
-        5098
+        57043,
+        189
       ],
       [
         6830,
-        5026
+        148
       ],
       [
-        60068,
-        4780
+        215590,
+        110
       ],
       [
-        44477,
-        1860
+        3257,
+        102
       ]
     ]
   }

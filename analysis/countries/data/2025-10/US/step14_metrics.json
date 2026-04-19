@@ -5,32 +5,32 @@
   "title_zh": "DNS 托管版图",
   "title_en": "DNS hosting",
   "metrics": {
-    "total_hosted_hostnames": 10623802,
-    "hosting_ases": 10219,
+    "total_hosted_hostnames": 23697313,
+    "hosting_ases": 10054,
     "top5_hosting_ases": [
       [
         13335,
-        3408647
+        3686326
       ],
       [
         16509,
-        1865495
+        1990804
       ],
       [
-        396982,
-        608696
+        174,
+        867117
       ],
       [
-        8075,
-        512247
+        3257,
+        862866
       ],
       [
-        15169,
-        374895
+        3356,
+        861547
       ]
     ],
-    "cloud_hostnames": 9768298,
-    "isp_hostnames": 721018,
-    "other_hostnames": 134486
+    "cloud_hostnames": 16341198,
+    "isp_hostnames": 6362889,
+    "other_hostnames": 993226
   }
 }

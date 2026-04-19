@@ -5,20 +5,20 @@
   "title_zh": "DNS 主权率",
   "title_en": "DNS sovereignty",
   "metrics": {
-    "total_domains": 26956,
+    "total_domains": 26397,
     "ns_sampled": 300,
-    "domestic_pct": 0.94,
+    "domestic_pct": 1.05,
     "operator_country_distribution": {
-      "tld:de": 10736,
-      "tld:net": 6259,
-      "tld:com": 5398,
-      "US": 2280,
-      "tld:eu": 546,
-      "tld:org": 467,
-      "tld:info": 279,
-      "DE": 254,
-      "FR": 190,
-      "tld:co": 166
+      "tld:de": 10930,
+      "tld:net": 6383,
+      "tld:com": 4320,
+      "US": 2345,
+      "tld:eu": 629,
+      "tld:org": 480,
+      "tld:info": 282,
+      "DE": 276,
+      "FR": 189,
+      "tld:co": 171
     }
   }
 }

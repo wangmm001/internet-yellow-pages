@@ -5,23 +5,27 @@
   "title_zh": "机房分布",
   "title_en": "Facility distribution",
   "metrics": {
-    "total_facility_records": 14474,
-    "distinct_facilities_with_country": 2132,
+    "total_facility_records": 14631,
+    "distinct_facilities_with_country": 2152,
     "top_countries_by_facility_presence": {
-      "US": 9552,
-      "GB": 486,
-      "DE": 417,
+      "US": 9648,
+      "GB": 490,
+      "DE": 414,
       "NL": 370,
-      "JP": 317
+      "JP": 321
     },
     "top_facilities": [
       [
-        "Equinix DC1-DC15, DC21 - Ashburn",
-        363
+        "Equinix DC1-DC15,DC21-DC22 - Ashburn",
+        369
       ],
       [
         "Equinix CH1/CH2/CH4 - Chicago",
-        260
+        262
+      ],
+      [
+        "Hurricane Electric Fremont 2",
+        208
       ],
       [
         "CoreSite - Los Angeles (LA1) One Wilshire",
@@ -29,11 +33,7 @@
       ],
       [
         "Equinix SV1/SV5/SV10 - Silicon Valley, San Jose",
-        204
-      ],
-      [
-        "Hurricane Electric Fremont 2",
-        203
+        205
       ]
     ]
   }

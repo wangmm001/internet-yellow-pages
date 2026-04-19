@@ -5,19 +5,19 @@
   "title_zh": "IXP 会员分布",
   "title_en": "IXP landscape",
   "metrics": {
-    "ixp_memberships_domestic": 1710,
-    "ixp_memberships_foreign": 2060,
+    "ixp_memberships_domestic": 1626,
+    "ixp_memberships_foreign": 1113,
     "top_ixp_host_countries": {
-      "DE": 1710,
-      "NL": 429,
-      "US": 303,
-      "CH": 226,
-      "GB": 124,
-      "SE": 77,
-      "FR": 61,
-      "AU": 50,
-      "JP": 48,
-      "ES": 48
+      "DE": 1626,
+      "NL": 313,
+      "CH": 162,
+      "US": 148,
+      "GB": 56,
+      "FR": 41,
+      "ES": 37,
+      "SE": 33,
+      "DK": 22,
+      "IT": 20
     }
   }
 }

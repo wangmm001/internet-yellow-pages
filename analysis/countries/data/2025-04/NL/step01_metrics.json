@@ -5,16 +5,16 @@
   "title_zh": "AS 清册与标签分布",
   "title_en": "AS inventory & tag breakdown",
   "metrics": {
-    "total_ases": 1638,
+    "total_ases": 1665,
     "tag_distribution": {
-      "Content/CDN": 122,
-      "ISP": 860,
-      "Other": 389,
-      "Government": 43,
-      "Enterprise": 54,
-      "Unknown": 105,
-      "Academic/Edu": 45,
-      "Eyeball": 20
+      "Content/CDN": 162,
+      "ISP": 857,
+      "Other": 419,
+      "Government": 44,
+      "Enterprise": 82,
+      "Unknown": 24,
+      "Academic/Edu": 58,
+      "Eyeball": 19
     }
   }
 }

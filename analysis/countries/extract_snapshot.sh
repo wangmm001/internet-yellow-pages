@@ -51,15 +51,15 @@ cp "$DUMP_FILE" "$DUMPS/neo4j.dump"
 
 # 3. Purge previously loaded DB so loader will re-run
 echo "$LOG_PREFIX stopping any running Neo4j container"
-docker stop iyp iyp_loader 2>/dev/null || true
-docker rm iyp iyp_loader 2>/dev/null || true
+sg docker -c "docker stop iyp iyp_loader 2>/dev/null || true"
+sg docker -c "docker rm iyp iyp_loader 2>/dev/null || true"
 echo "$LOG_PREFIX purging loaded database"
 rm -rf "$DATA/databases" "$DATA/transactions"
 
 # 4. Bring up loader + DB
 echo "$LOG_PREFIX starting docker compose --profile local"
 cd "$REPO"
-uid="$(id -u)" gid="$(id -g)" docker compose --profile local up -d
+sg docker -c "uid=$(id -u) gid=$(id -g) docker compose --profile local up -d"
 
 # 5. Wait for Neo4j readiness (up to 60 min)
 echo "$LOG_PREFIX waiting for Neo4j readiness"
@@ -103,8 +103,8 @@ echo "$LOG_PREFIX running network_evolution.py --extract --snapshot $SNAP"
 
 # 8. Tear down (keeps dump in dumps_archive/)
 echo "$LOG_PREFIX stopping Neo4j and purging loaded DB"
-docker stop iyp iyp_loader 2>/dev/null || true
-docker rm iyp iyp_loader 2>/dev/null || true
+sg docker -c "docker stop iyp iyp_loader 2>/dev/null || true"
+sg docker -c "docker rm iyp iyp_loader 2>/dev/null || true"
 rm -rf "$DATA/databases" "$DATA/transactions"
 rm -f "$DUMPS/neo4j.dump"
 

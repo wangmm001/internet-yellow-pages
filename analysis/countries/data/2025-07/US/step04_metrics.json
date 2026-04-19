@@ -5,10 +5,10 @@
   "title_zh": "BGP 前缀与 RPKI",
   "title_en": "BGP prefixes & RPKI",
   "metrics": {
-    "v4_prefixes": 314557,
-    "v6_prefixes": 60399,
-    "total_prefixes": 374956,
-    "rpki_rate_pct": 43.41,
-    "anycast_prefixes": 3883
+    "v4_prefixes": 311626,
+    "v6_prefixes": 67555,
+    "total_prefixes": 379181,
+    "rpki_rate_pct": 0.0,
+    "anycast_prefixes": 3881
   }
 }

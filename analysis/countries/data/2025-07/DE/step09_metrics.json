@@ -5,39 +5,39 @@
   "title_zh": "入向 Hegemony",
   "title_en": "Inbound hegemony",
   "metrics": {
-    "inbound_edges": 4168,
+    "inbound_edges": 4133,
     "top_source_countries": {
-      "BR": 685,
-      "PL": 311,
+      "PL": 428,
+      "GB": 326,
+      "CZ": 316,
       "US": 276,
-      "GB": 272,
-      "AT": 241,
-      "CZ": 234,
-      "RO": 175,
+      "AT": 251,
+      "RO": 199,
       "SI": 171,
-      "HU": 123,
-      "NL": 121
+      "IR": 158,
+      "TR": 156,
+      "NL": 150
     },
     "top5_country_upstream_ases": [
       [
         5405,
-        1557
+        1191
       ],
       [
         33891,
-        923
+        1138
       ],
       [
         3320,
-        199
-      ],
-      [
-        205103,
-        128
+        245
       ],
       [
         212895,
-        116
+        148
+      ],
+      [
+        49581,
+        120
       ]
     ]
   }

@@ -5,35 +5,35 @@
   "title_zh": "机房分布",
   "title_en": "Facility distribution",
   "metrics": {
-    "total_facility_records": 1751,
-    "distinct_facilities_with_country": 255,
+    "total_facility_records": 1937,
+    "distinct_facilities_with_country": 232,
     "top_countries_by_facility_presence": {
-      "IN": 1643,
-      "US": 23,
-      "GB": 16,
-      "NL": 11,
-      "SG": 10
+      "IN": 1883,
+      "GB": 12,
+      "US": 10,
+      "SG": 10,
+      "AE": 5
     },
     "top_facilities": [
       [
         "Equinix MB1 - Mumbai (GPX Mumbai 1)",
-        196
+        216
       ],
       [
         "Web Werks Mumbai 1",
-        180
+        174
       ],
       [
         "Sify Greenfort - Noida",
-        98
-      ],
-      [
-        "TATA Communications Mumbai",
-        59
+        111
       ],
       [
         "TATA Communications Delhi",
-        58
+        61
+      ],
+      [
+        "Bharti Airtel Santhome",
+        59
       ]
     ]
   }

@@ -5,7 +5,7 @@
   "title_zh": "跨境 CNAME 链",
   "title_en": "Cross-border CNAME",
   "metrics": {
-    "alias_sources": 2,
-    "alias_targets": 2
+    "alias_sources": 1,
+    "alias_targets": 1
   }
 }

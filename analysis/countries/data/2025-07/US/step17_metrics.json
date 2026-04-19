@@ -8,16 +8,16 @@
     "rankings_count": 30,
     "best_caida_rank": 1,
     "best_ranks_per_system": {
-      "APNIC eyeball estimates (NR)": 1,
-      "IHR country ranking: Total AS (RW)": 1,
-      "IHR country ranking: Total AS (AL)": 1,
+      "APNIC eyeball estimates (CC)": 1,
+      "APNIC eyeball estimates (SJ)": 1,
+      "APNIC eyeball estimates (PN)": 1,
+      "APNIC eyeball estimates (CK)": 1,
       "APNIC eyeball estimates (PR)": 1,
-      "IHR country ranking: Total eyeball (BL)": 1,
-      "IHR country ranking: Total eyeball (RW)": 1,
-      "IHR country ranking: Total AS (BA)": 1,
-      "IHR country ranking: Total AS (BE)": 1,
-      "IHR country ranking: Total AS (TL)": 1,
-      "APNIC eyeball estimates (UZ)": 1
+      "APNIC eyeball estimates (UZ)": 1,
+      "APNIC eyeball estimates (BL)": 1,
+      "APNIC eyeball estimates (CX)": 1,
+      "APNIC eyeball estimates (AQ)": 1,
+      "APNIC eyeball estimates (TV)": 1
     }
   }
 }

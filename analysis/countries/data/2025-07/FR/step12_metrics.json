@@ -5,34 +5,34 @@
   "title_zh": "机房分布",
   "title_en": "Facility distribution",
   "metrics": {
-    "total_facility_records": 2438,
-    "distinct_facilities_with_country": 471,
+    "total_facility_records": 2790,
+    "distinct_facilities_with_country": 626,
     "top_countries_by_facility_presence": {
-      "FR": 1759,
-      "US": 136,
-      "GB": 93,
-      "NL": 80,
-      "DE": 78
+      "FR": 1818,
+      "US": 255,
+      "DE": 111,
+      "GB": 110,
+      "NL": 99
     },
     "top_facilities": [
       [
         "Telehouse - Paris 2 (Voltaire - Léon Frot)",
-        208
+        211
       ],
       [
         "Equinix PA2 - Paris, Saint-Denis",
-        85
+        87
       ],
       [
         "Equinix PA3 - Paris, Saint-Denis",
-        77
+        81
       ],
       [
         "UltraEdge Lyon-Venissieux",
-        74
+        76
       ],
       [
-        "Digital Realty Marseille MRS1-3",
+        "Digital Realty Marseille MRS1/2/3/4",
         45
       ]
     ]

@@ -5,8 +5,8 @@
   "title_zh": "审查拓扑",
   "title_en": "Censorship topology",
   "metrics": {
-    "censoring_ases": 22,
-    "total_detections": 596,
+    "censoring_ases": 23,
+    "total_detections": 637,
     "top5_tests": [
       [
         "ooni.tor",
@@ -14,40 +14,40 @@
       ],
       [
         "ooni.stunreachability",
-        134
+        157
       ],
       [
         "ooni.whatsapp",
-        19
+        18
       ],
       [
-        "ooni.facebookmessenger",
-        15
+        "ooni.httpinvalidrequestline",
+        18
       ],
       [
-        "ooni.telegram",
-        14
+        "ooni.psiphon",
+        17
       ]
     ],
     "top5_censoring_ases": [
       [
         45102,
-        47
+        81
       ],
       [
         4837,
-        44
+        48
       ],
       [
-        9808,
-        44
+        4134,
+        45
       ],
       [
         24400,
         44
       ],
       [
-        4134,
+        4538,
         43
       ]
     ]

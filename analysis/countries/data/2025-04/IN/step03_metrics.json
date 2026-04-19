@@ -7,19 +7,19 @@
   "metrics": {
     "as_count": {
       "rank": 4,
-      "value": 5964
+      "value": 6204
     },
     "prefix_count": {
-      "rank": 5,
-      "value": 78476
+      "rank": 4,
+      "value": 74227
     },
     "ixp_count": {
-      "rank": 8,
-      "value": 45
+      "rank": 6,
+      "value": 38
     },
     "facility_count": {
-      "rank": 5,
-      "value": 228
+      "rank": 4,
+      "value": 199
     }
   }
 }

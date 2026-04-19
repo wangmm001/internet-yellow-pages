@@ -5,19 +5,19 @@
   "title_zh": "对等互联伙伴",
   "title_en": "Peering partners",
   "metrics": {
-    "internal_edges": 13173,
-    "cross_border_edges": 37436,
+    "internal_edges": 12380,
+    "cross_border_edges": 33787,
     "top_peer_countries": {
-      "DE": 4294,
-      "US": 3531,
-      "FR": 3324,
-      "NL": 3041,
-      "GB": 2851,
-      "CH": 2062,
-      "IT": 1824,
-      "BG": 1633,
-      "SG": 1455,
-      "TR": 1068
+      "US": 2886,
+      "DE": 2868,
+      "GB": 2546,
+      "NL": 2204,
+      "FR": 2195,
+      "CH": 1873,
+      "IT": 1578,
+      "BG": 1577,
+      "AU": 1296,
+      "SG": 1037
     }
   }
 }

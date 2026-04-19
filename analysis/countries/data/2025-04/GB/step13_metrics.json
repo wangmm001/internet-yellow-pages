@@ -5,8 +5,8 @@
   "title_zh": "IXP × 机房 桥梁",
   "title_en": "IXP × Facility bridge",
   "metrics": {
-    "distinct_ixps": 446,
-    "distinct_facilities": 1525,
-    "tripartite_rows": 274911
+    "distinct_ixps": 443,
+    "distinct_facilities": 1528,
+    "tripartite_rows": 270486
   }
 }
