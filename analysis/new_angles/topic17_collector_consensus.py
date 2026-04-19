@@ -69,8 +69,8 @@ def build():
     import plotly.graph_objects as go
     from plotly.io import to_html
 
-    pch = _read(CACHE / 'pch_prefix_collectors.csv')
-    if not pch:
+    pch_path = CACHE / 'pch_prefix_collectors.csv'
+    if not pch_path.exists() or pch_path.stat().st_size < 200:
         return _placeholder(
             '<code>pch_prefix_collectors.csv</code> 为空——'
             'pch.daily_routing_snapshots_* crawler 未运行或 reference_name '
@@ -79,23 +79,63 @@ def build():
     as_cc = {int(r['asn']): r['cc'] for r in _read(CACHE / 'as_country.csv')
              if r.get('asn', '').isdigit()}
 
-    # --- P1: Collector-count distribution ---
+    # ⚠ pch CSV is ~1 GB; full list-load = ~9 GB Python heap → OOM risk.
+    # Stream once, accumulate every needed aggregate in counters.
     bucket = Counter()
-    for r in pch:
-        try:
-            n = int(r.get('n_collectors') or 0)
-        except (ValueError, KeyError):
-            continue
-        if n == 1:
-            bucket['1 collector'] += 1
-        elif n <= 3:
-            bucket['2-3'] += 1
-        elif n <= 7:
-            bucket['4-7'] += 1
-        elif n <= 15:
-            bucket['8-15'] += 1
-        else:
-            bucket['16+'] += 1
+    low_cc = Counter()
+    all_cc = Counter()
+    solo_by_asn = Counter()
+    v4_by_buck = Counter()
+    v6_by_buck = Counter()
+    total = 0
+    distinct_asns = set()
+
+    with open(pch_path, encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for r in reader:
+            total += 1
+            try:
+                n = int(r.get('n_collectors') or 0)
+            except (ValueError, KeyError):
+                continue
+            try:
+                asn = int(r['asn'])
+                distinct_asns.add(asn)
+            except (ValueError, KeyError):
+                asn = None
+            try:
+                af = int(r.get('af') or 4)
+            except (ValueError, KeyError):
+                af = 4
+            # Bucket distribution
+            if n == 1:
+                bucket['1 collector'] += 1
+            elif n <= 3:
+                bucket['2-3'] += 1
+            elif n <= 7:
+                bucket['4-7'] += 1
+            elif n <= 15:
+                bucket['8-15'] += 1
+            else:
+                bucket['16+'] += 1
+            # Per-country
+            if asn is not None:
+                cc = as_cc.get(asn)
+                if cc:
+                    all_cc[cc] += 1
+                    if n <= 2:
+                        low_cc[cc] += 1
+                if n == 1:
+                    solo_by_asn[asn] += 1
+            # v4/v6 buckets
+            bk = '1' if n == 1 else '2-3' if n <= 3 else '4+'
+            if af == 6:
+                v6_by_buck[bk] += 1
+            else:
+                v4_by_buck[bk] += 1
+
+    distinct_asns_n = len(distinct_asns)
+    distinct_asns = None  # release set memory
 
     order = ['1 collector', '2-3', '4-7', '8-15', '16+']
     p1 = go.Figure()
@@ -115,21 +155,6 @@ def build():
     )
 
     # --- P2: Low-consensus prefixes per country ---
-    # "Low consensus" = seen by ≤2 PCH collectors (potential hijack / blind)
-    low_cc = Counter()
-    all_cc = Counter()
-    for r in pch:
-        try:
-            asn = int(r['asn']); n = int(r.get('n_collectors') or 0)
-        except (ValueError, KeyError):
-            continue
-        cc = as_cc.get(asn)
-        if not cc:
-            continue
-        all_cc[cc] += 1
-        if n <= 2:
-            low_cc[cc] += 1
-    # Pct low-consensus per country (among our 9 TARGET + top 5 outside)
     rows2 = []
     for cc in set(TARGET) | {c for c, _ in all_cc.most_common(12)}:
         if all_cc[cc] < 100:
@@ -157,18 +182,7 @@ def build():
         xaxis=dict(title=''), height=460,
     )
 
-    # --- P3: Top-20 ASes with most 1-collector prefixes ---
-    solo_by_asn = Counter()
-    for r in pch:
-        try:
-            n = int(r.get('n_collectors') or 0)
-        except (ValueError, KeyError):
-            continue
-        if n == 1:
-            try:
-                solo_by_asn[int(r['asn'])] += 1
-            except (ValueError, KeyError):
-                pass
+    # --- P3: Top-20 ASes with most 1-collector prefixes (already aggregated) ---
     top_solo = solo_by_asn.most_common(20)
     p3 = go.Figure()
     if top_solo:
@@ -189,19 +203,7 @@ def build():
         height=560, margin=dict(l=180), showlegend=False,
     )
 
-    # --- P4: v4 vs v6 coverage asymmetry ---
-    v4_by_buck = Counter(); v6_by_buck = Counter()
-    for r in pch:
-        try:
-            n = int(r.get('n_collectors') or 0)
-            af = int(r.get('af') or 4)
-        except (ValueError, KeyError):
-            continue
-        bk = '1' if n == 1 else '2-3' if n <= 3 else '4+'
-        if af == 6:
-            v6_by_buck[bk] += 1
-        else:
-            v4_by_buck[bk] += 1
+    # --- P4: v4 vs v6 coverage asymmetry (already aggregated) ---
     p4 = go.Figure()
     bkts = ['1', '2-3', '4+']
     p4.add_trace(go.Bar(
@@ -233,16 +235,14 @@ def build():
             full_html=False, default_height='500px'))
         first = False
 
-    # Top-level stats
-    total = len(pch)
+    # Top-level stats (total accumulated during stream pass)
     solo = bucket.get('1 collector', 0)
-    distinct_asns = len({r.get('asn') for r in pch if r.get('asn')})
 
     intro = (
         f'<p style="color:{TEXT_SECONDARY};padding:0 16px;font-size:14px">'
         f'<b>数据：</b>PCH Packet Clearing House 每日路由快照——总计 '
         f'<b>{total:,}</b> 条 ORIGINATE 记录，分布在 '
-        f'<b>{distinct_asns:,}</b> 个 AS。其中 <b>{solo:,}</b>'
+        f'<b>{distinct_asns_n:,}</b> 个 AS。其中 <b>{solo:,}</b>'
         f'（{solo/max(total,1)*100:.1f}%）仅被 <b>1</b> 个 collector 看到——'
         f'这些可能是地域性 route leak、新出生前缀、或测试路由。'
         f'<br><b>对照：</b>RouteViews 全球 ~30 collector，RIS ~20，PCH 约 60+ '
@@ -273,7 +273,7 @@ def build():
     mirror.write_text(html, encoding='utf-8')
     print(f'wrote {out_path} ({out_path.stat().st_size // 1024} KB)')
     print(f'total={total}  single-collector={solo}  '
-          f'distinct_asns={distinct_asns}')
+          f'distinct_asns={distinct_asns_n}')
 
 
 if __name__ == '__main__':

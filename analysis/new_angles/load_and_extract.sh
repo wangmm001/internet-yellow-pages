@@ -3,7 +3,7 @@
 set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/../.." && pwd)"
-DUMP="$REPO/dumps_archive/iyp-2024-10-08.dump"
+DUMP="${DUMP:-$REPO/dumps_archive/iyp-2026-04-08.dump}"
 DUMPS="$REPO/dumps"
 DATA="$REPO/data"
 VENV_PY="${VENV_PY:-$REPO/.venv/bin/python}"
