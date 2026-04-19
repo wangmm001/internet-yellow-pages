@@ -77,6 +77,9 @@ def build():
             'cf_dns_top_*.csv / crux_top_by_country.csv 全空——'
             'Cloudflare DNS 与 Google CRUX crawler 未运行。')
 
+    # If CF DNS is missing but CRUX has data, build a CRUX-centric story.
+    cf_present = bool(cf_cc) and bool(cf_as)
+
     # --- P1: CF DNS traffic share — top 12 countries (by domain count) ---
     dom_per_cc = Counter()
     traffic_per_cc = defaultdict(float)  # sum of value_pct per cc
@@ -107,7 +110,7 @@ def build():
         height=460, showlegend=False,
     )
 
-    # --- P2: APNIC eyeball % vs CF DNS domain count scatter ---
+    # --- P2: APNIC eyeball% × demand-signal scatter ---
     # Build APNIC per-country eyeball AS count
     ey = defaultdict(int)
     for r in _read(CACHE / 'eyeball_as_country.csv'):
@@ -115,6 +118,13 @@ def build():
     as_total_per_cc = defaultdict(int)
     for r in _read(CACHE / 'as_country.csv'):
         as_total_per_cc[r['cc']] += 1
+    # Pre-compute CRUX coverage per country (used either as fallback for
+    # cf_domains or for diagnostic in P4)
+    crux_per_cc = Counter()
+    for r in crux:
+        cc = r.get('cc')
+        if cc:
+            crux_per_cc[cc] += 1
 
     rows2 = []
     for cc in TARGET:
@@ -123,12 +133,22 @@ def build():
         rows2.append({
             'cc': cc, 'ey_pct': ey_pct,
             'cf_domains': dom_per_cc.get(cc, 0),
-            'cf_traffic': traffic_per_cc.get(cc, 0),
+            'crux_n': crux_per_cc.get(cc, 0),
         })
+    if cf_present:
+        y_field = 'cf_domains'
+        y_label = '# CF DNS top domains in country'
+        title2 = ('② APNIC eyeball% × CF DNS 域名覆盖 · '
+                  'Do the two signals agree?')
+    else:
+        y_field = 'crux_n'
+        y_label = '# CRUX top hostnames per country'
+        title2 = ('② APNIC eyeball% × CRUX 浏览器流量覆盖 · '
+                  'Do AS-eyeball and real browsing agree?')
     p2 = go.Figure()
     p2.add_trace(go.Scatter(
         x=[r['ey_pct'] for r in rows2],
-        y=[r['cf_domains'] for r in rows2],
+        y=[r[y_field] for r in rows2],
         mode='markers+text',
         text=[f'{COUNTRY_NAME[r["cc"]]} {r["cc"]}' for r in rows2],
         textposition='top center',
@@ -137,10 +157,9 @@ def build():
         showlegend=False,
     ))
     p2.update_layout(
-        title='② APNIC eyeball% × CF DNS 域名覆盖 · '
-              'Do the two signals agree?',
+        title=title2,
         xaxis=dict(title='APNIC eyeball AS / total AS (%)'),
-        yaxis=dict(title='# CF DNS top domains in country'),
+        yaxis=dict(title=y_label),
         height=500,
     )
 
@@ -174,12 +193,7 @@ def build():
         height=560, margin=dict(l=180), showlegend=False,
     )
 
-    # --- P4: CRUX per-country coverage ---
-    crux_per_cc = Counter()
-    for r in crux:
-        cc = r.get('cc')
-        if cc:
-            crux_per_cc[cc] += 1
+    # --- P4: CRUX per-country coverage (uses the crux_per_cc from P2) ---
     top_crux = crux_per_cc.most_common(15)
     p4 = go.Figure()
     if top_crux:

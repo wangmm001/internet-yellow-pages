@@ -445,11 +445,11 @@ def extract_pch_collectors():
 def extract_cf_dns_countries():
     """Cloudflare 1.1.1.1 DNS query origins per country.
 
-    Schema: (DomainName)-[:DNS_ACTIVITY {value, clientCountryAlpha2}]->...
+    Schema: (DomainName)-[:QUERIED_FROM {value, clientCountryAlpha2}]->(Country)
     """
     print('[cf_dns_country] Cloudflare DNS by country', flush=True)
     q = """
-        MATCH (d:DomainName)-[r:DNS_ACTIVITY]->(c:Country)
+        MATCH (d:DomainName)-[r:QUERIED_FROM]->(c:Country)
         WHERE r.reference_name = 'cloudflare.dns_top_locations'
         RETURN d.name AS domain, c.country_code AS cc,
                r.value AS value_pct
@@ -469,7 +469,7 @@ def extract_cf_dns_ases():
     """Cloudflare 1.1.1.1 DNS query origins per AS."""
     print('[cf_dns_as] Cloudflare DNS by AS', flush=True)
     q = """
-        MATCH (d:DomainName)-[r:DNS_ACTIVITY]->(a:AS)
+        MATCH (d:DomainName)-[r:QUERIED_FROM]->(a:AS)
         WHERE r.reference_name = 'cloudflare.dns_top_ases'
         RETURN d.name AS domain, a.asn AS asn,
                r.value AS value_pct
@@ -564,12 +564,16 @@ def extract_laces_geoprefix():
 # ---- T21: DNS authority (forward + reverse + root) ----
 
 def extract_ns_authority_forward():
-    """openintel.infra_ns MANAGED_BY — forward DNS authority."""
-    print('[ns_forward] infra_ns forward authority', flush=True)
+    """Forward DNS authority — try multiple sources.
+
+    infra_ns crawler only emits RESOLVES_TO + ALIAS_OF (per parent class
+    comment), NOT MANAGED_BY. So we fall back to openintel.dnsgraph or
+    iana.root_zone style MANAGED_BY edges, joined to TLD scope.
+    """
+    print('[ns_forward] forward DNS authority via dnsgraph', flush=True)
     q = """
         MATCH (d:DomainName)-[m:MANAGED_BY]->(n)
-        WHERE m.reference_name = 'openintel.infra_ns'
-          AND (n:HostName OR n:AuthoritativeNameServer)
+        WHERE n:HostName OR n:AuthoritativeNameServer
         RETURN d.name AS domain, n.name AS ns_host
         LIMIT 1000000
     """
@@ -602,13 +606,19 @@ def extract_ns_authority_rdns():
 
 
 def extract_root_zone_ns():
-    """iana.root_zone — who manages each TLD."""
+    """iana.root_zone — who manages each TLD.
+
+    Drop the reference_name filter (was too strict). TLDs are typically
+    very short (≤6 chars after stripping trailing dot) — filter on that.
+    """
     print('[root_ns] IANA root zone NS', flush=True)
     q = """
         MATCH (d:DomainName)-[m:MANAGED_BY]->(n)
-        WHERE m.reference_name = 'iana.root_zone'
-          AND (n:HostName OR n:AuthoritativeNameServer)
+        WHERE n:HostName OR n:AuthoritativeNameServer
+        WITH d, n, replace(d.name, '.', '') AS bare
+        WHERE size(bare) <= 6
         RETURN d.name AS tld, n.name AS ns_host
+        LIMIT 5000
     """
     try:
         rows = [dict(r) for r in run_query(q, {})]
@@ -616,6 +626,30 @@ def extract_root_zone_ns():
         print(f'  root_ns query failed: {e}', flush=True)
         rows = []
     write_csv('root_zone_ns.csv', rows, ['tld', 'ns_host'])
+
+
+def probe_reference_names():
+    """Diagnostic: what reference_names actually exist on each rel type?"""
+    print('[probe] reference_name distribution per top rel type', flush=True)
+    rels = ['QUERIED_FROM', 'MANAGED_BY', 'ORIGINATE', 'CATEGORIZED',
+            'CENSORED', 'RANK', 'DNS_ACTIVITY']
+    out = []
+    for rel in rels:
+        try:
+            q = f"""
+                MATCH ()-[r:{rel}]->()
+                RETURN DISTINCT r.reference_name AS ref,
+                       count(*) AS n
+                ORDER BY n DESC LIMIT 8
+            """
+            for r in run_query(q, {}):
+                out.append({'rel': rel, 'reference_name': r['ref'],
+                            'count': r['n']})
+        except Exception as e:
+            out.append({'rel': rel, 'reference_name': f'ERROR: {e}',
+                        'count': 0})
+    write_csv('schema_reference_names.csv', out,
+              ['rel', 'reference_name', 'count'])
 
 
 def main():
@@ -647,6 +681,7 @@ def main():
     extract_ns_authority_forward()
     extract_ns_authority_rdns()
     extract_root_zone_ns()
+    probe_reference_names()
     print('done', flush=True)
 
 

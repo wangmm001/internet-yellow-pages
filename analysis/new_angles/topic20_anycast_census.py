@@ -70,8 +70,8 @@ def build():
             'utwente.laces_v4/v6 crawler 未运行，或 GeoPrefix-Point 关系缺失。')
 
     # Group PoPs per prefix
-    pops_per_prefix = defaultdict(list)  # prefix -> [(af, cc, lat, lng)]
-    anycast_pfx = set()
+    pops_per_prefix = defaultdict(list)  # prefix -> [(af, cc)]
+    explicit_anycast = set()
     for r in data:
         pfx = r.get('prefix')
         if not pfx:
@@ -83,6 +83,14 @@ def build():
         cc = r.get('cc', '')
         pops_per_prefix[pfx].append((af, cc))
         if r.get('is_anycast') in ('1', 1, True, 'True'):
+            explicit_anycast.add(pfx)
+    # The Anycast tag isn't always propagated to GeoPrefix nodes in some
+    # dumps. LACES's purpose is anycast census — treat any prefix with
+    # PoPs in 2+ distinct countries as anycast.
+    anycast_pfx = set(explicit_anycast)
+    for pfx, pops in pops_per_prefix.items():
+        ccs = {cc for (af, cc) in pops if cc}
+        if len(ccs) >= 2:
             anycast_pfx.add(pfx)
 
     # --- P1: # anycast prefixes per country (where PoPs land) ---

@@ -152,52 +152,82 @@ GAPS = [
                     '哪些层是"latest-only"',
     },
     {
-        'id': 'G11', 'name': 'Cloudflare DNS + Google CRUX 层缺失',
-        'path': '(:DomainName)-[:DNS_ACTIVITY]->(:Country|:AS); '
-                '(:HostName)-[:RANK]->(:Ranking {name:"CrUX*"})',
-        'finding': 'cloudflare.dns_top_locations / dns_top_ases / '
-                   'google.crux_top1m_country 查询均返回 0 行——'
-                   '2024-10 dump 里这些 crawler 未运行或 reference_name '
-                   '过滤不匹配',
-        'finding_en': 'Cloudflare DNS + Google CRUX crawlers returned '
-                      '0 rows — not run in 2024-10 dump, or reference_name '
-                      'filter mismatch',
-        'topics': ['topic18 (placeholder)'],
-        'snapshots': '2024-10 (tested)',
+        'id': 'G11', 'name': 'Cloudflare DNS 层缺失（确认）',
+        'path': '(:DomainName)-[:QUERIED_FROM]->(:Country|:AS) — 关系不存在',
+        'finding': 'cloudflare.dns_top_locations / dns_top_ases 在 '
+                   '2024-10 和 2026-04 两次 dump 里均完全缺失。Probe 确认 '
+                   'QUERIED_FROM / DNS_ACTIVITY 关系类型都不存在。'
+                   'crawler 在 config.json 里被列出但未运行',
+        'finding_en': 'Cloudflare DNS crawlers totally absent in both '
+                      '2024-10 and 2026-04 dumps. Probe confirmed neither '
+                      'QUERIED_FROM nor DNS_ACTIVITY relationship types '
+                      'exist. Listed in config.json but not actually run',
+        'topics': ['topic18 (CRUX-only fallback)'],
+        'snapshots': '2024-10 + 2026-04 confirmed',
         'severity': 'Medium',
-        'workaround': 'topic18 降级为 placeholder + banner；2026-04 dump '
-                      '可能已补充（size 19.8GB 对 2024-10 的 4.5GB）',
-        'upstream': '需要确认 config.json 里这些 crawler 在 2024-10 pipeline '
-                    '实际运行了；或 reference_name 字段格式有变',
+        'workaround': 'topic18 改用 google.crux_top1m_country 作为'
+                      '需求侧信号（200K rows 可用）',
+        'upstream': '需要 IYP 真正运行 cloudflare.dns_top_* crawlers；'
+                    '可能是 API key 或限速问题',
     },
     {
-        'id': 'G12', 'name': 'UTwente LACES GeoPrefix 层缺失',
+        'id': 'G12', 'name': 'UTwente LACES GeoPrefix（已解决 in 2026-04）',
         'path': '(:GeoPrefix)-[:LOCATED_IN]->(:Point); '
                 '(:GeoPrefix)-[:COUNTRY]->(:Country)',
-        'finding': 'utwente.laces_v4/v6 crawler 未暴露 GeoPrefix-Point 关系',
-        'finding_en': 'utwente LACES crawler did not expose GeoPrefix-Point '
-                      'relations in 2024-10',
-        'topics': ['topic20 (placeholder)'],
-        'snapshots': '2024-10 (tested)',
-        'severity': 'Medium',
-        'workaround': 'topic20 降级；bgptools.anycast tag 仍可提供 '
-                      '"是否 anycast" 但无 PoP 位置',
-        'upstream': 'laces crawler 需要重跑或节点 label 对齐',
+        'finding': '2026-04 dump 里 LACES 提供 500K GeoPrefix-Country 边'
+                   '（7,814 distinct prefix）。其中 7,807 在多国分布，'
+                   '即 anycast。但 lat/lng 在 Point 节点为 NULL，'
+                   '只能国家级粒度',
+        'finding_en': '2026-04 dump exposes 500K GeoPrefix-Country '
+                      'edges (7,814 distinct, 7,807 multi-country = '
+                      'anycast). But Point nodes have NULL lat/lng — '
+                      'only country-level granularity',
+        'topics': ['topic20'],
+        'snapshots': 'fixed in 2026-04; absent in 2024-10',
+        'severity': 'Low',
+        'workaround': 'topic20 推断 anycast 通过 multi-country 而非 '
+                      'CATEGORIZED→Tag (Anycast tag 不挂在 GeoPrefix)',
+        'upstream': '可选：补充 Point.lat/lng 属性以实现 PoP 地图',
     },
     {
-        'id': 'G13', 'name': 'DNS 权威三源全缺（forward / reverse / root）',
+        'id': 'G13', 'name': 'DNS 权威三源（已大部分解决 in 2026-04）',
         'path': '(:DomainName)-[:MANAGED_BY]->(:HostName) '
-                '× infra_ns / rirdata_rdns / iana.root_zone',
-        'finding': 'openintel.infra_ns / simulamet.rirdata_rdns / '
-                   'iana.root_zone 查询都返回 0 行；RDNSPrefix label 也不存在',
-        'finding_en': 'infra_ns / rirdata_rdns / iana.root_zone all 0 rows; '
-                      'RDNSPrefix label absent in dump',
-        'topics': ['topic21 (placeholder)'],
-        'snapshots': '2024-10 (tested)',
-        'severity': 'Medium',
-        'workaround': 'topic21 降级；topic14 的 dns_authority_top500 依旧'
-                      '给出 operator 视角',
-        'upstream': '多个 openintel/simulamet/iana crawler 需重跑',
+                '× openintel.dnsgraph / simulamet.rirdata_rdns / iana.root_zone',
+        'finding': '2026-04 dump 里 MANAGED_BY 关系正常工作：forward via '
+                   'openintel.dnsgraph (28M edges) + openintel.toplist (21M); '
+                   'reverse via simulamet.rirdata_rdns (3.5M); root via '
+                   'iana.root_zone (5K)。'
+                   '注意：openintel.infra_ns 文档说只产生 RESOLVES_TO/'
+                   'ALIAS_OF，不产生 MANAGED_BY——之前的 query 用错关系',
+        'finding_en': 'In 2026-04: MANAGED_BY works via dnsgraph (28M) + '
+                      'toplist (21M) + rirdata_rdns (3.5M) + iana.root_zone '
+                      '(5K). Note: openintel.infra_ns produces RESOLVES_TO/'
+                      'ALIAS_OF only, NOT MANAGED_BY (per parent class doc)',
+        'topics': ['topic21'],
+        'snapshots': 'fixed in 2026-04 (with corrected query)',
+        'severity': 'Low',
+        'workaround': 'topic21 改用 dnsgraph 作 forward source；'
+                      '原 infra_ns query 是文档错误',
+        'upstream': '已解决；如需 infra_ns MANAGED_BY 须改 crawler',
+    },
+    {
+        'id': 'G14', 'name': 'PCH 路由快照在 2026-04 缺失（regression）',
+        'path': '(:AS)-[:ORIGINATE]->(:Prefix) WHERE source=pch.*',
+        'finding': '2024-10 dump 里 pch.daily_routing_snapshots_v4/v6 '
+                   '提供 500K ORIGINATE 边（含 collector count + '
+                   'seen_by_collectors）。2026-04 dump probe 显示 '
+                   'ORIGINATE 关系只有 bgpkit.pfx2asn (1.6M) 和 ihr.rov '
+                   '(1.3M)——pch crawler 整个未运行',
+        'finding_en': 'PCH crawler ran in 2024-10 (500K records) but did '
+                      'NOT run in 2026-04 (probe shows ORIGINATE only has '
+                      'bgpkit + ihr.rov). Regression',
+        'topics': ['topic17 (placeholder in 2026-04)'],
+        'snapshots': '2024-10 had data, 2026-04 missing',
+        'severity': 'High',
+        'workaround': 'topic17 用 2024-10 dump 跑得到完整结果；'
+                      '2026-04 placeholder 解释 regression',
+        'upstream': 'pch.daily_routing_snapshots_v4/v6 crawler 需在 '
+                    '2026-04 重新启用',
     },
 ]
 
