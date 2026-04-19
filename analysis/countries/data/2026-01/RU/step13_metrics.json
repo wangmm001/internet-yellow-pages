@@ -6,7 +6,7 @@
   "title_en": "IXP × Facility bridge",
   "metrics": {
     "distinct_ixps": 73,
-    "distinct_facilities": 543,
-    "tripartite_rows": 105267
+    "distinct_facilities": 542,
+    "tripartite_rows": 114010
   }
 }

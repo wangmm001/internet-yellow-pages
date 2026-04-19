@@ -6,18 +6,18 @@
   "title_en": "Multi-ranking positions",
   "metrics": {
     "rankings_count": 30,
-    "best_caida_rank": null,
+    "best_caida_rank": 3,
     "best_ranks_per_system": {
       "IHR country ranking: Total eyeball (FR)": 1,
-      "IHR country ranking: Total AS (GW)": 1,
-      "IHR country ranking: Total AS (GA)": 1,
-      "IHR country ranking: Total AS (GF)": 1,
       "IHR country ranking: Total AS (MR)": 1,
-      "IHR country ranking: Total eyeball (LR)": 1,
+      "IHR country ranking: Total AS (MF)": 1,
+      "IHR country ranking: Total AS (GA)": 1,
       "APNIC eyeball estimates (FR)": 1,
-      "IHR country ranking: Total AS (BJ)": 2,
-      "APNIC eyeball estimates (PM)": 2,
-      "IHR country ranking: Total AS (ML)": 2
+      "IHR country ranking: Total AS (GW)": 1,
+      "APNIC eyeball estimates (SC)": 1,
+      "IHR country ranking: Total AS (GF)": 1,
+      "IHR country ranking: Total eyeball (LR)": 1,
+      "APNIC eyeball estimates (PM)": 2
     }
   }
 }

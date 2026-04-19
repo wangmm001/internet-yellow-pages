@@ -9,15 +9,15 @@
     "best_caida_rank": null,
     "best_ranks_per_system": {
       "IHR country ranking: Total eyeball (NP)": 1,
-      "IHR country ranking: Total eyeball (BD)": 1,
-      "IHR country ranking: Total AS (NP)": 1,
+      "APNIC eyeball estimates (LK)": 1,
       "IHR country ranking: Total AS (IN)": 1,
       "IHR country ranking: Total eyeball (LK)": 1,
-      "APNIC eyeball estimates (LK)": 1,
       "APNIC eyeball estimates (IN)": 1,
-      "IHR country ranking: Total AS (BD)": 1,
+      "IHR country ranking: Total AS (NP)": 1,
       "IHR country ranking: Total AS (LK)": 2,
-      "IHR country ranking: Total eyeball (IN)": 2
+      "IHR country ranking: Total AS (BD)": 2,
+      "IHR country ranking: Total eyeball (IN)": 2,
+      "APNIC eyeball estimates (ER)": 3
     }
   }
 }

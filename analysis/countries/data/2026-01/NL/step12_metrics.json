@@ -5,19 +5,19 @@
   "title_zh": "机房分布",
   "title_en": "Facility distribution",
   "metrics": {
-    "total_facility_records": 2690,
-    "distinct_facilities_with_country": 531,
+    "total_facility_records": 3035,
+    "distinct_facilities_with_country": 668,
     "top_countries_by_facility_presence": {
-      "NL": 1902,
-      "US": 164,
-      "DE": 150,
-      "GB": 58,
-      "BE": 48
+      "NL": 1962,
+      "US": 267,
+      "DE": 177,
+      "GB": 80,
+      "BE": 56
     },
     "top_facilities": [
       [
         "NIKHEF Amsterdam",
-        237
+        243
       ],
       [
         "Equinix AM7 - Amsterdam, Kuiperberweg",
@@ -25,15 +25,15 @@
       ],
       [
         "Digital Realty Amsterdam AMS17",
-        69
+        72
       ],
       [
         "Equinix AM5 - Amsterdam, Schepenbergweg",
-        65
+        66
       ],
       [
-        "Iron Mountain Data Center - Amsterdam (AMS-1)",
-        55
+        "Global Switch Amsterdam",
+        59
       ]
     ]
   }

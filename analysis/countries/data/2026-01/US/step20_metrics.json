@@ -5,12 +5,12 @@
   "title_zh": "综合主权指数",
   "title_en": "Composite sovereignty index",
   "metrics": {
-    "composite_sovereignty_index": 0.6929,
+    "composite_sovereignty_index": 0.6987,
     "components": {
       "hosting_sovereignty": 1.0,
-      "dns_sovereignty": 0.5041,
-      "rpki_adoption": 0.4715,
-      "ixp_domesticization": 0.4887,
+      "dns_sovereignty": 0.5319,
+      "rpki_adoption": 0.4772,
+      "ixp_domesticization": 0.4846,
       "hub_ratio": 1.0
     }
   }

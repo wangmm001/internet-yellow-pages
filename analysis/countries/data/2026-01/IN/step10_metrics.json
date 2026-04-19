@@ -5,11 +5,11 @@
   "title_zh": "集中度 Gini/HHI",
   "title_en": "Concentration",
   "metrics": {
-    "gini_prefix": 0.8881,
-    "hhi_prefix": 0.0283,
-    "gini_hostname": 0.9369,
-    "hhi_hostname": 0.0375,
-    "gini_org": 0.1549,
+    "gini_prefix": 0.8873,
+    "hhi_prefix": 0.0284,
+    "gini_hostname": 0.9296,
+    "hhi_hostname": 0.0277,
+    "gini_org": 0.1543,
     "hhi_org": 0.0002
   }
 }
