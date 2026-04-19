@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IYP Analysis · 项目进展汇报</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#0071e3;--accent2:#5856d6;--green:#30d158;--orange:#ff9f0a;--red:#ff453a;--yellow:#ffd60a;--text:#f5f5f7;--text2:rgba(255,255,255,0.6);--bg:#000;--card:rgba(255,255,255,0.06);--border:rgba(255,255,255,0.08)}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Arial,sans-serif;background:#000;color:#f5f5f7;overflow:hidden;height:100vh;-webkit-font-smoothing:antialiased}
+
+.slide{display:none;width:100vw;height:100vh;padding:60px 80px;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.slide.active{display:flex}
+.slide.dark{background:linear-gradient(145deg,#000 0%,#0a0a1a 100%)}
+.slide.accent{background:linear-gradient(135deg,#0071e3 0%,#5856d6 100%);color:#fff}
+.slide.deep{background:linear-gradient(160deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)}
+
+h1{font-size:72px;font-weight:700;letter-spacing:-2px;line-height:1.1}
+h2{font-size:52px;font-weight:700;letter-spacing:-1.5px;line-height:1.15;margin-bottom:16px}
+h3{font-size:32px;font-weight:600;letter-spacing:-0.5px;margin-bottom:12px}
+.giant{font-size:120px;font-weight:800;letter-spacing:-4px;line-height:1}
+.big{font-size:80px;font-weight:800;letter-spacing:-2px;line-height:1}
+.subtitle{font-size:26px;font-weight:400;opacity:0.7;margin-top:12px}
+.desc{font-size:19px;line-height:1.6;opacity:0.8;max-width:900px;margin-top:18px}
+.small{font-size:15px;line-height:1.6;opacity:0.7}
+.label{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:2px;opacity:0.5;margin-bottom:12px}
+.highlight{color:var(--accent)}
+.slide.accent .highlight{color:rgba(255,255,255,0.95)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:28px}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:18px;margin-top:28px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:22px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.card-icon{font-size:28px;margin-bottom:8px}
+.card h4{font-size:17px;font-weight:600;margin-bottom:6px}
+.card p{font-size:13.5px;opacity:0.72;line-height:1.55}
+.card .num{font-size:34px;font-weight:700;color:var(--accent)}
+
+.phase-card{background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:22px 24px;position:relative;overflow:hidden}
+.phase-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+.phase-card.p1::before{background:#5ac8fa}
+.phase-card.p2::before{background:#64d2ff}
+.phase-card.p3::before{background:#0071e3}
+.phase-card.p4::before{background:#5856d6}
+.phase-card.p5::before{background:#bf5af2}
+.phase-card.p6::before{background:#30d158}
+.phase-card .phase-no{font-size:13px;font-weight:700;letter-spacing:2px;opacity:0.5}
+.phase-card .phase-title{font-size:22px;font-weight:700;margin:4px 0 6px}
+.phase-card .phase-date{font-size:13px;opacity:0.5;font-variant-numeric:tabular-nums}
+.phase-card .phase-commits{display:inline-block;background:rgba(255,255,255,0.08);padding:2px 10px;border-radius:12px;font-size:12px;font-weight:600;margin-left:8px}
+.phase-card ul{margin-top:10px;padding-left:18px;font-size:13.5px;line-height:1.8;opacity:0.85}
+
+.chart{display:flex;align-items:flex-end;gap:8px;height:280px;margin-top:24px;padding:0 4px;border-bottom:1px solid rgba(255,255,255,0.1);position:relative}
+.chart .bar{flex:1;background:linear-gradient(180deg,var(--accent),var(--accent2));border-radius:4px 4px 0 0;position:relative;transition:all 0.3s;min-height:2px;cursor:pointer}
+.chart .bar:hover{filter:brightness(1.3)}
+.chart .bar .v{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:700;opacity:0.9}
+.chart .bar.hot{background:linear-gradient(180deg,#ff453a,#ff9f0a)}
+.chart-x{display:flex;gap:8px;margin-top:8px;padding:0 4px}
+.chart-x span{flex:1;text-align:center;font-size:13px;opacity:0.65;font-variant-numeric:tabular-nums}
+.chart-legend{display:flex;gap:20px;margin-top:16px;font-size:12px;opacity:0.6}
+.chart-legend span::before{content:'';display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.chart-legend .normal::before{background:linear-gradient(180deg,var(--accent),var(--accent2))}
+.chart-legend .hot::before{background:linear-gradient(180deg,#ff453a,#ff9f0a)}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:14px}
+th{text-align:left;padding:10px 14px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.12);font-size:12px;text-transform:uppercase;letter-spacing:1px;opacity:0.6}
+td{padding:9px 14px;border-bottom:1px solid rgba(255,255,255,0.05)}
+td.mono{font-family:"SF Mono",monospace;font-size:13px;opacity:0.7}
+
+.pbar{display:inline-block;width:120px;height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;vertical-align:middle;margin-right:10px}
+.pbar .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:4px;transition:width 0.6s}
+.pbar .fill.warn{background:linear-gradient(90deg,var(--orange),var(--yellow))}
+.pbar .fill.low{background:linear-gradient(90deg,var(--red),var(--orange))}
+
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;letter-spacing:0.4px}
+.badge.blue{background:rgba(0,113,227,0.22);color:#5aa3ff;border:1px solid rgba(0,113,227,0.35)}
+.badge.green{background:rgba(48,209,88,0.2);color:#30d158;border:1px solid rgba(48,209,88,0.35)}
+.badge.orange{background:rgba(255,159,10,0.2);color:#ff9f0a;border:1px solid rgba(255,159,10,0.35)}
+.badge.red{background:rgba(255,69,58,0.2);color:#ff6961;border:1px solid rgba(255,69,58,0.35)}
+.badge.purple{background:rgba(88,86,214,0.22);color:#9b99ff;border:1px solid rgba(88,86,214,0.35)}
+
+.ms{display:grid;grid-template-columns:100px 1fr;gap:18px;align-items:start;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.06)}
+.ms .d{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);font-size:14px}
+.ms .t{font-size:15px;line-height:1.5}
+.ms .t strong{color:#fff;font-weight:600}
+
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:100;transition:width 0.3s}
+
+.nav{position:fixed;bottom:24px;right:32px;z-index:100;display:flex;gap:8px;align-items:center}
+.nav button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.5);color:#fff;font-size:18px;cursor:pointer;backdrop-filter:blur(10px);transition:all 0.2s}
+.nav button:hover{background:rgba(0,113,227,0.5);border-color:rgba(0,113,227,0.5)}
+.nav .page-num{font-size:13px;opacity:0.5;font-variant-numeric:tabular-nums;min-width:52px;text-align:center}
+
+.live{position:fixed;top:18px;right:24px;z-index:100;font-size:12px;opacity:0.55;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}
+.live .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.slide.active>*{animation:fadeUp 0.6s ease-out both}
+.slide.active>*:nth-child(2){animation-delay:0.08s}
+.slide.active>*:nth-child(3){animation-delay:0.16s}
+.slide.active>*:nth-child(4){animation-delay:0.24s}
+.slide.active>*:nth-child(5){animation-delay:0.32s}
+.slide.active>*:nth-child(6){animation-delay:0.4s}
+
+.glow{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;pointer-events:none}
+.glow.blue{background:#0071e3;width:420px;height:420px}
+.glow.purple{background:#5856d6;width:320px;height:320px}
+.glow.green{background:#30d158;width:350px;height:350px}
+.glow.orange{background:#ff9f0a;width:300px;height:300px}
+
+.section-num{font-size:160px;font-weight:900;opacity:0.06;position:absolute;right:80px;bottom:40px;line-height:1;letter-spacing:-8px}
+
+.lane{display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:center;margin:10px 0}
+.lane .w{font-size:13px;opacity:0.55;font-weight:600}
+.lane .b{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.lane .step{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;flex-shrink:0}
+.lane .step.now{background:rgba(0,113,227,0.2);border-color:var(--accent);color:#5aa3ff}
+.lane .step.done{background:rgba(48,209,88,0.15);border-color:var(--green);color:var(--green)}
+.lane .arrow{opacity:0.35;font-size:14px}
+
+@media print{
+  body{overflow:visible!important;height:auto!important;background:#000!important}
+  .slide{display:flex!important;width:100vw;height:100vh;page-break-after:always;break-after:page;position:relative;overflow:visible!important}
+  .slide:last-of-type{page-break-after:avoid;break-after:avoid}
+  .nav,.progress,.live{display:none!important}
+  .slide>*{animation:none!important}
+  .glow{display:none!important}
+  @page{size:landscape;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="live"><span class="dot"></span><span id="liveTime">—</span></div>
+
+<!-- ═════════════════════ SLIDE 1: 封面 ═════════════════════ -->
+<div class="slide dark active" id="s1">
+  <div class="glow blue" style="top:-150px;right:-100px"></div>
+  <div class="glow purple" style="bottom:-100px;left:-50px"></div>
+  <div class="label">IYP Analysis · Project Progress Report</div>
+  <h1 style="background:linear-gradient(135deg,#fff,#a8c0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">IYP 分析子项目进展</h1>
+  <p class="subtitle">从 schema 扫描到 21 主题全景 · 4 天 · 57 commits · 3 条分析主干 · 附 28 个上游数据源目录</p>
+  <p class="desc" style="margin-top:30px">
+    <span class="badge blue">Countries · 9 国对照</span>
+    <span class="badge purple">new_angles · 21 Topics</span>
+    <span class="badge green">AS Globe · Strata 旗舰视图</span>
+    <span class="badge orange">Sources · 28 个上游</span>
+  </p>
+  <p class="small" style="margin-top:40px;opacity:0.5">
+    数据窗口：2026-04-16 → <span id="today">2026-04-19</span> ·
+    活跃 <strong id="dayCount">4</strong> 天 ·
+    作者 <strong>wangmm</strong> ·
+    报告生成于 <span id="genTime">—</span>
+  </p>
+</div>
+
+<!-- ═════════════════════ SLIDE 2: 核心指标 ═════════════════════ -->
+<div class="slide deep" id="s2">
+  <div class="glow green" style="top:-80px;right:-60px"></div>
+  <div class="label">一张图看全貌</div>
+  <h2>核心<span class="highlight">指标</span></h2>
+  <div class="grid4" style="margin-top:32px">
+    <div class="card" style="text-align:center"><div class="big" style="color:var(--accent)">57</div><h4>总 commits</h4><p>4 天累计（wangmm）</p></div>
+    <div class="card" style="text-align:center"><div class="big" style="color:var(--accent2)">6</div><h4>工作阶段</h4><p>基线 → 旗舰视图</p></div>
+    <div class="card" style="text-align:center"><div class="big" style="color:var(--green)">10</div><h4>关键里程碑</h4><p>从 schema 扫到全景交付</p></div>
+    <div class="card" style="text-align:center"><div class="big" style="color:var(--orange)">21</div><h4>new_angles 主题</h4><p>T1 → T21 全覆盖</p></div>
+  </div>
+  <div class="grid4" style="margin-top:18px">
+    <div class="card" style="text-align:center"><div class="num">9</div><h4>对照国家</h4><p>CN/DE/FR/GB/IN/JP/NL/RU/US</p></div>
+    <div class="card" style="text-align:center"><div class="num">10</div><h4>季度快照</h4><p>2024-Q1 → 2026-Q2</p></div>
+    <div class="card" style="text-align:center"><div class="num">29</div><h4>国家视角仪表盘</h4><p>web/site/countries/dashboards</p></div>
+    <div class="card" style="text-align:center"><div class="num">3</div><h4>时间序列主干</h4><p>countries · china · network</p></div>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 3: 每日工作量图 ═════════════════════ -->
+<div class="slide dark" id="s3">
+  <div class="label">活动强度 · Daily Commit Volume</div>
+  <h2>四天<span class="highlight">高强度</span>冲刺</h2>
+  <p class="desc">单日提交量呈典型「预热 → 双日峰 → 收尾」分布：Day 1 建立基线，Day 2 / Day 3 是 <strong>国别研究</strong> 与 <strong>new_angles 21 主题</strong> 的冲刺高峰，Day 4 收尾补真实数据。</p>
+
+  <div class="chart" id="chart"></div>
+  <div class="chart-x" id="chartX"></div>
+  <div class="chart-legend">
+    <span class="normal">普通推进 ( &lt; 20 commits / day )</span>
+    <span class="hot">冲刺高峰 ( ≥ 20 commits / day )</span>
+    <span style="opacity:0.5">鼠标悬停查看当日主题</span>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 4: 阶段一二 ═════════════════════ -->
+<div class="slide dark" id="s4">
+  <div class="label">Part 1 · 2026-04-16 → 2026-04-17 上午</div>
+  <h2>基线扫描 + 国别研究启动</h2>
+  <div class="grid2" style="margin-top:24px">
+    <div class="phase-card p1">
+      <div class="phase-no">PHASE 1</div>
+      <div class="phase-title">Schema 基线 + Cloudflare 全链<span class="phase-commits">2 commits</span></div>
+      <div class="phase-date">2026-04-16 · 1 天</div>
+      <ul>
+        <li>IYP 数据库分析报告 + 项目 <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px">CLAUDE.md</code></li>
+        <li>Cloudflare 单 AS 深度剖析：<strong>25 步</strong> 贯穿所有本体维度</li>
+        <li>建立术语与节点/关系类型的心智模型</li>
+        <li>为后续国别 / 主题分析奠定方法论</li>
+      </ul>
+    </div>
+    <div class="phase-card p2">
+      <div class="phase-no">PHASE 2</div>
+      <div class="phase-title">China 20 步 + 9 国对照<span class="phase-commits">11 commits</span></div>
+      <div class="phase-date">2026-04-17 上午 · 半天</div>
+      <ul>
+        <li>China-in-Global-Internet-Hierarchy <strong>20 步分析</strong></li>
+        <li>9 国（CN/DE/FR/GB/IN/JP/NL/RU/US）cross-country + 依赖 + 内容地理</li>
+        <li>content_geography 切换到 cached dns_as_hosting，避免重压 Neo4j</li>
+        <li>每张图加入 <strong>plain-language 中文说明</strong></li>
+        <li>china/ HTML 前端整体重设计（中英双语 + 现代深色主题）</li>
+      </ul>
+    </div>
+  </div>
+  <span class="section-num">01</span>
+</div>
+
+<!-- ═════════════════════ SLIDE 5: 阶段三 ═════════════════════ -->
+<div class="slide deep" id="s5">
+  <div class="glow blue" style="top:-100px;left:-80px"></div>
+  <div class="label">Part 2 · 2026-04-17 下午/晚 · 冲刺高峰 16 commits</div>
+  <h2>季度快照 + <span class="highlight">三轨时间序列</span></h2>
+  <div class="phase-card p3" style="margin-top:20px">
+    <div class="phase-no">PHASE 3</div>
+    <div class="phase-title">quarterly pipeline · 2→N 点演化 · 3 轨道统一</div>
+    <div class="phase-date">2026-04-17 · 半天 · 16 commits（占 Day 2 近六成）</div>
+    <div class="grid2" style="margin-top:16px">
+      <div>
+        <h4 style="color:#5aa3ff;font-size:15px;margin-bottom:8px">快照管道</h4>
+        <ul style="font-size:13.5px;line-height:1.8;padding-left:18px;opacity:0.88">
+          <li><strong>extract_snapshot.sh</strong>：curl → Neo4j dump → load</li>
+          <li><strong>snapshot_swap.sh</strong>：6 snapshot 自动轮换</li>
+          <li>dumps_archive/ 机制（不入 git，体积大且可再拉）</li>
+          <li>2024 季度回填 + 2025-01 重抽取</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:#bf5af2;font-size:15px;margin-bottom:8px">分析升级</h4>
+        <ul style="font-size:13.5px;line-height:1.8;padding-left:18px;opacity:0.88">
+          <li>evolution.py：2 点斜率 → <strong>N 点 trend / CAGR / 拐点</strong>（5 panel）</li>
+          <li>三轨 time-series：countries · china · network</li>
+          <li><code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px">:BGPPrefix</code> 缺失时降级到 <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px">:Prefix</code>（老快照兼容）</li>
+          <li>web/nav 注册演化页面 + 断链扫描器</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 6: 阶段四 ═════════════════════ -->
+<div class="slide dark" id="s6">
+  <div class="label">Part 3 · 2026-04-18 白天 · 当日冲刺峰值</div>
+  <h2>new_angles <span class="highlight">15 主题</span>全覆盖</h2>
+  <div class="phase-card p4" style="margin-top:20px">
+    <div class="phase-no">PHASE 4</div>
+    <div class="phase-title">一天完成 15 个独立主题 + synthesis + scorecards</div>
+    <div class="phase-date">2026-04-18 · 一天 · 14 commits（连续 6 小时）</div>
+    <div class="grid3" style="margin-top:16px">
+      <div>
+        <h4 style="color:#5aa3ff;font-size:14px">T1-T6 · 主权与分类</h4>
+        <ul style="font-size:12.5px;line-height:1.75;padding-left:16px;opacity:0.85">
+          <li>T1：user-weighted sovereignty（+ 基础设施 vs 用户对比）</li>
+          <li>T2：routing-security reality</li>
+          <li>T3：Tranco deep-dive</li>
+          <li>T4-T6：AS category / archetype / behavioral tags</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:#bf5af2;font-size:14px">T7-T12 · 观测与集中度</h4>
+        <ul style="font-size:12.5px;line-height:1.75;padding-left:16px;opacity:0.85">
+          <li>T7-T9：OONI + ROV by country + Atlas 覆盖</li>
+          <li>T10-T11：BGP v4 / v6 现状</li>
+          <li>T12：org concentration + IHR hegemony</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:#30d158;font-size:14px">T13-T15 · 综合视图</h4>
+        <ul style="font-size:12.5px;line-height:1.75;padding-left:16px;opacity:0.85">
+          <li>T13：multinational footprint</li>
+          <li>T14：DNS authority concentration</li>
+          <li>T15：9×9 依赖矩阵</li>
+          <li><strong>synthesis</strong> 把 15 主题浓缩成一页叙事</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="grid4" style="margin-top:18px">
+    <div class="card" style="text-align:center"><div class="num" style="font-size:26px">9×15</div><p>scorecards 矩阵</p></div>
+    <div class="card" style="text-align:center"><div class="num" style="font-size:26px">10</div><p>季度 BGP 演化</p></div>
+    <div class="card" style="text-align:center"><div class="num" style="font-size:26px">4</div><p>假设-验证 scatter</p></div>
+    <div class="card" style="text-align:center"><div class="num" style="font-size:26px">1</div><p>filing-ready schema_gaps</p></div>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 7: 阶段五 ═════════════════════ -->
+<div class="slide deep" id="s7">
+  <div class="glow purple" style="top:-80px;right:-60px"></div>
+  <div class="label">Part 4 · 2026-04-18 晚 · 旗舰交付</div>
+  <h2>AS Globe · <span class="highlight">Strata 旗舰视图</span></h2>
+  <div class="phase-card p5" style="margin-top:20px">
+    <div class="phase-no">PHASE 5</div>
+    <div class="phase-title">3D 全球 AS 互联 + 国家穹顶编码</div>
+    <div class="phase-date">2026-04-18 深夜 · 4 commits</div>
+    <div class="grid2" style="margin-top:16px">
+      <div>
+        <h4 style="color:#bf5af2;font-size:15px">3D AS 互联</h4>
+        <ul style="font-size:13.5px;line-height:1.8;padding-left:18px;opacity:0.88">
+          <li><strong>globe + force-directed</strong> 双形态切换</li>
+          <li>AS 节点按地理落点 / 按网络邻近排布</li>
+          <li>交互式缩放 + 聚焦单 AS 链路</li>
+          <li>为 Strata 视图铺垫数据 layer</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:#30d158;font-size:15px">AS Strata 旗舰</h4>
+        <ul style="font-size:13.5px;line-height:1.8;padding-left:18px;opacity:0.88">
+          <li>国家「穹顶」视角：每国 AS 堆叠成 canopy</li>
+          <li><strong>3 通道编码</strong>：高度 / 颜色 / 厚度</li>
+          <li>可同时读出规模 · 集中度 · 互联度</li>
+          <li>合并 upstream new_angles 后 <strong>网站整体重建</strong> + strata 接线</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 8: 阶段六 ═════════════════════ -->
+<div class="slide dark" id="s8">
+  <div class="label">Part 5 · 2026-04-18 晚 → 2026-04-19 · 收尾</div>
+  <h2>T16-T21 扩展 + <span class="highlight">真实数据回填</span></h2>
+  <div class="phase-card p6" style="margin-top:20px">
+    <div class="phase-no">PHASE 6 · 收尾</div>
+    <div class="phase-title">扫尽 17 个未用的 IYP 数据源 · 占位改真实数据</div>
+    <div class="phase-date">2026-04-18 → 2026-04-19 · 4 commits</div>
+    <div class="grid2" style="margin-top:16px">
+      <div>
+        <h4 style="color:#5aa3ff;font-size:15px">T16-T21 新主题</h4>
+        <ul style="font-size:13.5px;line-height:1.8;padding-left:18px;opacity:0.88">
+          <li>T16：IXP 实态</li>
+          <li>T17：BGP collector 共识（PCH prefix）</li>
+          <li>T18：真实流量（替换占位）</li>
+          <li>T19：应用层审查</li>
+          <li>T20：anycast 普查（替换占位）</li>
+          <li>T21：DNS authority 深潜（替换占位）</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:#30d158;font-size:15px">关键工程修复</h4>
+        <ul style="font-size:13.5px;line-height:1.8;padding-left:18px;opacity:0.88">
+          <li><strong>topic17 OOM 修复</strong>：9 GB pch_prefix_collectors.csv 流式处理</li>
+          <li>T18/T20/T21：从 placeholder 换成 2026-04 真实 dump</li>
+          <li>重抽取 2025-04/07/10 后刷新全部时序</li>
+          <li>17 个原本未接的 IYP 数据源全部命中</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 9: 关键里程碑 ═════════════════════ -->
+<div class="slide deep" id="s9">
+  <div class="glow green" style="bottom:-80px;left:-60px"></div>
+  <div class="label">关键里程碑 · 从基线到全景</div>
+  <h2><span class="highlight">10 个</span>决定性时刻</h2>
+  <div style="margin-top:24px;max-width:1100px">
+    <div class="ms"><div class="d">04-16</div><div class="t"><strong>IYP 分析报告 + CLAUDE.md 落地</strong> — 建立本体心智模型 <span class="badge blue">基线</span></div></div>
+    <div class="ms"><div class="d">04-16</div><div class="t"><strong>Cloudflare 25 步全链分析</strong> — 走通所有本体维度</div></div>
+    <div class="ms"><div class="d">04-17</div><div class="t"><strong>China 20 步 Hierarchy 分析</strong> — 首个国家级完整研究</div></div>
+    <div class="ms"><div class="d">04-17</div><div class="t"><strong>9 国横向对照交付</strong> — CN/DE/FR/GB/IN/JP/NL/RU/US 统一口径</div></div>
+    <div class="ms"><div class="d">04-17</div><div class="t"><strong>季度快照管道 + 2→N 点演化</strong> — 为时间序列奠基</div></div>
+    <div class="ms"><div class="d">04-17</div><div class="t"><strong>三轨演化主干跑通</strong> — countries · china · network</div></div>
+    <div class="ms"><div class="d">04-18</div><div class="t"><strong>new_angles T1-T15 + synthesis + scorecards</strong> — 单日 15 主题 <span class="badge purple">冲刺峰</span></div></div>
+    <div class="ms"><div class="d">04-18</div><div class="t"><strong>schema_gaps filing-ready</strong> — 可直接提交 upstream IYP 的缺口目录</div></div>
+    <div class="ms"><div class="d">04-18</div><div class="t"><strong>AS Strata 旗舰视图</strong> — country-canopy 3 通道编码交付</div></div>
+    <div class="ms"><div class="d">04-19</div><div class="t"><strong>T16-T21 + 真实数据回填</strong> — 17 个未用数据源全部命中 <span class="badge green">当前</span></div></div>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 10: 完成度 ═════════════════════ -->
+<div class="slide dark" id="s10">
+  <div class="label">模块实现状态 · As of 2026-04-19</div>
+  <h2><span class="highlight">完成度</span>快照</h2>
+  <table style="margin-top:20px">
+    <thead>
+      <tr><th style="width:180px">模块</th><th style="width:280px">描述</th><th style="width:320px">进度</th><th>状态</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Cloudflare 单 AS</strong></td>
+        <td>25 步全本体扫描</td>
+        <td><span class="pbar"><span class="fill" style="width:100%"></span></span>100%</td>
+        <td><span class="badge green">作为方法论模板</span></td>
+      </tr>
+      <tr>
+        <td><strong>China 20 步</strong></td>
+        <td>China in Global Hierarchy</td>
+        <td><span class="pbar"><span class="fill" style="width:100%"></span></span>100%</td>
+        <td><span class="badge green">含 HTML 站点 + 双语说明</span></td>
+      </tr>
+      <tr>
+        <td><strong>9 国对照</strong></td>
+        <td>cross-country + 依赖 + 内容地理</td>
+        <td><span class="pbar"><span class="fill" style="width:95%"></span></span>95%</td>
+        <td><span class="badge green">每国 19 指标 · JSON 已 commit</span></td>
+      </tr>
+      <tr>
+        <td><strong>三轨时间序列</strong></td>
+        <td>10 季度快照 × countries/china/network</td>
+        <td><span class="pbar"><span class="fill" style="width:90%"></span></span>90%</td>
+        <td><span class="badge green">2024-Q1 → 2026-Q2 · 部分 2025-01 有 BGPPrefix 缺口</span></td>
+      </tr>
+      <tr>
+        <td><strong>new_angles T1-T15</strong></td>
+        <td>主权 / 路由安全 / AS 标签 / 集中度</td>
+        <td><span class="pbar"><span class="fill" style="width:100%"></span></span>100%</td>
+        <td><span class="badge green">含 synthesis + 9×15 scorecards</span></td>
+      </tr>
+      <tr>
+        <td><strong>new_angles T16-T21</strong></td>
+        <td>IXP / collector / 流量 / 审查 / anycast / DNS</td>
+        <td><span class="pbar"><span class="fill" style="width:85%"></span></span>85%</td>
+        <td><span class="badge orange">真实数据已回填 · 可视化细节待打磨</span></td>
+      </tr>
+      <tr>
+        <td><strong>AS Globe / Strata</strong></td>
+        <td>3D 互联 + country-canopy 编码</td>
+        <td><span class="pbar"><span class="fill" style="width:95%"></span></span>95%</td>
+        <td><span class="badge green">已作为首页旗舰视图接入</span></td>
+      </tr>
+      <tr>
+        <td><strong>schema_gaps</strong></td>
+        <td>上游 IYP 缺口目录</td>
+        <td><span class="pbar"><span class="fill warn" style="width:70%"></span></span>70%</td>
+        <td><span class="badge orange">已 filing-ready · 等待正式提交 upstream</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═════════════════════ 数据源索引（11）+ 28 个数据源详情页（12-39） ═════════════════════ -->
+<div class="slide deep" id="s-src-index">
+  <div class="glow blue" style="top:-100px;right:-80px"></div>
+  <div class="label">Appendix · IYP 上游数据源全目录</div>
+  <h2><span class="highlight">28 个</span>数据源 · <span style="font-size:36px">按领域分组</span></h2>
+  <p class="desc">IYP 把 28 个上游来源的 ASN / Prefix / DomainName / IP 等实体，按统一本体融合成单张 Neo4j 知识图。下面按领域速览，后续一页一源详解（目标 / 采集 / 汇聚 / 提供 / IYP 使用）。</p>
+  <div class="grid4" style="margin-top:18px">
+    <div class="card"><h4 style="color:#5aa3ff">🏛 Registry / IANA · 3</h4><p>iana · nro · ripe（as_names / roa）</p></div>
+    <div class="card"><h4 style="color:#5ac8fa">🛣 BGP / Routing · 4</h4><p>bgpkit · bgptools · emileaben · pch</p></div>
+    <div class="card"><h4 style="color:#64d2ff">🌐 DNS · 2</h4><p>openintel · simulamet</p></div>
+    <div class="card"><h4 style="color:#30d158">📡 Internet Measurement · 2</h4><p>apnic · ihr</p></div>
+    <div class="card"><h4 style="color:#bf5af2">🔀 IXP · 2</h4><p>alice_lg · peeringdb</p></div>
+    <div class="card"><h4 style="color:#ff9f0a">🛡 Security / Routing Policy · 4</h4><p>citizenlab · manrs · ooni · virginiatech</p></div>
+    <div class="card"><h4 style="color:#ffd60a">📈 CDN / Web Telemetry · 5</h4><p>amazon · cisco · cloudflare · google · tranco</p></div>
+    <div class="card"><h4 style="color:#ff6961">🔬 Topology Research · 4</h4><p>caida · inetintel · stanford · utwente</p></div>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card"><h4 style="color:#9b99ff">🌍 Geolocation · 1</h4><p>ipinfo</p></div>
+    <div class="card"><h4 style="color:#a8c0ff">💰 Economics / Demographics · 1</h4><p>worldbank（+ ripe atlas_probes / atlas_measurements 为测量基础设施）</p></div>
+  </div>
+  <p class="small" style="margin-top:14px;opacity:0.55">所有 crawler 统一继承 <code>BaseCrawler</code> · 提供 <code>reference_org / reference_url_data / reference_name / reference_time_fetch</code> 溯源 · 批量写入 Neo4j（BATCH_SIZE=50k）</p>
+</div>
+
+<!-- 28 data-source detail slides injected by JS after document load -->
+<div id="sourceSlidesHost"></div>
+
+<!-- ═════════════════════ SLIDE 11: 下一步展望 ═════════════════════ -->
+<div class="slide deep" id="s11">
+  <div class="glow orange" style="top:-80px;right:-60px"></div>
+  <div class="label">Next · 卡点与突破口</div>
+  <h2>下一步<span class="highlight">展望</span></h2>
+  <div class="grid2" style="margin-top:22px">
+    <div class="card">
+      <div class="card-icon">🎯</div>
+      <h4>T16-T21 打磨 + 并入 scorecards</h4>
+      <p>真实数据已回填，但可视化细节（tooltip、图例、panel 排版）相比 T1-T15 略粗。<br>目标：<strong>把 9×15 矩阵扩展到 9×21</strong>，形成统一对照。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📈</div>
+      <h4>演化时间轴再拉长</h4>
+      <p>目前 2024-Q1 → 2026-Q2 共 10 点。<br>如能拿到 <strong>2022 / 2023 dumps</strong>，CAGR 与拐点判断将显著更稳。<br>2025-01 的 :BGPPrefix 缺口需要补抽一次。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📘</div>
+      <h4>schema_gaps 提交 upstream</h4>
+      <p>已 filing-ready。需整理成 issue / PR 形式，附最小复现 Cypher。<br>是对 IYP 社区的实质贡献，也为后续新增 crawler 提供依据。</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧬</div>
+      <h4>Cross-layer 融合（doc/09 同构想）</h4>
+      <p>Strata 已给 <strong>国家 × AS</strong> 一个物理底座。下一步可叠 <strong>DNS / 路由 / CDN / 审查</strong> 多层，把 21 主题从并列图表升级成可交互分层探索。</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;background:rgba(255,69,58,0.08);border-color:rgba(255,69,58,0.2)">
+    <h4 style="color:#ff6961">⚠️ 技术债提醒</h4>
+    <p>① <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px">data_cache/complex_network/</code> 占用较大 · 需要流式再审一遍（<code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px">1899d41</code> 只改了 topic17）；② 多个 2026-04 HTML 体积偏大（3.9 MB 级），embedded Plotly 可评估是否换 CDN；③ countries/dashboards 模板已重复 29 次 · 提炼统一 template 可减少未来 diff 量。</p>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 12: 路线图 ═════════════════════ -->
+<div class="slide dark" id="s12">
+  <div class="label">Roadmap · 建议下一阶段节奏</div>
+  <h2>下一阶段<span class="highlight">冲刺</span>建议</h2>
+  <div style="margin-top:24px">
+    <div class="lane">
+      <div class="w">Day 1-2</div>
+      <div class="b">
+        <div class="step now">T16-T21 可视化打磨</div>
+        <span class="arrow">→</span>
+        <div class="step">scorecards 扩到 9×21</div>
+        <span class="arrow">→</span>
+        <div class="step">synthesis 更新</div>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="w">Day 3-4</div>
+      <div class="b">
+        <div class="step">补 2025-01 :BGPPrefix</div>
+        <span class="arrow">→</span>
+        <div class="step">尝试接 2023 dumps</div>
+        <span class="arrow">→</span>
+        <div class="step">evolution 重跑 + CAGR 复核</div>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="w">Day 5-6</div>
+      <div class="b">
+        <div class="step">schema_gaps → upstream issue</div>
+        <span class="arrow">→</span>
+        <div class="step">最小 Cypher 复现样本</div>
+        <span class="arrow">→</span>
+        <div class="step">社区对齐</div>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="w">Day 7+</div>
+      <div class="b">
+        <div class="step">Strata 多 layer 原型</div>
+        <span class="arrow">→</span>
+        <div class="step">DNS × 路由叠加</div>
+        <span class="arrow">→</span>
+        <div class="step">交互式分层探索</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:32px">
+    <div class="card"><div class="card-icon">🎯</div><h4>成功标准</h4><p>9×21 scorecards 出图 · 演化延伸到 2023 · schema_gaps 上游接受</p></div>
+    <div class="card"><div class="card-icon">⚠️</div><h4>主要风险</h4><p>历史 dump 可用性 · 上游响应节奏 · HTML 体积膨胀需要分页策略</p></div>
+    <div class="card"><div class="card-icon">💡</div><h4>备选方案</h4><p>历史 dump 不可得时，用 BGP 路由表第三方归档（RouteViews / RIS）做影子时间序列</p></div>
+  </div>
+</div>
+
+<!-- ═════════════════════ SLIDE 13: 结语 ═════════════════════ -->
+<div class="slide accent" id="s13">
+  <div class="glow blue" style="top:-120px;left:-80px;opacity:0.3"></div>
+  <div class="label" style="opacity:0.8">End · 下一站</div>
+  <h1 style="color:#fff">从<br>schema 扫描 → 21 主题<br>到旗舰全景</h1>
+  <p class="subtitle" style="opacity:0.85;margin-top:24px">4 天，57 commits，把 IYP 这张知识图拆成了 21 个可对照的主题、9 国横向矩阵、10 季度演化。<br>下一步：拉长历史、收窄细节、把 schema_gaps 送回 upstream。</p>
+  <p class="small" style="margin-top:40px;opacity:0.7">
+    <strong>Key Takeaways</strong><br>
+    · Countries / new_angles / AS Globe 三条主干全部跑通<br>
+    · 10 季度时间序列 + 6 snapshot 自动轮换 已机制化<br>
+    · schema_gaps filing-ready · 对 IYP 社区有实质贡献的窗口
+  </p>
+  <p class="small" style="position:absolute;bottom:40px;left:80px;opacity:0.6">
+    Press <kbd style="background:rgba(255,255,255,0.15);padding:2px 8px;border-radius:4px;font-family:monospace">Home</kbd> 回到开头 ·
+    <kbd style="background:rgba(255,255,255,0.15);padding:2px 8px;border-radius:4px;font-family:monospace">←</kbd> / <kbd style="background:rgba(255,255,255,0.15);padding:2px 8px;border-radius:4px;font-family:monospace">→</kbd> 翻页 ·
+    本报告基于 <code>git log</code> 自动生成 · 数据窗口 2026-04-16 → 2026-04-19
+  </p>
+</div>
+
+<div class="nav">
+  <button onclick="prev()" title="上一页 (←)">‹</button>
+  <span class="page-num" id="pageNum">1 / 13</span>
+  <button onclick="next()" title="下一页 (→)">›</button>
+</div>
+
+<script>
+// ━━━━━━━━━━━━━ Daily commits data (from git log analysis) ━━━━━━━━━━━━━
+const dailyData = [
+  ['04-16', 2,  'IYP 基线 + Cloudflare 25 步'],
+  ['04-17', 27, 'China 20 步 · 9 国对照 · 季度快照 · 三轨演化'],
+  ['04-18', 25, 'new_angles T1-T15 · AS Strata 旗舰'],
+  ['04-19', 3,  'T18/T20/T21 真实数据 · 重抽取 2025-04/07/10'],
+];
+
+const chartEl = document.getElementById('chart');
+const chartXEl = document.getElementById('chartX');
+const maxV = Math.max(...dailyData.map(d => d[1]));
+dailyData.forEach(([date, count, label]) => {
+  const bar = document.createElement('div');
+  bar.className = 'bar' + (count >= 20 ? ' hot' : '');
+  bar.style.height = (count / maxV * 100) + '%';
+  bar.title = `${date} · ${count} commits · ${label}`;
+  bar.innerHTML = `<span class="v">${count}</span>`;
+  chartEl.appendChild(bar);
+
+  const x = document.createElement('span');
+  x.textContent = date;
+  chartXEl.appendChild(x);
+});
+
+// ━━━━━━━━━━━━━ IYP 28 data sources ━━━━━━━━━━━━━
+const dataSources = [
+  // === Registry / IANA ===
+  { org:'iana', full:'IANA · Internet Assigned Numbers Authority', domain:'Registry / IANA', color:'#5aa3ff',
+    crawlers:['root_zone','address_space'],
+    goal:'维护全球最权威的"根名单"：DNS 根区权威 NS 与 IANA 级 IP 地址块分配。',
+    collection:'IANA 自身作为顶级机构直接维护 root zone 文件与 address space 登记簿；不经过爬取，是登记源本身。',
+    aggregation:'以标准 DNS zone file 发布 root zone；以结构化文本表发布 IPv4/IPv6/ASN 分配登记。',
+    delivery:'iana.org/domains/root/files（根区）· iana.org/assignments/（分配表）· 匿名 HTTPS 下载',
+    content:['根区 TLD 的 NS / A / AAAA 记录','IPv4/IPv6 整段 → RIR 的初始分配','RFC 保留地址（special-purpose）','LEGACY / ALLOCATED / RESERVED 状态'],
+    iypUse:'root_zone 建 (:DomainName)-[:MANAGED_BY]->(:AuthoritativeNameServer) 与 NS→IP · address_space 建 (:IANAPrefix)-[:ALLOCATED|LEGACY|RESERVED]->(:Organization)，形成 RIR 之上的地址血统。'
+  },
+  { org:'nro', full:'NRO · Number Resource Organization', domain:'Registry / IANA', color:'#5aa3ff',
+    crawlers:['delegated_stats'],
+    goal:'把 5 个 RIR 的"谁被分到了哪块资源"统一拍平，是 AS/前缀 → 国家/机构的最权威起点。',
+    collection:'NRO 聚合 5 RIR（ARIN/RIPE/APNIC/LACNIC/AFRINIC）每日发布的 Extended Delegated Stats。',
+    aggregation:'每日一行一条的制表符文本（RIR·country·type·value·status·opaque-id）。',
+    delivery:'nro.net/about/rirs/statistics/ · 每 RIR 一份 ftp/https 文件 · 匿名下载',
+    content:['ASN 的 ASSIGNED / AVAILABLE / RESERVED 状态','IPv4 / IPv6 前缀的分配状态','国家代码（ISO 3166-1 alpha-2）','RIR 内部不透明组织 ID'],
+    iypUse:'为 (:AS) / (:RIRPrefix) 打上 [:COUNTRY]->(:Country) 与 [:ASSIGNED|AVAILABLE|RESERVED]->(:OpaqueID)；是多数其他 crawler 之前最先跑的资源底盘。'
+  },
+  { org:'ripe-asnames', full:'RIPE NCC · AS Names / ROA / Atlas', domain:'Registry / IANA', color:'#5aa3ff',
+    crawlers:['as_names','roa','atlas_probes','atlas_measurements'],
+    goal:'提供权威 AS 名 + RPKI ROA + RIPE Atlas 主动测量元数据（探针+测量）。',
+    collection:'RIPE NCC 作为欧洲 RIR 直接维护登记与 TAL；Atlas 有约 12 000 块志愿者探针实时上报。',
+    aggregation:'FTP 文本（asnames）· REST API（ROA / Atlas）· 每日刷新',
+    delivery:'ftp.ripe.net · atlas.ripe.net/docs/apis/rest-api-manual/ · 大部分匿名，Atlas create 需 API key',
+    content:['权威 AS 名称与国家','ROA 三元组（prefix, ASN, maxLength）','Atlas 探针（ID/地点/ASN/状态）','Atlas 测量（ID/类型/目标/参与探针）'],
+    iypUse:'as_names: (:AS)-[:NAME]->(:Name) + [:COUNTRY]; roa: (:AS)-[:ROUTE_ORIGIN_AUTHORIZATION]->(:RPKIPrefix); atlas_probes/measurements: 建 AtlasProbe/AtlasMeasurement 节点并连 AS/HostName/IP。'
+  },
+
+  // === BGP / Routing ===
+  { org:'bgpkit', full:'BGPKIT · BGP 数据分析平台', domain:'BGP / Routing', color:'#5ac8fa',
+    crawlers:['as2rel_v4','as2rel_v6','peerstats','pfx2asn'],
+    goal:'把 RouteViews + RIPE RIS 的原始 MRT 流加工成 "谁和谁 peer"、"谁宣告哪段前缀"、"哪台 collector 看到了谁"。',
+    collection:'消费全球公开 MRT 采集点的 BGP RIB 与 update 流，用路径关系算法推断 AS 关系。',
+    aggregation:'按日版本的 JSON.bz2 文件（v4/v6 分开）。',
+    delivery:'data.bgpkit.com · 匿名 HTTPS',
+    content:['AS 对的关系类型（peer / provider-customer）','prefix → 起源 AS','每个 BGP collector 的 peer 统计','IPv4 / IPv6 地址族标签'],
+    iypUse:'as2rel* 建 (:AS)-[:PEERS_WITH {rel,af}]->(:AS)；pfx2asn 建 (:AS)-[:ORIGINATE]->(:BGPPrefix)；peerstats 建 (:AS)-[:PEERS_WITH]->(:BGPCollector)。'
+  },
+  { org:'bgptools', full:'bgp.tools · 社区数据库', domain:'BGP / Routing', color:'#5ac8fa',
+    crawlers:['anycast_prefixes_v4','anycast_prefixes_v6','as_names','tags'],
+    goal:'社区众包修正过的 AS 名 + 业务标签 + anycast 前缀识别（Job Snijders 等运营的 bgp.tools）。',
+    collection:'运营方主动汇总 whois + 公开数据 + 社区提交；标签库经社区审核。',
+    aggregation:'每日生成 JSON / CSV / table 格式数据集。',
+    delivery:'bgp.tools · 匿名 HTTPS（部分数据需注册 / 注明 UA）',
+    content:['修正过的 AS 名（优于 RIR 登记）','AS 业务/角色标签（如 "Internet Critical Infra"）','IPv4/IPv6 anycast 前缀列表'],
+    iypUse:'建 (:AS)-[:NAME]->(:Name) + (:AS)-[:CATEGORIZED]->(:Tag) + (:BGPPrefix)-[:CATEGORIZED]->(:Tag {label:"Anycast"})。'
+  },
+  { org:'emileaben', full:'Emile Aben · asnames list', domain:'BGP / Routing', color:'#5ac8fa',
+    crawlers:['as_names'],
+    goal:'RIPE Labs Emile Aben 个人维护的权威 AS 名单，是社区"认可率"最高的一份。',
+    collection:'人工审校 + 社区 PR；GitHub 托管，历史可追溯。',
+    aggregation:'单个纯文本 JSON/列表，增量更新。',
+    delivery:'github.com/emileaben/asnames · 匿名 Git clone / raw',
+    content:['ASN → 最权威人工审核名'],
+    iypUse:'建 (:AS {asn})-[:NAME]->(:Name)，在 as_names 合并时通常优先于 RIR 名。'
+  },
+  { org:'pch', full:'PCH · Packet Clearing House', domain:'BGP / Routing', color:'#5ac8fa',
+    crawlers:['daily_routing_snapshots_v4','daily_routing_snapshots_v6','show_bgp_parser'],
+    goal:'全球 100+ IXP 的 BGP 路由表每日快照，是观察"IXP 可见前缀"的最大单一数据源。',
+    collection:'PCH 在各 IXP 部署 route collector；执行 "show ip bgp" 并按天归档文本。',
+    aggregation:'每日按 collector 一份纯文本 show bgp 输出。',
+    delivery:'pch.net/resources/Routing_Data/ · 匿名 HTTPS',
+    content:['前缀起源 AS','每前缀被多少 collector 观测到（count）','collector 所在地理 / IXP 信息','v4 / v6 分开归档'],
+    iypUse:'建 (:AS)-[:ORIGINATE {count, seen_by_collectors}]->(:BGPPrefix)；count 用于判断"多少个 IXP vantage 观测到"。'
+  },
+
+  // === DNS ===
+  { org:'openintel', full:'OpenINTEL · 大规模 DNS 测量', domain:'DNS', color:'#64d2ff',
+    crawlers:['crux','dnsgraph','dnsgraph_crux','dnsgraph_jp','dnsgraph_nl','dnsgraph_rdns','infra_mx','infra_ns','toplist','tranco1m','umbrella1m'],
+    goal:'全球规模最大的主动 DNS 测量平台（SURFnet / UT Twente），每日扫数亿 FQDN。',
+    collection:'荷兰高性能 DNS 扫描基础设施，每日对 .com/.net/.org/.nl 等 zone + 多个 toplist 做 A/AAAA/NS/CNAME/MX 主动查询。',
+    aggregation:'Parquet 列存数据集 + DNSGraph 全链路解析树 + 按日快照。',
+    delivery:'openintel.nl · dnsgraph.dacs.utwente.nl · 部分需注册申请',
+    content:['域名 → IP / CNAME / MX / NS 全记录','CNAME 别名链','父子域层级树（DNSGraph）','反向解析（rdns 版本）','MX / NS 基础设施拓扑'],
+    iypUse:'建 (:HostName)-[:RESOLVES_TO]->(:IP) / [:ALIAS_OF] / (:DomainName)-[:MANAGED_BY]->(:AuthoritativeNameServer) / [:PARENT] / (:HostName)-[:PART_OF]->(:DomainName)；是 IYP DNS 维度的主干。'
+  },
+  { org:'simulamet', full:'SimulaMet × UT Twente · rDNS RIR Data', domain:'DNS', color:'#64d2ff',
+    crawlers:['rirdata_rdns'],
+    goal:'从 RIR 发布的反向 DNS zone 中抽出"哪段 IP 归哪台权威 NS 管"。',
+    collection:'5 RIR 公开的 in-addr.arpa / ip6.arpa 委派 zone 文件，由 SimulaMet + UT Twente 联合整理。',
+    aggregation:'解析后的 prefix → NS 简表文本文件。',
+    delivery:'rir-data.org · 匿名 HTTPS',
+    content:['IPv4 / IPv6 前缀','权威 NS 主机名','来源 RIR + TTL'],
+    iypUse:'建 (:RDNSPrefix)-[:MANAGED_BY {source, ttl}]->(:AuthoritativeNameServer)，补足 openintel 看不到的"登记级"反向解析委派。'
+  },
+
+  // === Internet Measurement ===
+  { org:'apnic', full:'APNIC · Asia-Pacific NIC Labs', domain:'Internet Measurement', color:'#30d158',
+    crawlers:['eyeball'],
+    goal:'用 YouTube 广告投放的真实终端样本，估算"每个 AS 在每个国家承载多少 eyeball 用户"。',
+    collection:'APNIC Labs 在 YouTube 投播隐形 ad，从 impression 源 ASN 反推用户分布。',
+    aggregation:'每国每 AS 一行：占比 + 国内排名。',
+    delivery:'labs.apnic.net · 匿名 HTTPS（公开 CSV）',
+    content:['AS 在某国承载的人口百分比','AS 在国内 eyeball 排名','AS 名称（用于人类阅读）'],
+    iypUse:'建 (:AS)-[:POPULATION {percent}]->(:Country) + (:AS)-[:RANK {rank}]->(:Ranking)-[:COUNTRY]->(:Country)；国家级 eyeball 研究的标配数据。'
+  },
+  { org:'ihr', full:'IHR · Internet Health Report (IIJ Lab)', domain:'Internet Measurement', color:'#30d158',
+    crawlers:['local_hegemony_v4','local_hegemony_v6','country_dependency','rov'],
+    goal:'基于 BGP 路径数据，量化"AS 之间的依赖强度"与"国家的外部依赖度"。',
+    collection:'IIJ 研究院 IHR 平台持续消费 BGP/traceroute 数据，用 hegemony 度量算法输出依赖分。',
+    aggregation:'每日 CSV.lz4 文件，按国家 / AS 对组织。',
+    delivery:'ihr.iijlab.net · archive.ihr.live/ihr/hegemony/ · 匿名 HTTPS',
+    content:['AS 对的 hegemony 分数 (0–1)','国家对每 AS 的依赖排名','RPKI / IRR 验证状态标签'],
+    iypUse:'建 (:AS)-[:DEPENDS_ON {hege}]->(:AS)、(:AS)-[:RANK]->(:Ranking)-[:COUNTRY]->(:Country)、(:BGPPrefix)-[:CATEGORIZED]->(:Tag {RPKI Valid/Invalid/...})。'
+  },
+
+  // === IXP ===
+  { org:'alice_lg', full:'Alice-LG · 多 IXP Looking Glass', domain:'IXP', color:'#bf5af2',
+    crawlers:['amsix','bcix','ddix','decix','ixaustralia','ixbr','linx','megaport','netnod','nzix','pix','sfmix','six','topix'],
+    goal:'直接从各大 IXP 自己的 route server 看板（Looking Glass）抓成员与实时路由。',
+    collection:'14 个 IXP 运行 Alice-LG 或兼容 API，公开 route server neighbor 与 received routes。',
+    aggregation:'每 IXP 一个 REST 端点，neighbors + routes 两个主 endpoint。',
+    delivery:'各 IXP 自己的 lg 子域（如 lg.ams-ix.net/api/v1/）· 匿名',
+    content:['每 route server 的 neighbor IP + ASN','neighbor 宣告 / 接收的前缀','route server 分组信息','IXP 所在 peering LAN'],
+    iypUse:'建 (:AS)-[:MEMBER_OF {member_address, routeserver_id}]->(:IXP) · 可选 (:AS)-[:ORIGINATE]->(:BGPPrefix)；是 IXP 实态研究（Topic 16）的主力。'
+  },
+  { org:'peeringdb', full:'PeeringDB · 对等互联目录', domain:'IXP', color:'#bf5af2',
+    crawlers:['org','fac','ix'],
+    goal:'业内事实标准的对等互联目录：机构 / 机房 / IXP / 网络 / peering 联系人一体化。',
+    collection:'运营方自助登记 + 审核；社区治理已 15 年+。',
+    aggregation:'REST API 按实体（org / fac / ix / net）分表可全量下载。',
+    delivery:'peeringdb.com/api/ · 匿名可用，有 API key 限额更宽',
+    content:['Organization（名 / 国 / 网站 / ID）','Facility（机房名 / 地址 / 管理方）','IX（IXP 名 / LAN CIDR / 成员列表）','Network（AS / facility 登记 / peering policy）'],
+    iypUse:'建 (:Organization)-[:COUNTRY]-> · (:Facility)-[:MANAGED_BY]->(:Organization) · (:AS)-[:MEMBER_OF]->(:IXP) · (:AS)-[:LOCATED_IN]->(:Facility) · (:PeeringLAN)-[:MANAGED_BY]->(:IXP)；AS ↔ 机房/IXP 拓扑的主源。'
+  },
+
+  // === Security / Routing Policy ===
+  { org:'citizenlab', full:'Citizen Lab · URL 分类清单', domain:'Security / Routing Policy', color:'#ff9f0a',
+    crawlers:['urldb'],
+    goal:'为审查检测（OONI 等）提供 "该国关心什么样的 URL" 的测试列表。',
+    collection:'Citizen Lab 研究员 + 社区按国家维护 URL 分类清单（NEWS / COMM / PORN / MISC ...）。',
+    aggregation:'按国家一个 CSV，字段 URL+category+source。',
+    delivery:'github.com/citizenlab/test-lists · 匿名 Git raw',
+    content:['URL 文本','分类标签（类别代号）','国家级归属'],
+    iypUse:'建 (:URL)-[:CATEGORIZED]->(:Tag)，供 OONI webconnectivity 结果在 IYP 内交叉比对。'
+  },
+  { org:'manrs', full:'MANRS · 路由安全公约', domain:'Security / Routing Policy', color:'#ff9f0a',
+    crawlers:['members'],
+    goal:'跟踪哪些 AS 签署了 MANRS，以及落地了哪些 Action（过滤 / 反欺骗 / 协调 / 全局验证）。',
+    collection:'MANRS 组织维护成员名录，季度更新 action 实施状态。',
+    aggregation:'公开 JSON / CSV 成员目录。',
+    delivery:'manrs.org/isps/participants/ · 匿名 HTTPS',
+    content:['成员 ASN','实施的 Action 标志位','国家归属'],
+    iypUse:'建 (:AS)-[:MEMBER_OF]->(:Organization {MANRS}) + (:AS)-[:IMPLEMENT]->(:ManrsAction)；路由安全 topic 的基础。'
+  },
+  { org:'ooni', full:'OONI · Open Observatory of Network Interference', domain:'Security / Routing Policy', color:'#ff9f0a',
+    crawlers:['facebookmessenger','httpheaderfieldmanipulation','httpinvalidrequestline','osignal','psiphon','riseupvpn','stunreachability','telegram','tor','torsf','vanillator','webconnectivity','whatsapp'],
+    goal:'全球最大的开放审查/干扰观测：覆盖 Web / IM / VPN / Tor / STUN / HTTP 中间盒等。',
+    collection:'志愿者全球部署 OONI Probe，按设计好的测试脚本跑，结果上传 S3。',
+    aggregation:'raw JSONL 每日归档；IYP 按 AS × Country 聚合。',
+    delivery:'s3://ooni-data-eu-fra/raw/ · ooni.org · 匿名',
+    content:['测试名（13 种）','结果分类（ok/blocked/anomaly/failure/confirmed）','AS + country 上下文','resolver / URL / IP target'],
+    iypUse:'统一建 (:AS)-[:CENSORED {country_code, count_*, percentage_*}]->(target: :Tag|:URL|:IP)；是 Topic 19（应用层审查）主源。'
+  },
+  { org:'virginiatech', full:'Virginia Tech · RoVista', domain:'Security / Routing Policy', color:'#ff9f0a',
+    crawlers:['rovista'],
+    goal:'以"实际能否过滤 RPKI-invalid"的主动探测方式，评估每个 AS 的 ROV 部署率。',
+    collection:'RoVista 项目向各 AS 注入可控路由，观察是否被过滤，算出 validation ratio。',
+    aggregation:'AS → ratio 的 scored dataset。',
+    delivery:'rovista.netsecurelab.org · 匿名下载 / API',
+    content:['ASN','ROV 验证比例 (0–1)','阈值判定的 Validating / Not 标签'],
+    iypUse:'建 (:AS)-[:CATEGORIZED {ratio}]->(:Tag {"Validating RPKI ROV"|"Not Validating RPKI ROV"})；比 MANRS 自述更接近"真实行为"。'
+  },
+
+  // === CDN / Web Telemetry ===
+  { org:'amazon', full:'Amazon · AWS IP Ranges', domain:'CDN / Web Telemetry', color:'#ffd60a',
+    crawlers:['aws_ip_ranges'],
+    goal:'拿到 AWS 官方公告的 CIDR + region + 服务标签，识别"哪些网段属于 EC2/S3/CloudFront …"。',
+    collection:'AWS 官方发布 ip-ranges.json，变更即刷新。',
+    aggregation:'单个 JSON 文件，服务 × region × CIDR 矩阵。',
+    delivery:'docs.aws.amazon.com/vpc/latest/userguide/aws-ip-ranges.html · 匿名 HTTPS',
+    content:['v4/v6 CIDR','AWS region 代码','服务名（EC2/S3/CloudFront/...）','region → country 映射（爬取文档推出）'],
+    iypUse:'建 (:GeoPrefix)-[:CATEGORIZED {region}]->(:Tag {AMAZON|EC2|...}) + (:GeoPrefix)-[:COUNTRY]->(:Country)。'
+  },
+  { org:'cisco', full:'Cisco Umbrella · Top 1M', domain:'CDN / Web Telemetry', color:'#ffd60a',
+    crawlers:['umbrella_top1m'],
+    goal:'基于 Cisco Umbrella 全球 DNS 递归器的查询量，给出 Top 1M 域名排名。',
+    collection:'Cisco 企业安全设备（被 Umbrella 接管的递归）上报查询样本。',
+    aggregation:'每日一份 CSV，rank + domain。',
+    delivery:'umbrella-static.s3-us-west-1.amazonaws.com · 匿名 HTTPS',
+    content:['域名 / 主机名','排名 1–1 000 000'],
+    iypUse:'建 (:DomainName / :HostName)-[:RANK {rank}]->(:Ranking {Cisco Umbrella Top 1 million})；和 Tranco / CrUX 一起构成 top-list 三件套。'
+  },
+  { org:'cloudflare', full:'Cloudflare Radar · 1.1.1.1 遥测', domain:'CDN / Web Telemetry', color:'#ffd60a',
+    crawlers:['dns_top_ases','dns_top_locations','ranking_bucket','top100'],
+    goal:'把 Cloudflare 1.1.1.1 递归器看到的全球 DNS 查询，按域名 × 国家 × AS 分拆。',
+    collection:'1.1.1.1 递归（覆盖广）的匿名化查询聚合，按桶阈值输出。',
+    aggregation:'REST API：top 100 榜 + 1k/10k/100k/1M 桶 + 每域名 Top 国家 / 每域名 Top AS。',
+    delivery:'radar.cloudflare.com / developers.cloudflare.com/radar/ · 需 API key',
+    content:['按桶域名排名','每域名查询量 Top 国家（含占比）','每域名查询量 Top AS（含占比）'],
+    iypUse:'建 (:DomainName)-[:RANK]->(:Ranking) + (:DomainName)-[:QUERIED_FROM {value}]->(:Country|:AS)；是"谁在用谁"的最直接信号。'
+  },
+  { org:'google', full:'Google CrUX · Chrome 用户体验', domain:'CDN / Web Telemetry', color:'#ffd60a',
+    crawlers:['crux_top1m_country'],
+    goal:'用真实 Chrome 用户遥测（CWV + 参与度）做按国家分桶的域名热度榜。',
+    collection:'Chrome 用户（opt-in）浏览数据；BigQuery 对外发布。',
+    aggregation:'1k/10k/100k/1M 桶 × 每国家，每月更新。',
+    delivery:'github.com/InternetHealthReport/crux-top-lists-country（二次整理） · 匿名 Git',
+    content:['origin URL（scheme+host）','按国家的桶排名','hostname 提取结果'],
+    iypUse:'建 (:HostName)-[:RANK {rank, origin}]->(:Ranking "CrUX top 1M (CC)")-[:COUNTRY]->(:Country)；按国家做 eyeball × 流量分析的核心。'
+  },
+  { org:'tranco', full:'Tranco · 抗操纵 Top-List', domain:'CDN / Web Telemetry', color:'#ffd60a',
+    crawlers:['top1m'],
+    goal:'把多份 toplist（Alexa/Majestic/Umbrella/CrUX 等）融合并做 30 天平滑 + 去污，给学术界一份可复现的稳定榜。',
+    collection:'融合多个输入榜，按论文定义的去噪规则合成。',
+    aggregation:'每日一份 CSV（rank, domain），附版本号可复现。',
+    delivery:'tranco-list.eu · 匿名 HTTPS',
+    content:['domain','rank 1–1 000 000'],
+    iypUse:'建 (:DomainName)-[:RANK]->(:Ranking {Tranco top 1M})；几乎所有对"知名域名"的过滤都用它做起点。'
+  },
+
+  // === Topology Research ===
+  { org:'caida', full:'CAIDA · AS Rank + IXs + Relationships + AS2Org', domain:'Topology Research', color:'#ff6961',
+    crawlers:['asrank','ixs','ix_asns','as_relationships_v4','as_relationships_v6','as2org'],
+    goal:'学术界最被引用的 AS 关系 + customer cone 排名 + IXP 字典 + AS→Organization 映射。',
+    collection:'从 BGP 路径推断 AS 关系，融合 PeeringDB/HE/PCH 得到 IXP；每季度重建 WHOIS 衍生的 as2org。',
+    aggregation:'CSV / JSON dataset + ASRank REST API。',
+    delivery:'asrank.caida.org · api.asrank.caida.org/v2/ · 匿名',
+    content:['AS customer-cone size + rank','AS → Org 名 + ID','IXP 名 + 位置 + peering LAN + CAIDA ID','推断的 AS 关系（p2p / p2c）','IXP 成员 AS 列表'],
+    iypUse:'综合建 (:AS)-[:RANK]->(:Ranking {CAIDA ASRank}) · (:AS)-[:MANAGED_BY]->(:Organization) · (:AS)-[:PEERS_WITH {af,rel}]->(:AS) · (:IXP)-[:EXTERNAL_ID]->(:CaidaIXID) · (:PeeringLAN)-[:MANAGED_BY]->(:IXP)。'
+  },
+  { org:'inetintel', full:'Internet Intelligence Lab · AS2Org 与 Sibling', domain:'Topology Research', color:'#ff6961',
+    crawlers:['as_org'],
+    goal:'研究"哪些 AS 其实属于同一运营实体"（sibling 识别），历史视角下的 AS→Org 映射。',
+    collection:'InetIntel 学术项目；融合 WHOIS / 官方披露 / 跨源启发式。',
+    aggregation:'JSON/CSV，AS→org 与 sibling AS 列表。',
+    delivery:'github.com/InetIntel/Dataset-AS-to-Organization-Mapping · 匿名 Git',
+    content:['AS → org 名 + ID','同一运营方的 sibling AS 组','Organization sibling 映射'],
+    iypUse:'建 (:AS)-[:SIBLING_OF]->(:AS) + (:Organization)-[:SIBLING_OF]->(:Organization)；对"集团口径"的集中度研究必需。'
+  },
+  { org:'stanford', full:'Stanford ASdb · AS 行业分类', domain:'Topology Research', color:'#ff6961',
+    crawlers:['asdb'],
+    goal:'把每个 AS 标上 1–3 个"行业"（CDN/ISP/Education/Hosting/...），比 PeeringDB policy 更语义化。',
+    collection:'Stanford ASdb：WHOIS + 商业情报 + 网站文本 + ML 分类融合。',
+    aggregation:'JSON：ASN → 分类标签数组。',
+    delivery:'asdb.stanford.edu · 匿名 HTTPS',
+    content:['ASN','1–3 个 industry 标签（如 Colleges, Universities / CDN / ISP）'],
+    iypUse:'建 (:AS)-[:CATEGORIZED]->(:Tag {industry})；Topic 4（AS 分类研究）的关键底座。'
+  },
+  { org:'utwente', full:'UT Twente · LACeS Anycast Census', domain:'Topology Research', color:'#ff6961',
+    crawlers:['laces_v4','laces_v6'],
+    goal:'用主动测量 + 路由一致性分析，识别哪些 BGP 前缀是 anycast，并给出 site 地理坐标。',
+    collection:'LACeS 平台对 v4/v6 前缀做多 vantage 探测 + 地理推断。',
+    aggregation:'每日 CSV，字段 prefix/site/city/country/lat/lon/partial-anycast。',
+    delivery:'github.com/ut-dacs/anycast-census · 匿名 Git',
+    content:['anycast BGP 前缀','每 site 的 city + country + WGS84 坐标','partial anycast 标志',':Point 地理节点'],
+    iypUse:'建 (:BGPPrefix)-[:CATEGORIZED]->(:Tag {Anycast}) + (:GeoPrefix)-[:LOCATED_IN]->(:Point) + [:COUNTRY]->(:Country)；Topic 20（Anycast 普查）主源。'
+  },
+
+  // === Geolocation ===
+  { org:'ipinfo', full:'IPinfo · 免费 IP→Country 数据库', domain:'Geolocation', color:'#9b99ff',
+    crawlers:['ip_country'],
+    goal:'商业级精度的 IP→国家映射，作为 IYP 中 prefix 国家的补充源。',
+    collection:'IPinfo 商业数据融合 WHOIS / MaxMind / 自有探测；每月公开一份免费版。',
+    aggregation:'CSV：start_ip, end_ip, country。',
+    delivery:'ipinfo.io/products/free-ip-database · 注册后匿名下载',
+    content:['IP range（不对齐段）','ISO 国家代码'],
+    iypUse:'建 (:GeoPrefix)-[:COUNTRY {start_ip,end_ip}]->(:Country)（内部分解成 CIDR）；弥补 RIR 登记层之外的实际定位。'
+  },
+
+  // === Economics / Demographics ===
+  { org:'worldbank', full:'World Bank · 发展指标', domain:'Economics / Demographics', color:'#a8c0ff',
+    crawlers:['country_pop'],
+    goal:'把人口/经济这类非网络世界的基本面指标接入 IYP，做人均密度类分析。',
+    collection:'世界银行官方发布发展指标，含人口估计。',
+    aggregation:'按年份的 country → value 记录。',
+    delivery:'worldbank.org + WB data API · 匿名 HTTPS',
+    content:['ISO 国家代码','年度人口估计'],
+    iypUse:'建 (:Country)-[:POPULATION {value}]->(:Estimate {World Bank Population Estimate})；和 APNIC eyeball 一起做"AS 覆盖率"类研究。'
+  },
+];
+
+// Render one slide per data source
+(function renderDataSourceSlides() {
+  const host = document.getElementById('sourceSlidesHost');
+  if (!host) return;
+  const parent = host.parentNode;
+  const total = dataSources.length;
+  dataSources.forEach((ds, i) => {
+    const idx = String(i + 1).padStart(2, '0');
+    const slide = document.createElement('div');
+    slide.className = 'slide dark';
+    slide.id = 's-src-' + ds.org;
+    const contentLis = ds.content.map(c => `<li>${c}</li>`).join('');
+    const crawlerChips = ds.crawlers.map(c => `<code style="background:rgba(0,0,0,0.3);padding:2px 7px;border-radius:4px;font-size:11px;margin-right:4px">${c}</code>`).join('');
+    slide.innerHTML = `
+      <div class="label" style="display:flex;justify-content:space-between;align-items:center">
+        <span>Data Source · ${idx} / ${total}</span>
+        <span style="font-size:11px;padding:2px 10px;border-radius:10px;background:${ds.color}22;color:${ds.color};border:1px solid ${ds.color}55;letter-spacing:0.5px">${ds.domain}</span>
+      </div>
+      <h2 style="font-size:42px;margin-bottom:6px">${ds.full}</h2>
+      <p class="small" style="margin-bottom:8px;opacity:0.6">crawlers: ${crawlerChips}</p>
+      <p class="desc" style="margin-top:4px;font-size:17px"><strong style="color:${ds.color}">🎯 目标：</strong>${ds.goal}</p>
+      <div class="grid2" style="margin-top:14px">
+        <div class="card">
+          <h4 style="color:#5ac8fa;font-size:15px;margin-bottom:6px">🛰️ 如何采集（上游侧）</h4>
+          <p style="font-size:13px;line-height:1.6">${ds.collection}</p>
+        </div>
+        <div class="card">
+          <h4 style="color:#64d2ff;font-size:15px;margin-bottom:6px">📦 如何汇聚</h4>
+          <p style="font-size:13px;line-height:1.6">${ds.aggregation}</p>
+        </div>
+        <div class="card">
+          <h4 style="color:#30d158;font-size:15px;margin-bottom:6px">🔗 如何提供 / 下载入口</h4>
+          <p style="font-size:13px;line-height:1.6;word-break:break-all">${ds.delivery}</p>
+        </div>
+        <div class="card">
+          <h4 style="color:#ffd60a;font-size:15px;margin-bottom:6px">📋 提供的内容</h4>
+          <ul style="font-size:13px;line-height:1.65;padding-left:18px;opacity:0.9">${contentLis}</ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px;background:${ds.color}11;border-color:${ds.color}44">
+        <h4 style="color:${ds.color};font-size:15px;margin-bottom:6px">⚙️ IYP 如何使用（节点与关系）</h4>
+        <p style="font-size:13px;line-height:1.65">${ds.iypUse}</p>
+      </div>
+    `;
+    parent.insertBefore(slide, host.nextSibling);
+  });
+  host.remove();
+})();
+
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+const total = slides.length;
+
+function show(n) {
+  slides[current].classList.remove('active');
+  current = Math.max(0, Math.min(n, total - 1));
+  slides[current].classList.add('active');
+  document.getElementById('pageNum').textContent = `${current + 1} / ${total}`;
+  document.getElementById('progress').style.width = `${(current + 1) / total * 100}%`;
+}
+function next() { show(current + 1); }
+function prev() { show(current - 1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+  if (e.key === 'Home') { e.preventDefault(); show(0); }
+  if (e.key === 'End') { e.preventDefault(); show(total - 1); }
+});
+
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', e => {
+  const diff = e.changedTouches[0].screenX - touchStartX;
+  if (diff < -50) next();
+  if (diff > 50) prev();
+});
+
+function updateLive() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+  const timeStr = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  document.getElementById('liveTime').textContent = `${dateStr} ${timeStr}`;
+
+  const startDate = new Date('2026-04-16');
+  const endDate = new Date('2026-04-19');
+  const days = Math.floor((endDate - startDate) / (1000*60*60*24)) + 1;
+  document.getElementById('dayCount').textContent = days;
+  document.getElementById('today').textContent = '2026-04-19';
+  document.getElementById('genTime').textContent = `${dateStr} ${timeStr}`;
+}
+updateLive();
+setInterval(updateLive, 1000);
+
+show(0);
+</script>
+</body>
+</html>
