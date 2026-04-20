@@ -2,6 +2,10 @@
 
 Expects a live Neo4j with a loaded IYP dump at bolt://localhost:7687.
 Writes CSVs under data_cache/new_angles/ for downstream offline builds.
+
+Env overrides:
+  IYP_SNAPSHOT=YYYY-MM-DD — write to data_cache/new_angles/<snap>/ instead
+                           of the flat directory (time-series mode).
 """
 import csv
 import os
@@ -12,7 +16,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 from analysis.complex_network.utils import run_query  # noqa: E402
 
-OUT_DIR = Path(__file__).resolve().parent.parent.parent / 'data_cache' / 'new_angles'
+_SNAP = os.environ.get('IYP_SNAPSHOT', '').strip()
+_BASE = Path(__file__).resolve().parent.parent.parent / 'data_cache' / 'new_angles'
+OUT_DIR = (_BASE / _SNAP) if _SNAP else _BASE
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -184,21 +190,23 @@ def extract_aws_prefixes():
 
 
 def extract_hyperscaler_origin():
-    """ASes that originate AWS/hyperscaler prefixes."""
+    """ASes that originate AWS/hyperscaler prefixes.
+
+    AWS prefixes enter IYP as :GeoPrefix (amazon.aws_ip_ranges). Routing
+    data uses :BGPPrefix with an ORIGINATE edge from AS. GeoPrefix and
+    BGPPrefix are distinct nodes; we join by prefix string.
+    """
     print('[hyperscaler] ASes originating AWS/cloud prefixes', flush=True)
     q = """
-        MATCH (a:AS)-[:ORIGINATE]->(p:Prefix)<-[r:CATEGORIZED]-(:AS {asn:0})
-        RETURN a.asn AS asn LIMIT 0
-    """
-    # Fallback: look at ASes managing AWS-tagged prefixes
-    q2 = """
-        MATCH (a:AS)-[:ORIGINATE]->(p:GeoPrefix)-[r:CATEGORIZED]->(t:Tag)
-        WHERE r.reference_name CONTAINS 'amazon'
-        RETURN DISTINCT a.asn AS asn, t.label AS service
+        MATCH (geo:GeoPrefix)-[c:CATEGORIZED]->(t:Tag)
+        WHERE c.reference_name CONTAINS 'amazon'
+        WITH geo.prefix AS pfx, t.label AS service
+        MATCH (bgp:BGPPrefix {prefix: pfx})<-[:ORIGINATE]-(a:AS)
+        RETURN DISTINCT a.asn AS asn, service
         LIMIT 5000
     """
     try:
-        rows = [dict(r) for r in run_query(q2, {})]
+        rows = [dict(r) for r in run_query(q, {})]
     except Exception as e:
         print(f'  hyperscaler query failed: {e}', flush=True)
         rows = []
@@ -235,10 +243,12 @@ def extract_peeringdb_orgs():
     """PeeringDB org full-record view.
 
     Crawler stores the flattened org json as props on :EXTERNAL_ID edge.
+    Destination label is :PeeringdbOrgID (not generic :OpaqueID) in the
+    2026-04+ schema.
     """
     print('[peeringdb] org records', flush=True)
     q = """
-        MATCH (org:Organization)-[r:EXTERNAL_ID]->(o:OpaqueID)
+        MATCH (org:Organization)-[r:EXTERNAL_ID]->(o:PeeringdbOrgID)
         WHERE r.reference_name = 'peeringdb.org'
         RETURN o.id AS pdb_id,
                r.name AS name,
@@ -341,12 +351,15 @@ def extract_iana_nro():
         except Exception as e:
             print(f'  {label} missing: {e}', flush=True)
 
-    # Country-level RIR allocations via NRO delegated stats
+    # Country-level RIR allocations via NRO delegated stats.
+    # Note: [:ASSIGNED] goes to :OpaqueID (AS registry IDs); country mapping
+    # is on the [:COUNTRY] edge instead.
     q = """
-        MATCH (p:RIRPrefix)-[r:ASSIGNED]->(c:Country)
+        MATCH (p:RIRPrefix)-[r:COUNTRY]->(c:Country)
+        WHERE r.reference_name = 'nro.delegated_stats'
         RETURN c.country_code AS cc, p.prefix AS prefix,
                r.reference_name AS src
-        LIMIT 100000
+        LIMIT 1000000
     """
     try:
         rows = [dict(r) for r in run_query(q, {})]
@@ -540,7 +553,11 @@ def extract_ooni_apps():
 # ---- T20: UTwente LACES anycast geographic census ----
 
 def extract_laces_geoprefix():
-    """LACES v4/v6 GeoPrefixes with location points."""
+    """LACES v4/v6 GeoPrefixes with location points.
+
+    Point nodes store coordinates as a single WGS84Point `position`
+    property — extract lat/lng via `position.y` / `position.x`.
+    """
     print('[laces] GeoPrefix locations', flush=True)
     q = """
         MATCH (g:GeoPrefix)-[:LOCATED_IN]->(p:Point)
@@ -548,7 +565,7 @@ def extract_laces_geoprefix():
         OPTIONAL MATCH (g)-[:CATEGORIZED]->(t:Tag {label:'Anycast'})
         RETURN g.prefix AS prefix, g.af AS af,
                c.country_code AS cc,
-               p.lat AS lat, p.lng AS lng,
+               p.position.y AS lat, p.position.x AS lng,
                CASE WHEN t IS NOT NULL THEN 1 ELSE 0 END AS is_anycast
         LIMIT 500000
     """
@@ -681,8 +698,132 @@ def main():
     extract_ns_authority_forward()
     extract_ns_authority_rdns()
     extract_root_zone_ns()
+    # DC / Facility layer (Phase 2)
+    extract_facilities()
+    extract_facility_members()
+    extract_facility_ixps()
+    extract_peeringdb_nets()
     probe_reference_names()
     print('done', flush=True)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Phase-2 DC / Facility extractors
+# ═══════════════════════════════════════════════════════════════════════
+
+def extract_facilities():
+    """PeeringDB Facility catalog with country, coords, operator.
+
+    Schema (2026-04-08 confirmed):
+      (Facility)-[:COUNTRY]->(Country)
+      (Facility)-[:LOCATED_IN]->(Point {position: WGS84Point})
+      (Facility)-[:MANAGED_BY]->(Organization)
+      (Facility)-[r:EXTERNAL_ID]->(:PeeringdbFacID)  -- rich edge props
+    """
+    print('[facilities] DC catalog', flush=True)
+    q = """
+        MATCH (f:Facility)
+        OPTIONAL MATCH (f)-[:COUNTRY]->(c:Country)
+        OPTIONAL MATCH (f)-[:LOCATED_IN]->(pt:Point)
+        OPTIONAL MATCH (f)-[:MANAGED_BY]->(o:Organization)
+        OPTIONAL MATCH (f)-[r:EXTERNAL_ID]->(:PeeringdbFacID)
+        RETURN f.name AS name, c.country_code AS cc,
+               pt.position.y AS lat, pt.position.x AS lng,
+               o.name AS operator,
+               r.id AS pdb_fac_id,
+               r.city AS city, r.state AS state,
+               r.region_continent AS region,
+               r.clli AS clli, r.property AS property,
+               r.status AS status,
+               r.net_count AS net_count,
+               r.carrier_count AS carrier_count,
+               r.ix_count AS ix_count,
+               r.name_long AS name_long
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  facilities query failed: {e}', flush=True)
+        rows = []
+    write_csv('facilities.csv', rows, [
+        'name', 'cc', 'lat', 'lng', 'operator', 'pdb_fac_id',
+        'city', 'state', 'region', 'clli', 'property', 'status',
+        'net_count', 'carrier_count', 'ix_count', 'name_long',
+    ])
+
+
+def extract_facility_members():
+    """AS × Facility presence — who is in which DC."""
+    print('[facility_members] AS → Facility', flush=True)
+    q = """
+        MATCH (a:AS)-[:LOCATED_IN]->(f:Facility)
+        RETURN a.asn AS asn, f.name AS facility
+        LIMIT 200000
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  facility_members query failed: {e}', flush=True)
+        rows = []
+    write_csv('facility_members.csv', rows, ['asn', 'facility'])
+
+
+def extract_facility_ixps():
+    """IXP × Facility co-location — which DC hosts which IXP."""
+    print('[facility_ixps] IXP → Facility', flush=True)
+    q = """
+        MATCH (i:IXP)-[:LOCATED_IN]->(f:Facility)
+        RETURN i.name AS ixp, f.name AS facility
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  facility_ixps query failed: {e}', flush=True)
+        rows = []
+    write_csv('facility_ixps.csv', rows, ['ixp', 'facility'])
+
+
+def extract_peeringdb_nets():
+    """Per-AS PeeringDB net record (info_type / traffic / policy).
+
+    The network-level peering metadata is carried on
+    (:AS)-[:EXTERNAL_ID]->(:PeeringdbNetID) edges, not on
+    Organization nodes. Discovered during Phase 1 probe.
+    """
+    print('[peeringdb_nets] AS PeeringDB net records', flush=True)
+    # Note: the EXTERNAL_ID edge to PeeringdbNetID uses reference_name
+    # 'peeringdb.ix' (not 'peeringdb.net') — all peeringdb attrs live
+    # under the ix crawler in IYP. Removed the filter since
+    # PeeringdbNetID label is unique enough.
+    q = """
+        MATCH (a:AS)-[r:EXTERNAL_ID]->(n:PeeringdbNetID)
+        RETURN a.asn AS asn,
+               r.info_type AS info_type,
+               r.info_types AS info_types,
+               r.info_scope AS info_scope,
+               r.info_traffic AS info_traffic,
+               r.info_ratio AS info_ratio,
+               r.info_prefixes4 AS info_prefixes4,
+               r.info_prefixes6 AS info_prefixes6,
+               r.info_ipv6 AS info_ipv6,
+               r.policy_general AS policy_general,
+               r.policy_contracts AS policy_contracts,
+               r.policy_ratio AS policy_ratio,
+               r.policy_locations AS policy_locations,
+               r.fac_count AS fac_count,
+               r.ix_count AS ix_count
+    """
+    try:
+        rows = [dict(r) for r in run_query(q, {})]
+    except Exception as e:
+        print(f'  peeringdb_nets query failed: {e}', flush=True)
+        rows = []
+    write_csv('peeringdb_nets.csv', rows, [
+        'asn', 'info_type', 'info_types', 'info_scope', 'info_traffic',
+        'info_ratio', 'info_prefixes4', 'info_prefixes6', 'info_ipv6',
+        'policy_general', 'policy_contracts', 'policy_ratio',
+        'policy_locations', 'fac_count', 'ix_count',
+    ])
 
 
 if __name__ == '__main__':
