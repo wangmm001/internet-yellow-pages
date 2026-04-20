@@ -49,15 +49,25 @@ GAPS = [
         'upstream': 'MANRS crawler 可能失败或节点缺失',
     },
     {
-        'id': 'G3', 'name': 'AWS GeoPrefix 地理分桶',
-        'path': '(:AS {asn:16509})-[:ORIGINATE]->(:GeoPrefix)',
-        'finding': '无 AWS 地域细分前缀数据',
-        'finding_en': 'no geo-bucketed prefix data for hyperscalers',
+        'id': 'G3', 'name': 'AWS GeoPrefix 所有者（部分解决 in 2026-04）',
+        'path': '(:AS)-[:ORIGINATE]->(:BGPPrefix) ⋈ '
+                '(:GeoPrefix)-[:CATEGORIZED]->(:Tag {AMAZON/EC2/S3/...})',
+        'finding': 'GeoPrefix 和 BGPPrefix 是不同节点（前者是 amazon.aws_ip_'
+                   'ranges 注册的地理前缀，后者是真实观测的 BGP 前缀）。'
+                   'AS 不直接 ORIGINATE GeoPrefix——要按 prefix 字符串 join '
+                   '两边。2026-04-08 dump：AWS GeoPrefix 15,384 条，'
+                   'prefix-string join 后得 55 条 AS-service 映射',
+        'finding_en': 'GeoPrefix and BGPPrefix are distinct nodes '
+                      '(the former is registered by amazon.aws_ip_ranges, '
+                      'the latter is observed BGP). AS does not ORIGINATE '
+                      'GeoPrefix directly — must join by prefix string. '
+                      'After fix: 55 AS-service mappings from 2026-04-08',
         'topics': ['topic5', 'topic6'],
-        'snapshots': 'all',
-        'severity': 'Medium',
-        'workaround': 'bgptools.as_names 角色标签替代 (content/CDN 分类)',
-        'upstream': '需要 hyperscaler-geo crawler',
+        'snapshots': 'partial fix in 2026-04-08 (small yield)',
+        'severity': 'Low',
+        'workaround': 'hyperscaler_originators.csv 现有 55 行可用；'
+                      '如需更全面覆盖，需 IYP 补 IPv6 AWS 前缀 crawler',
+        'upstream': 'amazon.aws_ip_ranges 本身只管 v4；IPv6 AWS 覆盖待补',
     },
     {
         'id': 'G4', 'name': 'OONI country_code 边属性空',
@@ -72,15 +82,21 @@ GAPS = [
                     'topic 7 note',
     },
     {
-        'id': 'G5', 'name': 'PeeringDB 组织记录 schema',
-        'path': '(:Organization)-[:EXTERNAL_ID]->(:PeeringDBID)',
-        'finding': 'EXTERNAL_ID 边的属性 key 对不上，查询返回 0 行',
-        'finding_en': 'EXTERNAL_ID edge property keys mismatch, 0 rows',
+        'id': 'G5', 'name': 'PeeringDB 组织记录 schema（已解决）',
+        'path': '(:Organization)-[:EXTERNAL_ID]->(:PeeringdbOrgID)',
+        'finding': '原查询用 <code>(o:OpaqueID)</code> 作为目标节点标签返回 0 行。'
+                   '2026-04-08 dump probe 确认目标标签是 '
+                   '<code>PeeringdbOrgID</code>；修正后得 33,366 行组织记录'
+                   '（含 policy_general / info_type / info_traffic）',
+        'finding_en': 'Query used (o:OpaqueID) which returned 0. '
+                      'Probe against 2026-04-08 confirmed the destination '
+                      'label is :PeeringdbOrgID — fixed query yields 33,366 '
+                      'org records with policy / info attributes',
         'topics': ['topic8'],
-        'snapshots': 'all',
-        'severity': 'High',
-        'workaround': '替换为 ROVISTA-by-country 视角',
-        'upstream': 'peeringdb crawler 的边属性命名需对齐',
+        'snapshots': 'resolved in 2026-04-08 (extract_data.py v3)',
+        'severity': 'Low (resolved)',
+        'workaround': '分析查询已修正；peeringdb_orgs.csv 可用',
+        'upstream': '无需改 crawler；是分析端查询的 label 名错',
     },
     {
         'id': 'G6', 'name': 'Atlas Probe 标签',
@@ -95,30 +111,39 @@ GAPS = [
         'upstream': 'atlas crawler 需要补 tag relationship 抽取',
     },
     {
-        'id': 'G7', 'name': 'IANA / NRO 分配节点',
-        'path': '(:NROStatistic)-[:ALLOCATED]->(:Prefix)',
-        'finding': 'IANA/NRO 分配图缺失，无法做"分配 vs 实际使用"对照',
-        'finding_en': 'no IANA/NRO allocation map; cannot compare '
-                      'allocated vs observed',
+        'id': 'G7', 'name': 'IANA / NRO 分配节点（已解决）',
+        'path': '(:RIRPrefix)-[:COUNTRY]->(:Country) via nro.delegated_stats',
+        'finding': '原查询用 <code>[:ASSIGNED]->(:Country)</code> 返回 0 行——'
+                   'ASSIGNED 边实际指向 <code>:OpaqueID</code>（AS 注册号），'
+                   '国家归属走 <code>[:COUNTRY]</code> 边。2026-04-08 dump 有 '
+                   '649,631 条 RIRPrefix→Country 关系，352 个 IANAPrefix 节点',
+        'finding_en': 'Query used [:ASSIGNED]->(:Country) returning 0. '
+                      '[:ASSIGNED] actually goes to :OpaqueID (AS IDs); '
+                      'country mapping is on [:COUNTRY] edge. 2026-04-08 '
+                      'dump has 649,631 RIRPrefix→Country edges + 352 '
+                      'IANAPrefix nodes',
         'topics': ['topic11'],
-        'snapshots': 'all',
-        'severity': 'Medium',
-        'workaround': '替换为 as_organization 所有权集中度分析',
-        'upstream': 'NRO crawler 未运行或未建模',
+        'snapshots': 'resolved in 2026-04-08 (extract_data.py v3)',
+        'severity': 'Low (resolved)',
+        'workaround': '分析查询已修正；nro_country_prefixes.csv 可用',
+        'upstream': '无需改 crawler；是分析端走错了关系类型',
     },
     {
         'id': 'G8', 'name': 'Per-Prefix RPKI Valid Tag',
         'path': '(:Prefix)-[:CATEGORIZED]->(:Tag {label:"RPKI Valid"})',
-        'finding': '2024-07 / 2025-01 dumps 在 Prefix 节点上只挂 Anycast tag；'
-                   'AS 级 Validating RPKI ROV 仍在但不同粒度。probe 确认',
-        'finding_en': '2024-07/2025-01 dumps have only Anycast tag on '
-                      'Prefix nodes; AS-level Validating RPKI ROV still '
-                      'present. Probe-confirmed',
-        'topics': ['evolution', 'step04_prefix'],
-        'snapshots': '2024-07, 2025-01',
+        'finding': '3/11 dumps 的 Prefix 节点上 RPKI Valid tag 不存在——'
+                   '全量时序扫描确认：2024-07 / 2025-01 / 2025-07 三个快照，'
+                   '<code>rpki_per_as.csv</code> 有 85K 行但 <code>rpki</code> '
+                   '列全 0。其余 8 个快照有真 RPKI 数据',
+        'finding_en': '3/11 dumps missing RPKI Valid tag on Prefix nodes. '
+                      'Full time-series scan confirms 2024-07, 2025-01, '
+                      '2025-07. rpki_per_as.csv has 85K rows but rpki '
+                      'column is all 0 in those 3 snapshots',
+        'topics': ['evolution', 'evolution_timeseries', 'step04_prefix'],
+        'snapshots': '2024-07, 2025-01, 2025-07 (3 of 11)',
         'severity': 'Medium',
         'workaround': 'evolution 页自动检测整列为 0 → 留白不插值',
-        'upstream': 'RPKI 前缀标签 crawler 在那两个 cycle 没跑完整',
+        'upstream': 'RPKI 前缀标签 crawler 在那 3 个 cycle 没跑完整',
     },
     {
         'id': 'G9', 'name': 'BGPPrefix vs Prefix 标签命名',
@@ -152,42 +177,49 @@ GAPS = [
                     '哪些层是"latest-only"',
     },
     {
-        'id': 'G11', 'name': 'Cloudflare DNS 层缺失（确认）',
-        'path': '(:DomainName)-[:QUERIED_FROM]->(:Country|:AS) — 关系不存在',
-        'finding': 'cloudflare.dns_top_locations / dns_top_ases 在 '
-                   '2024-10 和 2026-04 两次 dump 里均完全缺失。Probe 确认 '
-                   'QUERIED_FROM / DNS_ACTIVITY 关系类型都不存在。'
-                   'crawler 在 config.json 里被列出但未运行',
-        'finding_en': 'Cloudflare DNS crawlers totally absent in both '
-                      '2024-10 and 2026-04 dumps. Probe confirmed neither '
-                      'QUERIED_FROM nor DNS_ACTIVITY relationship types '
-                      'exist. Listed in config.json but not actually run',
-        'topics': ['topic18 (CRUX-only fallback)'],
-        'snapshots': '2024-10 + 2026-04 confirmed',
-        'severity': 'Medium',
-        'workaround': 'topic18 改用 google.crux_top1m_country 作为'
-                      '需求侧信号（200K rows 可用）',
-        'upstream': '需要 IYP 真正运行 cloudflare.dns_top_* crawlers；'
-                    '可能是 API key 或限速问题',
+        'id': 'G11', 'name': 'Cloudflare DNS 层 — 间歇性缺失（已纠正）',
+        'path': '(:DomainName)-[:QUERIED_FROM]->(:Country|:AS)',
+        'finding': '原先误判为"整个管道从未运行 CF DNS"，全时序扫描后纠正：'
+                   'QUERIED_FROM 关系在 9/11 个季度 dump 里正常存在（'
+                   '每次 50K country + 100K AS 行）。仅 2025-01 和 2026-04 '
+                   '两次 snapshot 完全空——后者恰好是我最初测试的 dump，'
+                   '所以被误以为永久缺失。实为 2 次点状 regression',
+        'finding_en': 'Earlier classified as "pipeline never populates CF "'
+                      'DNS". Full time-series scan corrected: QUERIED_FROM '
+                      'works in 9/11 quarterly dumps (50K country + 100K '
+                      'AS rows each). Only 2025-01 and 2026-04 are empty '
+                      '— the latter happened to be my first test dump, '
+                      'producing the incorrect "always missing" story. '
+                      'Actually 2 isolated regressions',
+        'topics': ['topic18 (CRUX-only fallback no longer needed for most '
+                   'snapshots)'],
+        'snapshots': '2/11 missing: 2025-01 + 2026-04',
+        'severity': 'Low (mostly populated)',
+        'workaround': 'topic18 可改用 QUERIED_FROM，仅对 2025-01/2026-04 '
+                      '回退到 CRUX',
+        'upstream': '2 次 crawler 执行失败；原因未查（可能 API 限速或 '
+                    '那两次 cycle 配置问题）',
     },
     {
-        'id': 'G12', 'name': 'UTwente LACES GeoPrefix（已解决 in 2026-04）',
+        'id': 'G12', 'name': 'UTwente LACES GeoPrefix（完全解决 in 2026-04）',
         'path': '(:GeoPrefix)-[:LOCATED_IN]->(:Point); '
                 '(:GeoPrefix)-[:COUNTRY]->(:Country)',
         'finding': '2026-04 dump 里 LACES 提供 500K GeoPrefix-Country 边'
-                   '（7,814 distinct prefix）。其中 7,807 在多国分布，'
-                   '即 anycast。但 lat/lng 在 Point 节点为 NULL，'
-                   '只能国家级粒度',
-        'finding_en': '2026-04 dump exposes 500K GeoPrefix-Country '
-                      'edges (7,814 distinct, 7,807 multi-country = '
-                      'anycast). But Point nodes have NULL lat/lng — '
-                      'only country-level granularity',
+                   '（7,814 distinct prefix，7,807 多国 = anycast）。'
+                   'Point 节点的坐标以 <code>position</code> WGS84Point 属性'
+                   '存储（不是 <code>lat</code>/<code>lng</code> 分列）——'
+                   '查询改用 <code>p.position.y</code> / <code>p.position.x</code>'
+                   '后拿到真实经纬度，可以做 PoP 地图',
+        'finding_en': '2026-04 dump: 500K GeoPrefix-Country edges (7,814 '
+                      'prefixes, 7,807 multi-country anycast). Point '
+                      'coordinates stored as a single `position` WGS84Point '
+                      'property (not lat/lng columns); query now uses '
+                      'p.position.y / p.position.x and gets real coords',
         'topics': ['topic20'],
-        'snapshots': 'fixed in 2026-04; absent in 2024-10',
-        'severity': 'Low',
-        'workaround': 'topic20 推断 anycast 通过 multi-country 而非 '
-                      'CATEGORIZED→Tag (Anycast tag 不挂在 GeoPrefix)',
-        'upstream': '可选：补充 Point.lat/lng 属性以实现 PoP 地图',
+        'snapshots': 'fully resolved in 2026-04-08 (extract_data.py v3)',
+        'severity': 'Low (resolved)',
+        'workaround': '分析查询已修正；laces_geoprefix_countries.csv 有真 lat/lng',
+        'upstream': '无；Point schema 本身正确，仅分析端属性名错',
     },
     {
         'id': 'G13', 'name': 'DNS 权威三源（已大部分解决 in 2026-04）',
@@ -211,30 +243,81 @@ GAPS = [
         'upstream': '已解决；如需 infra_ns MANAGED_BY 须改 crawler',
     },
     {
-        'id': 'G14', 'name': 'PCH 路由快照在 2026-04 缺失（regression）',
+        'id': 'G14', 'name': 'PCH 路由快照 regression 起点（已定位）',
         'path': '(:AS)-[:ORIGINATE]->(:Prefix) WHERE source=pch.*',
-        'finding': '2024-10 dump 里 pch.daily_routing_snapshots_v4/v6 '
-                   '提供 500K ORIGINATE 边（含 collector count + '
-                   'seen_by_collectors）。2026-04 dump probe 显示 '
-                   'ORIGINATE 关系只有 bgpkit.pfx2asn (1.6M) 和 ihr.rov '
-                   '(1.3M)——pch crawler 整个未运行',
-        'finding_en': 'PCH crawler ran in 2024-10 (500K records) but did '
-                      'NOT run in 2026-04 (probe shows ORIGINATE only has '
-                      'bgpkit + ihr.rov). Regression',
+        'finding': '全时序扫描定位 regression 精确起点：'
+                   'pch.daily_routing_snapshots 在 2024-01 → 2025-10 '
+                   '(8 个季度) 里每次提供 500K ORIGINATE 边，'
+                   '<b>从 2026-01 snapshot 开始连续 3 次 (2026-01/02/04) '
+                   '全部为 0</b>。不是 2026-04 单点失败，是 2026 Q1 '
+                   '起的持续 regression',
+        'finding_en': 'Full time-series scan identifies the exact '
+                      'regression boundary: PCH crawler populated 500K '
+                      'edges consistently from 2024-01 through 2025-10 '
+                      '(8 quarters), then went to 0 in 2026-01 and has '
+                      'stayed missing through 2026-04 (3 consecutive '
+                      'missing snapshots). Not a one-off failure',
         'topics': ['topic17 (rewired to bgpkit.peerstats)'],
-        'snapshots': '2024-10 had data, 2026-04 missing',
-        'severity': 'Medium',
+        'snapshots': '8/11 have data (2024-01..2025-10); '
+                     '3/11 missing (2026-01/02/04)',
+        'severity': 'Medium (persistent)',
         'workaround': 'topic17 重写用 bgpkit peerstats 作功能等价——'
                       '改测"per-AS peer-edge count 在 v4/v6 里分别多少"，'
                       '同样反映观测冗余度但粒度从 prefix 变为 edge',
-        'upstream': 'pch.daily_routing_snapshots_v4/v6 crawler 需在 '
-                    '2026-04 重新启用；修好后可补充 per-prefix 视角',
+        'upstream': 'pch.daily_routing_snapshots_v4/v6 crawler 需定位为何 '
+                    '2026 Q1 起不再运行；修好后可补充 per-prefix 视角',
+    },
+    {
+        'id': 'G15', 'name': '2024-07 dump 的 AS-COUNTRY 断层（新发现）',
+        'path': '(:AS)-[:COUNTRY]->(:Country)',
+        'finding': '全时序扫描发现：2024-07-08 dump 仅 242K AS 有 '
+                   'COUNTRY 边（其它 snapshot 360K-380K 稳定）。其余'
+                   'crawler 输出（peeringdb/rpki/atlas/ixp）量级正常，'
+                   '只有 COUNTRY 关系掉了 33%。前 5 大国（US/BR/RU/IN/CN）'
+                   '的 AS 数都按同样比例缩小——是该国 COUNTRY 边 crawler '
+                   '部分失败',
+        'finding_en': '2024-07-08 dump has only 242K AS with COUNTRY '
+                      'edges (vs 360-380K stable elsewhere). Other '
+                      'crawlers (peeringdb/rpki/atlas/ixp) normal; only '
+                      'COUNTRY relation dropped 33% uniformly across top '
+                      '5 countries. COUNTRY-edge crawler partially failed',
+        'topics': ['any topic that joins on AS→Country'],
+        'snapshots': '1/11 affected: 2024-07-08',
+        'severity': 'Medium',
+        'workaround': 'evolution_timeseries Panel ① 显示为小凹点；'
+                      '下游 topic 用 as_country 映射时 2024-07 会丢 1/3 数据',
+        'upstream': 'COUNTRY crawler 在 2024-07 cycle 为何只跑了 2/3 '
+                    '需回溯',
+    },
+    {
+        'id': 'G16', 'name': '新 crawler 上线时间线（情报）',
+        'path': '多个 crawler 首次出现',
+        'finding': '全时序扫描确定每个 crawler 进入 IYP 的季度：'
+                   'ixp_live_members (alice_lg) 首现 2024-04；'
+                   'ooni.* 2024-10；crux_top1m_country 2025-04；'
+                   'nro.delegated_stats COUNTRY 关系 2025-04；'
+                   'utwente.laces_v4/v6 2026-01；amazon.aws_ip_ranges '
+                   '2026-02。manrs 从未出现',
+        'finding_en': 'Full scan pinned down first-appearance quarter: '
+                      'alice_lg 2024-04; OONI 2024-10; CRUX 2025-04; '
+                      'NRO COUNTRY 2025-04; LACES 2026-01; AWS IP ranges '
+                      '2026-02. MANRS never',
+        'topics': ['evolution_timeseries Panel ⑧'],
+        'snapshots': 'all 11 (as timeline)',
+        'severity': 'Low (informational)',
+        'workaround': 'Panel ⑧ 直接可视化；topic 脚本须容忍某些 snapshot '
+                      '没有该源',
+        'upstream': '此为 IYP 项目能力增长记录，不是 gap',
     },
 ]
 
 
 SEVERITY_COLOR = {
     'Low': COLORS['cyan'], 'Medium': COLORS['orange'], 'High': COLORS['red'],
+    'Low (resolved)': COLORS['green'],
+    'Low (mostly populated)': COLORS['green'],
+    'Low (informational)': COLORS['cyan'],
+    'Medium (persistent)': COLORS['orange'],
 }
 
 

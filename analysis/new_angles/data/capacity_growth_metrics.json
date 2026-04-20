@@ -1,0 +1,403 @@
+{
+  "panel_size": 13650,
+  "upgrade_pct": 21.611721611721613,
+  "downgrade_pct": 1.0183150183150182,
+  "median_delta": 0,
+  "mean_delta": 0.3698168498168498,
+  "by_info_type": {
+    "Content": {
+      "n": 1138,
+      "up_pct": 19.507908611599298,
+      "delta_mean": 0.38488576449912126
+    },
+    "Non-Profit": {
+      "n": 318,
+      "up_pct": 7.861635220125786,
+      "delta_mean": 0.059748427672955975
+    },
+    "Cable/DSL/ISP": {
+      "n": 6949,
+      "up_pct": 25.140307957979562,
+      "delta_mean": 0.4248093250827457
+    },
+    "NSP": {
+      "n": 2204,
+      "up_pct": 26.76950998185118,
+      "delta_mean": 0.48774954627949185
+    },
+    "Educational/Research": {
+      "n": 804,
+      "up_pct": 10.199004975124378,
+      "delta_mean": 0.10074626865671642
+    },
+    "Not Disclosed": {
+      "n": 875,
+      "up_pct": 10.857142857142858,
+      "delta_mean": 0.184
+    },
+    "Route Server": {
+      "n": 246,
+      "up_pct": 17.88617886178862,
+      "delta_mean": 0.3130081300813008
+    },
+    "Network Services": {
+      "n": 386,
+      "up_pct": 17.357512953367877,
+      "delta_mean": 0.344559585492228
+    },
+    "Enterprise": {
+      "n": 673,
+      "up_pct": 10.549777117384844,
+      "delta_mean": 0.15304606240713226
+    },
+    "Government": {
+      "n": 51,
+      "up_pct": 13.725490196078432,
+      "delta_mean": 0.17647058823529413
+    }
+  },
+  "by_country_top20": [
+    {
+      "cc": "BR",
+      "up": 571,
+      "n": 2367,
+      "up_pct": 24.12336290663287,
+      "mean_delta": 0.4076890578791719
+    },
+    {
+      "cc": "ID",
+      "up": 327,
+      "n": 1043,
+      "up_pct": 31.351869606903165,
+      "mean_delta": 0.638542665388303
+    },
+    {
+      "cc": "US",
+      "up": 289,
+      "n": 1330,
+      "up_pct": 21.729323308270676,
+      "mean_delta": 0.38571428571428573
+    },
+    {
+      "cc": "IN",
+      "up": 158,
+      "n": 737,
+      "up_pct": 21.438263229308006,
+      "mean_delta": 0.36363636363636365
+    },
+    {
+      "cc": "PL",
+      "up": 143,
+      "n": 583,
+      "up_pct": 24.528301886792452,
+      "mean_delta": 0.40480274442538594
+    },
+    {
+      "cc": "GB",
+      "up": 103,
+      "n": 448,
+      "up_pct": 22.991071428571427,
+      "mean_delta": 0.44419642857142855
+    },
+    {
+      "cc": "DE",
+      "up": 101,
+      "n": 534,
+      "up_pct": 18.91385767790262,
+      "mean_delta": 0.301498127340824
+    },
+    {
+      "cc": "IT",
+      "up": 86,
+      "n": 385,
+      "up_pct": 22.337662337662337,
+      "mean_delta": 0.2961038961038961
+    },
+    {
+      "cc": "RU",
+      "up": 69,
+      "n": 398,
+      "up_pct": 17.33668341708543,
+      "mean_delta": 0.21608040201005024
+    },
+    {
+      "cc": "JP",
+      "up": 61,
+      "n": 231,
+      "up_pct": 26.406926406926406,
+      "mean_delta": 0.30303030303030304
+    },
+    {
+      "cc": "ZA",
+      "up": 59,
+      "n": 295,
+      "up_pct": 20.0,
+      "mean_delta": 0.31864406779661014
+    },
+    {
+      "cc": "AR",
+      "up": 56,
+      "n": 275,
+      "up_pct": 20.363636363636363,
+      "mean_delta": 0.29454545454545455
+    },
+    {
+      "cc": "NL",
+      "up": 54,
+      "n": 275,
+      "up_pct": 19.636363636363637,
+      "mean_delta": 0.3418181818181818
+    },
+    {
+      "cc": "UA",
+      "up": 51,
+      "n": 242,
+      "up_pct": 21.074380165289256,
+      "mean_delta": 0.35537190082644626
+    },
+    {
+      "cc": "FR",
+      "up": 47,
+      "n": 322,
+      "up_pct": 14.596273291925465,
+      "mean_delta": 0.19875776397515527
+    },
+    {
+      "cc": "CA",
+      "up": 41,
+      "n": 253,
+      "up_pct": 16.205533596837945,
+      "mean_delta": 0.22529644268774704
+    },
+    {
+      "cc": "CZ",
+      "up": 40,
+      "n": 121,
+      "up_pct": 33.057851239669425,
+      "mean_delta": 0.5041322314049587
+    },
+    {
+      "cc": "BD",
+      "up": 39,
+      "n": 161,
+      "up_pct": 24.22360248447205,
+      "mean_delta": 0.5900621118012422
+    },
+    {
+      "cc": "AU",
+      "up": 37,
+      "n": 232,
+      "up_pct": 15.948275862068966,
+      "mean_delta": 0.24568965517241378
+    },
+    {
+      "cc": "PH",
+      "up": 30,
+      "n": 104,
+      "up_pct": 28.846153846153843,
+      "mean_delta": 0.4807692307692308
+    }
+  ],
+  "top25_by_delta": [
+    {
+      "asn": 210925,
+      "delta": 15,
+      "first": "100-1000Mbps",
+      "last": "100+Tbps",
+      "info_type": "Route Server",
+      "cc": "UA"
+    },
+    {
+      "asn": 20612,
+      "delta": 11,
+      "first": "0-20Mbps",
+      "last": "500-1000Gbps",
+      "info_type": "Network Services",
+      "cc": "CH"
+    },
+    {
+      "asn": 28635,
+      "delta": 11,
+      "first": "100-1000Mbps",
+      "last": "5-10Tbps",
+      "info_type": "NSP",
+      "cc": "BR"
+    },
+    {
+      "asn": 266498,
+      "delta": 11,
+      "first": "10-20Gbps",
+      "last": "50-100Tbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "BR"
+    },
+    {
+      "asn": 999,
+      "delta": 11,
+      "first": "1-5Gbps",
+      "last": "10-20Tbps",
+      "info_type": "Content",
+      "cc": "US"
+    },
+    {
+      "asn": 264228,
+      "delta": 10,
+      "first": "1-5Gbps",
+      "last": "5-10Tbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "BR"
+    },
+    {
+      "asn": 203389,
+      "delta": 10,
+      "first": "5-10Gbps",
+      "last": "10-20Tbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "PL"
+    },
+    {
+      "asn": 269535,
+      "delta": 10,
+      "first": "1-5Gbps",
+      "last": "5-10Tbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "BR"
+    },
+    {
+      "asn": 47328,
+      "delta": 9,
+      "first": "1-5Gbps",
+      "last": "1-5Tbps",
+      "info_type": "Content",
+      "cc": "CH"
+    },
+    {
+      "asn": 9123,
+      "delta": 9,
+      "first": "1-5Gbps",
+      "last": "1-5Tbps",
+      "info_type": "NSP",
+      "cc": "RU"
+    },
+    {
+      "asn": 206067,
+      "delta": 9,
+      "first": "1-5Gbps",
+      "last": "1-5Tbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "GB"
+    },
+    {
+      "asn": 214565,
+      "delta": 9,
+      "first": "5-10Gbps",
+      "last": "5-10Tbps",
+      "info_type": "Not Disclosed",
+      "cc": "GB"
+    },
+    {
+      "asn": 132774,
+      "delta": 8,
+      "first": "10-20Gbps",
+      "last": "5-10Tbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "IN"
+    },
+    {
+      "asn": 133360,
+      "delta": 8,
+      "first": "100-1000Mbps",
+      "last": "300-500Gbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "ID"
+    },
+    {
+      "asn": 60223,
+      "delta": 8,
+      "first": "0-20Mbps",
+      "last": "100-200Gbps",
+      "info_type": "NSP",
+      "cc": "GB"
+    },
+    {
+      "asn": 2110,
+      "delta": 7,
+      "first": "5-10Gbps",
+      "last": "500-1000Gbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "IE"
+    },
+    {
+      "asn": 265303,
+      "delta": 7,
+      "first": "20-50Gbps",
+      "last": "5-10Tbps",
+      "info_type": "NSP",
+      "cc": "BR"
+    },
+    {
+      "asn": 52630,
+      "delta": 7,
+      "first": "5-10Gbps",
+      "last": "500-1000Gbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "BR"
+    },
+    {
+      "asn": 9886,
+      "delta": 7,
+      "first": "10-20Gbps",
+      "last": "1-5Tbps",
+      "info_type": "Content",
+      "cc": "HK"
+    },
+    {
+      "asn": 10226,
+      "delta": 7,
+      "first": "5-10Gbps",
+      "last": "500-1000Gbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "LA"
+    },
+    {
+      "asn": 18041,
+      "delta": 7,
+      "first": "100-1000Mbps",
+      "last": "200-300Gbps",
+      "info_type": "Network Services",
+      "cc": "TW"
+    },
+    {
+      "asn": 138871,
+      "delta": 7,
+      "first": "10-20Gbps",
+      "last": "1-5Tbps",
+      "info_type": "Cable/DSL/ISP",
+      "cc": "ID"
+    },
+    {
+      "asn": 1002,
+      "delta": 7,
+      "first": "10-20Gbps",
+      "last": "1-5Tbps",
+      "info_type": "NSP",
+      "cc": "US"
+    },
+    {
+      "asn": 32270,
+      "delta": 7,
+      "first": "10-20Gbps",
+      "last": "1-5Tbps",
+      "info_type": "Network Services",
+      "cc": "US"
+    },
+    {
+      "asn": 4800,
+      "delta": 6,
+      "first": "20-50Gbps",
+      "last": "1-5Tbps",
+      "info_type": "NSP",
+      "cc": "ID"
+    }
+  ]
+}
