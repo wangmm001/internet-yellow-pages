@@ -103,7 +103,7 @@ Controls which crawlers/post-processors to run and stores API keys for data sour
 This directory is separate from the crawler pipeline and contains *read-only* scientific
 analysis of the IYP knowledge graph. See `analysis/README.md` for the bilingual index.
 
-Three primary studies exist, each with its own `README.md`:
+Four primary studies exist, each with its own `README.md`:
 
 - `analysis/complex_network/` — 24-step global complex-network analysis (degree
   distribution, k-core, rich-club, community detection, percolation, cascades, null
@@ -111,6 +111,18 @@ Three primary studies exist, each with its own `README.md`:
 - `analysis/china/` — 20-step "China in the Global Internet Hierarchy" study; produces
   interactive Plotly/Pyvis HTMLs in `analysis/china/html/` with bilingual banners.
   Entry point: `python3 -m analysis.china.run_all [--step N | --verify | --report]`.
+- `analysis/countries/` — 9-country × 6-quarterly-snapshot cross-country + time-series
+  extension of the China methodology (US / CN / JP / IN / DE / GB / FR / NL / RU).
+  Entry point: `python3 -m analysis.countries.run_all [--snapshot YYYY-MM | --countries CC,CC]`.
+  Per-country profiles live at `analysis/countries/html/profile_<CC>.html`.
+- `analysis/new_angles/` — 21-topic exploration of under-used IYP data sources
+  (routing security, top-lists, OONI, atlas, BGP observation, IXP reality, anycast,
+  DNS authority, app censorship, …) plus `evolution.py`, `synthesis.py`,
+  `country_scorecards.py`, `schema_gaps.py`. Read inputs from `data_cache/new_angles/`
+  (produced by `extract_data.py`) and write to `analysis/new_angles/html/`. Several
+  scripts also mirror their output to `analysis/countries/html/` under shorter names
+  (e.g. `topic2_routing_security.html` → `countries/html/routing_security.html`);
+  topic16–21 mirror with the same name.
 - `analysis/cloudflare_analysis.py` — 25-step Cloudflare single-AS deep dive.
 
 ### Data-cache convention (important)
@@ -128,9 +140,32 @@ because the files are large (>200 MB combined) and can be rebuilt from Neo4j at 
   python3 -m analysis.complex_network.step02_extract_dns_layer
   python3 -m analysis.complex_network.step03_extract_physical_layer
   python3 -m analysis.complex_network.step04_extract_org_censorship
+  # 28 CSVs for the new_angles topics
+  python3 -m analysis.new_angles.extract_data
   ```
 - Small CN-specific analysis results (`analysis/china/data/cn_*.csv` + per-step metrics
   JSON) are *committed* — they are tiny and serve as provenance for the HTMLs.
+- Per-country metrics under `analysis/countries/data/<snapshot>/<CC>/` are also
+  committed for the same reason.
+
+### Dump archive + load lifecycle
+
+Full-size quarterly IYP Neo4j dumps live in **`dumps_archive/`** (11 snapshots,
+2024-01 → 2026-04, 3–10 GB each) — this is the source of truth, not `dumps/`.
+`dumps/` is the staging directory Neo4j actually reads from; `data/` is the
+uncompressed database. The analysis workflow is a single-dump-at-a-time cycle:
+
+```bash
+# See analysis/new_angles/load_and_extract.sh and
+# analysis/countries/extract_snapshot.sh for the canonical lifecycle:
+#   cp dumps_archive/iyp-<date>.dump → dumps/neo4j.dump
+#   docker compose --profile local up -d  # loads + starts Neo4j
+#   python3 -m analysis.new_angles.extract_data  (or country step_lib calls)
+#   docker stop iyp iyp_loader; rm -rf data/databases data/transactions
+```
+
+`analysis/countries/run_pipeline.sh` orchestrates this for multiple snapshots
+back-to-back; `analysis/countries/backfill_2024.sh` does the older-year backfill.
 
 ### Conventions for new analysis scripts
 
@@ -143,8 +178,9 @@ because the files are large (>200 MB combined) and can be rebuilt from Neo4j at 
   hhi_index, lorenz_curve`).
 - HTML outputs use Plotly with `include_plotlyjs='inline'` (for offline viewing) or
   Pyvis for network graphs; see `analysis/china/common.py` for `save_plotly_html()`,
-  `save_pyvis_html()`, `save_placeholder_html()`, and the `try_neo4j_or_cached()`
-  fallback pattern.
+  `save_pyvis_html()`, `save_placeholder_html()`, `warning_block()` (collapsible
+  `<details>` caveat — use this for any `⚠️ 数据缺口 / 维度缺失 / 坦承` note instead of
+  an inline orange `<p>`), and the `try_neo4j_or_cached()` fallback pattern.
 - Every analysis step in the `analysis/china/` convention emits four artifacts: CSV +
   metrics JSON + HTML + a writeup sidebar paragraph. The `run_all.py --report` mode
   regenerates the bilingual `README.md` from metrics JSONs.
@@ -153,6 +189,7 @@ because the files are large (>200 MB combined) and can be rebuilt from Neo4j at 
 
 - `data_cache/` — regeneratable analysis inputs (see above).
 - `plugins/` — Neo4j plugin jars (e.g. `apoc.jar`), downloaded separately.
-- `dumps/`, `data/` — Neo4j database dumps and live database files (per the upstream
-  README).
+- `dumps/`, `data/` — Neo4j staging dump and live database files (per the upstream
+  README). `dumps_archive/` (the committed-by-convention archive of 11 quarterly
+  IYP dumps used for the countries / new_angles time-series) is *also* git-ignored.
 - `config.json` — credentials and API keys (`config.json.example` is the template).
