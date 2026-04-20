@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, TEXT_PRIMARY, TEXT_SECONDARY,
-    apply_plotly_theme, country_color,
+    apply_plotly_theme, country_color, warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -46,11 +46,7 @@ def _placeholder(reason):
         '<h2>Cloudflare DNS + Google CRUX vs APNIC eyeball</h2>'
         '</div><div class="step-footer">topic 18 · placeholder</div>'
     )
-    intro = (
-        f'<p style="padding:0 16px;margin:16px 0;color:{COLORS["orange"]};'
-        f'border-left:3px solid {COLORS["orange"]};padding-left:14px;'
-        f'font-size:13px">⚠️ <b>数据缺口：</b>{reason}</p>'
-    )
+    intro = warning_block(reason, title='数据缺口 · Data gap')
     html = (
         '<!doctype html><html lang="zh"><head><meta charset="utf-8">'
         '<title>反 eyeball 对照 · Counter-Eyeball</title>'
@@ -223,24 +219,36 @@ def build():
             full_html=False, default_height='500px'))
         first = False
 
+    if cf_present:
+        cf_line = (
+            f'Cloudflare 1.1.1.1 DNS top-100 域名 per country '
+            f'<b>{len(cf_cc):,}</b> 行 + per AS <b>{len(cf_as):,}</b> 行；'
+        )
+    else:
+        cf_line = (
+            'Cloudflare DNS crawler <i>暂未在当前 IYP 快照落库</i>'
+            '（extract_data.py 用 <code>QUERIED_FROM</code> 关系名返回 0 行，'
+            'schema 名变更待确认）——本页以 CRUX 为主信号展开；'
+        )
     intro = (
         f'<p style="color:{TEXT_SECONDARY};padding:0 16px;font-size:14px">'
-        f'<b>数据：</b>Cloudflare 1.1.1.1 DNS top-100 域名 per country '
-        f'<b>{len(cf_cc):,}</b> 行 + per AS <b>{len(cf_as):,}</b> 行；'
+        f'<b>数据：</b>{cf_line}'
         f'Google CRUX top-1M <b>{len(crux):,}</b> 行。'
         f'<br><b>对照：</b>APNIC eyeball 是基于 Google Ads + DNS 测量，'
         f'对公共 DNS（1.1.1.1/8.8.8.8）用户计数偏低。'
-        f'Cloudflare 自家 DNS 流量 + Google 自家 CRUX 是独立的需求侧信号。'
+        f'{"Cloudflare 自家 DNS 流量 + " if cf_present else ""}'
+        f'Google 自家 CRUX 是独立的需求侧信号。'
         f'Panel ② 的散点若不在对角线附近，说明两类 eyeball 信号不一致。'
         f'</p>'
     )
 
+    sources = 'cloudflare.dns_top_* + google.crux_top1m_country' \
+        if cf_present else 'google.crux_top1m_country (cf_dns pending)'
     banner = (
         '<div class="step-banner">'
         '<h1>反 eyeball 对照 · Counter-Eyeball Demand Signal</h1>'
         '<h2>Cloudflare DNS + Google CRUX vs APNIC eyeball</h2>'
-        '</div><div class="step-footer">topic 18 · offline · '
-        'cloudflare.dns_top_* + google.crux_top1m_country</div>'
+        f'</div><div class="step-footer">topic 18 · offline · {sources}</div>'
     )
 
     html = (

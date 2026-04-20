@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
+    warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -198,13 +199,15 @@ def build():
         f'<code>as_organization.csv</code> · 2024-10 复用。'
         f'HHI < 1500 = diffuse · 1500-2500 = moderate · >2500 = concentrated.'
         f'</p>'
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>IANA/NRO 路线缺失：</b>原计划"登记分配 vs 实际宣告"对比，'
-        f'但 2024-10 dump 里 <code>:IANAPrefix</code> / <code>:RIRPrefix</code> '
-        f'标签不存在。替换为 AS-Org ownership concentration。'
-        f'</p>'
+    )
+    intro += warning_block(
+        '原计划：RIR "登记分配 vs 实际宣告" 地图。'
+        '<br>现状：2026-04-08 dump 含 649,631 条 '
+        '<code>(:RIRPrefix)-[:COUNTRY]->(:Country)</code> 关系'
+        '（<code>nro_country_prefixes.csv</code>，修正自原 ASSIGNED→COUNTRY '
+        'schema 误用）。本页继续使用 AS-Org 集中度视图作为主面板；'
+        'RIR 登记/宣告对齐面板可在后续迭代中扩展。',
+        title='设计说明 · Design note',
     )
 
     banner = (

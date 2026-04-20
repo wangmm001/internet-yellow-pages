@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
-    ISO2_TO_ISO3,
+    ISO2_TO_ISO3, warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -203,12 +203,15 @@ def build():
         f'<br><b>Scope:</b> {len(rov):,} AS with ROVISTA ratio · '
         f'{len(rows)} countries (≥10 AS threshold) · 2024-10 snapshot.'
         f'</p>'
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>PeeringDB 维度缺失：</b>extract_data.py 的 '
-        f'<code>peeringdb.org</code> 查询在本快照返回 0 行。'
-        f'替换为 ROVISTA-by-country；待 schema 对齐后可切回 peering 开放度视图。</p>'
+    )
+    intro += warning_block(
+        '原始计划：PeeringDB org 的 <code>policy_general</code> + '
+        '<code>info_ratio</code> + <code>info_traffic</code> 开放度地图。'
+        '<br>现状：2026-04-08 dump 里已含 33,366 个 PeeringDB org 记录'
+        '（<code>peeringdb_orgs.csv</code>），但本页仍以 ROVISTA-by-country '
+        '为主面板——作为 Topic 2 全球散点的国别补充。'
+        'Peering 开放度专题面板可在后续迭代中扩展。',
+        title='设计说明 · Design note',
     )
 
     banner = (

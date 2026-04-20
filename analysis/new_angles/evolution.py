@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, TEXT_PRIMARY, TEXT_SECONDARY,
-    apply_plotly_theme, country_color,
+    apply_plotly_theme, country_color, warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -306,16 +306,15 @@ def build():
         f'US {us_pfx_start:,}→{us_pfx_end:,}。'
         f'CN RPKI 最新 {cn_rpki_end or "—"}%，US {us_rpki_end or "—"}%。'
         f'</p>'
-        f'<p style="padding:0 16px;margin:8px 0 16px;color:{COLORS["orange"]};'
-        f'border-left:3px solid {COLORS["orange"]};padding-left:14px;'
-        f'font-size:13px">'
-        f'⚠️ <b>坦承：</b>IYP 历史 dump 存档里 <b>AS 清册 / peering / '
-        f'IXP 成员 / hegemony 依赖图</b> 这些层没有按季度重新 crawl——'
-        f'6/10 快照在这些层完全相同。本页只画 BGP 层 + CAIDA + CNAME，'
-        f'确保线条的拐点是真实变化。全矩阵（含 sticky 指标）见 '
+    )
+    intro += warning_block(
+        'IYP 历史 dump 存档里 <b>AS 清册 / peering / '
+        'IXP 成员 / hegemony 依赖图</b> 这些层没有按季度重新 crawl——'
+        '6/10 快照在这些层完全相同。本页只画 BGP 层 + CAIDA + CNAME，'
+        '确保线条的拐点是真实变化。全矩阵（含 sticky 指标）见 '
         f'<a href="../countries/scorecards.html" style="color:{COLORS["cyan"]}">'
-        f'国家积分牌</a>。'
-        f'</p>'
+        '国家积分牌</a>。',
+        title='坦承 · Snapshot coverage caveat',
     )
 
     banner = (

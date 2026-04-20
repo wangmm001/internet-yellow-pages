@@ -27,6 +27,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
+    warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -180,15 +181,13 @@ def build():
         f'{len(tld_counts)} 个 TLD · <b>.com</b> 占 {com_share:.1f}%。'
         f'</p>'
     )
-    intro += (
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>4 源对比待后续快照：</b>当 IYP 引入 Cisco Umbrella 与 '
-        f'CrUX Top-1M 后（预期 2026-Q3 快照），本页会自动切换为跨源 '
-        f'Jaccard 相似度、rank-correlation 矩阵、地域分化 3 个新面板。'
-        f'<br>Cross-source comparison blocked on upstream IYP crawler '
-        f'expansion.</p>'
+    intro += warning_block(
+        '4 源对比待后续快照：当 IYP 引入 Cisco Umbrella 与 '
+        'CrUX Top-1M 后（预期 2026-Q3 快照），本页会自动切换为跨源 '
+        'Jaccard 相似度、rank-correlation 矩阵、地域分化 3 个新面板。'
+        '<br>Cross-source comparison blocked on upstream IYP crawler '
+        'expansion.',
+        title='4 源对比待后续快照 · Cross-source comparison pending',
     )
 
     banner = (

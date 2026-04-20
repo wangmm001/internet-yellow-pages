@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
+    warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -384,10 +385,10 @@ def build():
         f'{len(have)} countries.</p>'
     )
     if missing:
-        intro += (
-            f'<p style="color:#ff9f0a;padding:0 16px;font-size:13px">'
-            f'⚠️ 缺 eyeball 数据的国家：<code>{", ".join(missing)}</code>'
-            f' (APNIC 未覆盖或数据缺失)</p>'
+        intro += warning_block(
+            f'缺 eyeball 数据的国家：<code>{", ".join(missing)}</code> '
+            f'(APNIC 未覆盖或数据缺失)。',
+            title='缺 eyeball 数据 · Countries missing eyeball data',
         )
 
     banner = (

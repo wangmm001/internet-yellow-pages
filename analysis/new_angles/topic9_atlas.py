@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
-    ISO2_TO_ISO3,
+    ISO2_TO_ISO3, warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -187,12 +187,12 @@ def build():
         f'<br><b>Scope:</b> ripe.atlas_probes · 2024-10 snapshot · '
         f'{no_cc:,} probes with unknown country (excluded).'
         f'</p>'
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>能力标签缺失：</b>原计划用 AtlasProbe 节点的 <code>status</code> '
-        f'和 ASSIGNED-Tag 关系拆分 IPv6/anchor/system 能力，'
-        f'但 2024-10 dump 中两者均为空。降级为纯地理分布视图。</p>'
+    )
+    intro += warning_block(
+        '原计划用 AtlasProbe 节点的 <code>status</code> '
+        '和 ASSIGNED-Tag 关系拆分 IPv6/anchor/system 能力，'
+        '但 2024-10 dump 中两者均为空。降级为纯地理分布视图。',
+        title='能力标签缺失 · Capability tags missing',
     )
 
     banner = (

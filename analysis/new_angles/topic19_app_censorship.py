@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, TEXT_PRIMARY, TEXT_SECONDARY,
-    apply_plotly_theme, country_color,
+    apply_plotly_theme, country_color, warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -50,11 +50,7 @@ def _placeholder(reason):
         '<h2>12 OONI app-specific probes × 9 target countries</h2>'
         '</div><div class="step-footer">topic 19 · placeholder</div>'
     )
-    intro = (
-        f'<p style="padding:0 16px;margin:16px 0;color:{COLORS["orange"]};'
-        f'border-left:3px solid {COLORS["orange"]};padding-left:14px;'
-        f'font-size:13px">⚠️ <b>数据缺口：</b>{reason}</p>'
-    )
+    intro = warning_block(reason, title='数据缺口 · Data gap')
     html = (
         '<!doctype html><html lang="zh"><head><meta charset="utf-8">'
         '<title>应用级封锁矩阵 · App Censorship</title>'

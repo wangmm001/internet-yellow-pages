@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
+    warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -203,13 +204,12 @@ def build():
         f'<br><b>Scope:</b> {total_pairs:,} AS-测试 pairs · 10 tests · '
         f'2024-10 snapshot.'
         f'</p>'
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>OONI 边属性缺口：</b>'
-        f'<code>r.country_code</code> 在所有 11,804 行都是 null。'
-        f'Panel ③ 用 AS→Country 映射替代（测试来源 AS 所在国，不等于测试目标国）。'
-        f'待 crawler 修复后可升级。</p>'
+    )
+    intro += warning_block(
+        '<code>r.country_code</code> 在所有 11,804 行都是 null。'
+        'Panel ③ 用 AS→Country 映射替代（测试来源 AS 所在国，'
+        '不等于测试目标国）。待 crawler 修复后可升级。',
+        title='OONI 边属性缺口 · OONI edge attribute gap',
     )
 
     banner = (

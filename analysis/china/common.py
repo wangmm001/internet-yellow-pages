@@ -355,6 +355,27 @@ def save_pyvis_html(net, name, step_num, title_zh, title_en, source=None, writeu
     return path
 
 
+def warning_block(content_html, title='数据说明 · Data caveat'):
+    """Render a caveat/data-gap block as a collapsed <details> element.
+
+    The user-visible summary is a one-line orange ⚠️ hint; expanding it
+    reveals the full caveat text. Used by new_angles/evolution pages to
+    keep the main narrative clean while preserving provenance disclosure.
+    """
+    return (
+        '<details style="margin:4px 16px 12px;border-left:3px solid #ff9f0a;'
+        f'background:rgba(255,159,10,0.08);border-radius:4px;color:{TEXT_PRIMARY}">'
+        '<summary style="cursor:pointer;padding:8px 14px;font-size:13px;'
+        'list-style:none;user-select:none;font-weight:500">'
+        f'⚠️ <b>{title}</b>'
+        '<span style="opacity:0.6;font-size:11px;margin-left:8px;'
+        'font-weight:400">（点击展开 · click to expand）</span>'
+        '</summary>'
+        '<div style="padding:2px 14px 12px;font-size:13px;line-height:1.6">'
+        f'{content_html}</div></details>'
+    )
+
+
 def save_placeholder_html(name, step_num, title_zh, title_en, message_zh, message_en):
     """Emit placeholder HTML when data is unavailable."""
     html = (

@@ -14,6 +14,7 @@ from pathlib import Path  # noqa: E402
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL, TEXT_PRIMARY,
     TEXT_SECONDARY, apply_plotly_theme, save_placeholder_html as _china_placeholder,
+    warning_block,
 )
 from analysis.countries.common import (  # noqa: E402
     list_snapshots, read_country_metrics,
@@ -293,14 +294,11 @@ def build(snapshots=None):
                 f'快照 <code>{", ".join(no_rpki)}</code> 有前缀但缺 '
                 f'<code>(:Prefix)-[:CATEGORIZED]->(Tag "RPKI Valid")</code> → '
                 f'① RPKI % 单独读 0（IPv4/IPv6/总前缀正常）')
-        narrative += (
-            f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-            f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-            f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-            f'⚠️ <b>数据空洞 · Data gap:</b> ' + '；'.join(bits) +
-            f'。依赖边面板 ④⑤ 不受影响。'
-            f'<br>Prefix/RPKI gaps: the affected panels show 0 at those '
-            f'points — not real dips. Dependency panels are unaffected.</p>'
+        narrative += warning_block(
+            '；'.join(bits) + '。依赖边面板 ④⑤ 不受影响。'
+            '<br>Prefix/RPKI gaps: the affected panels show 0 at those '
+            'points — not real dips. Dependency panels are unaffected.',
+            title='数据空洞 · Snapshot data gaps',
         )
 
     body = narrative + _plotly_inline(

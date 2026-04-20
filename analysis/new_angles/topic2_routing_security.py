@@ -19,6 +19,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
+    warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -256,16 +257,14 @@ def build():
         f'实测 ROV 低于 50%（签了但不执行的"落差 AS"占已签的 '
         f'{gap/max(signed,1)*100:.1f}%）</p>'
     )
-    intro += (
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>MANRS 维度缺失：</b>2024-10 dump 的 IYP graph 未包含 '
-        f'<code>[:IMPLEMENT]</code> 到 MANRS Action 的关系（crawler 未在 '
-        f'该快照运行或已改路径）。3D 散点降级为 2D。待未来快照含 MANRS '
-        f'后自动启用第三轴。'
-        f'<br>MANRS dimension missing in this snapshot — falls back to '
-        f'2-axis RPKI × ROVISTA view.</p>'
+    intro += warning_block(
+        'MANRS 维度缺失：2024-10 dump 的 IYP graph 未包含 '
+        '<code>[:IMPLEMENT]</code> 到 MANRS Action 的关系（crawler 未在 '
+        '该快照运行或已改路径）。3D 散点降级为 2D。待未来快照含 MANRS '
+        '后自动启用第三轴。'
+        '<br>MANRS dimension missing in this snapshot — falls back to '
+        '2-axis RPKI × ROVISTA view.',
+        title='MANRS 维度缺失 · MANRS dimension missing',
     )
 
     banner = (

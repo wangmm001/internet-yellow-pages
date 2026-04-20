@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
+    warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -186,12 +187,12 @@ def build():
         f'<b>{len(both):,}</b> 在两源可见 · '
         f'<b>{len(only_v4):,}</b> 仅 v4 · <b>{len(only_v6):,}</b> 仅 v6。'
         f'<br>v4/v6 可见度差代表 IPv6 部署真实度（登记 ≠ 被观测到）。</p>'
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>PCH collector 缺位：</b>原计划 PCH.daily_routing_snapshots + '
-        f'BGPKit.peerstats 4 源对比，但在 2024-10 dump 里 PCH 数据没以 '
-        f'PEERS_WITH 关系连出。本页只用 bgpkit v4/v6 双源。</p>'
+    )
+    intro += warning_block(
+        '原计划 PCH.daily_routing_snapshots + BGPKit.peerstats 4 源对比，'
+        '但在 2024-10 dump 里 PCH 数据没以 PEERS_WITH 关系连出。'
+        '本页只用 bgpkit v4/v6 双源。',
+        title='PCH collector 缺位 · PCH collector missing',
     )
 
     banner = (

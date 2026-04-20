@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     BANNER_CSS, COLORS, DARK_BG, DARK_BORDER, DARK_PANEL,
     TEXT_PRIMARY, TEXT_SECONDARY, apply_plotly_theme, country_color,
+    warning_block,
 )
 
 REPO = Path(__file__).resolve().parent.parent.parent
@@ -209,14 +210,12 @@ def build():
         f'{len(asn_types):,} unique ASes.'
         f'</p>'
     )
-    intro += (
-        f'<p style="margin:4px 16px 12px;padding:10px 14px;'
-        f'border-left:3px solid #ff9f0a;background:rgba(255,159,10,0.08);'
-        f'color:{TEXT_PRIMARY};font-size:13px;border-radius:4px">'
-        f'⚠️ <b>AWS 维度待后续快照：</b>当 IYP 引入 amazon.aws_ip_ranges '
-        f'crawler 的输出后，本页会扩展为"Archetype × 云依赖"双维度。'
-        f'<br>AWS hyperscaler footprint blocked on upstream crawler '
-        f'availability.</p>'
+    intro += warning_block(
+        'AWS 维度待后续快照：当 IYP 引入 amazon.aws_ip_ranges '
+        'crawler 的输出后，本页会扩展为"Archetype × 云依赖"双维度。'
+        '<br>AWS hyperscaler footprint blocked on upstream crawler '
+        'availability.',
+        title='AWS 维度待后续快照 · AWS dimension pending',
     )
 
     banner = (
