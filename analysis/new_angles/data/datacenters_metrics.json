@@ -1,0 +1,342 @@
+{
+  "latest_snap": "2026-04-08",
+  "n_snaps": 11,
+  "global_dc": 5858,
+  "n_countries": 167,
+  "top_metros": [
+    [
+      "Moscow, RU",
+      47
+    ],
+    [
+      "Tokyo, JP",
+      47
+    ],
+    [
+      "Singapore, SG",
+      46
+    ],
+    [
+      "London, GB",
+      45
+    ],
+    [
+      "S\u00e3o Paulo, BR",
+      42
+    ],
+    [
+      "New York, US",
+      41
+    ],
+    [
+      "Mumbai, IN",
+      38
+    ],
+    [
+      "Amsterdam, NL",
+      38
+    ],
+    [
+      "Paris, FR",
+      38
+    ],
+    [
+      "Los Angeles, US",
+      37
+    ],
+    [
+      "Ashburn, US",
+      36
+    ],
+    [
+      "Frankfurt, DE",
+      36
+    ],
+    [
+      "Hong Kong, HK",
+      35
+    ],
+    [
+      "Kyiv, UA",
+      34
+    ],
+    [
+      "Santiago, CL",
+      33
+    ],
+    [
+      "Santa Clara, US",
+      33
+    ],
+    [
+      "Jakarta Selatan, ID",
+      31
+    ],
+    [
+      "Dallas, US",
+      29
+    ],
+    [
+      "Vienna, AT",
+      29
+    ],
+    [
+      "Atlanta, US",
+      28
+    ]
+  ],
+  "top_operators": [
+    [
+      "Equinix, Inc.",
+      222
+    ],
+    [
+      "Digital Realty",
+      140
+    ],
+    [
+      "DataBank, Ltd.",
+      63
+    ],
+    [
+      "Cogent Communications, Inc.",
+      55
+    ],
+    [
+      "EXA Infrastructure",
+      54
+    ],
+    [
+      "Chorus New Zealand Limited",
+      49
+    ],
+    [
+      "Lumen Technologies Inc",
+      49
+    ],
+    [
+      "Cologix, Inc.",
+      44
+    ],
+    [
+      "EdgeConneX Inc.",
+      42
+    ],
+    [
+      "Flexential Corp.",
+      40
+    ],
+    [
+      "TierPoint, LLC",
+      38
+    ],
+    [
+      "Centersquare",
+      38
+    ],
+    [
+      "ST Telemedia Global Data Centres (STT GDC)",
+      35
+    ],
+    [
+      "nLighten HQ BV",
+      34
+    ],
+    [
+      "CyrusOne Inc.",
+      33
+    ],
+    [
+      "H5 Data Centers",
+      32
+    ],
+    [
+      "NTT DATA's Global Data Centers division",
+      29
+    ],
+    [
+      "Telehouse - Global Data Centers",
+      28
+    ],
+    [
+      "CoreSite",
+      28
+    ],
+    [
+      "Sify Technologies Limited",
+      27
+    ],
+    [
+      "C\u00e1mara Argentina de Internet (CABASE)",
+      27
+    ],
+    [
+      "QTS Realty Trust, Inc.",
+      25
+    ],
+    [
+      "Ascenty DataCenters e Telecom",
+      25
+    ],
+    [
+      "National Internet Exchange of India",
+      24
+    ],
+    [
+      "GlobalConnect Group",
+      24
+    ]
+  ],
+  "top_fac_by_as": [
+    [
+      "Datacenter APJII-Cyber",
+      "ID",
+      "691",
+      "20"
+    ],
+    [
+      "Digital Realty Frankfurt FRA1-27",
+      "DE",
+      "606",
+      "26"
+    ],
+    [
+      "Equinix SP4 - S\u00e3o Paulo",
+      "BR",
+      "581",
+      "6"
+    ],
+    [
+      "Equinix FR5 - Frankfurt, KleyerStrasse",
+      "DE",
+      "523",
+      "34"
+    ],
+    [
+      "Equinix SG1 - Singapore",
+      "SG",
+      "514",
+      "11"
+    ],
+    [
+      "Equinix DC1-DC15,DC21-DC22 - Ashburn",
+      "US",
+      "504",
+      "8"
+    ],
+    [
+      "IDC 3D",
+      "ID",
+      "494",
+      "13"
+    ],
+    [
+      "Telehouse - London (Docklands North)",
+      "GB",
+      "487",
+      "12"
+    ],
+    [
+      "NIKHEF Amsterdam",
+      "NL",
+      "463",
+      "29"
+    ],
+    [
+      "Teraco Johannesburg Campus, South Africa",
+      "ZA",
+      "380",
+      "6"
+    ],
+    [
+      "Telehouse - Paris 2 (Voltaire - L\u00e9on Frot)",
+      "FR",
+      "349",
+      "12"
+    ],
+    [
+      "CoreSite - Los Angeles (LA1) One Wilshire",
+      "US",
+      "338",
+      "5"
+    ],
+    [
+      "Equinix CH1/CH2/CH4 - Chicago",
+      "US",
+      "327",
+      "10"
+    ],
+    [
+      "Equinix MI1 - Miami, NOTA",
+      "US",
+      "324",
+      "9"
+    ],
+    [
+      "Equinix LD8 - London, Docklands",
+      "GB",
+      "319",
+      "10"
+    ],
+    [
+      "Hurricane Electric Fremont 2",
+      "US",
+      "306",
+      "14"
+    ],
+    [
+      "4 Data Center",
+      "PL",
+      "288",
+      "7"
+    ],
+    [
+      "Equinix SV1/SV5/SV10 - Silicon Valley, San Jose",
+      "US",
+      "282",
+      "8"
+    ],
+    [
+      "Moscow M9",
+      "RU",
+      "274",
+      "11"
+    ],
+    [
+      "MIX DC CALDERA",
+      "IT",
+      "267",
+      "5"
+    ],
+    [
+      "MEGA-i (iAdvantage Hong Kong)",
+      "HK",
+      "263",
+      "4"
+    ],
+    [
+      "LIM Warsaw",
+      "PL",
+      "251",
+      "11"
+    ],
+    [
+      "Equinix MB1 - Mumbai (GPX Mumbai 1)",
+      "IN",
+      "242",
+      "7"
+    ],
+    [
+      "Equinix WA1 - Warsaw, Centrum LIM",
+      "PL",
+      "235",
+      "13"
+    ],
+    [
+      "NTT Jakarta 2 Data Center (JKT2)",
+      "ID",
+      "235",
+      "12"
+    ]
+  ]
+}
