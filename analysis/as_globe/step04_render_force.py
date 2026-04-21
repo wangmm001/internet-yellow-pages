@@ -196,11 +196,12 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     .nodeId('id')
     .nodeLabel(() => '')            // disable built-in HTML label; we render our own tooltip
     .nodeColor('color')
-    // r ∈ [1.5, 12] (log-scale of IPv4). force-graph's nodeVal is volume, so
-    // screen radius ∝ nodeVal^(1/3). Using r^2.5 makes screen radius ~ r^0.83,
-    // which stretches the visible ratio from ~1.8× to ~4.5× — hubs become
-    // obvious planets, long tail stays as pebbles.
-    .nodeVal(n => Math.max(0.3, Math.pow(n.r || 1.5, 2.5) * 0.05))
+    // Drive size from raw IPv4 count (n.v), not step02's r — r is both
+    // log-compressed AND capped at 12, which squashes 99% of nodes into a
+    // ~1.6× band (p10=5.8, p90=9.4) and hides the real 6+ orders of magnitude
+    // of scale. v^0.35 * 0.03 is the cube of "near-linear in log10(v)" and
+    // gives ~8× visible radius / ~64× pixel-area hierarchy tier-1 vs tail.
+    .nodeVal(n => Math.pow(Math.max(1, n.v || 0), 0.35) * 0.03)
     .nodeResolution(10)
     .nodeOpacity(0.95)
     .linkColor(l => {{
