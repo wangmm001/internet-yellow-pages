@@ -69,16 +69,32 @@ def _banner_html() -> str:
         f'<div id="cloud-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>'
         f'</div>'
         f'<div class="tooltip" id="tip"></div>'
-        f'<div id="halo" aria-hidden="true"></div>'
+        f'<div id="halo" aria-hidden="true">'
+        f'<div class="halo-ring halo-outer"></div>'
+        f'<div class="halo-ring halo-mid"></div>'
+        f'<div class="halo-ring halo-inner"></div>'
+        f'</div>'
         f'<style>'
         f'#halo{{position:absolute;pointer-events:none;display:none;z-index:15;'
-        f'width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;'
-        f'border:2px solid #FFD60A;'
-        f'box-shadow:0 0 18px rgba(255,214,10,0.7),inset 0 0 12px rgba(255,214,10,0.35);'
-        f'animation:halo-pulse 1.25s ease-in-out infinite;}}'
-        f'@keyframes halo-pulse{{'
-        f'0%,100%{{transform:scale(0.78);opacity:0.55;}}'
-        f'50%{{transform:scale(1.22);opacity:1;}}'
+        f'width:0;height:0;transform-style:preserve-3d;perspective:600px;'
+        f'--halo-size:140px;}}'
+        f'.halo-ring{{position:absolute;left:0;top:0;border-radius:50%;'
+        f'box-sizing:border-box;border-style:solid;'
+        f'transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg);'
+        f'animation:halo-spin 14s linear infinite;}}'
+        f'.halo-outer{{width:var(--halo-size);height:var(--halo-size);'
+        f'border-width:2.5px;border-color:rgba(255,214,10,0.88);'
+        f'box-shadow:0 0 22px rgba(255,214,10,0.55),inset 0 0 10px rgba(255,214,10,0.25);'
+        f'animation-duration:14s;}}'
+        f'.halo-mid{{width:calc(var(--halo-size)*0.76);height:calc(var(--halo-size)*0.76);'
+        f'border-width:2px;border-color:rgba(255,159,10,0.72);'
+        f'animation-duration:19s;animation-direction:reverse;}}'
+        f'.halo-inner{{width:calc(var(--halo-size)*0.54);height:calc(var(--halo-size)*0.54);'
+        f'border-width:1.5px;border-color:rgba(255,90,40,0.55);'
+        f'animation-duration:11s;}}'
+        f'@keyframes halo-spin{{'
+        f'from{{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg);}}'
+        f'to  {{transform:translate(-50%,-50%) rotateX(72deg) rotateZ(360deg);}}'
         f'}}'
         f'</style>'
     )
@@ -324,7 +340,18 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
 
   function setFocus(n) {{
     focusedNode = n || null;
-    halo.style.display = focusedNode ? 'block' : 'none';
+    if (!focusedNode) {{
+      halo.style.display = 'none';
+      return;
+    }}
+    // Outer ring diameter scales with log10(IPv4 count):
+    //   ~85px for tail ASes (v≈1K)  →  ~220px for tier-1 (v≈4.3B).
+    // Same transform (log10) as the node radius, so a node that looks 2×
+    // bigger in the scene also gets a ring that looks ~2× wider.
+    const v = Math.max(10, focusedNode.v || 0);
+    const size = Math.round(50 + 16 * Math.log10(v));
+    halo.style.setProperty('--halo-size', size + 'px');
+    halo.style.display = 'block';
   }}
 
   function tickHalo() {{
