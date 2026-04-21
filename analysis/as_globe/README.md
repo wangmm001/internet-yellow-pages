@@ -37,7 +37,7 @@ The whole page answers "who owns what slice of the Internet" and "who peers with
 | 5 | **柱顶环** Ring on top of pillar | `log10(国内 intra-country 对等边)` | 这个国的 AS 之间自己互联多不多 |
 | 6 | **丝带** Ribbon between pillars | `log10(国家对的对等边数)` | 两国之间 peering 的厚度 |
 
-**区域配色**（复用 IYP 全站语言）：大中华 🔴 · 北美 🔵 · 东亚 🟠 · 欧洲 🟢 · 其他 ⚪。**环色**为各自区色的高亮变体（浅珊瑚/粉蓝/杏色/薄荷/银），与柱色同色相但亮度高出一档，便于区分"柱身"与"柱顶"。
+**区域配色**（复用 IYP 全站语言）：中国区 🔴 · 北美 🔵 · 东亚 🟠 · 欧洲 🟢 · 其他 ⚪。**环色**为各自区色的高亮变体（浅珊瑚/粉蓝/杏色/薄荷/银），与柱色同色相但亮度高出一档，便于区分"柱身"与"柱顶"。
 
 ### 操作 · Controls
 
@@ -107,7 +107,7 @@ If `data/nodes.json` or `data/links.json` is missing, `step05_render_strata.py` 
 
 | Bucket | ISO-2 | Hex | Label |
 |--------|-------|-----|-------|
-| `cn` | CN, HK, TW, MO | `#FF453A` | 大中华 Greater China |
+| `cn` | CN, HK, TW, MO | `#FF453A` | 中国区 Greater China |
 | `na` | US, CA | `#0A84FF` | 北美 North America |
 | `ea` | JP, KR | `#FF9F0A` | 东亚 East Asia (ex-GC) |
 | `eu` | DE, GB, FR, NL, IT, ES, SE, CH, IE, BE, AT, DK, NO, FI, PL, PT, CZ, HU, RO, GR, BG, HR, SK, SI, LT, LV, EE, LU, MT, CY, IS | `#30D158` | 欧洲 Europe (EU+EEA+UK+CH) |

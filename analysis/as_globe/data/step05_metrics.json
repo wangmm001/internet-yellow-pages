@@ -7,34 +7,34 @@
     "named_countries": 91,
     "residual_cells": 3,
     "nodes_placed": 5000,
-    "bundles": 1850,
-    "intra_bundles": 56,
-    "inter_bundles": 1794,
+    "bundles": 2225,
+    "intra_bundles": 79,
+    "inter_bundles": 2146,
     "top5_inter_bundles": [
       {
         "a": "GB",
         "b": "US",
-        "count": 679
-      },
-      {
-        "a": "AU",
-        "b": "US",
-        "count": 425
+        "count": 1422
       },
       {
         "a": "CH",
         "b": "DE",
-        "count": 412
+        "count": 861
       },
       {
         "a": "BR",
         "b": "US",
-        "count": 373
+        "count": 769
+      },
+      {
+        "a": "DE",
+        "b": "GB",
+        "count": 740
       },
       {
         "a": "CH",
         "b": "US",
-        "count": 360
+        "count": 700
       }
     ]
   }

@@ -291,4 +291,16 @@ PAGE_CSS = f"""
   }}
   .tooltip .asn {{ color:#5E5CE6; font-weight:600; }}
   .tooltip .kv  {{ color:var(--muted); }}
+  .info-fab {{
+    position:absolute; top:18px; left:18px; z-index:12;
+    background:rgba(22,27,34,0.85); border:1px solid var(--border);
+    border-radius:6px; color:var(--fg); cursor:pointer;
+    font-size:12px; padding:6px 10px; line-height:1;
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  }}
+  .info-fab:hover {{ background:rgba(255,255,255,0.16); }}
+  .overlay.info-panel {{ top:52px; left:18px; max-width:380px;
+                         transition:opacity 0.18s ease, transform 0.18s ease; }}
+  .overlay.info-panel.collapsed {{ opacity:0; transform:translateY(-6px);
+                                   pointer-events:none; }}
 """

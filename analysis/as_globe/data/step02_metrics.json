@@ -4,17 +4,18 @@
   "title_en": "Step 02 · Decimate to ~5K head ASes",
   "metrics": {
     "pool_size": 5000,
-    "edges_in_pool": 286754,
-    "edges_emitted": 30000,
-    "max_emit_links": 30000,
-    "as_with_real_geo": 0,
-    "real_geo_pct": 0.0,
+    "edges_in_pool": 322607,
+    "edges_emitted": 60000,
+    "max_emit_links": 60000,
+    "pool_as_uncovered": 0,
+    "as_with_real_geo": 4920,
+    "real_geo_pct": 98.4,
     "region_histogram": {
-      "cn": 270,
-      "na": 1308,
-      "ea": 223,
-      "eu": 1833,
-      "ot": 1366
+      "cn": 279,
+      "na": 1250,
+      "ea": 228,
+      "eu": 1834,
+      "ot": 1409
     },
     "region_color": {
       "cn": "#FF453A",
@@ -25,66 +26,66 @@
     },
     "top10_by_ipv4": [
       {
-        "asn": 3356,
-        "cc": "US",
-        "ipv4": 4334053823,
-        "degree": 1290
-      },
-      {
         "asn": 174,
         "cc": "US",
-        "ipv4": 4332682240,
-        "degree": 1569
+        "ipv4": 4370170624,
+        "degree": 1590
       },
       {
-        "asn": 9121,
-        "cc": "TR",
-        "ipv4": 4314819840,
-        "degree": 76
-      },
-      {
-        "asn": 26615,
-        "cc": "BR",
-        "ipv4": 4307520577,
-        "degree": 41
+        "asn": 3356,
+        "cc": "US",
+        "ipv4": 4368564230,
+        "degree": 1313
       },
       {
         "asn": 3257,
         "cc": "US",
-        "ipv4": 4304021554,
-        "degree": 683
+        "ipv4": 4312480034,
+        "degree": 693
       },
       {
         "asn": 2914,
         "cc": "US",
-        "ipv4": 4302266368,
-        "degree": 756
+        "ipv4": 4309545472,
+        "degree": 783
       },
       {
         "asn": 6057,
         "cc": "UY",
-        "ipv4": 4300592384,
-        "degree": 1711
+        "ipv4": 4306217728,
+        "degree": 1762
       },
       {
         "asn": 10429,
         "cc": "BR",
-        "ipv4": 4297391888,
-        "degree": 66
+        "ipv4": 4299879728,
+        "degree": 82
       },
       {
         "asn": 12302,
         "cc": "RO",
-        "ipv4": 4296899728,
-        "degree": 26
+        "ipv4": 4298828944,
+        "degree": 23
       },
       {
         "asn": 8708,
         "cc": "RO",
-        "ipv4": 4296780055,
-        "degree": 517
+        "ipv4": 4298587798,
+        "degree": 627
+      },
+      {
+        "asn": 1916,
+        "cc": "BR",
+        "ipv4": 4296927072,
+        "degree": 360
+      },
+      {
+        "asn": 2764,
+        "cc": "AU",
+        "ipv4": 4296651074,
+        "degree": 15
       }
     ],
-    "elapsed_sec": 4.81
+    "elapsed_sec": 3.02
   }
 }

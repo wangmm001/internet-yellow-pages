@@ -30,9 +30,10 @@ from analysis.as_globe.common import (  # noqa: E402
 TOP_BY_IPV4 = 3000
 POOL_CAP = 5000
 MIN_ANCHORS_FOR_ADMIT = 2  # must peer with ≥N of the top-IPv4 core to qualify
-# Cap how many edges get emitted (sorted by combined endpoint radius). 60K
-# lets the force view reach the full 5K-AS pool (top-30K edges only cover ~2700
-# distinct endpoints — the rest need longer-tail edges to show up at all).
+# Cap how many edges get emitted. Selection is coverage-first: every pool AS
+# contributes its fattest incident edge before the remaining budget is filled
+# with the heaviest remaining edges. 60K keeps the force view readable while
+# guaranteeing no isolated nodes (plain top-30K only covered ~2,700 ASes).
 MAX_EMIT_LINKS = 60000
 
 
@@ -75,10 +76,14 @@ def _select_pool(as_ipv4: dict[int, dict], edges: list[tuple[int, int]]) -> set[
     by_ipv4 = sorted(as_ipv4.items(), key=lambda kv: -kv[1]['ipv4'])
     core = {asn for asn, _ in by_ipv4[:TOP_BY_IPV4]}
 
+    neighbors: dict[int, set[int]] = defaultdict(set)
+    for s, t in edges:
+        neighbors[s].add(t)
+        neighbors[t].add(s)
+
     if len(core) >= POOL_CAP:
         return set(list(core)[:POOL_CAP])
 
-    # Count how many core ASes each non-core AS peers with.
     anchor_hits: dict[int, int] = defaultdict(int)
     for s, t in edges:
         if s in core and t not in core:
@@ -86,16 +91,44 @@ def _select_pool(as_ipv4: dict[int, dict], edges: list[tuple[int, int]]) -> set[
         elif t in core and s not in core:
             anchor_hits[s] += 1
 
+    # Rank all non-core candidates (hits ≥1) by (hits desc, IPv4 desc).
+    # hits ≥ MIN_ANCHORS_FOR_ADMIT is used for the first fill; the "saver" pool
+    # for replacing islands can draw from hits ≥ 1 — we only need a single
+    # pool-neighbor, not two.
     candidates = sorted(
-        (asn for asn, hits in anchor_hits.items() if hits >= MIN_ANCHORS_FOR_ADMIT),
+        (asn for asn, hits in anchor_hits.items() if asn not in core),
         key=lambda asn: (-anchor_hits[asn], -as_ipv4.get(asn, {}).get('ipv4', 0)),
     )
+    primary = [a for a in candidates if anchor_hits[a] >= MIN_ANCHORS_FOR_ADMIT]
+    fallback = [a for a in candidates if anchor_hits[a] < MIN_ANCHORS_FOR_ADMIT]
 
     pool = set(core)
-    for asn in candidates:
+    for asn in primary:
         if len(pool) >= POOL_CAP:
             break
         pool.add(asn)
+
+    # Drop islands (no neighbor inside the pool) and refill from the waitlist —
+    # only candidates that themselves have ≥1 neighbor in the *current* pool
+    # qualify, so everyone we admit is guaranteed to get a visible edge.
+    waitlist = [a for a in primary + fallback if a not in pool]
+    wait_idx = 0
+    for _ in range(10):  # converges in ≤ a couple iterations
+        islands = {asn for asn in pool if not (neighbors.get(asn, set()) & pool)}
+        if not islands:
+            break
+        pool -= islands
+        added = 0
+        while wait_idx < len(waitlist) and len(pool) < POOL_CAP:
+            cand = waitlist[wait_idx]
+            wait_idx += 1
+            if cand in pool:
+                continue
+            if neighbors.get(cand, set()) & pool:
+                pool.add(cand)
+                added += 1
+        if added == 0:
+            break
     return pool
 
 
@@ -163,14 +196,39 @@ def main() -> int:
         })
         region_hist[bucket] += 1
 
-    # Rank edges by combined endpoint radius so the top-N preserves importance.
+    # Rank edges by combined endpoint radius so "importance" (hub-hub) sorts first.
     node_radius: dict[int, float] = {n['a']: n['r'] for n in nodes_out}
     pool_edges_ranked = sorted(
         pool_edges,
         key=lambda e: -(node_radius.get(e[0], 0) + node_radius.get(e[1], 0)),
     )
-    edges_emitted = pool_edges_ranked[:MAX_EMIT_LINKS]
+
+    # Coverage-first: every AS gets at least one edge before the rest of the
+    # budget is filled by importance. Walk edges in importance order and keep
+    # any edge that is the first one to cover one of its endpoints.
+    seen: set[int] = set()
+    chosen_idx: set[int] = set()
+    for i, (s, t) in enumerate(pool_edges_ranked):
+        if s not in seen or t not in seen:
+            chosen_idx.add(i)
+            seen.add(s)
+            seen.add(t)
+            if len(seen) >= len(pool):
+                break
+
+    # Fill remaining budget with the heaviest edges we haven't picked yet.
+    for i in range(len(pool_edges_ranked)):
+        if len(chosen_idx) >= MAX_EMIT_LINKS:
+            break
+        if i in chosen_idx:
+            continue
+        chosen_idx.add(i)
+
+    edges_emitted = [pool_edges_ranked[i] for i in sorted(chosen_idx)]
     links_out = [{'s': s, 't': t} for (s, t) in edges_emitted]
+
+    covered = {s for s, _ in edges_emitted} | {t for _, t in edges_emitted}
+    missing = len(pool) - len(covered & pool)
 
     nodes_path = os.path.join(DATA_DIR, 'nodes.json')
     links_path = os.path.join(DATA_DIR, 'links.json')
@@ -184,6 +242,7 @@ def main() -> int:
         'edges_in_pool': len(pool_edges),
         'edges_emitted': len(edges_emitted),
         'max_emit_links': MAX_EMIT_LINKS,
+        'pool_as_uncovered': missing,
         'as_with_real_geo': real_geo_n,
         'real_geo_pct': round(100.0 * real_geo_n / max(1, len(pool)), 2),
         'region_histogram': {k: region_hist.get(k, 0) for k in REGION_ORDER},

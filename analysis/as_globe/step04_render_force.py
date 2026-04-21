@@ -35,7 +35,8 @@ def _banner_html() -> str:
     legend_html = '<div class="legend">' + ''.join(region_chips) + '</div>'
 
     return (
-        f'<div class="overlay top-left">'
+        f'<button class="info-fab" id="info-toggle" type="button" aria-label="展开说明">说明 ＋</button>'
+        f'<div class="overlay info-panel collapsed" id="info-panel">'
         f'<h1>全球 AS 互联立体图 · 拓扑力图</h1>'
         f'<h2>Top 5,000 ASes · force-directed 3D layout · clusters reveal peering communities</h2>'
         f'<p>不受地理约束，力导布局会把频繁互联的 AS 拉到一起。左右拖动旋转，滚轮缩放。</p>'
@@ -226,6 +227,14 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     document.getElementById('a-count').textContent = g.links.length.toLocaleString();
   }}
   refresh();
+
+  // ---- Info panel toggle ----------------------------------------------------
+  const infoToggle = document.getElementById('info-toggle');
+  const infoPanel  = document.getElementById('info-panel');
+  infoToggle.addEventListener('click', () => {{
+    const collapsed = infoPanel.classList.toggle('collapsed');
+    infoToggle.textContent = collapsed ? '说明 ＋' : '说明 －';
+  }});
 
   // ---- Region chips ---------------------------------------------------------
   document.querySelectorAll('.chip[data-region]').forEach(chip => {{

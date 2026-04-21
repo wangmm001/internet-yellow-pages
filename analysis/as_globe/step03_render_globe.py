@@ -34,7 +34,8 @@ def _banner_html() -> str:
     legend_html = '<div class="legend">' + ''.join(region_chips) + '</div>'
 
     return (
-        f'<div class="overlay top-left">'
+        f'<button class="info-fab" id="info-toggle" type="button" aria-label="展开说明">说明 ＋</button>'
+        f'<div class="overlay info-panel collapsed" id="info-panel">'
         f'<h1>全球 AS 互联立体图 · 地球视图</h1>'
         f'<h2>Top 5,000 ASes · colored by region · sized by IPv4 space · peering arcs</h2>'
         f'<p>旋转拖拽地球，点击/悬停某个 AS 查看详情。</p>'
@@ -125,17 +126,52 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
   }};
   const sortedLinks = DATA.links.slice().sort((x, y) => linkImportance(y) - linkImportance(x));
 
+  // Per-node adjacency (indices into sortedLinks, already in importance order).
+  const nodeAdjIdx = new Map();
+  for (let i = 0; i < sortedLinks.length; i++) {{
+    const l = sortedLinks[i];
+    if (!nodeAdjIdx.has(l.s)) nodeAdjIdx.set(l.s, []);
+    if (!nodeAdjIdx.has(l.t)) nodeAdjIdx.set(l.t, []);
+    nodeAdjIdx.get(l.s).push(i);
+    nodeAdjIdx.get(l.t).push(i);
+  }}
+
   function filteredArcs(densityPct) {{
-    const keep = [];
     const pct = Math.max(0, Math.min(100, densityPct)) / 100;
     const limit = Math.min(DATA.maxArcsHardCap, Math.floor(sortedLinks.length * pct));
-    for (let i = 0; i < sortedLinks.length && keep.length < limit; i++) {{
+    const chosen = new Set();
+
+    // Phase 1 — guarantee coverage: each visible node claims its fattest arc
+    // before hubs monopolize the budget. Nodes iterated ascending-by-radius
+    // so the long tail picks first.
+    const poolNodes = DATA.nodes.filter(n => activeRegion.has(n.k));
+    const ascByR = poolNodes.slice().sort((a, b) => (a.r || 0) - (b.r || 0));
+    for (const node of ascByR) {{
+      if (chosen.size >= limit) break;
+      const adj = nodeAdjIdx.get(node.a) || [];
+      for (const idx of adj) {{
+        if (chosen.has(idx)) continue;
+        const l = sortedLinks[idx];
+        const a = nodeById.get(l.s), b = nodeById.get(l.t);
+        if (!a || !b) continue;
+        if (!activeRegion.has(a.k) || !activeRegion.has(b.k)) continue;
+        chosen.add(idx);
+        break;  // one arc per node in phase 1
+      }}
+    }}
+
+    // Phase 2 — fill remaining budget with the heaviest remaining arcs.
+    for (let i = 0; i < sortedLinks.length && chosen.size < limit; i++) {{
+      if (chosen.has(i)) continue;
       const l = sortedLinks[i];
       const a = nodeById.get(l.s), b = nodeById.get(l.t);
       if (!a || !b) continue;
       if (!activeRegion.has(a.k) || !activeRegion.has(b.k)) continue;
-      keep.push(arcForLink(l));
+      chosen.add(i);
     }}
+
+    const keep = [];
+    for (const idx of chosen) keep.push(arcForLink(sortedLinks[idx]));
     return keep;
   }}
 
@@ -184,6 +220,14 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
   }}
 
   refresh();
+
+  // ---- Info panel toggle ----------------------------------------------------
+  const infoToggle = document.getElementById('info-toggle');
+  const infoPanel  = document.getElementById('info-panel');
+  infoToggle.addEventListener('click', () => {{
+    const collapsed = infoPanel.classList.toggle('collapsed');
+    infoToggle.textContent = collapsed ? '说明 ＋' : '说明 －';
+  }});
 
   // ---- Region filter chips ---------------------------------------------------
   document.querySelectorAll('.chip[data-region]').forEach(chip => {{
