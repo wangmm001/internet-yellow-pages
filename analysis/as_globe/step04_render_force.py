@@ -55,6 +55,19 @@ def _banner_html() -> str:
         f'<span id="edge-pct">{DEFAULT_EDGE_DENSITY_PCT}%</span>'
         f'</div>'
         f'</div>'
+        f'<div class="overlay finder" style="top:18px;left:50%;transform:translateX(-50%);'
+        f'max-width:560px;padding:8px 12px;z-index:11;">'
+        f'<div style="display:flex;gap:8px;align-items:center;">'
+        f'<input id="find-input" type="search" autocomplete="off" spellcheck="false"'
+        f' placeholder="🔍 AS号 / 名称 · ASN / name (Enter = 下一个)"'
+        f' style="flex:1;min-width:0;background:rgba(13,17,23,0.9);color:var(--fg);'
+        f'border:1px solid var(--border);border-radius:6px;padding:4px 8px;'
+        f'font-size:12px;font-family:inherit;outline:none;">'
+        f'<span id="find-hint" style="color:var(--muted);font-size:11px;opacity:0.75;'
+        f'white-space:nowrap;min-width:80px;text-align:right;">—</span>'
+        f'</div>'
+        f'<div id="cloud-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>'
+        f'</div>'
         f'<div class="tooltip" id="tip"></div>'
     )
 
@@ -293,11 +306,14 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     tip.style.display = 'block';
   }}
 
-  function onClick(n) {{
+  function flyTo(n) {{
     if (!n) return;
     focusKV.style.display = '';
-    focusAsn.textContent = 'AS' + n.id + ' · ' + (n.cc || '??');
-    // Fly camera to node.
+    focusAsn.textContent = 'AS' + n.id + (n.org ? ' · ' + n.org : '') + ' · ' + (n.cc || '??');
+    // If the node isn't currently rendered (filtered out by region chip /
+    // deg-0), its x/y/z are undefined — skip the fly so we don't lurch to
+    // origin. The stats panel will still show the AS for reference.
+    if (typeof n.x !== 'number') return;
     const distance = 80;
     const distRatio = 1 + distance / Math.hypot(n.x, n.y, n.z);
     Graph.cameraPosition(
@@ -306,6 +322,127 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
       1500,
     );
   }}
+
+  function onClick(n) {{
+    flyTo(n);
+  }}
+
+  // ---- Quick finder: search + cloud-provider shortcuts ---------------------
+  // Curated well-known ASNs per cloud (public data from bgp.tools / PeeringDB).
+  // Keep small — these are shortcuts; long-tail matches go through search.
+  const CLOUD_PROVIDERS = [
+    {{label:'AWS',        asns:[16509, 14618, 58838, 8987, 39111, 9059, 2905]}},
+    {{label:'GCP',        asns:[15169, 396982, 36492, 36040, 43515, 139070]}},
+    {{label:'Azure',      asns:[8075, 8068, 12076, 12271]}},
+    {{label:'Cloudflare', asns:[13335, 395747, 209242, 133877]}},
+    {{label:'阿里云',     asns:[45102, 37963, 45104, 134963, 59028]}},
+    {{label:'腾讯云',     asns:[132203, 45090, 133478, 133199]}},
+    {{label:'Baidu',      asns:[38365, 55967]}},
+    {{label:'Oracle',     asns:[31898, 14413]}},
+    {{label:'IBM',        asns:[36351, 6088, 1024]}},
+    {{label:'Akamai',     asns:[20940, 16625, 32787, 21342]}},
+    {{label:'DO',         asns:[14061]}},
+    {{label:'Hetzner',    asns:[24940]}},
+    {{label:'OVH',        asns:[16276]}},
+  ];
+
+  const findInput = document.getElementById('find-input');
+  const findHint  = document.getElementById('find-hint');
+  const chipRow   = document.getElementById('cloud-chips');
+
+  let searchMatches = [];
+  let searchIdx = 0;
+
+  function pickBestFromPool(asns) {{
+    // From a candidate ASN list, return the nodes that are in the pool,
+    // sorted by IPv4 size descending (so the "main" AS comes first).
+    const set = new Set(asns);
+    return graphNodes
+      .filter(n => set.has(n.id))
+      .sort((a, b) => (b.v || 0) - (a.v || 0));
+  }}
+
+  function setMatches(list, label) {{
+    searchMatches = list;
+    searchIdx = 0;
+    if (!list.length) {{
+      findHint.textContent = label ? `未找到 · no match (${{label}})` : '未找到 · no match';
+      findHint.style.color = '#ff9f0a';
+      return;
+    }}
+    findHint.style.color = '';
+    findHint.textContent = list.length > 1
+      ? `${{list.length}} 个匹配 · Enter 下一个`
+      : '1 个匹配';
+    flyTo(list[0]);
+  }}
+
+  function focusNext() {{
+    if (searchMatches.length <= 1) return;
+    searchIdx = (searchIdx + 1) % searchMatches.length;
+    findHint.textContent = `${{searchIdx + 1}} / ${{searchMatches.length}}`;
+    flyTo(searchMatches[searchIdx]);
+  }}
+
+  function runSearch(raw) {{
+    const q = (raw || '').trim();
+    if (!q) {{
+      searchMatches = [];
+      findHint.textContent = '—';
+      findHint.style.color = '';
+      return;
+    }}
+    const ql = q.toLowerCase();
+    const asnMaybe = /^(?:as)?([0-9]+)$/i.exec(q);
+    const matches = graphNodes.filter(n => {{
+      if (asnMaybe && n.id === parseInt(asnMaybe[1], 10)) return true;
+      if (n.org && n.org.toLowerCase().includes(ql)) return true;
+      return false;
+    }}).sort((a, b) => (b.v || 0) - (a.v || 0));
+    setMatches(matches, q);
+  }}
+
+  // Debounce keystrokes so we don't re-search on every character.
+  let searchTimer = null;
+  findInput.addEventListener('input', e => {{
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => runSearch(e.target.value), 220);
+  }});
+  findInput.addEventListener('keydown', e => {{
+    if (e.key === 'Enter') {{
+      e.preventDefault();
+      if (searchMatches.length > 1) {{
+        focusNext();
+      }} else {{
+        runSearch(findInput.value);
+      }}
+    }} else if (e.key === 'Escape') {{
+      findInput.value = '';
+      runSearch('');
+      findInput.blur();
+    }}
+  }});
+
+  // Build cloud chips.
+  CLOUD_PROVIDERS.forEach(cp => {{
+    const hits = pickBestFromPool(cp.asns);
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.textContent = hits.length ? `${{cp.label}} (${{hits.length}})` : `${{cp.label}} —`;
+    chip.disabled = hits.length === 0;
+    chip.style.cssText = `
+      background:rgba(13,17,23,0.9); color:var(--fg); border:1px solid var(--border);
+      border-radius:999px; padding:3px 10px; font-size:11px; font-family:inherit;
+      cursor:${{hits.length ? 'pointer' : 'not-allowed'}};
+      opacity:${{hits.length ? 1 : 0.4}};
+    `;
+    chip.addEventListener('click', () => {{
+      if (!hits.length) return;
+      findInput.value = '';
+      setMatches(hits, cp.label);
+    }});
+    chipRow.appendChild(chip);
+  }});
 
   el.addEventListener('mousemove', e => {{
     tip.style.left = (e.clientX + 14) + 'px';
