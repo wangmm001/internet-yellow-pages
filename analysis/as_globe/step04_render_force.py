@@ -69,15 +69,11 @@ def _banner_html() -> str:
         f'<div id="cloud-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>'
         f'</div>'
         f'<div class="tooltip" id="tip"></div>'
-        f'<div id="halo" aria-hidden="true">'
-        f'<div class="halo-ring halo-outer"></div>'
-        f'<div class="halo-ring halo-mid"></div>'
-        f'<div class="halo-ring halo-inner"></div>'
-        f'</div>'
+        f'<div id="halo-layer" aria-hidden="true"></div>'
         f'<style>'
-        f'#halo{{position:absolute;pointer-events:none;display:none;z-index:15;'
-        f'width:0;height:0;transform-style:preserve-3d;perspective:600px;'
-        f'--halo-size:140px;}}'
+        f'#halo-layer{{position:absolute;inset:0;pointer-events:none;z-index:15;}}'
+        f'.halo{{position:absolute;width:0;height:0;'
+        f'transform-style:preserve-3d;perspective:600px;--halo-size:140px;}}'
         f'.halo-ring{{position:absolute;left:0;top:0;border-radius:50%;'
         f'box-sizing:border-box;border-style:solid;'
         f'transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg);'
@@ -334,61 +330,85 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     tip.style.display = 'block';
   }}
 
-  // ---- Halo: pulsing ring over the focused node ---------------------------
-  const halo = document.getElementById('halo');
-  let focusedNode = null;
-
-  function setFocus(n) {{
-    focusedNode = n || null;
-    halo.style.display = focusedNode ? 'block' : 'none';
-  }}
-
-  // Ring outer diameter = (node's projected pixel radius) × HALO_RADIUS_MULT × 2,
-  // clamped to [HALO_MIN, HALO_MAX] so tail ASes stay visible and tier-1s don't
-  // swallow the viewport when zoomed in. Derived per-frame from camera FOV and
-  // distance so the ring tracks the node's apparent size through zoom.
+  // ---- Halo: one Saturn ring per focused node -----------------------------
+  // setFocus([...]) mounts a fresh halo div per node; tickHalo projects each
+  // node's world coords to the canvas every frame and writes the position +
+  // --halo-size CSS var. Cap at HALO_CAP so a wildcard search like "amazon"
+  // (50+ matches) doesn't melt the DOM.
+  const haloLayer = document.getElementById('halo-layer');
+  const HALO_CAP = 24;
   const HALO_RADIUS_MULT = 2.8;
   const HALO_MIN = 36;
   const HALO_MAX = 520;
 
+  // Each entry is {{node, el}} — one halo div per currently-ringed AS.
+  let focusedEntries = [];
+
   function nodeWorldRadius(n) {{
-    // Must match the nodeVal formula (sphere volume) and nodeRelSize default (4).
+    // Must mirror .nodeVal: sphere volume = v^0.35 * 0.03, nodeRelSize default 4.
     const val = Math.pow(Math.max(1, n.v || 0), 0.35) * 0.03;
     return Math.cbrt(val) * 4;
   }}
 
-  function tickHalo() {{
-    if (focusedNode && typeof focusedNode.x === 'number' && Graph.graph2ScreenCoords) {{
-      const sc = Graph.graph2ScreenCoords(focusedNode.x, focusedNode.y, focusedNode.z);
-      const cam = Graph.camera && Graph.camera();
-      if (sc && cam && Number.isFinite(sc.x) && Number.isFinite(sc.y)
-          && sc.x > -400 && sc.x < window.innerWidth + 400
-          && sc.y > -400 && sc.y < window.innerHeight + 400) {{
-        const dx = focusedNode.x - cam.position.x;
-        const dy = focusedNode.y - cam.position.y;
-        const dz = focusedNode.z - cam.position.z;
-        const dist = Math.hypot(dx, dy, dz);
-        const fovRad = ((cam.fov || 60) * Math.PI) / 180;
-        const vh = el.clientHeight || window.innerHeight;
-        // pixels per world unit at this depth (vertical-FOV projection)
-        const pxPerUnit = vh / (2 * dist * Math.tan(fovRad / 2));
-        const pxRadius = nodeWorldRadius(focusedNode) * pxPerUnit;
-        const size = Math.max(HALO_MIN, Math.min(HALO_MAX, pxRadius * HALO_RADIUS_MULT * 2));
-        halo.style.setProperty('--halo-size', size.toFixed(1) + 'px');
-        halo.style.left = sc.x + 'px';
-        halo.style.top  = sc.y + 'px';
-        halo.style.display = 'block';
-      }} else {{
-        halo.style.display = 'none';
-      }}
+  function createHaloEl() {{
+    const h = document.createElement('div');
+    h.className = 'halo';
+    h.style.display = 'none';
+    h.innerHTML =
+      '<div class="halo-ring halo-outer"></div>' +
+      '<div class="halo-ring halo-mid"></div>' +
+      '<div class="halo-ring halo-inner"></div>';
+    haloLayer.appendChild(h);
+    return h;
+  }}
+
+  function setFocus(list) {{
+    // Drop old halos wholesale — cheap for tens of elements, keeps logic
+    // simple and avoids stale el-to-node associations.
+    for (const e of focusedEntries) e.el.remove();
+    focusedEntries = [];
+    if (!list || !list.length) return;
+    const trimmed = list.slice(0, HALO_CAP);
+    for (const n of trimmed) focusedEntries.push({{ node: n, el: createHaloEl() }});
+  }}
+
+  function updateHaloEntry(entry) {{
+    const n = entry.node, h = entry.el;
+    if (typeof n.x !== 'number' || !Graph.graph2ScreenCoords) {{
+      h.style.display = 'none';
+      return;
     }}
+    const sc = Graph.graph2ScreenCoords(n.x, n.y, n.z);
+    const cam = Graph.camera && Graph.camera();
+    if (!sc || !cam || !Number.isFinite(sc.x) || !Number.isFinite(sc.y)
+        || sc.x <= -400 || sc.x >= window.innerWidth + 400
+        || sc.y <= -400 || sc.y >= window.innerHeight + 400) {{
+      h.style.display = 'none';
+      return;
+    }}
+    const dx = n.x - cam.position.x;
+    const dy = n.y - cam.position.y;
+    const dz = n.z - cam.position.z;
+    const dist = Math.hypot(dx, dy, dz);
+    const fovRad = ((cam.fov || 60) * Math.PI) / 180;
+    const vh = el.clientHeight || window.innerHeight;
+    const pxPerUnit = vh / (2 * dist * Math.tan(fovRad / 2));
+    const pxRadius = nodeWorldRadius(n) * pxPerUnit;
+    const size = Math.max(HALO_MIN, Math.min(HALO_MAX, pxRadius * HALO_RADIUS_MULT * 2));
+    h.style.setProperty('--halo-size', size.toFixed(1) + 'px');
+    h.style.left = sc.x + 'px';
+    h.style.top  = sc.y + 'px';
+    h.style.display = 'block';
+  }}
+
+  function tickHalo() {{
+    for (const entry of focusedEntries) updateHaloEntry(entry);
     requestAnimationFrame(tickHalo);
   }}
   requestAnimationFrame(tickHalo);
 
   function flyTo(n) {{
     if (!n) return;
-    setFocus(n);
     focusKV.style.display = '';
     focusAsn.textContent = 'AS' + n.id + (n.org ? ' · ' + n.org : '') + ' · ' + (n.cc || '??');
     // If the node isn't currently rendered (filtered out by region chip /
@@ -447,14 +467,22 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     searchMatches = list;
     searchIdx = 0;
     if (!list.length) {{
+      setFocus([]);
       findHint.textContent = label ? `未找到 · no match (${{label}})` : '未找到 · no match';
       findHint.style.color = '#ff9f0a';
       return;
     }}
     findHint.style.color = '';
+    const haloNote = list.length > HALO_CAP
+      ? ` · 光环限前 ${{HALO_CAP}} 个`
+      : '';
     findHint.textContent = list.length > 1
-      ? `${{list.length}} 个匹配 · Enter 下一个`
+      ? `${{list.length}} 个匹配 · Enter 下一个${{haloNote}}`
       : '1 个匹配';
+    // All matches light up a halo simultaneously — click a chip and every AS
+    // of that cloud provider becomes visible at once. Camera flies to the
+    // largest one (list is pre-sorted by IPv4 desc).
+    setFocus(list);
     flyTo(list[0]);
   }}
 
@@ -469,6 +497,7 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     const q = (raw || '').trim();
     if (!q) {{
       searchMatches = [];
+      setFocus([]);
       findHint.textContent = '—';
       findHint.style.color = '';
       return;
@@ -500,7 +529,7 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     }} else if (e.key === 'Escape') {{
       findInput.value = '';
       runSearch('');
-      setFocus(null);
+      setFocus([]);
       focusKV.style.display = 'none';
       findInput.blur();
     }}
