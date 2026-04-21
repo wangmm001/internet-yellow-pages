@@ -20,7 +20,7 @@ from analysis.as_globe.common import (  # noqa: E402
 FORCE_GRAPH_VERSION = '1.77'   # pinned; ships its own bundled Three.js.
 
 DEFAULT_EDGE_DENSITY_PCT = 35
-MAX_EDGES_HARD_CAP = 15000
+MAX_EDGES_HARD_CAP = 30000
 
 
 def _banner_html() -> str:
@@ -110,7 +110,7 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     color: DATA.regionColor[n.k] || '#8E8E93',
   }}));
 
-  // Sort edges by combined node radius so the "important" edges render at low density.
+  // Sort edges by combined node radius so "importance" (hub-hub) comes first.
   const nodeById = new Map(graphNodes.map(n => [n.id, n]));
   const sortedLinks = DATA.links.slice().sort((a, b) => {{
     const ra = (nodeById.get(a.s)?.r || 0) + (nodeById.get(a.t)?.r || 0);
@@ -118,23 +118,73 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     return rb - ra;
   }});
 
+  // Per-node adjacency (indices into sortedLinks, already in importance order).
+  const nodeAdjIdx = new Map();
+  for (let i = 0; i < sortedLinks.length; i++) {{
+    const l = sortedLinks[i];
+    if (!nodeAdjIdx.has(l.s)) nodeAdjIdx.set(l.s, []);
+    if (!nodeAdjIdx.has(l.t)) nodeAdjIdx.set(l.t, []);
+    nodeAdjIdx.get(l.s).push(i);
+    nodeAdjIdx.get(l.t).push(i);
+  }}
+
   const activeRegion = new Set(DATA.regionOrder);
   let edgeDensity = DATA.defaultEdgeDensityPct;
+  const PER_NODE_QUOTA = 2;  // each node gets ≥2 edges before hubs monopolize budget
 
   function filterGraph() {{
-    const nodes = graphNodes.filter(n => activeRegion.has(n.k));
-    const allowed = new Set(nodes.map(n => n.id));
+    const poolNodes = graphNodes.filter(n => activeRegion.has(n.k));
+    const allowed = new Set(poolNodes.map(n => n.id));
     const limit = Math.min(
       DATA.maxEdgesHardCap,
       Math.floor(sortedLinks.length * edgeDensity / 100),
     );
-    const links = [];
-    for (let i = 0; i < sortedLinks.length && links.length < limit; i++) {{
+
+    const chosen = new Set();      // indices into sortedLinks
+    const perCount = new Map();    // asn -> edges currently in visible set
+
+    // Phase 1 — cover tail first. Iterate nodes in ASCENDING r so small ASes claim
+    // their top edges before hubs swallow the budget.
+    const ascByR = poolNodes.slice().sort((a, b) => a.r - b.r);
+    for (const node of ascByR) {{
+      if (chosen.size >= limit) break;
+      if ((perCount.get(node.id) || 0) >= PER_NODE_QUOTA) continue;
+      const adj = nodeAdjIdx.get(node.id) || [];
+      for (const idx of adj) {{
+        if ((perCount.get(node.id) || 0) >= PER_NODE_QUOTA) break;
+        if (chosen.size >= limit) break;
+        if (chosen.has(idx)) continue;
+        const l = sortedLinks[idx];
+        if (!allowed.has(l.s) || !allowed.has(l.t)) continue;
+        chosen.add(idx);
+        perCount.set(l.s, (perCount.get(l.s) || 0) + 1);
+        perCount.set(l.t, (perCount.get(l.t) || 0) + 1);
+      }}
+    }}
+
+    // Phase 2 — fill remaining budget with the fattest hub-hub edges we skipped.
+    for (let i = 0; i < sortedLinks.length && chosen.size < limit; i++) {{
+      if (chosen.has(i)) continue;
       const l = sortedLinks[i];
       if (!allowed.has(l.s) || !allowed.has(l.t)) continue;
+      chosen.add(i);
+    }}
+
+    const links = [];
+    for (const idx of chosen) {{
+      const l = sortedLinks[idx];
       // force-graph mutates source/target — clone to a fresh obj each render.
       links.push({{ source: l.s, target: l.t }});
     }}
+
+    // Option 2 — drop nodes with 0 visible edges. No floating debris around the
+    // central cluster; the "Nodes" counter reflects the actually-connected set.
+    const deg = new Map();
+    for (const l of links) {{
+      deg.set(l.source, (deg.get(l.source) || 0) + 1);
+      deg.set(l.target, (deg.get(l.target) || 0) + 1);
+    }}
+    const nodes = poolNodes.filter(n => deg.has(n.id));
     return {{ nodes, links }};
   }}
 
@@ -145,7 +195,11 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     .nodeId('id')
     .nodeLabel(() => '')            // disable built-in HTML label; we render our own tooltip
     .nodeColor('color')
-    .nodeVal(n => Math.max(0.8, (n.r || 1.5) * 0.4))
+    // r ∈ [1.5, 12] (log-scale of IPv4). force-graph's nodeVal is volume, so
+    // screen radius ∝ nodeVal^(1/3). Using r^2.5 makes screen radius ~ r^0.83,
+    // which stretches the visible ratio from ~1.8× to ~4.5× — hubs become
+    // obvious planets, long tail stays as pebbles.
+    .nodeVal(n => Math.max(0.3, Math.pow(n.r || 1.5, 2.5) * 0.05))
     .nodeResolution(10)
     .nodeOpacity(0.95)
     .linkColor(l => {{

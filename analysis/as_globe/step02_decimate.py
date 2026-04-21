@@ -30,10 +30,10 @@ from analysis.as_globe.common import (  # noqa: E402
 TOP_BY_IPV4 = 3000
 POOL_CAP = 5000
 MIN_ANCHORS_FOR_ADMIT = 2  # must peer with ≥N of the top-IPv4 core to qualify
-# Cap how many edges get emitted (sorted by combined endpoint radius). The
-# renderers hard-cap at 12K–15K anyway; keeping ~30K gives the slider room to
-# breathe without inlining MBs of JSON the browser never touches.
-MAX_EMIT_LINKS = 30000
+# Cap how many edges get emitted (sorted by combined endpoint radius). 60K
+# lets the force view reach the full 5K-AS pool (top-30K edges only cover ~2700
+# distinct endpoints — the rest need longer-tail edges to show up at all).
+MAX_EMIT_LINKS = 60000
 
 
 def _load() -> tuple[dict[int, str], dict[int, dict], list[tuple[int, int]], dict[int, tuple[float, float]]]:
