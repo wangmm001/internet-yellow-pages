@@ -69,6 +69,18 @@ def _banner_html() -> str:
         f'<div id="cloud-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>'
         f'</div>'
         f'<div class="tooltip" id="tip"></div>'
+        f'<div id="halo" aria-hidden="true"></div>'
+        f'<style>'
+        f'#halo{{position:absolute;pointer-events:none;display:none;z-index:15;'
+        f'width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;'
+        f'border:2px solid #FFD60A;'
+        f'box-shadow:0 0 18px rgba(255,214,10,0.7),inset 0 0 12px rgba(255,214,10,0.35);'
+        f'animation:halo-pulse 1.25s ease-in-out infinite;}}'
+        f'@keyframes halo-pulse{{'
+        f'0%,100%{{transform:scale(0.78);opacity:0.55;}}'
+        f'50%{{transform:scale(1.22);opacity:1;}}'
+        f'}}'
+        f'</style>'
     )
 
 
@@ -306,13 +318,42 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     tip.style.display = 'block';
   }}
 
+  // ---- Halo: pulsing ring over the focused node ---------------------------
+  const halo = document.getElementById('halo');
+  let focusedNode = null;
+
+  function setFocus(n) {{
+    focusedNode = n || null;
+    halo.style.display = focusedNode ? 'block' : 'none';
+  }}
+
+  function tickHalo() {{
+    if (focusedNode && typeof focusedNode.x === 'number' && Graph.graph2ScreenCoords) {{
+      const sc = Graph.graph2ScreenCoords(focusedNode.x, focusedNode.y, focusedNode.z);
+      // graph2ScreenCoords returns NaN/huge values when the node is behind
+      // the camera — clamp & hide in those cases.
+      if (sc && Number.isFinite(sc.x) && Number.isFinite(sc.y)
+          && sc.x > -200 && sc.x < window.innerWidth + 200
+          && sc.y > -200 && sc.y < window.innerHeight + 200) {{
+        halo.style.display = 'block';
+        halo.style.left = sc.x + 'px';
+        halo.style.top  = sc.y + 'px';
+      }} else {{
+        halo.style.display = 'none';
+      }}
+    }}
+    requestAnimationFrame(tickHalo);
+  }}
+  requestAnimationFrame(tickHalo);
+
   function flyTo(n) {{
     if (!n) return;
+    setFocus(n);
     focusKV.style.display = '';
     focusAsn.textContent = 'AS' + n.id + (n.org ? ' · ' + n.org : '') + ' · ' + (n.cc || '??');
     // If the node isn't currently rendered (filtered out by region chip /
     // deg-0), its x/y/z are undefined — skip the fly so we don't lurch to
-    // origin. The stats panel will still show the AS for reference.
+    // origin. The stats panel still shows the AS for reference.
     if (typeof n.x !== 'number') return;
     const distance = 80;
     const distRatio = 1 + distance / Math.hypot(n.x, n.y, n.z);
@@ -419,6 +460,8 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     }} else if (e.key === 'Escape') {{
       findInput.value = '';
       runSearch('');
+      setFocus(null);
+      focusKV.style.display = 'none';
       findInput.blur();
     }}
   }});
