@@ -56,17 +56,17 @@ def _banner_html() -> str:
         f'</div>'
         f'</div>'
         f'<div class="overlay finder" style="top:18px;left:50%;transform:translateX(-50%);'
-        f'max-width:560px;padding:8px 12px;z-index:11;">'
+        f'max-width:760px;padding:8px 12px;z-index:11;">'
         f'<div style="display:flex;gap:8px;align-items:center;">'
         f'<input id="find-input" type="search" autocomplete="off" spellcheck="false"'
-        f' placeholder="🔍 AS号 / 名称 · ASN / name (Enter = 下一个)"'
+        f' placeholder="🔍 AS号 / 名称 · ASN / name · 点分类 chip 显示光环,Enter 飞镜头"'
         f' style="flex:1;min-width:0;background:rgba(13,17,23,0.9);color:var(--fg);'
         f'border:1px solid var(--border);border-radius:6px;padding:4px 8px;'
         f'font-size:12px;font-family:inherit;outline:none;">'
         f'<span id="find-hint" style="color:var(--muted);font-size:11px;opacity:0.75;'
-        f'white-space:nowrap;min-width:80px;text-align:right;">—</span>'
+        f'white-space:nowrap;min-width:90px;text-align:right;">—</span>'
         f'</div>'
-        f'<div id="cloud-chips" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>'
+        f'<div id="provider-groups" style="margin-top:8px;"></div>'
         f'</div>'
         f'<div class="tooltip" id="tip"></div>'
         f'<div id="halo-layer" aria-hidden="true"></div>'
@@ -428,31 +428,58 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
     flyTo(n);
   }}
 
-  // ---- Quick finder: search + cloud-provider shortcuts ---------------------
-  // Curated well-known ASNs per cloud (public data from bgp.tools / PeeringDB).
-  // Keep small — these are shortcuts; long-tail matches go through search.
-  const CLOUD_PROVIDERS = [
-    {{label:'AWS',        asns:[16509, 14618, 58838, 8987, 39111, 9059, 2905]}},
-    {{label:'GCP',        asns:[15169, 396982, 36492, 36040, 43515, 139070]}},
-    {{label:'Azure',      asns:[8075, 8068, 12076, 12271]}},
-    {{label:'Cloudflare', asns:[13335, 395747, 209242, 133877]}},
-    {{label:'阿里云',     asns:[45102, 37963, 45104, 134963, 59028]}},
-    {{label:'腾讯云',     asns:[132203, 45090, 133478, 133199]}},
-    {{label:'Baidu',      asns:[38365, 55967]}},
-    {{label:'Oracle',     asns:[31898, 14413]}},
-    {{label:'IBM',        asns:[36351, 6088, 1024]}},
-    {{label:'Akamai',     asns:[20940, 16625, 32787, 21342]}},
-    {{label:'DO',         asns:[14061]}},
-    {{label:'Hetzner',    asns:[24940]}},
-    {{label:'OVH',        asns:[16276]}},
+  // ---- Quick finder: search + curated category shortcuts ------------------
+  // Curated well-known ASNs per operator (public data from bgp.tools /
+  // PeeringDB / RIRs). Each group is rendered as its own chip row with a
+  // label in the top finder panel.
+  const PROVIDER_GROUPS = [
+    {{
+      label:'云服务 · Cloud',
+      items:[
+        {{label:'AWS',        asns:[16509, 14618, 58838, 8987, 39111, 9059, 2905]}},
+        {{label:'GCP',        asns:[15169, 396982, 36492, 36040, 43515, 139070]}},
+        {{label:'Azure',      asns:[8075, 8068, 12076, 12271]}},
+        {{label:'Cloudflare', asns:[13335, 395747, 209242, 133877]}},
+        {{label:'阿里云',     asns:[45102, 37963, 45104, 134963, 59028]}},
+        {{label:'腾讯云',     asns:[132203, 45090, 133478, 133199]}},
+        {{label:'Baidu',      asns:[38365, 55967]}},
+        {{label:'Oracle',     asns:[31898, 14413]}},
+        {{label:'IBM',        asns:[36351, 6088, 1024]}},
+        {{label:'Akamai',     asns:[20940, 16625, 32787, 21342]}},
+        {{label:'DO',         asns:[14061]}},
+        {{label:'Hetzner',    asns:[24940]}},
+        {{label:'OVH',        asns:[16276]}},
+      ],
+    }},
+    {{
+      label:'大型 ISP · Tier-1 / Backbone',
+      items:[
+        {{label:'Cogent',     asns:[174]}},
+        {{label:'Lumen',      asns:[3356, 3549]}},          // Level 3 / CenturyLink
+        {{label:'GTT',        asns:[3257]}},
+        {{label:'NTT',        asns:[2914]}},
+        {{label:'Tata',       asns:[6453, 4755]}},
+        {{label:'Telia',      asns:[1299]}},                 // Arelion
+        {{label:'DTAG',       asns:[3320]}},                 // Deutsche Telekom
+        {{label:'Verizon',    asns:[701, 702, 703]}},
+        {{label:'AT&T',       asns:[7018]}},
+        {{label:'Zayo',       asns:[6461]}},
+        {{label:'Telecom Italia', asns:[6762]}},    // Seabone
+        {{label:'KPN',        asns:[286, 1136]}},
+        {{label:'Orange',     asns:[5511]}},
+        {{label:'中国电信',   asns:[4134, 4809]}},
+        {{label:'中国联通',   asns:[4837, 9929]}},
+        {{label:'中国移动',   asns:[9808, 58453, 56040]}},
+      ],
+    }},
   ];
 
   const findInput = document.getElementById('find-input');
   const findHint  = document.getElementById('find-hint');
-  const chipRow   = document.getElementById('cloud-chips');
+  const groupsEl  = document.getElementById('provider-groups');
 
   let searchMatches = [];
-  let searchIdx = 0;
+  let searchIdx = -1;   // -1 = haven't flown yet; first Enter takes us to [0]
 
   function pickBestFromPool(asns) {{
     // From a candidate ASN list, return the nodes that are in the pool,
@@ -463,9 +490,10 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
       .sort((a, b) => (b.v || 0) - (a.v || 0));
   }}
 
-  function setMatches(list, label) {{
+  function setMatches(list, label, opts) {{
+    const fly = !!(opts && opts.fly);
     searchMatches = list;
-    searchIdx = 0;
+    searchIdx = fly ? 0 : -1;
     if (!list.length) {{
       setFocus([]);
       findHint.textContent = label ? `未找到 · no match (${{label}})` : '未找到 · no match';
@@ -473,30 +501,31 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
       return;
     }}
     findHint.style.color = '';
-    const haloNote = list.length > HALO_CAP
-      ? ` · 光环限前 ${{HALO_CAP}} 个`
-      : '';
-    findHint.textContent = list.length > 1
-      ? `${{list.length}} 个匹配 · Enter 下一个${{haloNote}}`
-      : '1 个匹配';
-    // All matches light up a halo simultaneously — click a chip and every AS
-    // of that cloud provider becomes visible at once. Camera flies to the
-    // largest one (list is pre-sorted by IPv4 desc).
+    const haloNote = list.length > HALO_CAP ? ` · 光环限前 ${{HALO_CAP}}` : '';
+    if (list.length === 1) {{
+      findHint.textContent = '1 个匹配 · Enter 飞过去';
+    }} else if (fly) {{
+      findHint.textContent = `${{list.length}} 个匹配 · Enter 下一个${{haloNote}}`;
+    }} else {{
+      findHint.textContent = `${{list.length}} 个匹配 · Enter 飞到第一个${{haloNote}}`;
+    }}
+    // Halos on all matches immediately; camera only moves if opts.fly.
     setFocus(list);
-    flyTo(list[0]);
+    if (fly) flyTo(list[0]);
   }}
 
   function focusNext() {{
-    if (searchMatches.length <= 1) return;
+    if (!searchMatches.length) return;
     searchIdx = (searchIdx + 1) % searchMatches.length;
     findHint.textContent = `${{searchIdx + 1}} / ${{searchMatches.length}}`;
     flyTo(searchMatches[searchIdx]);
   }}
 
-  function runSearch(raw) {{
+  function runSearch(raw, opts) {{
     const q = (raw || '').trim();
     if (!q) {{
       searchMatches = [];
+      searchIdx = -1;
       setFocus([]);
       findHint.textContent = '—';
       findHint.style.color = '';
@@ -509,51 +538,85 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
       if (n.org && n.org.toLowerCase().includes(ql)) return true;
       return false;
     }}).sort((a, b) => (b.v || 0) - (a.v || 0));
-    setMatches(matches, q);
+    // For text search, a single exact match auto-flies; multi-matches wait
+    // for Enter (same rule as a chip click — halos first, camera on demand).
+    const fly = !!(opts && opts.fly) || matches.length === 1;
+    setMatches(matches, q, {{ fly }});
   }}
 
-  // Debounce keystrokes so we don't re-search on every character.
+  function clearFinder() {{
+    findInput.value = '';
+    searchMatches = [];
+    searchIdx = -1;
+    setFocus([]);
+    focusKV.style.display = 'none';
+    findHint.textContent = '—';
+    findHint.style.color = '';
+  }}
+
+  // Debounced live search on typing (no auto-fly).
   let searchTimer = null;
   findInput.addEventListener('input', e => {{
     clearTimeout(searchTimer);
     searchTimer = setTimeout(() => runSearch(e.target.value), 220);
   }});
-  findInput.addEventListener('keydown', e => {{
+
+  // Global Enter/Escape — work whether or not the search input has focus
+  // (previous input-only handler broke as soon as the user clicked a chip
+  // or dragged the scene). While the input is focused, Enter also forces
+  // an immediate search in case the debounce hasn't fired yet.
+  window.addEventListener('keydown', e => {{
     if (e.key === 'Enter') {{
-      e.preventDefault();
-      if (searchMatches.length > 1) {{
-        focusNext();
-      }} else {{
-        runSearch(findInput.value);
+      if (document.activeElement === findInput) {{
+        e.preventDefault();
+        const v = findInput.value.trim();
+        if (v && (!searchMatches.length || searchMatches.length === 1)) {{
+          // Input value out of sync with current matches — refresh and fly.
+          runSearch(v, {{ fly: true }});
+          return;
+        }}
       }}
+      if (searchMatches.length) focusNext();
     }} else if (e.key === 'Escape') {{
-      findInput.value = '';
-      runSearch('');
-      setFocus([]);
-      focusKV.style.display = 'none';
-      findInput.blur();
+      if (!searchMatches.length && document.activeElement !== findInput) return;
+      e.preventDefault();
+      clearFinder();
+      if (document.activeElement === findInput) findInput.blur();
     }}
   }});
 
-  // Build cloud chips.
-  CLOUD_PROVIDERS.forEach(cp => {{
-    const hits = pickBestFromPool(cp.asns);
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.textContent = hits.length ? `${{cp.label}} (${{hits.length}})` : `${{cp.label}} —`;
-    chip.disabled = hits.length === 0;
-    chip.style.cssText = `
-      background:rgba(13,17,23,0.9); color:var(--fg); border:1px solid var(--border);
-      border-radius:999px; padding:3px 10px; font-size:11px; font-family:inherit;
-      cursor:${{hits.length ? 'pointer' : 'not-allowed'}};
-      opacity:${{hits.length ? 1 : 0.4}};
-    `;
-    chip.addEventListener('click', () => {{
-      if (!hits.length) return;
-      findInput.value = '';
-      setMatches(hits, cp.label);
+  // ---- Build grouped chip rows --------------------------------------------
+  PROVIDER_GROUPS.forEach(group => {{
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;';
+    const tag = document.createElement('span');
+    tag.textContent = group.label;
+    tag.style.cssText =
+      'color:var(--muted);font-size:11px;opacity:0.85;min-width:110px;' +
+      'letter-spacing:0.02em;flex-shrink:0;';
+    row.appendChild(tag);
+    group.items.forEach(cp => {{
+      const hits = pickBestFromPool(cp.asns);
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.textContent = hits.length ? `${{cp.label}} (${{hits.length}})` : `${{cp.label}} —`;
+      chip.disabled = hits.length === 0;
+      chip.style.cssText = `
+        background:rgba(13,17,23,0.9); color:var(--fg); border:1px solid var(--border);
+        border-radius:999px; padding:3px 10px; font-size:11px; font-family:inherit;
+        cursor:${{hits.length ? 'pointer' : 'not-allowed'}};
+        opacity:${{hits.length ? 1 : 0.4}};
+      `;
+      chip.addEventListener('click', () => {{
+        if (!hits.length) return;
+        findInput.value = '';
+        // Key behavior change: halos light up, but the camera DOES NOT move.
+        // User presses Enter to fly into the group.
+        setMatches(hits, cp.label, {{ fly: false }});
+      }});
+      row.appendChild(chip);
     }});
-    chipRow.appendChild(chip);
+    groupsEl.appendChild(row);
   }});
 
   el.addEventListener('mousemove', e => {{
