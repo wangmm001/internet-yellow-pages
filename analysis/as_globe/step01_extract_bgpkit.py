@@ -38,6 +38,7 @@ from analysis.as_globe.common import (  # noqa: E402
 PFX2AS_URL = 'https://data.bgpkit.com/pfx2as/pfx2as-latest.json.bz2'
 AS2REL_V4_URL = 'https://data.bgpkit.com/as2rel/as2rel-v4-latest.json.bz2'
 NRO_URL = 'https://ftp.ripe.net/pub/stats/ripencc/nro-stats/latest/nro-delegated-stats'
+ASNAMES_URL = 'https://ftp.ripe.net/ripe/asnames/asn.txt'   # Emile Aben's curated list
 
 RAW_DIR = os.path.join(CACHE_DIR, 'raw')
 os.makedirs(RAW_DIR, exist_ok=True)
@@ -173,37 +174,82 @@ def extract_as_peers() -> list[dict]:
     return out
 
 
+def extract_as_name() -> list[dict]:
+    """Parse RIPE/Emile-Aben asnames list → one row per ASN with human name.
+
+    Format: each line is `AS_NUMBER  NAME, CC` (tab- or space-delimited). The
+    name can contain commas; CC is always the final `, XX` token. Fall back to
+    an empty file if the download fails (name is optional downstream).
+    """
+    path = os.path.join(RAW_DIR, 'asn.txt')
+    try:
+        _download(ASNAMES_URL, path)
+    except Exception as e:
+        print(f'  [asnames] download failed: {e} — emitting empty as_name.csv')
+        return []
+
+    out: list[dict] = []
+    with open(path, encoding='utf-8', errors='replace') as f:
+        for raw in f:
+            line = raw.rstrip('\n').strip()
+            if not line or line.startswith('#'):
+                continue
+            # First token is the ASN, rest is "NAME, CC".
+            head, _, tail = line.partition(' ')
+            try:
+                asn = int(head.lstrip('AS'))
+            except ValueError:
+                continue
+            name = tail.strip()
+            # Strip a trailing ", CC" (two-letter code) if present.
+            if len(name) >= 4 and name[-4:-2] == ', ' and name[-2:].isalpha():
+                name = name[:-4].rstrip()
+            if name:
+                out.append({'asn': asn, 'name': name})
+    # Dedupe: keep first entry for any ASN.
+    seen: dict[int, str] = {}
+    for r in out:
+        seen.setdefault(r['asn'], r['name'])
+    print(f'  [asnames] {len(seen):,} ASes with a name')
+    return [{'asn': a, 'name': n} for a, n in sorted(seen.items())]
+
+
 def main() -> int:
     t0 = time.time()
     print(f'Extracting into {CACHE_DIR} ...')
 
-    print('[1/3] AS → country (NRO delegated stats)')
+    print('[1/4] AS → country (NRO delegated stats)')
     as_country = extract_as_country()
     write_csv(os.path.join(CACHE_DIR, 'as_country.csv'), as_country, ['asn', 'cc'])
 
-    print('[2/3] AS → IPv4 address count (BGPKit pfx2as)')
+    print('[2/4] AS → IPv4 address count (BGPKit pfx2as)')
     as_ipv4 = extract_as_ipv4()
     write_csv(os.path.join(CACHE_DIR, 'as_ipv4.csv'), as_ipv4,
               ['asn', 'ipv4_addresses', 'prefix_count'])
 
-    print('[3/3] AS ↔ AS peering (BGPKit as2rel-v4)')
+    print('[3/4] AS ↔ AS peering (BGPKit as2rel-v4)')
     as_peers = extract_as_peers()
     write_csv(os.path.join(CACHE_DIR, 'as_peers.csv'), as_peers, ['src', 'dst'])
+
+    print('[4/4] AS → name (RIPE / emileaben asnames)')
+    as_name = extract_as_name()
+    write_csv(os.path.join(CACHE_DIR, 'as_name.csv'), as_name, ['asn', 'name'])
 
     # Empty geo file — step02 treats missing rows as "use country centroid".
     write_csv(os.path.join(CACHE_DIR, 'as_geo.csv'), [], ['asn', 'lat', 'lon'])
     print('  [as_geo] empty (CAIDA ASRank skipped; step02 falls back to centroid+jitter)')
 
     write_step_metrics(1, {
-        'source': 'bgpkit + nro (direct)',
+        'source': 'bgpkit + nro + ripe asnames (direct)',
         'as_with_country': len(as_country),
         'as_with_ipv4': len(as_ipv4),
         'peering_edges': len(as_peers),
         'as_with_geo': 0,
+        'as_with_name': len(as_name),
         'cache_dir': CACHE_DIR,
         'elapsed_sec': round(time.time() - t0, 2),
-    }, title_zh='Step 01 · 从 BGPKit + NRO 直接抽取底表',
-       title_en='Step 01 · Direct extract from BGPKit + NRO (no Neo4j)')
+    }, title_zh='Step 01 · 从 BGPKit + NRO + asnames 抽取底表',
+       title_en='Step 01 · Direct extract from BGPKit + NRO + asnames (no Neo4j)')
 
     print(f'\nStep 1 (bgpkit) complete in {time.time() - t0:.1f}s → {CACHE_DIR}')
     return 0

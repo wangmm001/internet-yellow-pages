@@ -8,7 +8,10 @@ Strategy:
   - Compute per-node region bucket, color, radius, and geo (real or centroid+jitter).
 
 Emits:
-  data/nodes.json  — compact keys {a,c,k,r,x,y,g,v,d}
+  data/nodes.json  — compact keys {a,c,k,r,x,y,g,v,d,o}
+                     (a=ASN, c=CC, k=region, r=radius_px, x=lat, y=lon,
+                      g=has_real_geo, v=IPv4_count, d=pool_degree,
+                      o=human-readable name)
   data/links.json  — compact keys {s,t}
   data/step02_metrics.json
 """
@@ -37,7 +40,13 @@ MIN_ANCHORS_FOR_ADMIT = 2  # must peer with ≥N of the top-IPv4 core to qualify
 MAX_EMIT_LINKS = 60000
 
 
-def _load() -> tuple[dict[int, str], dict[int, dict], list[tuple[int, int]], dict[int, tuple[float, float]]]:
+def _load() -> tuple[
+    dict[int, str],
+    dict[int, dict],
+    list[tuple[int, int]],
+    dict[int, tuple[float, float]],
+    dict[int, str],
+]:
     as_country = {int(r['asn']): r['cc'] for r in read_csv(os.path.join(CACHE_DIR, 'as_country.csv')) if r.get('cc')}
 
     as_ipv4: dict[int, dict] = {}
@@ -69,7 +78,21 @@ def _load() -> tuple[dict[int, str], dict[int, dict], list[tuple[int, int]], dic
         except (ValueError, KeyError):
             continue
 
-    return as_country, as_ipv4, edges, as_geo
+    # as_name.csv is optional — an older cache without it still works (names
+    # render as empty strings in the tooltip).
+    as_name: dict[int, str] = {}
+    name_path = os.path.join(CACHE_DIR, 'as_name.csv')
+    if os.path.exists(name_path):
+        for r in read_csv(name_path):
+            try:
+                asn = int(r['asn'])
+            except (ValueError, KeyError):
+                continue
+            name = (r.get('name') or '').strip()
+            if name:
+                as_name[asn] = name
+
+    return as_country, as_ipv4, edges, as_geo, as_name
 
 
 def _select_pool(as_ipv4: dict[int, dict], edges: list[tuple[int, int]]) -> set[int]:
@@ -148,13 +171,14 @@ def _resolve_geo(asn: int, cc: str, as_geo: dict[int, tuple[float, float]]) -> t
 def main() -> int:
     t0 = time.time()
 
-    as_country, as_ipv4, edges, as_geo = _load()
+    as_country, as_ipv4, edges, as_geo, as_name = _load()
     if not as_ipv4:
         print(f'[FATAL] no IPv4 data in {CACHE_DIR}; run step01 first.', file=sys.stderr)
         return 1
 
     print(f'Loaded: {len(as_country):,} AS-country, {len(as_ipv4):,} AS-IPv4, '
-          f'{len(edges):,} edges, {len(as_geo):,} AS-geo')
+          f'{len(edges):,} edges, {len(as_geo):,} AS-geo, '
+          f'{len(as_name):,} AS-name')
 
     pool = _select_pool(as_ipv4, edges)
     print(f'Pool selected: {len(pool):,} ASes '
@@ -193,6 +217,7 @@ def main() -> int:
             'g': 1 if has_geo else 0,
             'v': ipv4,
             'd': degree.get(asn, 0),
+            'o': as_name.get(asn, ''),
         })
         region_hist[bucket] += 1
 

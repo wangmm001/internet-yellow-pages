@@ -1,10 +1,11 @@
 """Step 1: Extract raw AS/peering/geo tables from IYP Neo4j.
 
-Writes four CSVs to data_cache/as_globe/:
+Writes five CSVs to data_cache/as_globe/:
  - as_country.csv   (asn, cc)
  - as_ipv4.csv      (asn, ipv4_addresses, prefix_count)
  - as_peers.csv     (src, dst)  — undirected, deduped, src<dst
  - as_geo.csv       (asn, lat, lon)  — from CAIDA LOCATED_IN (partial coverage)
+ - as_name.csv      (asn, name)  — best human-readable label per AS
 
 Neo4j (bolt://localhost:7687) must be reachable. On failure the step exits
 non-zero; downstream steps degrade by reading whatever CSVs are already on disk.
@@ -117,6 +118,52 @@ def extract_as_peers() -> list[dict]:
             if r.get('src') is not None and r.get('dst') is not None]
 
 
+def extract_as_name() -> list[dict]:
+    """One human-readable name per AS, picking the most curated source.
+
+    IYP stores (:AS)-[:NAME {reference_name}]->(:Name) from several crawlers;
+    the same AS can have 3–5 variant names. Priority below biases toward the
+    curated/editorial lists (bgp.tools, emileaben/asnames) over bare RIR
+    registrations which are often cryptic handles.
+    """
+    rows = run_query('''
+        MATCH (a:AS)-[r:NAME]->(n:Name)
+        RETURN a.asn AS asn, n.name AS name, r.reference_name AS src
+    ''')
+    # Lower index = more preferred. Anything not listed falls back to the
+    # sentinel at the end.
+    priority = [
+        'bgp.tools',
+        'emileaben.github.io',   # Emile Aben's asnames list
+        'asnames',
+        'peeringdb.org',
+        'apnic.net',
+        'ripe.net',
+        'arin.net',
+        'afrinic.net',
+        'lacnic.net',
+        'caida.org',
+    ]
+    def rank(src: str) -> int:
+        src = (src or '').lower()
+        for i, needle in enumerate(priority):
+            if needle in src:
+                return i
+        return len(priority)
+
+    best: dict[int, tuple[int, str]] = {}
+    for r in rows:
+        asn = r.get('asn')
+        name = (r.get('name') or '').strip()
+        if asn is None or not name:
+            continue
+        rk = rank(r.get('src') or '')
+        prev = best.get(int(asn))
+        if prev is None or rk < prev[0]:
+            best[int(asn)] = (rk, name)
+    return [{'asn': asn, 'name': name} for asn, (_, name) in sorted(best.items())]
+
+
 def extract_as_geo() -> list[dict]:
     rows = run_query('''
         MATCH (a:AS)-[:LOCATED_IN]->(p:Point)
@@ -165,11 +212,17 @@ def main() -> int:
     write_csv(os.path.join(CACHE_DIR, 'as_geo.csv'), as_geo, ['asn', 'lat', 'lon'])
     print(f'  {len(as_geo):,} ASes with real lat/lon → as_geo.csv')
 
+    print('Extracting AS name (curated > RIR)...')
+    as_name = extract_as_name()
+    write_csv(os.path.join(CACHE_DIR, 'as_name.csv'), as_name, ['asn', 'name'])
+    print(f'  {len(as_name):,} ASes with a name → as_name.csv')
+
     write_step_metrics(1, {
         'as_with_country': len(as_country),
         'as_with_ipv4': len(as_ipv4),
         'peering_edges': len(as_peers),
         'as_with_geo': len(as_geo),
+        'as_with_name': len(as_name),
         'cache_dir': CACHE_DIR,
         'elapsed_sec': round(time.time() - t0, 2),
     }, title_zh='Step 01 · 从 Neo4j 抽取底表',

@@ -108,6 +108,7 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
   const graphNodes = DATA.nodes.map(n => ({{
     id: n.a, cc: n.c, k: n.k,
     v: n.v, r: n.r, d: n.d, g: n.g,
+    org: n.o || '',
     color: DATA.regionColor[n.k] || '#8E8E93',
   }}));
 
@@ -266,14 +267,25 @@ def _build_html(nodes: list[dict], links: list[dict]) -> str:
   const focusKV = document.getElementById('focus-kv');
   const focusAsn = document.getElementById('focus-asn');
 
+  // Escape user-sourced strings — AS names come from third-party lists and
+  // occasionally contain `<` or `&` (e.g. "Ltd. & Co").
+  function esc(s) {{
+    return String(s).replace(/[&<>"']/g, c => ({{
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }}[c]));
+  }}
+
   function onHover(n) {{
     if (!n) {{ tip.style.display = 'none'; el.style.cursor = 'grab'; return; }}
     el.style.cursor = 'pointer';
     const regionZh = DATA.regionLabel[n.k]?.zh || '';
     const regionEn = DATA.regionLabel[n.k]?.en || '';
+    const orgHtml = n.org
+      ? `<span class="org" style="margin-left:6px;font-weight:500;opacity:0.92">${{esc(n.org)}}</span>`
+      : '';
     tip.innerHTML = `
-      <div><span class="asn">AS${{n.id}}</span>
-           <span class="kv" style="margin-left:6px">${{n.cc || '??'}} · ${{regionZh}}</span></div>
+      <div><span class="asn">AS${{n.id}}</span>${{orgHtml}}
+           <span class="kv" style="margin-left:6px">${{esc(n.cc || '??')}} · ${{regionZh}}</span></div>
       <div class="kv">IPv4: ${{(n.v || 0).toLocaleString()}} 地址 addresses</div>
       <div class="kv">对等度 Peering degree (pool): ${{n.d || 0}}</div>
       <div class="kv" style="margin-top:4px;opacity:0.75">${{regionEn}}</div>
