@@ -150,9 +150,9 @@ def main():
     w = writeup(
         hypothesis=(
             '过去十年"Web 集中化"使得 AS16509 (AWS)、AS15169 (Google)、AS13335 (Cloudflare) 承载巨量域名。'
-            '中国类似角色由 AS37963 (Aliyun) / AS45090 (Tencent) / AS55960 (Huawei Cloud) 等承担。<br>'
+            '中国类似角色由 AS37963 / AS45102 (Alibaba) / AS45090 (Tencent) / AS55990 (Huawei Cloud) 等承担。<br>'
             'Web consolidation concentrates hostnames on a few mega-ASes globally (AWS/Google/Cloudflare). '
-            'In China, Aliyun/Tencent/Huawei Cloud play analogous roles.'
+            'In China, Alibaba/Tencent/Huawei Cloud play analogous roles.'
         ),
         finding=(
             f'{len(cn_hosting_rows)} 个 CN AS 托管 {sum(r["hostname_count"] for r in cn_hosting_rows):,} '

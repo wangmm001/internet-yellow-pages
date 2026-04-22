@@ -3,11 +3,11 @@
   "title_zh": "综合仪表板 · 中国在全球互联网分层中的位置",
   "title_en": "Synthesis Dashboard · China in the Global Internet Hierarchy",
   "metrics": {
-    "composite_sovereignty_index": 0.2556,
+    "composite_sovereignty_index": 0.2124,
     "components": {
       "Hosting Sovereignty\n托管自给率": 0.9341,
-      "DNS Sovereignty\nDNS 自主率": 0.1434,
-      "RPKI Adoption\n路由安全": 0.1559,
+      "DNS Sovereignty\nDNS 自主率": 0.0316,
+      "RPKI Adoption\n路由安全": 0.0517,
       "IXP Domesticization\nIXP 本地化": 0.0253,
       "Hub-Ratio\n入向/出向": 0.0192
     },
