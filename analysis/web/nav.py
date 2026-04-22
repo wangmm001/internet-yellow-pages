@@ -372,27 +372,112 @@ NETWORK_GROUPS: list[tuple[str, str, str, list[int]]] = [
     ('γ', '地缘与基线', 'Geopolitics & Baselines', [22, 24]),
 ]
 
+# Panel-level pages for step05 pilot.  Other steps still use the single
+# composite PNG from NETWORK_STEPS until they are migrated.
+# Tuple shape: (parent_step, panel_id, png_file, slug, title_zh, title_en, subtitle_zh, kpis)
+NETWORK_PANELS: list[tuple[int, int, str, str, str, str, str, list[str]]] = [
+    (5, 1, 'step05_panel01_bgp_ccdf.png', 'step05_panel01',
+     'BGP 对等度的互补累积分布',
+     'BGP Peering Degree · CCDF',
+     '每个 AS 的对等邻居数如何分布 · Scale-free heavy tail',
+     ['α ≈ 2.10', '幂律长尾']),
+    (5, 2, 'step05_panel02_as_dep_ccdf.png', 'step05_panel02',
+     'AS 依赖入度的互补累积分布',
+     'AS Dependency In-Degree · CCDF',
+     '有多少 AS 在依赖这个 AS 作为上游',
+     ['依赖集中于头部']),
+    (5, 3, 'step05_panel03_ixp_ccdf.png', 'step05_panel03',
+     'IXP 成员度的互补累积分布',
+     'IXP Membership Degree · CCDF',
+     '每个 AS 加入了多少个交换中心',
+     ['少数 AS · 数十 IXP']),
+    (5, 4, 'step05_panel04_dns_hosting_ccdf.png', 'step05_panel04',
+     'DNS 托管度的互补累积分布',
+     'DNS Hosting Degree · CCDF',
+     '每个 AS 承载的权威 / 托管域名数',
+     ['超级托管 AS 偏头部']),
+    (5, 5, 'step05_panel05_comparison_pdf.png', 'step05_panel05',
+     '三层度分布的对数分箱对比',
+     'Three-Layer PDF Comparison · Log-binned',
+     'BGP / 依赖 / IXP 三层的 P(k) 同框',
+     ['三层同构 · 尾部一致']),
+    (5, 6, 'step05_panel06_summary_stats.png', 'step05_panel06',
+     '各层拓扑指标汇总',
+     'Layer-Level Topology Summary',
+     '节点 / 边 / 平均度 / k_max / 聚类系数',
+     ['单表速览']),
+]
+
 
 def _build_network_track() -> Track:
     rows_by_step = {row[0]: row for row in NETWORK_STEPS}
+    panels_by_step: dict[int, list[tuple]] = {}
+    for p in NETWORK_PANELS:
+        panels_by_step.setdefault(p[0], []).append(p)
+
     phases: list[Phase] = []
     for key, title_zh, title_en, steps in NETWORK_GROUPS:
         pages: list[Page] = []
         for step in steps:
             step_n, src_file, zh, en, subtitle, kpis = rows_by_step[step]
-            pages.append(Page(
-                slug=f'step{step:02d}',
-                url=f'/network/step{step:02d}/',
-                track='network',
-                title_zh=zh,
-                title_en=en,
-                kind='png',
-                src=f'../../../../complex_network_images/{src_file}',
-                phase=key,
-                step=step_n,
-                kpis=kpis,
-                subtitle_zh=subtitle,
-            ))
+            if step in panels_by_step:
+                # Step-level page becomes an index of its panels
+                step_panels = sorted(panels_by_step[step], key=lambda r: r[1])
+                pages.append(Page(
+                    slug=f'step{step:02d}',
+                    url=f'/network/step{step:02d}/',
+                    track='network',
+                    title_zh=zh,
+                    title_en=en,
+                    kind='png_index',
+                    src=None,
+                    phase=key,
+                    step=step_n,
+                    kpis=kpis,
+                    subtitle_zh=subtitle,
+                    extra={'panels': [
+                        {
+                            'url': f'/network/{slug}/',
+                            'src': f'../../../../complex_network_images/{png}',
+                            'title_zh': ptz,
+                            'title_en': pte,
+                            'subtitle_zh': psub,
+                            'kpis': pkpis,
+                            'panel_id': pid,
+                        }
+                        for (_s, pid, png, slug, ptz, pte, psub, pkpis) in step_panels
+                    ]},
+                ))
+                # One Page per panel
+                for (_s, pid, png, slug, ptz, pte, psub, pkpis) in step_panels:
+                    pages.append(Page(
+                        slug=slug,
+                        url=f'/network/{slug}/',
+                        track='network',
+                        title_zh=ptz,
+                        title_en=pte,
+                        kind='png',
+                        src=f'../../../../complex_network_images/{png}',
+                        phase=key,
+                        step=step_n,
+                        part=pid,
+                        kpis=pkpis,
+                        subtitle_zh=psub,
+                    ))
+            else:
+                pages.append(Page(
+                    slug=f'step{step:02d}',
+                    url=f'/network/step{step:02d}/',
+                    track='network',
+                    title_zh=zh,
+                    title_en=en,
+                    kind='png',
+                    src=f'../../../../complex_network_images/{src_file}',
+                    phase=key,
+                    step=step_n,
+                    kpis=kpis,
+                    subtitle_zh=subtitle,
+                ))
         phases.append(Phase(key, title_zh, title_en, pages))
 
     # Prepend a Dashboards phase with the global network time-series page
