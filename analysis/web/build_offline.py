@@ -150,6 +150,36 @@ def rewrite_file(html_path: Path, out: Path) -> int:
     return count
 
 
+_EXTERNAL_URL_RE = re.compile(rb'https?://[^\s"\'<>()]+')
+
+
+def is_allowlisted(url: str) -> bool:
+    return any(url.startswith(prefix) for prefix in EXTERNAL_ALLOWLIST_PREFIXES)
+
+
+def verify_no_external_urls(out: Path) -> list[tuple[Path, str]]:
+    """Scan every HTML/JS/CSS under <out> for un-allowlisted external URLs.
+
+    Returns a list of (file, url) findings.  Empty list = clean.
+    """
+    findings: list[tuple[Path, str]] = []
+    for path in out.rglob('*'):
+        if not path.is_file():
+            continue
+        if path.suffix not in {'.html', '.htm', '.css', '.js'}:
+            continue
+        try:
+            data = path.read_bytes()
+        except OSError:
+            continue
+        for m in _EXTERNAL_URL_RE.finditer(data):
+            url = m.group(0).decode('utf-8', errors='replace').rstrip('.,;:')
+            if is_allowlisted(url):
+                continue
+            findings.append((path, url))
+    return findings
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--out', type=Path, default=DEFAULT_OUT,
@@ -203,6 +233,13 @@ def self_test():
     # Case 3: unmapped URL stays untouched
     out = rewrite_cdn_refs('<a href="https://plotly.com/">plotly</a>', depth_from_vendor=2)
     assert out == '<a href="https://plotly.com/">plotly</a>'
+
+    # --- is_allowlisted ---
+    assert is_allowlisted('https://plotly.com/python/')
+    assert is_allowlisted('https://openstreetmap.org/copyright')
+    assert is_allowlisted('https://unpkg.com/maki@2.1.0/icons/circle-15.svg')
+    assert not is_allowlisted('https://unpkg.com/3d-force-graph@1.77/dist/3d-force-graph.min.js')
+    assert not is_allowlisted('https://example.com/evil.js')
 
 
 if __name__ == '__main__':
