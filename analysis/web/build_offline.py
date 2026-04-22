@@ -180,7 +180,7 @@ def verify_no_external_urls(out: Path) -> list[tuple[Path, str]]:
     return findings
 
 
-def main():
+def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--out', type=Path, default=DEFAULT_OUT,
                     help='Target directory (default: offline-site/ at repo root)')
@@ -195,9 +195,85 @@ def main():
     if args.self_test:
         self_test()
         print('self-test OK')
-        return
+        return 0
 
-    raise NotImplementedError('pipeline not yet implemented')
+    out: Path = args.out.resolve()
+    vendor_dir = out / 'analysis' / 'vendor'
+
+    if args.verify_only:
+        if not out.exists():
+            sys.stderr.write(f'{out} does not exist\n')
+            return 1
+        findings = verify_no_external_urls(out)
+        if findings:
+            print(f'{len(findings)} un-allowlisted external URL(s):')
+            for path, url in findings[:20]:
+                print(f'  {path.relative_to(out)}: {url}')
+            if len(findings) > 20:
+                print(f'  … and {len(findings) - 20} more')
+            return 1
+        print('verify-only: clean (no external URLs outside allowlist).')
+        return 0
+
+    print(f'Building offline bundle at {out}')
+    out.mkdir(parents=True, exist_ok=True)
+
+    print('→ fetching vendor libraries …')
+    download_vendor(vendor_dir, skip=args.skip_download)
+
+    print('→ regenerating site with Galaxy excluded …')
+    run_site_build()
+
+    print('→ copying source trees …')
+    copy_sources(out)
+
+    print('→ rewriting CDN refs …')
+    total_rewrites = 0
+    rewritten_files = 0
+    for html in (out / 'analysis').rglob('*.html'):
+        n = rewrite_file(html, out)
+        if n > 0:
+            total_rewrites += n
+            rewritten_files += 1
+    print(f'  rewrote {total_rewrites} refs across {rewritten_files} files')
+
+    # Also rewrite any CSS that references CDN URLs (rare — some pyvis bundles)
+    for css in (out / 'analysis').rglob('*.css'):
+        rel = css.relative_to(out / 'analysis')
+        depth = len(rel.parts) - 1
+        try:
+            original = css.read_text(encoding='utf-8', errors='ignore')
+        except OSError:
+            continue
+        new = rewrite_cdn_refs(original, depth_from_vendor=depth)
+        if new != original:
+            css.write_text(new, encoding='utf-8')
+
+    print('→ verifying no un-allowlisted external URLs …')
+    findings = verify_no_external_urls(out)
+    if findings:
+        sys.stderr.write(f'!! {len(findings)} un-allowlisted external URL(s) — fix before shipping:\n')
+        for path, url in findings[:20]:
+            sys.stderr.write(f'   {path.relative_to(out)}: {url}\n')
+        return 1
+
+    readme = out / 'README.txt'
+    readme.write_text(
+        'IYP Offline Analysis Atlas\n'
+        '==========================\n\n'
+        '打开 · Open:  analysis/web/site/index.html  (double-click)\n\n'
+        '所有交互图表（中国 / 九国 / 复杂网络 / Globe）均已本地化；\n'
+        '无需联网、无需本地 HTTP 服务器。Galaxy 127K-AS 视图因浏览器安全限制\n'
+        '（file:// 无法 fetch 二进制数据）未包含在离线版本中；若需要，请在\n'
+        '在线版本 analysis/web/site/ 下浏览。\n\n'
+        'All interactive charts (China / Countries / Complex Network / Globe)\n'
+        'are fully localised; no internet or local HTTP server required.\n'
+        'The Galaxy 127K-AS view is excluded because Chrome blocks the\n'
+        'fetch() it needs over file://; use the online version for that.\n',
+        encoding='utf-8')
+
+    print(f'\nDone. Open: {out / "analysis/web/site/index.html"}')
+    return 0
 
 
 def self_test():
@@ -243,4 +319,4 @@ def self_test():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
