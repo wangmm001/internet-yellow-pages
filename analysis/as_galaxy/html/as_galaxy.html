@@ -419,10 +419,15 @@ window.addEventListener('resize', () => {
 // Sprite shader — soft circular disk, billboarded, alpha-blended.
 // One InstancedMesh holds every visible node across all tiers.
 // ─────────────────────────────────────────────────────────────────────────
+// Three.js auto-injects `attribute vec3 instanceColor` and `attribute mat4
+// instanceMatrix` into ShaderMaterial vertex shaders when attached to an
+// InstancedMesh that has those attributes set (USE_INSTANCING / USE_INSTANCING_COLOR
+// defines). Declaring them here again produces a "double declaration" compile
+// error that some drivers silently tolerate and others reject with
+// VALIDATE_STATUS false. Don't redeclare — just use them.
 const VERT = `
-attribute vec3 instanceColor;
-varying vec3  vColor;
-varying vec2  vUv;
+varying vec3 vColor;
+varying vec2 vUv;
 void main() {
   vColor = instanceColor;
   vUv = uv;
@@ -436,9 +441,10 @@ varying vec2 vUv;
 void main() {
   float d = length(vUv - 0.5);
   float core = smoothstep(0.50, 0.30, d);   // soft disk
-  float halo = smoothstep(0.50, 0.46, d) * 0.35;
+  // Wider brighter outer halo so nodes pop against dense edge layers.
+  float halo = smoothstep(0.50, 0.42, d) * 0.55;
   if (core + halo < 0.005) discard;
-  vec3  c = vColor + vec3(halo) * 0.6;
+  vec3  c = vColor + vec3(halo) * 0.9;
   gl_FragColor = vec4(c, core + halo);
 }`;
 
@@ -488,7 +494,10 @@ function makeLineMesh(maxSegments) {
   geom.setAttribute('color',    new THREE.BufferAttribute(colors,    3));
   geom.setDrawRange(0, 0);
   const mat = new THREE.LineBasicMaterial({
-    vertexColors: true, transparent: true, opacity: 0.28,
+    // Lower opacity so thousands of visible line segments (bundled × 7 samples
+    // per curve at L1 alone can hit 5-6K segments) don't haze the scene.
+    // Node sprites stay readable through the edge cloud.
+    vertexColors: true, transparent: true, opacity: 0.14,
     depthWrite: false, blending: THREE.NormalBlending,
   });
   const mesh = new THREE.LineSegments(geom, mat);
@@ -571,11 +580,15 @@ function setNodeAt(idx, n) {
   // visually meaningful pixel sizes — tier-1 sprites should be readable
   // at L0 zoom-out without becoming overwhelming. Smaller multiplier for
   // deeper tiers so the long-tail L3 doesn't blanket the scene.
-  const tierSizeFactor = n.tierIn === 0 ? 1.6
-                       : n.tierIn === 1 ? 1.2
-                       : n.tierIn === 2 ? 0.9
-                       :                  0.7;
-  const sz = Math.max(0.005, n.r * tierSizeFactor);
+  // Tier size factors bumped from 1.6/1.2/0.9/0.7 — at 5K-ish scenes the
+  // smaller factors let nodes vanish under the bundled edge layer, and even
+  // at 100K real data the visual hierarchy reads more clearly with hub
+  // sprites that are obvious "planets" vs specks.
+  const tierSizeFactor = n.tierIn === 0 ? 2.2
+                       : n.tierIn === 1 ? 1.6
+                       : n.tierIn === 2 ? 1.1
+                       :                  0.85;
+  const sz = Math.max(0.008, n.r * tierSizeFactor);
   _scale.set(sz, sz, sz);
   _m.compose(new THREE.Vector3(n.x, n.y, n.z), _q, _scale);
   nodeMesh.setMatrixAt(idx, _m);
