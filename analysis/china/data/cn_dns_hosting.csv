@@ -1,438 +1,438 @@
-asn,hostname_count,ip_count,country,org_tags
-45102,41109,17230,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-37963,27578,17595,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-24429,24082,1888,CN,Content|Software Development|Hosting and Cloud Provider
-4837,17840,5283,CN,Carrier|Not Validating RPKI ROV|Internet Service Provider (ISP)
-132203,14653,5946,CN,Content|Not Validating RPKI ROV|Computer and Information Technology
-45090,11218,5043,CN,"Content|Not Validating RPKI ROV|Museums, Libraries, and Entertainment"
-4134,11199,5645,CN,Carrier|Not Validating RPKI ROV|Computer and Information Technology
-9808,8703,3697,CN,Carrier|Validating RPKI ROV|Phone Provider
-4808,8580,2465,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-4811,8182,1584,CN,Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
-55990,6351,2654,CN,Content|Hosting and Cloud Provider|Computer and Information Technology
-4538,6085,5033,CN,Eyeball|Not Validating RPKI ROV|Education and Research
-23724,4561,2346,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-4812,3370,726,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-38283,3249,812,CN,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
-56046,3202,754,CN,Eyeball|Validating RPKI ROV|Computer and Information Technology
-58563,2581,356,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-55960,2281,2084,CN,Content|Not Validating RPKI ROV|Phone Provider
-135629,2196,1938,CN,Server Hosting|Validating RPKI ROV|Computer and Information Technology
-56047,1975,306,CN,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
-56041,1803,572,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-134768,1659,222,CN,"Government and Regulatory Agencies, Administrations, Departments, and Services|Not Validating RPKI ROV|Government and Public Administration"
-134756,1649,396,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-58461,1619,464,CN,Carrier|Not Validating RPKI ROV|Computer and Information Technology
-139587,1604,232,CN,"Music and Video Industry|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
-38365,1476,521,CN,Content|Not Validating RPKI ROV|Hosting and Cloud Provider
-58466,1331,731,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-134763,1328,288,CN,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
-63835,1305,136,CN,Server Hosting|Not Validating RPKI ROV|Computer and Information Technology
-136958,1259,618,CN,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
-151185,1235,132,CN,"Server Hosting|Media, Publishing, and Broadcasting|Music and Video Industry"
-139018,1232,72,CN,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
-135061,1180,109,CN,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
-58540,1172,175,CN,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
-56048,1124,653,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-133774,1083,153,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-63838,1045,121,CN,Computer and Information Technology|Internet Service Provider (ISP)
-58539,1026,134,CN,Computer and Information Technology|Internet Service Provider (ISP)
-136190,1017,303,CN,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
-133775,986,170,CN,Eyeball|Computer and Information Technology|Hosting and Cloud Provider
-140292,969,112,CN,"Mobile Data/Carrier|Media, Publishing, and Broadcasting|Music and Video Industry"
-4847,963,589,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-134770,929,61,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-24547,897,305,CN,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
-151823,890,46,CN,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
-17621,841,503,CN,Carrier|Not Validating RPKI ROV|Computer and Information Technology
-134238,809,50,CN,Content|Not Validating RPKI ROV|Computer and Information Technology
-138169,796,103,CN,"Mobile Data/Carrier|Museums, Libraries, and Entertainment|Music and Video Industry"
-56040,762,362,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-24445,753,248,CN,Eyeball|Not Validating RPKI ROV|Phone Provider
-146817,750,117,CN,"Service|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)"
-55967,742,166,CN,Content|Hosting and Cloud Provider|Software Development
-137718,716,481,CN,Server Hosting|Computer and Information Technology|Software Development
-139080,707,98,CN,Anycast|Internet Service Provider (ISP)|Computer and Information Technology
-134771,690,182,CN,Content|Not Validating RPKI ROV|Computer and Information Technology
-139203,683,178,CN,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
-140886,670,29,CN,"Phone Provider|Media, Publishing, and Broadcasting|Computer and Information Technology"
-133119,667,99,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-137687,602,142,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-55962,598,101,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Computer and Information Technology"
-134542,597,68,CN,Computer and Information Technology|Internet Service Provider (ISP)
-137693,580,41,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-131486,575,185,CN,Hosting and Cloud Provider|Computer and Information Technology
-134766,515,121,CN,Computer and Information Technology|Internet Service Provider (ISP)
-139201,494,68,CN,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
-137697,491,155,CN,Computer and Information Technology|Internet Service Provider (ISP)
-17816,481,116,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-58519,475,291,CN,Content|Not Validating RPKI ROV|Computer and Information Technology
-45062,469,263,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-131516,466,72,CN,"Education and Research|Online Informational Content|Media, Publishing, and Broadcasting"
-58542,464,118,CN,Content|Not Validating RPKI ROV|Computer and Information Technology
-24361,454,228,CN,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
-136194,453,15,CN,Computer and Information Technology|Internet Service Provider (ISP)
-137698,453,17,CN,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Not Validating RPKI ROV"
-58593,445,332,CN,Content|Not Validating RPKI ROV|Computer and Information Technology
-141998,421,20,CN,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
-24400,407,221,CN,Carrier|Validating RPKI ROV|Computer and Information Technology
-136188,406,221,CN,Content|Not Validating RPKI ROV|Computer and Information Technology
-134425,399,23,CN,Other
-7497,392,241,CN,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
-24444,363,80,CN,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
-148981,356,24,CN,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
-58541,351,45,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-138421,335,245,CN,"Server Hosting|Not Validating RPKI ROV|Media, Publishing, and Broadcasting"
-134760,334,123,CN,Internet Service Provider (ISP)|Computer and Information Technology
-134762,328,119,CN,"Eyeball|Not Validating RPKI ROV|Investment, Portfolio Management, Pensions and Funds"
-134764,327,48,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-9802,322,105,CN,VPN Host|Validating RPKI ROV
-9308,320,105,CN,VPN Host|Not Validating RPKI ROV|Education and Research
-134420,315,107,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-151397,303,28,CN,"Anycast|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
-24355,301,152,CN,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
-55992,301,54,CN,Content|Not Validating RPKI ROV|Hosting and Cloud Provider
-24357,299,215,CN,"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
-63727,286,213,CN,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
-24364,284,181,CN,Eyeball|Not Validating RPKI ROV|Education and Research
-133776,278,88,CN,Computer and Information Technology|Internet Service Provider (ISP)
-24362,266,168,CN,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
-140979,247,87,CN,"Server Hosting|Internet Service Provider (ISP)|Media, Publishing, and Broadcasting"
-140293,235,129,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
-4816,230,125,CN,Server Hosting|Not Validating RPKI ROV|Internet Service Provider (ISP)
-23910,229,181,CN,IPv6 only|Not Validating RPKI ROV|Research and Development Organizations
-133865,227,49,CN,Tranco 10k Host|Computer and Information Technology
-24349,226,193,CN,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
-136191,226,41,CN,Internet Service Provider (ISP)|Computer and Information Technology
-37936,223,43,CN,"Tranco 10k Host|Food, Grocery, Beverages|Retail Stores, Wholesale, and E-commerce Sites"
-138949,222,12,CN,Computer and Information Technology|Internet Service Provider (ISP)|Phone Provider
-24367,218,146,CN,"IPv6 only|Validating RPKI ROV|Colleges, Universities, and Professional Schools"
-134765,218,63,CN,Computer and Information Technology|Internet Service Provider (ISP)
-149178,217,99,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
-38019,216,134,CN,Eyeball|Validating RPKI ROV|Computer and Information Technology
-59019,216,170,CN,"Content|Software Development|Military, Defense, National Security, and International Affairs"
-134761,216,99,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-141679,213,138,CN,"Tranco 10k Host|Music and Video Industry|Media, Publishing, and Broadcasting"
-56282,212,48,CN,Computer and Information Technology|Internet Service Provider (ISP)
-24360,209,167,CN,IPv6 only|Validating RPKI ROV|Computer and Information Technology
-58543,209,30,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-134774,204,126,CN,Tranco 10k Host|Not Validating RPKI ROV|Home ISP
-24358,198,145,CN,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
-56045,196,93,CN,Anycast|Internet Service Provider (ISP)|Computer and Information Technology
-138407,192,118,CN,Computer and Information Technology|Internet Service Provider (ISP)
-63648,178,37,CN,Tranco 10k Host|Manufacturing|Hosting and Cloud Provider
-24363,176,147,CN,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
-17623,174,124,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-140717,172,74,CN,"Media, Publishing, and Broadcasting|Not Validating RPKI ROV|Computer and Information Technology"
-24353,170,116,CN,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
-63593,165,96,CN,Manufacturing|Phone Provider|Electronics and Computer Components
-23650,161,89,CN,Content|Not Validating RPKI ROV|Hosting and Cloud Provider
-9389,151,16,CN,Government|Not Validating RPKI ROV|Internet Service Provider (ISP)
-132510,149,51,CN,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
-132147,148,8,CN,Internet Service Provider (ISP)|Computer and Information Technology
-152711,148,19,CN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
-138950,137,63,CN,Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
-140105,132,39,CN,Internet Service Provider (ISP)|Computer and Information Technology
-137702,129,69,CN,Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
-136195,127,79,CN,Content|Computer and Information Technology|Internet Service Provider (ISP)
-17622,126,99,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-4809,123,89,CN,Carrier|Validating RPKI ROV|Computer and Information Technology
-24359,122,90,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-135089,119,34,CN,"Manufacturing|Service|Law, Business, and Consulting Services"
-24356,111,78,CN,IPv6 only|Not Validating RPKI ROV|Education and Research
-59025,103,59,CN,"Media, Publishing, and Broadcasting|Computer and Information Technology|Online Informational Content"
-134543,100,52,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-17428,98,54,CN,Software Development|Not Validating RPKI ROV|Computer and Information Technology
-24350,98,60,CN,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
-148969,97,31,CN,"Music and Video Industry|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
-9929,91,75,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-151295,91,5,CN,Research and Development Organizations|Online Informational Content|Education and Research
-133118,90,14,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-24348,89,65,CN,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
-134769,89,95,CN,Internet Service Provider (ISP)|Computer and Information Technology
-24427,88,5,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-24369,87,65,CN,"Education and Research|Validating RPKI ROV|Colleges, Universities, and Professional Schools"
-45576,87,12,CN,"IPv6 only|Education and Research|Colleges, Universities, and Professional Schools"
-24352,86,58,CN,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
-138182,86,78,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-140726,84,51,CN,Business Broadband|Not Validating RPKI ROV|Phone Provider
-151058,82,33,CN,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
-17964,81,50,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-138370,81,63,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-24354,80,71,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-138375,79,38,CN,IPv6 only|Not Validating RPKI ROV|Internet Service Provider (ISP)
-24371,78,67,CN,"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
-59009,77,3,CN,Computer and Information Technology|Software Development|Education and Research
-149304,77,5,CN,"Media, Publishing, and Broadcasting"
-136959,76,33,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-17638,75,66,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-24372,75,53,CN,Computer and Information Technology|Not Validating RPKI ROV
-139887,75,9,CN,Computer and Information Technology|Phone Provider|Internet Service Provider (ISP)
-132525,71,33,CN,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
-140716,71,52,CN,"Internet Service Provider (ISP)|Phone Provider|Media, Publishing, and Broadcasting"
-137753,70,13,CN,Hosting and Cloud Provider|Computer and Information Technology
-134773,69,48,CN,"Home ISP|Insurance Carriers and Agencies|Investment, Portfolio Management, Pensions and Funds"
-4835,66,26,CN,Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
-138378,64,46,CN,"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
-146966,63,52,CN,"Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting|Music and Video Industry"
-138369,62,35,CN,"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
-24376,59,4,CN,Internet Service Provider (ISP)|Computer and Information Technology
-59078,59,38,CN,Internet Service Provider (ISP)|Computer and Information Technology
-24368,58,29,CN,Not Validating RPKI ROV|IPv6 only|Computer and Information Technology
-134772,58,32,CN,"Home ISP|Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
-138373,58,51,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-141771,57,51,CN,"Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting|Music and Video Industry"
-24370,56,42,CN,"Not Validating RPKI ROV|Colleges, Universities, and Professional Schools|Education and Research"
-38345,56,27,CN,Internet Critical Infra|Not Validating RPKI ROV|Computer and Information Technology
-56019,56,36,CN,"Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
-136192,54,9,CN,Internet Service Provider (ISP)|Computer and Information Technology
-24151,53,73,CN,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
-45061,51,53,CN,Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology
-140083,49,11,CN,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
-140903,49,27,CN,Phone Provider|Not Validating RPKI ROV|Computer and Information Technology
-56044,48,38,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-63614,48,22,CN,Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)
-138393,48,33,CN,"IPv6 only|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
-63695,46,36,CN,"Hosting and Cloud Provider|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
-24365,45,24,CN,"Not Validating RPKI ROV|Colleges, Universities, and Professional Schools|Education and Research"
-138438,45,24,CN,IPv6 only|Computer and Information Technology|Internet Service Provider (ISP)
-18257,43,25,CN,Computer and Information Technology|Internet Service Provider (ISP)
-24416,43,12,CN,"Validating RPKI ROV|Computer and Information Technology|Museums, Libraries, and Entertainment"
-138371,43,29,CN,"Education and Research|Colleges, Universities, and Professional Schools"
-138381,42,35,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-23844,41,28,CN,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
-138538,41,30,CN,Computer and Information Technology|Hosting and Cloud Provider
-201674,41,2,CN,Community Groups and Nonprofits|Government and Public Administration|Anycast
-23853,40,29,CN,Content|Internet Service Provider (ISP)|Hosting and Cloud Provider
-139180,39,27,CN,"Computer and Information Technology|Education and Research|Media, Publishing, and Broadcasting"
-17775,38,28,CN,Eyeball|Not Validating RPKI ROV|Software Development
-138374,38,42,CN,IPv6 only|Not Validating RPKI ROV|Internet Service Provider (ISP)
-24351,37,11,CN,"Not Validating RPKI ROV|Education and Research|Colleges, Universities, and Professional Schools"
-138991,36,16,CN,Internet Service Provider (ISP)|Phone Provider|Computer and Information Technology
-131325,34,17,CN,Internet Service Provider (ISP)|Computer and Information Technology
-140527,34,9,CN,Server Hosting|Internet Service Provider (ISP)|Phone Provider
-24406,33,54,CN,"Anycast|Software Development|Media, Publishing, and Broadcasting"
-63548,33,14,CN,Electronics and Computer Components|Manufacturing|Phone Provider
-24409,32,46,CN,Internet Critical Infra|Internet Service Provider (ISP)|Online Informational Content
-63646,32,29,CN,Manufacturing|Hosting and Cloud Provider|Computer and Information Technology
-147008,32,1,CN,"Service|Media, Publishing, and Broadcasting|Anycast"
-9306,31,22,CN,"Validating RPKI ROV|Retail Stores, Wholesale, and E-commerce Sites|Eyeball"
-63619,31,22,CN,"Internet Service Provider (ISP)|Media, Publishing, and Broadcasting|Online Informational Content"
-137699,31,29,CN,Computer and Information Technology|Internet Service Provider (ISP)
-137695,30,20,CN,Computer and Information Technology|Internet Service Provider (ISP)
-23852,29,13,CN,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
-141425,29,22,CN,Internet Service Provider (ISP)|Computer and Information Technology
-142608,29,11,CN,"Museums, Libraries, and Entertainment|Music and Video Industry|Media, Publishing, and Broadcasting"
-63629,28,11,CN,"Not Validating RPKI ROV|Media, Publishing, and Broadcasting|Manufacturing"
-4611,27,25,CN,Tranco 10k Host|Computer and Information Technology|Internet Service Provider (ISP)
-131495,27,12,CN,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
-134810,27,19,CN,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
-136189,27,7,CN,"Computer and Information Technology|Law, Business, and Consulting Services|Service"
-137735,27,53,CN,"Corporate/Enterprise|Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
-138377,27,27,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-136197,26,42,CN,Computer and Information Technology|Internet Service Provider (ISP)
-138982,26,13,CN,Phone Provider|Not Validating RPKI ROV|Internet Service Provider (ISP)
-149837,26,6,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
-10212,25,22,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-38027,25,18,CN,"Government|Education and Research|Colleges, Universities, and Professional Schools"
-56006,25,28,CN,"Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
-138440,25,16,CN,IPv6 only|Computer and Information Technology|Internet Service Provider (ISP)
-140330,25,20,CN,"Music and Video Industry|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
-146814,25,12,CN,Online Informational Content|Computer and Information Technology|Internet Service Provider (ISP)
-18239,24,22,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-138457,23,7,CN,Research and Development Organizations|Education and Research|Internet Critical Infra
-37937,22,13,CN,"Not Validating RPKI ROV|Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
-45079,22,21,CN,"Retail Stores, Wholesale, and E-commerce Sites"
-139137,22,4,CN,
-140329,22,18,CN,"Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting|Music and Video Industry"
-23848,21,33,CN,Content|Computer and Information Technology|Software Development
-24366,21,6,CN,Not Validating RPKI ROV|Computer and Information Technology|IPv6 only
-56005,21,12,CN,Internet Service Provider (ISP)|Computer and Information Technology
-151270,21,4,CN,"Education and Research|Media, Publishing, and Broadcasting|Computer and Information Technology"
-58772,20,33,CN,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Utilities (Excluding Internet Service)|Banks, Credit Card Companies, Mortgage Providers"
-63561,20,15,CN,Internet Service Provider (ISP)|Computer and Information Technology|Education and Research
-9814,19,17,CN,"Eyeball|Not Validating RPKI ROV|Retail Stores, Wholesale, and E-commerce Sites"
-24138,19,12,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-56004,19,4,CN,"Not Validating RPKI ROV|Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
-63531,18,6,CN,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
-136199,17,12,CN,Mobile Data/Carrier|Computer and Information Technology|Internet Service Provider (ISP)
-141005,17,13,CN,Computer and Information Technology
-9811,16,10,CN,Government|Not Validating RPKI ROV|Internet Service Provider (ISP)
-55994,16,12,CN,Computer and Information Technology|Hosting and Cloud Provider|Software Development
-135426,16,2,CN,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
-24139,15,11,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-55971,15,5,CN,Not Validating RPKI ROV|Service|Government and Public Administration
-59045,15,9,CN,Hosting and Cloud Provider|Not Validating RPKI ROV|Computer and Information Technology
-9812,14,14,CN,"Radio and Television Providers|Not Validating RPKI ROV|Media, Publishing, and Broadcasting"
-18241,14,13,CN,"Utilities (Excluding Internet Service)|Electric Power Generation, Transmission, Distribution"
-56042,14,11,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-58854,14,7,CN,Internet Service Provider (ISP)|Hosting and Cloud Provider|Software Development
-137798,14,12,CN,Software Development|Computer and Information Technology
-138376,14,12,CN,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
-38381,13,9,CN,Corporate/Enterprise|Computer and Information Technology|Software Development
-132833,13,5,CN,"Service|Law, Business, and Consulting Services"
-142404,13,3,CN,"Museums, Libraries, and Entertainment|Music and Video Industry|Media, Publishing, and Broadcasting"
-151300,13,5,CN,
-56013,12,10,CN,"Phone Provider|Media, Publishing, and Broadcasting|Retail Stores, Wholesale, and E-commerce Sites"
-59029,12,9,CN,"Online Informational Content|Law, Business, and Consulting Services|Service"
-137788,12,3,CN,"Not Validating RPKI ROV|Media, Publishing, and Broadcasting|Internet Service Provider (ISP)"
-58811,11,13,CN,"Anycast|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)|Service"
-136200,11,8,CN,"Home ISP|Insurance Carriers and Agencies|Investment, Portfolio Management, Pensions and Funds"
-17781,10,6,CN,"Online Music and Video Streaming Services|Not Validating RPKI ROV|Media, Publishing, and Broadcasting"
-17968,10,7,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-137715,10,5,CN,"Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
-139110,10,4,CN,"Phone Provider|Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites"
-140308,10,5,CN,Mobile Data/Carrier|Internet Service Provider (ISP)|Computer and Information Technology
-150374,10,3,CN,Computer and Information Technology
-151263,10,4,CN,
-151313,10,6,CN,Computer and Information Technology|Education and Research|Online Informational Content
-17429,9,8,CN,Home ISP|Not Validating RPKI ROV|Internet Service Provider (ISP)
-55966,9,13,CN,"Corporate/Enterprise|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
-63655,9,5,CN,"Military, Defense, National Security, and International Affairs|Computer and Information Technology|Hosting and Cloud Provider"
-146842,9,3,CN,"Media, Publishing, and Broadcasting|Computer and Information Technology|Education and Research"
-10206,8,9,CN,Internet Service Provider (ISP)|Computer and Information Technology
-39753,8,7,CN,IPv6 only|Community Groups and Nonprofits|Personal ASN
-45075,8,2,CN,Online Music and Video Streaming Services|Online Informational Content|Radio and Television Providers
-55641,8,4,CN,IPv6 only|Hosting and Cloud Provider|Computer and Information Technology
-58536,8,10,CN,"Internet Critical Infra|Service|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)"
-58834,8,4,CN,Home ISP|Online Informational Content|Software Development
-59073,8,4,CN,"Corporate/Enterprise|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
-63647,8,8,CN,"Server Hosting|Online Informational Content|Media, Publishing, and Broadcasting"
-135363,8,7,CN,Internet Service Provider (ISP)|Computer and Information Technology
-9939,7,6,CN,"Retail Stores, Wholesale, and E-commerce Sites|Validating RPKI ROV"
-24404,7,4,CN,Computer and Information Technology
-45097,7,2,CN,Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
-59072,7,5,CN,Computer and Information Technology|Software Development
-137266,7,7,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
-137691,7,5,CN,Home ISP|Software Development|Computer and Information Technology
-139007,7,5,CN,Computer and Information Technology|Internet Service Provider (ISP)
-139179,7,3,CN,Not Validating RPKI ROV|Insurance Carriers and Agencies|Finance and Insurance
-213404,7,6,CN,Software Development|Computer and Information Technology|Server Hosting
-4842,6,4,CN,Anycast|Not Validating RPKI ROV|Hosting and Cloud Provider
-9809,6,6,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-59067,6,5,CN,"Phone Provider|Law, Business, and Consulting Services|Computer and Information Technology"
-59083,6,4,CN,Computer and Information Technology
-131522,6,4,CN,Computer and Information Technology
-137726,6,2,CN,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|IPv6 only"
-139090,6,7,CN,Online Informational Content|Education and Research|Internet Service Provider (ISP)
-139220,6,6,CN,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
-139317,6,1,CN,"Personal ASN|Service|Personal Care and Lifestyle (Barber Shops, Nail Salons, Diet Centers, Laundry, etc)"
-4859,5,6,CN,Not Validating RPKI ROV|Government|Government and Public Administration
-24141,5,4,CN,Computer and Information Technology|Internet Service Provider (ISP)
-24149,5,3,CN,Internet Critical Infra|Computer and Information Technology|Internet Service Provider (ISP)
-24430,5,5,CN,"Corporate/Enterprise|Freight, Shipment, and Postal Services|Postal Services and Couriers"
-37965,5,5,CN,Computer and Information Technology
-45064,5,4,CN,Internet Service Provider (ISP)|Computer and Information Technology|Construction and Real Estate
-45110,5,6,CN,Software Development|Education and Research|Computer and Information Technology
-55996,5,2,CN,Internet Service Provider (ISP)|Computer and Information Technology
-58866,5,6,CN,Computer and Information Technology|Software Development
-59049,5,4,CN,"Retail Stores, Wholesale, and E-commerce Sites"
-63689,5,6,CN,Computer and Information Technology|Internet Service Provider (ISP)
-132553,5,2,CN,Not Validating RPKI ROV|Education and Research|Service
-137764,5,3,CN,Computer and Information Technology
-139099,5,2,CN,"Retail Stores, Wholesale, and E-commerce Sites"
-139154,5,7,CN,"Retail Stores, Wholesale, and E-commerce Sites|Government"
-140061,5,4,CN,Phone Provider|Not Validating RPKI ROV|Computer and Information Technology
-140633,5,6,CN,"Tranco 10k Host|Computer and Information Technology|Media, Publishing, and Broadcasting"
-17962,4,3,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-24302,4,2,CN,IPv6 only|Internet Service Provider (ISP)|Computer and Information Technology
-38358,4,3,CN,Computer and Information Technology
-45071,4,2,CN,Manufacturing|Clothing and Textiles
-59048,4,4,CN,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
-131497,4,2,CN,"Automotive and Transportation|Manufacturing|Law, Business, and Consulting Services"
-131574,4,11,CN,Computer and Information Technology
-134578,4,1,CN,"Retail Stores, Wholesale, and E-commerce Sites|Not Validating RPKI ROV"
-137539,4,4,CN,"Media, Publishing, and Broadcasting|Computer and Information Technology|Internet Service Provider (ISP)"
-137688,4,7,CN,Internet Service Provider (ISP)|Computer and Information Technology
-137710,4,2,CN,Computer and Network Security|Computer and Information Technology
-146782,4,1,CN,Academic
-63708,4,2,CN,Computer and Information Technology|Internet Service Provider (ISP)
-149979,4,1,CN,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
-150145,4,1,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
-151261,4,5,CN,"Education and Research|Computer and Information Technology|Media, Publishing, and Broadcasting"
-209306,4,4,CN,"Eyeball|Internet Service Provider (ISP)|Media, Publishing, and Broadcasting"
-211575,4,3,CN,Eyeball|Computer and Information Technology|Anycast
-9805,3,2,CN,"Manufacturing|Investment, Portfolio Management, Pensions and Funds|Electronics and Computer Components"
-9807,3,4,CN,Hosting and Cloud Provider|Online Informational Content|Education and Research
-23842,3,2,CN,"Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
-38364,3,3,CN,Internet Service Provider (ISP)|Computer and Information Technology
-45275,3,2,CN,Computer and Information Technology|IPv6 only
-58448,3,4,CN,"Anycast|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)|Service"
-58851,3,2,CN,Software Development|Computer and Information Technology
-59077,3,2,CN,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
-63567,3,2,CN,"Computer and Information Technology|Education and Research|Media, Publishing, and Broadcasting"
-63718,3,1,CN,Software Development|Computer and Information Technology
-131558,3,2,CN,"Retail Stores, Wholesale, and E-commerce Sites"
-132536,3,3,CN,Internet Service Provider (ISP)|Computer and Information Technology
-133111,3,3,CN,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
-137690,3,2,CN,Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology
-139128,3,2,CN,Computer and Information Technology
-139148,3,3,CN,Corporate/Enterprise|Software Development|Hosting and Cloud Provider
-210352,3,3,CN,Eyeball|Community Groups and Nonprofits|Personal ASN
-210634,3,3,CN,Software Development|Computer and Information Technology
-55991,3,5,CN,
-9401,2,2,CN,"Not Validating RPKI ROV|Libraries and Archives|Museums, Libraries, and Entertainment"
-9803,2,2,CN,"Validating RPKI ROV|Software Development|Media, Publishing, and Broadcasting"
-17633,2,3,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-17799,2,2,CN,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
-17897,2,1,CN,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
-18245,2,1,CN,Validating RPKI ROV|Internet Service Provider (ISP)|Software Development
-23841,2,1,CN,"Internet Service Provider (ISP)|Media, Publishing, and Broadcasting|Computer and Information Technology"
-38255,2,2,CN,Carrier|Internet Service Provider (ISP)|Computer and Information Technology
-38272,2,2,CN,IPv6 only|Computer and Information Technology|Internet Service Provider (ISP)
-38367,2,2,CN,"Law, Business, and Consulting Services|Service"
-45074,2,2,CN,"Media, Publishing, and Broadcasting|Internet Service Provider (ISP)|Online Informational Content"
-50922,2,3,CN,"Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)|Service|Anycast"
-63580,2,1,CN,Not Validating RPKI ROV|Research and Development Organizations|Education and Research
-63631,2,2,CN,Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology
-131521,2,1,CN,"Government and Public Administration|Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
-131536,2,2,CN,Computer and Information Technology
-131539,2,2,CN,Software Development|Computer and Information Technology
-133465,2,2,CN,"Education and Research|Colleges, Universities, and Professional Schools|Academic"
-136160,2,1,CN,"Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Hosting and Cloud Provider"
-137758,2,4,CN,"Corporate/Enterprise|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
-137782,2,2,CN,"Electric Power Generation, Transmission, Distribution|Manufacturing|Utilities (Excluding Internet Service)"
-138029,2,1,CN,Computer and Information Technology
-139138,2,2,CN,Finance and Insurance|Software Development|Computer and Information Technology
-139141,2,2,CN,Computer and Information Technology|Software Development
-139172,2,1,CN,"Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
-140309,2,1,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
-146822,2,1,CN,Education and Research|Internet Service Provider (ISP)|Online Informational Content
-151253,2,1,CN,Online Informational Content|Internet Service Provider (ISP)|Software Development
-213605,2,2,CN,"Carrier|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
-213891,2,1,CN,Personal ASN|IPv6 only
-137746,2,1,CN,
-7641,1,1,CN,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
-17739,1,1,CN,"Civil Engineering Construction (Utility Lines, Roads and Bridges)|Internet Service Provider (ISP)|Computer and Information Technology"
-37942,1,2,CN,"Law, Business, and Consulting Services|Not Validating RPKI ROV|Service"
-37970,1,1,CN,Eyeball|Computer and Information Technology|Internet Service Provider (ISP)
-38378,1,1,CN,Automotive and Transportation|Machinery|Computer and Information Technology
-55982,1,1,CN,"Internet Service Provider (ISP)|Service|Media, Publishing, and Broadcasting"
-56002,1,1,CN,Finance and Insurance|Not Validating RPKI ROV
-58571,1,1,CN,Internet Service Provider (ISP)|Computer and Information Technology
-59037,1,1,CN,Software Development|Computer and Information Technology|Hosting and Cloud Provider
-59074,1,1,CN,Insurance Carriers and Agencies|Finance and Insurance
-59223,1,1,CN,Computer and Information Technology
-63696,1,1,CN,Manufacturing|Electronics and Computer Components|Service
-131511,1,1,CN,"Computer and Information Technology|Law, Business, and Consulting Services|Service"
-131519,1,1,CN,Electronics and Computer Components|Computer and Information Technology|Manufacturing
-132153,1,1,CN,Computer and Information Technology|Internet Service Provider (ISP)
-137571,1,1,CN,Education and Research|Eyeball
-137721,1,1,CN,IPv6 only
-137801,1,1,CN,Computer and Information Technology|Tranco 10k Host
-138545,1,1,CN,"Media, Publishing, and Broadcasting|Online Informational Content|Museums, Libraries, and Entertainment"
-139118,1,1,CN,"Law, Business, and Consulting Services|Service"
-139139,1,2,CN,Academic|Not Validating RPKI ROV|Education and Research
-139462,1,19,CN,Internet Service Provider (ISP)|Computer and Information Technology|Phone Provider
-139769,1,1,CN,Other|Not Validating RPKI ROV
-140317,1,1,CN,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
-141739,1,1,CN,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
-142111,1,1,MY,"Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites"
-147038,1,1,CN,"Museums, Libraries, and Entertainment|Music and Video Industry|Media, Publishing, and Broadcasting"
-149511,1,1,CN,"Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation|Anycast"
-151251,1,1,CN,
-151311,1,1,CN,Education and Research|Online Informational Content|Internet Service Provider (ISP)
-153725,1,1,CN,Eyeball|Computer and Information Technology|Internet Service Provider (ISP)
-210426,1,1,CN,Personal ASN|Service|IPv6 only
-212982,1,1,CN,Service|Anycast|IPv6 only
-137745,1,1,CN,
+asn,hostname_count,ip_count,country,org_name,org_tags
+45102,41109,17230,CN,"Hangzhou Alibaba Advertising Co.,Ltd.",Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+37963,27578,17595,CN,"Hangzhou Alibaba Advertising Co.,Ltd.",Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+24429,24082,1888,CN,"Hangzhou Alibaba Advertising Co.,Ltd.",Content|Software Development|Hosting and Cloud Provider
+4837,17840,5283,CN,CNCGROUP IP network of ShangHai IDC,Carrier|Not Validating RPKI ROV|Internet Service Provider (ISP)
+132203,14653,5946,CN,Shenzhen Tencent Computer Systems Company Limited,Content|Not Validating RPKI ROV|Computer and Information Technology
+45090,11218,5043,CN,Shenzhen Tencent Computer Systems Company Limited,"Content|Not Validating RPKI ROV|Museums, Libraries, and Entertainment"
+4134,11199,5645,CN,"No.31,Jin-rong Street",Carrier|Not Validating RPKI ROV|Computer and Information Technology
+9808,8703,3697,CN,China Mobile,Carrier|Validating RPKI ROV|Phone Provider
+4808,8580,2465,CN,China Unicom,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+4811,8182,1584,CN,China Telecom (Group),Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
+55990,6351,2654,CN,Huawei,Content|Hosting and Cloud Provider|Computer and Information Technology
+4538,6085,5033,CN,China Education and Research Network Center,Eyeball|Not Validating RPKI ROV|Education and Research
+23724,4561,2346,CN,"IDC, China Telecommunications Corporation",Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+4812,3370,726,CN,China Telecom (Group),Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+38283,3249,812,CN,CHINANET SiChuan Telecom Internet Data Center,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
+56046,3202,754,CN,China Mobile Communications Corporation,Eyeball|Validating RPKI ROV|Computer and Information Technology
+58563,2581,356,CN,CHINANET Hubei province network,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+55960,2281,2084,CN,Beijing Guanghuan Xinwang Digital,Content|Not Validating RPKI ROV|Phone Provider
+135629,2196,1938,CN,Ningxia West Cloud Data Technology Co.Ltd.,Server Hosting|Validating RPKI ROV|Computer and Information Technology
+56047,1975,306,CN,China Mobile Communications Corporation,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
+56041,1803,572,CN,China Mobile Communications Corporation,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+134768,1659,222,CN,CHINANET SHAANXI province Cloud Base network,"Government and Regulatory Agencies, Administrations, Departments, and Services|Not Validating RPKI ROV|Government and Public Administration"
+134756,1649,396,CN,China Telecom,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+58461,1619,464,CN,"No.288,Fu-chun Road",Carrier|Not Validating RPKI ROV|Computer and Information Technology
+139587,1604,232,CN,China Telecom,"Music and Video Industry|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
+38365,1476,521,CN,"Beijing Baidu Netcom Science and Technology Co., Ltd.",Content|Not Validating RPKI ROV|Hosting and Cloud Provider
+58466,1331,731,CN,CHINANET Guangdong province network,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+134763,1328,288,CN,CHINANET Guangdong province network,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
+63835,1305,136,CN,Hengyang,Server Hosting|Not Validating RPKI ROV|Computer and Information Technology
+136958,1259,618,CN,China Unicom,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
+151185,1235,132,CN,China Telecom,"Server Hosting|Media, Publishing, and Broadcasting|Music and Video Industry"
+139018,1232,72,CN,China Telecom,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
+135061,1180,109,CN,China Unicom,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
+58540,1172,175,CN,"Jinan,250000",Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
+56048,1124,653,CN,China Mobile Communications Corporation,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+133774,1083,153,CN,Fuzhou,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+63838,1045,121,CN,Hengyang,Computer and Information Technology|Internet Service Provider (ISP)
+58539,1026,134,CN,"Langfang,Hebei province, P.R.China",Computer and Information Technology|Internet Service Provider (ISP)
+136190,1017,303,CN,"JINHUA, ZHEJIANG Province, P.R.China.",Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
+133775,986,170,CN,Xiamen,Eyeball|Computer and Information Technology|Hosting and Cloud Provider
+140292,969,112,CN,China Telecom,"Mobile Data/Carrier|Media, Publishing, and Broadcasting|Music and Video Industry"
+4847,963,589,CN,China Networks Inter-Exchange,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+134770,929,61,CN,CHINANET Jiangsu province Suzhou taihu IDC network,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+24547,897,305,CN,China Mobile,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
+151823,890,46,CN,China Telecom,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
+17621,841,503,CN,China Unicom,Carrier|Not Validating RPKI ROV|Computer and Information Technology
+134238,809,50,CN,CHINANET Jiangx province IDC network,Content|Not Validating RPKI ROV|Computer and Information Technology
+138169,796,103,CN,China Telecom,"Mobile Data/Carrier|Museums, Libraries, and Entertainment|Music and Video Industry"
+56040,762,362,CN,China Mobile Communications Corporation,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+24445,753,248,CN,China Mobile,Eyeball|Not Validating RPKI ROV|Phone Provider
+146817,750,117,CN,"Hubei Feixun Network Co., Ltd","Service|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)"
+55967,742,166,CN,"Beijing Baidu Netcom Science and Technology Co., Ltd.",Content|Hosting and Cloud Provider|Software Development
+137718,716,481,CN,"Beijing Volcano Engine Technology Co., Ltd.",Server Hosting|Computer and Information Technology|Software Development
+139080,707,98,CN,China Mobile Communications Corporation,Anycast|Internet Service Provider (ISP)|Computer and Information Technology
+134771,690,182,CN,"WENZHOU, ZHEJIANG Province, P.R.China.",Content|Not Validating RPKI ROV|Computer and Information Technology
+139203,683,178,CN,China Telecom,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
+140886,670,29,CN,China Unicom,"Phone Provider|Media, Publishing, and Broadcasting|Computer and Information Technology"
+133119,667,99,CN,China Unicom,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+137687,602,142,CN,"Luoyang, Henan Province, P.R.China.",Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+55962,598,101,CN,"Beijing Kuaishou Technology Co., Ltd.","Media, Publishing, and Broadcasting|Music and Video Industry|Computer and Information Technology"
+134542,597,68,CN,China Unicom,Computer and Information Technology|Internet Service Provider (ISP)
+137693,580,41,CN,"CHINATELECOM Guangxi Nanning IDC networkdescr: Nanning , Guangxi Province, P.R.China.",Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+131486,575,185,CN,"Beijing Jingdong 360 Degree E-commerce Co., Ltd.",Hosting and Cloud Provider|Computer and Information Technology
+134766,515,121,CN,CHINANET Yunnan province IDC2 network,Computer and Information Technology|Internet Service Provider (ISP)
+139201,494,68,CN,China Telecom,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
+137697,491,155,CN,"CHINATELECOM JiangSu YangZhou IDC networkdescr: YangZhou , Jiangsu Province, P.R.China.",Computer and Information Technology|Internet Service Provider (ISP)
+17816,481,116,CN,China Unicom,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+58519,475,291,CN,Cloud Computing Corporation,Content|Not Validating RPKI ROV|Computer and Information Technology
+45062,469,263,CN,"NetEase Building No.16 Ke Yun Road,",Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+131516,466,72,CN,"Jinhua Weian InfoTech Co., Ltd","Education and Research|Online Informational Content|Media, Publishing, and Broadcasting"
+58542,464,118,CN,"Tianjij,300000",Content|Not Validating RPKI ROV|Computer and Information Technology
+24361,454,228,CN,CERNET2 IX at Southeast University,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
+136194,453,15,CN,"Huangshi, Hubei Province, P.R.China.",Computer and Information Technology|Internet Service Provider (ISP)
+137698,453,17,CN,"Haerbing , Heilongjiang Province, P.R.China.","Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Not Validating RPKI ROV"
+58593,445,332,CN,"Shanghai Blue Cloud Technology Co.,Ltd",Content|Not Validating RPKI ROV|Computer and Information Technology
+141998,421,20,CN,China Telecom,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
+24400,407,221,CN,China Mobile,Carrier|Validating RPKI ROV|Computer and Information Technology
+136188,406,221,CN,"NINGBO, ZHEJIANG Province, P.R.China.",Content|Not Validating RPKI ROV|Computer and Information Technology
+134425,399,23,CN,China Telecom,Other
+7497,392,241,CN,CNIC-CAS,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
+24444,363,80,CN,China Mobile,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
+148981,356,24,CN,China Telecom,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
+58541,351,45,CN,"Qingdao,266000",Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+138421,335,245,CN,China Unicom,"Server Hosting|Not Validating RPKI ROV|Media, Publishing, and Broadcasting"
+134760,334,123,CN,"Shijiazhuang IDC network, CHINANET Hebei province",Internet Service Provider (ISP)|Computer and Information Technology
+134762,328,119,CN,CHINANET Liaoning province Dalian MAN network,"Eyeball|Not Validating RPKI ROV|Investment, Portfolio Management, Pensions and Funds"
+134764,327,48,CN,CHINANET Guangdong province network,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+9802,322,105,CN,21vianet(China) Inc.,VPN Host|Validating RPKI ROV
+9308,320,105,CN,21vianet(China) Inc.,VPN Host|Not Validating RPKI ROV|Education and Research
+134420,315,107,CN,Chongqing Telecom,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+151397,303,28,CN,China Telecom,"Anycast|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
+24355,301,152,CN,CERNET2 IX at University of Electronic Science and Technology of China,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
+55992,301,54,CN,Beijing Qihu Technology Company Limited,Content|Not Validating RPKI ROV|Hosting and Cloud Provider
+24357,299,215,CN,CERNET2 IX at South China University of Technology,"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
+63727,286,213,CN,Huawei,Computer and Information Technology|Internet Service Provider (ISP)|Hosting and Cloud Provider
+24364,284,181,CN,CERNET2 IX at Shanghai Jiaotong University,Eyeball|Not Validating RPKI ROV|Education and Research
+133776,278,88,CN,Quanzhou,Computer and Information Technology|Internet Service Provider (ISP)
+24362,266,168,CN,CERNET2 IX at University of Science and Technology of China,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
+140979,247,87,CN,China Unicom,"Server Hosting|Internet Service Provider (ISP)|Media, Publishing, and Broadcasting"
+140293,235,129,CN,China Telecom,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
+4816,230,125,CN,China Telecom (Group),Server Hosting|Not Validating RPKI ROV|Internet Service Provider (ISP)
+23910,229,181,CN,China Next Generation Internet CERNET2,IPv6 only|Not Validating RPKI ROV|Research and Development Organizations
+133865,227,49,CN,"Beijing IQIYI Science & Technology Co., Ltd.",Tranco 10k Host|Computer and Information Technology
+24349,226,193,CN,CERNET2 IX at Peking University,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
+136191,226,41,CN,"YICHANG, Hubei Province, P.R.China.",Internet Service Provider (ISP)|Computer and Information Technology
+37936,223,43,CN,"15F,Ideal Plaza No.58 Bei Si Huan Xi Road","Tranco 10k Host|Food, Grocery, Beverages|Retail Stores, Wholesale, and E-commerce Sites"
+138949,222,12,CN,China Telecom,Computer and Information Technology|Internet Service Provider (ISP)|Phone Provider
+24367,218,146,CN,CERNET2 IX at Zhejiang University,"IPv6 only|Validating RPKI ROV|Colleges, Universities, and Professional Schools"
+134765,218,63,CN,CHINANET Yunnan province IDC1 network,Computer and Information Technology|Internet Service Provider (ISP)
+149178,217,99,CN,China Telecom,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
+38019,216,134,CN,China Mobile,Eyeball|Validating RPKI ROV|Computer and Information Technology
+59019,216,170,CN,"Beijing Kingsoft Cloud Internet Technology Co., Ltd","Content|Software Development|Military, Defense, National Security, and International Affairs"
+134761,216,99,CN,CHINANET NINGXIA province ZHONGWEI IDC network,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+141679,213,138,CN,China Telecom,"Tranco 10k Host|Music and Video Industry|Media, Publishing, and Broadcasting"
+56282,212,48,CN,"Beijing Internet Harbor Technology Co., Ltd",Computer and Information Technology|Internet Service Provider (ISP)
+24360,209,167,CN,CERNET2 IX at Zhengzhou University,IPv6 only|Validating RPKI ROV|Computer and Information Technology
+58543,209,30,CN,Guangdong,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+134774,204,126,CN,CHINANET Guangdong province Shenzhen MAN network,Tranco 10k Host|Not Validating RPKI ROV|Home ISP
+24358,198,145,CN,CERNET2 IX at Huazhong University of Science and Technology,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
+56045,196,93,CN,China Mobile Communications Corporation,Anycast|Internet Service Provider (ISP)|Computer and Information Technology
+138407,192,118,CN,China Mobile Communications Corporation,Computer and Information Technology|Internet Service Provider (ISP)
+63648,178,37,CN,"Beijing Xiaoju Science and Technology Co., Ltd.",Tranco 10k Host|Manufacturing|Hosting and Cloud Provider
+24363,176,147,CN,CERNET2 IX at Shandong University,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
+17623,174,124,CN,China Unicom,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+140717,172,74,CN,China Unicom,"Media, Publishing, and Broadcasting|Not Validating RPKI ROV|Computer and Information Technology"
+24353,170,116,CN,CERNET2 IX at Xi'an Jiaotong University,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
+63593,165,96,CN,HeyTap PTE.LTD.,Manufacturing|Phone Provider|Electronics and Computer Components
+23650,161,89,CN,China Telecom,Content|Not Validating RPKI ROV|Hosting and Cloud Provider
+9389,151,16,CN,BEIJING SHENZHOU GREATWALL COMMUNICATION,Government|Not Validating RPKI ROV|Internet Service Provider (ISP)
+132510,149,51,CN,China Mobile Communications Corporation,Eyeball|Internet Service Provider (ISP)|Computer and Information Technology
+132147,148,8,CN,China Telecom,Internet Service Provider (ISP)|Computer and Information Technology
+152711,148,19,CN,"Suike Information Technology SiChuan Co., Ltd","Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+138950,137,63,CN,China Telecom,Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
+140105,132,39,CN,China Mobile Communications Corporation,Internet Service Provider (ISP)|Computer and Information Technology
+137702,129,69,CN,China Telecom,Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
+136195,127,79,CN,"Qingdao, Shandong Province, P.R.China.",Content|Computer and Information Technology|Internet Service Provider (ISP)
+17622,126,99,CN,China Unicom,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+4809,123,89,CN,China Telecom Next Generation Carrier Network,Carrier|Validating RPKI ROV|Computer and Information Technology
+24359,122,90,CN,CERNET2 IX at Central South University,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+135089,119,34,CN,China Telecom,"Manufacturing|Service|Law, Business, and Consulting Services"
+24356,111,78,CN,CERNET2 IX at Chongqing University,IPv6 only|Not Validating RPKI ROV|Education and Research
+59025,103,59,CN,"Beijing Sankuai Cloud Computing Co.,Ltd.","Media, Publishing, and Broadcasting|Computer and Information Technology|Online Informational Content"
+134543,100,52,CN,China Unicom,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+17428,98,54,CN,21vianet(China) Inc.,Software Development|Not Validating RPKI ROV|Computer and Information Technology
+24350,98,60,CN,CERNET2 IX at Beijing University of Posts and Telecommunications,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
+148969,97,31,CN,China Telecom,"Music and Video Industry|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
+9929,91,75,CN,CNCGROUP IP network of ShangHai IDC,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+151295,91,5,CN,"Jiangsu Yinsuyun Network Technology Co. , Ltd.",Research and Development Organizations|Online Informational Content|Education and Research
+133118,90,14,CN,China Unicom,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+24348,89,65,CN,CERNET2 IX at Tsinghua University,"Colleges, Universities, and Professional Schools|Not Validating RPKI ROV|Education and Research"
+134769,89,95,CN,ChinaNet Jiangsu Changzhou Liyang IDC network,Internet Service Provider (ISP)|Computer and Information Technology
+24427,88,5,CN,Freecomm Corporation,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+24369,87,65,CN,CERNET2 IX at Northeast University,"Education and Research|Validating RPKI ROV|Colleges, Universities, and Professional Schools"
+45576,87,12,CN,Tsinghua University,"IPv6 only|Education and Research|Colleges, Universities, and Professional Schools"
+24352,86,58,CN,CERNET2 IX at Tianjin University,"Colleges, Universities, and Professional Schools|Validating RPKI ROV|Education and Research"
+138182,86,78,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+140726,84,51,CN,China Unicom,Business Broadband|Not Validating RPKI ROV|Phone Provider
+151058,82,33,CN,China Telecom,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
+17964,81,50,CN,"Beijing Dian-Xin-Tong Network Technologies Co., Ltd.",Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+138370,81,63,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+24354,80,71,CN,CERNET2 IX at Lanzhou University,IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+138375,79,38,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Internet Service Provider (ISP)
+24371,78,67,CN,CERNET2 IX at Jilin University,"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
+59009,77,3,CN,QingDao WangXin Telcom Corp. Limited,Computer and Information Technology|Software Development|Education and Research
+149304,77,5,CN,"Shenzhen Qiyi Network Technology Co., Ltd.","Media, Publishing, and Broadcasting"
+136959,76,33,CN,China Unicom,Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+17638,75,66,CN,TIANJIN Provincial Net of CT,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+24372,75,53,CN,CERNET2 IX at Harbin Institute of Technology,Computer and Information Technology|Not Validating RPKI ROV
+139887,75,9,CN,China Telecom,Computer and Information Technology|Phone Provider|Internet Service Provider (ISP)
+132525,71,33,CN,China Mobile Communications Corporation,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
+140716,71,52,CN,China Unicom,"Internet Service Provider (ISP)|Phone Provider|Media, Publishing, and Broadcasting"
+137753,70,13,CN,Beijing Jingdong Shangke Information Technology Co. Ltd.,Hosting and Cloud Provider|Computer and Information Technology
+134773,69,48,CN,CHINANET Guangdong province Guangzhou MAN network,"Home ISP|Insurance Carriers and Agencies|Investment, Portfolio Management, Pensions and Funds"
+4835,66,26,CN,China Telecom (Group),Tranco 10k Host|Not Validating RPKI ROV|Internet Service Provider (ISP)
+138378,64,46,CN,China Education and Research Network (CERNET),"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
+146966,63,52,CN,China Telecom,"Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting|Music and Video Industry"
+138369,62,35,CN,China Education and Research Network (CERNET),"Education and Research|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
+24376,59,4,US,Yahoo Inc.,Internet Service Provider (ISP)|Computer and Information Technology
+59078,59,38,CN,Yunify Technologies Inc.,Internet Service Provider (ISP)|Computer and Information Technology
+24368,58,29,CN,CERNET2 IX at Xiamen University,Not Validating RPKI ROV|IPv6 only|Computer and Information Technology
+134772,58,32,CN,CHINANET Guangdong province Dongguan MAN network,"Home ISP|Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
+138373,58,51,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+141771,57,51,CN,China Telecom,"Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting|Music and Video Industry"
+24370,56,42,CN,CERNET2 IX at Dalian University of Technology,"Not Validating RPKI ROV|Colleges, Universities, and Professional Schools|Education and Research"
+38345,56,27,CN,Internet Domain Name System Beijing Engineering Resrarch Center Ltd.,Internet Critical Infra|Not Validating RPKI ROV|Computer and Information Technology
+56019,56,36,CN,"Beijing ShuJuJia Technology Co., Ltd.","Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+136192,54,9,CN,"Xiangyang, Hubei Province, P.R.China.",Internet Service Provider (ISP)|Computer and Information Technology
+24151,53,73,CN,China Internet Network Infomation Center,Tranco 10k Host|Not Validating RPKI ROV|Computer and Information Technology
+45061,51,53,CN,"Shanghai Information Network Co.,Ltd.",Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology
+140083,49,11,CN,China Telecom,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
+140903,49,27,CN,China Telecom,Phone Provider|Not Validating RPKI ROV|Computer and Information Technology
+56044,48,38,CN,China Mobile Communications Corporation,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+63614,48,22,CN,"A4, 5th Floor, Tower C, Triumph Plaza, Unit A, No 143,",Computer and Information Technology|Computer and Network Security|Internet Service Provider (ISP)
+138393,48,33,CN,China Education and Research Network (CERNET),"IPv6 only|Not Validating RPKI ROV|Colleges, Universities, and Professional Schools"
+63695,46,36,CN,"WeiYi Network Technology Co., Ltd","Hosting and Cloud Provider|Retail Stores, Wholesale, and E-commerce Sites|Computer and Information Technology"
+24365,45,24,CN,CERNET2 IX at Fudan University,"Not Validating RPKI ROV|Colleges, Universities, and Professional Schools|Education and Research"
+138438,45,24,CN,China Education and Research Network (CERNET),IPv6 only|Computer and Information Technology|Internet Service Provider (ISP)
+18257,43,25,CN,"ChangZhou Bitcomm Software Technology Co., Limited",Computer and Information Technology|Internet Service Provider (ISP)
+24416,43,12,CN,Beijing Primezone Technologies Inc.,"Validating RPKI ROV|Computer and Information Technology|Museums, Libraries, and Entertainment"
+138371,43,29,CN,China Education and Research Network (CERNET),"Education and Research|Colleges, Universities, and Professional Schools"
+138381,42,35,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+23844,41,28,CN,Beijing Guanghuan Xinwang Digital,Phone Provider|Computer and Information Technology|Internet Service Provider (ISP)
+138538,41,30,CN,"Ningbo Nanbian Tuoluo Xinxi Jishu Co., Ltd",Computer and Information Technology|Hosting and Cloud Provider
+201674,41,2,CN,Wen ZhangYu,Community Groups and Nonprofits|Government and Public Administration|Anycast
+23853,40,29,CN,"Shanghai Data Solution Co., Ltd.",Content|Internet Service Provider (ISP)|Hosting and Cloud Provider
+139180,39,27,CN,"Shandong eshinton Network Technology Co., Ltd.","Computer and Information Technology|Education and Research|Media, Publishing, and Broadcasting"
+17775,38,28,CN,shanghai science and technology network communication limited company,Eyeball|Not Validating RPKI ROV|Software Development
+138374,38,42,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Internet Service Provider (ISP)
+24351,37,11,CN,CERNET2 IX at Beijing University of Aeronautics and Astronautics,"Not Validating RPKI ROV|Education and Research|Colleges, Universities, and Professional Schools"
+138991,36,16,CN,China Telecom,Internet Service Provider (ISP)|Phone Provider|Computer and Information Technology
+131325,34,17,CN,CHINATELECOM JIANGSU province NANTONG MAN network,Internet Service Provider (ISP)|Computer and Information Technology
+140527,34,9,CN,China Telecom,Server Hosting|Internet Service Provider (ISP)|Phone Provider
+24406,33,54,CN,China Internet Network Infomation Center,"Anycast|Software Development|Media, Publishing, and Broadcasting"
+63548,33,14,CN,LENOVO (BEIJING) Co.ltd,Electronics and Computer Components|Manufacturing|Phone Provider
+24409,32,46,CN,China Internet Network Infomation Center,Internet Critical Infra|Internet Service Provider (ISP)|Online Informational Content
+63646,32,29,CN,"Beijing Xiaoju Science and Technology Co., Ltd.",Manufacturing|Hosting and Cloud Provider|Computer and Information Technology
+147008,32,1,CN,Shenzhen Dianjiang Technology Co Ltd,"Service|Media, Publishing, and Broadcasting|Anycast"
+9306,31,22,CN,"RongHua Road No.11, Beijing Economy Technology Development Area, 100176","Validating RPKI ROV|Retail Stores, Wholesale, and E-commerce Sites|Eyeball"
+63619,31,22,CN,"Beijing Sankuai Cloud Computing Co.,Ltd.","Internet Service Provider (ISP)|Media, Publishing, and Broadcasting|Online Informational Content"
+137699,31,29,CN,CHINATELECOM Jiangsu Suqian IDC network,Computer and Information Technology|Internet Service Provider (ISP)
+137695,30,20,CN,CHINATELECOM Xinjiang Wulumuqi MAN network,Computer and Information Technology|Internet Service Provider (ISP)
+23852,29,13,CN,"17/FL, International Bank Center,",Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+141425,29,22,CN,China Mobile Communications Corporation,Internet Service Provider (ISP)|Computer and Information Technology
+142608,29,11,CN,China Telecom,"Museums, Libraries, and Entertainment|Music and Video Industry|Media, Publishing, and Broadcasting"
+63629,28,11,CN,"Beijing Autohome imformation technology Co.,Ltd","Not Validating RPKI ROV|Media, Publishing, and Broadcasting|Manufacturing"
+4611,27,25,CN,CNNIC member,Tranco 10k Host|Computer and Information Technology|Internet Service Provider (ISP)
+131495,27,12,CN,"Beijing nine cloud infinite network technology co., LTD",Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+134810,27,19,CN,China Mobile Communications Corporation,Eyeball|Validating RPKI ROV|Internet Service Provider (ISP)
+136189,27,7,CN,"Opera Software Technology (Beijing) Co., Ltd.","Computer and Information Technology|Law, Business, and Consulting Services|Service"
+137735,27,53,CN,China Construction Bank,"Corporate/Enterprise|Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
+138377,27,27,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+136197,26,42,CN,"Xiong'an, Hebei Province, P.R.China.",Computer and Information Technology|Internet Service Provider (ISP)
+138982,26,13,CN,China Telecom,Phone Provider|Not Validating RPKI ROV|Internet Service Provider (ISP)
+149837,26,6,CN,China Telecom,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
+10212,25,22,CN,China Enterprise ICT Solutions Limited,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+38027,25,18,CN,"Information Center, Ministry of Sci and Tech","Government|Education and Research|Colleges, Universities, and Professional Schools"
+56006,25,28,CN,"Shanghai Pudong Development Bank Co.,Ltd.","Finance and Insurance|Banks, Credit Card Companies, Mortgage Providers"
+138440,25,16,CN,China Education and Research Network (CERNET),IPv6 only|Computer and Information Technology|Internet Service Provider (ISP)
+140330,25,20,CN,China Telecom,"Music and Video Industry|Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting"
+146814,25,12,CN,"Hong Kong University of Science and Technology, Dongchung Town,",Online Informational Content|Computer and Information Technology|Internet Service Provider (ISP)
+18239,24,22,CN,"NO.11 Xi San Huan Zhong Road,Beijing",Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+138457,23,7,CN,China Academy of Information and Communications Technology,Research and Development Organizations|Education and Research|Internet Critical Infra
+37937,22,13,CN,China eGovNet Information Center,"Not Validating RPKI ROV|Government and Regulatory Agencies, Administrations, Departments, and Services|Government and Public Administration"
+45079,22,21,CN,GDS CHANGAN SERVICES Ltd.,"Retail Stores, Wholesale, and E-commerce Sites"
+139137,22,4,CN,Chinese Academy of Telecommunication Research,
+140329,22,18,CN,China Telecom,"Museums, Libraries, and Entertainment|Media, Publishing, and Broadcasting|Music and Video Industry"
+23848,21,33,CN,"Shenzhen Ping An Communication Technology Co.,Ltd",Content|Computer and Information Technology|Software Development
+24366,21,6,CN,CERNET2 IX at Tongji University,Not Validating RPKI ROV|Computer and Information Technology|IPv6 only
+56005,21,12,CN,"Zhengzhou Fastidc Technology Co.,Ltd.",Internet Service Provider (ISP)|Computer and Information Technology
+151270,21,4,CN,"Sichuan Xiaoteyun Technology Co., Ltd","Education and Research|Media, Publishing, and Broadcasting|Computer and Information Technology"
+58772,20,33,CN,CHINANET Fujian province Fuzhou IDC network,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|Utilities (Excluding Internet Service)|Banks, Credit Card Companies, Mortgage Providers"
+63561,20,15,CN,"China Electronics Technology Cyber Security Co.,LTD",Internet Service Provider (ISP)|Computer and Information Technology|Education and Research
+9814,19,17,CN,"Beijing FibrLINK Networks Co.,Ltd.","Eyeball|Not Validating RPKI ROV|Retail Stores, Wholesale, and E-commerce Sites"
+24138,19,12,CN,China TieTong Telecommunications Corporation,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+56004,19,4,CN,Information Center of Shanghai Municipal Education Commission,"Not Validating RPKI ROV|Government and Public Administration|Government and Regulatory Agencies, Administrations, Departments, and Services"
+63531,18,6,CN,"Beijing BAIWU Technology Co., Ltd.",Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+136199,17,12,CN,CHINANET Guangdong province Yuedong MAN network,Mobile Data/Carrier|Computer and Information Technology|Internet Service Provider (ISP)
+141005,17,13,CN,China Education and Research Network (CERNET),Computer and Information Technology
+9811,16,10,CN,Development & Research Center of State Council Net.,Government|Not Validating RPKI ROV|Internet Service Provider (ISP)
+55994,16,12,CN,"Shanghai ruisu Network Technology Co.,Ltd",Computer and Information Technology|Hosting and Cloud Provider|Software Development
+135426,16,2,CN,ZTE Corporation,Software Development|Internet Service Provider (ISP)|Computer and Information Technology
+24139,15,11,CN,Huashu media&Network Limited,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+55971,15,5,CN,Chinese Academy of Social Sciences,Not Validating RPKI ROV|Service|Government and Public Administration
+59045,15,9,CN,"Guangzhou navigation information technology co., LTD",Hosting and Cloud Provider|Not Validating RPKI ROV|Computer and Information Technology
+9812,14,14,CN,"Oriental Cable Network Co., Ltd.","Radio and Television Providers|Not Validating RPKI ROV|Media, Publishing, and Broadcasting"
+18241,14,13,CN,State Power Information Net,"Utilities (Excluding Internet Service)|Electric Power Generation, Transmission, Distribution"
+56042,14,11,CN,China Mobile Communications Corporation,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+58854,14,7,CN,Kaopu Cloud,Internet Service Provider (ISP)|Hosting and Cloud Provider|Software Development
+137798,14,12,CN,"5/F, Zhujiang Yide Building, 362 Dongfeng Middle Road, Yuexiu District,",Software Development|Computer and Information Technology
+138376,14,12,CN,China Education and Research Network (CERNET),IPv6 only|Not Validating RPKI ROV|Computer and Information Technology
+38381,13,9,CN,"west wing no.157,dongsi west street Dongcheng, Beijing, China",Corporate/Enterprise|Computer and Information Technology|Software Development
+132833,13,5,CN,China Telecom,"Service|Law, Business, and Consulting Services"
+142404,13,3,CN,China Telecom,"Museums, Libraries, and Entertainment|Music and Video Industry|Media, Publishing, and Broadcasting"
+151300,13,5,CN,,
+56013,12,10,CN,SAMSUNG SDS CHINA,"Phone Provider|Media, Publishing, and Broadcasting|Retail Stores, Wholesale, and E-commerce Sites"
+59029,12,9,CN,"People.Cn CO.,LTD","Online Informational Content|Law, Business, and Consulting Services|Service"
+137788,12,3,CN,Shanxi Beacon Cloudscape,"Not Validating RPKI ROV|Media, Publishing, and Broadcasting|Internet Service Provider (ISP)"
+58811,11,13,CN,CONAC (China Organizational Name Administration Center),"Anycast|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)|Service"
+136200,11,8,CN,CHINANET Guangdong province Foshan MAN network,"Home ISP|Insurance Carriers and Agencies|Investment, Portfolio Management, Pensions and Funds"
+17781,10,6,CN,XINHUA NEWS AGENCY,"Online Music and Video Streaming Services|Not Validating RPKI ROV|Media, Publishing, and Broadcasting"
+17968,10,7,CN,Daqing zhongji petroleum telecommunication construction limited cpmpany,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+137715,10,5,CN,GTJA Securities,"Investment, Portfolio Management, Pensions and Funds|Finance and Insurance"
+139110,10,4,CN,Beijing Jingdong Shangke Information Technology Co. Ltd.,"Phone Provider|Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites"
+140308,10,5,CN,China Telecom,Mobile Data/Carrier|Internet Service Provider (ISP)|Computer and Information Technology
+150374,10,3,CN,Jiang Men Shi Tian Da Cloud Co. Ltd,Computer and Information Technology
+151263,10,4,CN,"Juzhi technology co., ltd",
+151313,10,6,CN,"Pacific Insurance Technology Co., Ltd",Computer and Information Technology|Education and Research|Online Informational Content
+17429,9,8,CN,BEIJING GEHUA CATV NETWORK CO.LTD,Home ISP|Not Validating RPKI ROV|Internet Service Provider (ISP)
+55966,9,13,CN,"Post Savings Bank of China Tower A, No.3","Corporate/Enterprise|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+63655,9,5,CN,"Huawei Technologies Co., Ltd","Military, Defense, National Security, and International Affairs|Computer and Information Technology|Hosting and Cloud Provider"
+146842,9,3,CN,ChinaDataCom Corporation Limited,"Media, Publishing, and Broadcasting|Computer and Information Technology|Education and Research"
+10206,8,9,CN,China Unicom,Internet Service Provider (ISP)|Computer and Information Technology
+39753,8,7,CN,Kai Liu,IPv6 only|Community Groups and Nonprofits|Personal ASN
+45075,8,2,CN,China Central Television,Online Music and Video Streaming Services|Online Informational Content|Radio and Television Providers
+55641,8,4,CN,"Beijing CNISP Technology Co., Ltd.",IPv6 only|Hosting and Cloud Provider|Computer and Information Technology
+58536,8,10,CN,CONAC (China Organizational Name Administration Center),"Internet Critical Infra|Service|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)"
+58834,8,4,CN,Guangdong Cable Corporation Limited,Home ISP|Online Informational Content|Software Development
+59073,8,4,CN,Bank of China Limited,"Corporate/Enterprise|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+63647,8,8,CN,Beijing WangJu Interworking Information Technology Co. LTD,"Server Hosting|Online Informational Content|Media, Publishing, and Broadcasting"
+135363,8,7,CN,"Chongqing Fuxuan Information Technology Co., Limited",Internet Service Provider (ISP)|Computer and Information Technology
+9939,7,6,CN,"DYXNET of Shenzhen Communication Co., Ltd.","Retail Stores, Wholesale, and E-commerce Sites|Validating RPKI ROV"
+24404,7,4,CN,"CNISP-Union Technology (Beijing) Co., Ltd",Computer and Information Technology
+45097,7,2,CN,"A4, 5th Floor, Tower C, Triumph Plaza, Unit A, No 143,",Hosting and Cloud Provider|Internet Service Provider (ISP)|Computer and Information Technology
+59072,7,5,CN,"Shenzhen ESIN Technology Co., Ltd",Computer and Information Technology|Software Development
+137266,7,7,CN,China Telecom,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
+137691,7,5,CN,"Heilongjiang Province, P.R.China.",Home ISP|Software Development|Computer and Information Technology
+139007,7,5,CN,China Unicom,Computer and Information Technology|Internet Service Provider (ISP)
+139179,7,3,CN,"China Pacific Insurance (Group) Co.,Ltd.",Not Validating RPKI ROV|Insurance Carriers and Agencies|Finance and Insurance
+213404,7,6,CN,"Suzhou Yesong Information Technology Co., Ltd.",Software Development|Computer and Information Technology|Server Hosting
+4842,6,4,CN,Tianhai InfoTech,Anycast|Not Validating RPKI ROV|Hosting and Cloud Provider
+9809,6,6,CN,"SHENZHEN NOVA TECHNOLOGIES DEVELOPMENT.,LTD.",Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+59067,6,5,CN,"Microsoft Mobile Alliance Internet Services Co., Ltd","Phone Provider|Law, Business, and Consulting Services|Computer and Information Technology"
+59083,6,4,CN,"Shanghai Kuanhui Tech. Co.,ltd",Computer and Information Technology
+131522,6,4,CN,Beijing Yovole Cloud Computing Technology Company Limited,Computer and Information Technology
+137726,6,2,CN,China Petroleum & Chemical Corporation,"Agriculture, Mining, and Refineries (Farming, Greenhouses, Mining, Forestry, and Animal Farming)|IPv6 only"
+139090,6,7,CN,Wuxi Education Information Management Service Center,Online Informational Content|Education and Research|Internet Service Provider (ISP)
+139220,6,6,CN,China Telecom,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
+139317,6,1,CN,Ningbo Dahuamao Information Technology Co Ltd,"Personal ASN|Service|Personal Care and Lifestyle (Barber Shops, Nail Salons, Diet Centers, Laundry, etc)"
+4859,5,6,CN,The State Information Center of P.R.China,Not Validating RPKI ROV|Government|Government and Public Administration
+24141,5,4,CN,"Shanghai DMT Information Network cor.,LTD.",Computer and Information Technology|Internet Service Provider (ISP)
+24149,5,3,CN,Internet Domain Name System Beijing Engineering Resrarch Center Ltd.,Internet Critical Infra|Computer and Information Technology|Internet Service Provider (ISP)
+24430,5,5,CN,"Jia No.8, North Lishi Road, Xicheng Dist.Beijing, China","Corporate/Enterprise|Freight, Shipment, and Postal Services|Postal Services and Couriers"
+37965,5,5,CN,Pacnet Business Solutions LTD,Computer and Information Technology
+45064,5,4,CN,"BEIJING ZHONGGUANCUN SOFTWARE PARK DEVELOPMENT CO.,Ltd.",Internet Service Provider (ISP)|Computer and Information Technology|Construction and Real Estate
+45110,5,6,CN,Beijing Tian Wei Xin Tong technology corp. limited.,Software Development|Education and Research|Computer and Information Technology
+55996,5,2,CN,CYPRESS TELECOM (CHINA) LIMITED,Internet Service Provider (ISP)|Computer and Information Technology
+58866,5,6,CN,China Financial Certification Authority,Computer and Information Technology|Software Development
+59049,5,4,CN,"Wal-mart (China) Investment Co., Ltd.","Retail Stores, Wholesale, and E-commerce Sites"
+63689,5,6,CN,"Esun Technology(Shanghai) Co.,Ltd",Computer and Information Technology|Internet Service Provider (ISP)
+132553,5,2,CN,China University of Petroleum (East China),Not Validating RPKI ROV|Education and Research|Service
+137764,5,3,CN,Beijing Youkai Technology Co.Ltd,Computer and Information Technology
+139099,5,2,CN,Zhejiang Geely Holding Group,"Retail Stores, Wholesale, and E-commerce Sites"
+139154,5,7,CN,Big Data Center Of Shandong Province,"Retail Stores, Wholesale, and E-commerce Sites|Government"
+140061,5,4,CN,China Telecom,Phone Provider|Not Validating RPKI ROV|Computer and Information Technology
+140633,5,6,CN,BILIBILI HK LIMITED,"Tranco 10k Host|Computer and Information Technology|Media, Publishing, and Broadcasting"
+17962,4,3,CN,ShenZhen Topway Video Communication Co. Ltd,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+24302,4,2,CN,China Education and Research Network (CERNET),IPv6 only|Internet Service Provider (ISP)|Computer and Information Technology
+38358,4,3,CN,"3 Fuxing Road, Beijing, China",Computer and Information Technology
+45071,4,2,CN,"No.8 Xing Guang 5th Street, Opto-Mechatronics Industrial Park",Manufacturing|Clothing and Textiles
+59048,4,4,CN,"Bei Jing Cloud Times Technology Co.,Ltd",Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+131497,4,2,CN,"Volkswagen (China) Investment Co., LTD","Automotive and Transportation|Manufacturing|Law, Business, and Consulting Services"
+131574,4,11,CN,Hebei Sea Whale Technology Co. Ltd.,Computer and Information Technology
+134578,4,1,CN,UNION FU WAH DIGITAL TECHNOLOGY LIMITED,"Retail Stores, Wholesale, and E-commerce Sites|Not Validating RPKI ROV"
+137539,4,4,CN,China Unicom,"Media, Publishing, and Broadcasting|Computer and Information Technology|Internet Service Provider (ISP)"
+137688,4,7,CN,CHINATELECOM Liaoning Benxi MAN,Internet Service Provider (ISP)|Computer and Information Technology
+137710,4,2,CN,"Net God Information Technology (Beijing) Co., Ltd.",Computer and Network Security|Computer and Information Technology
+146782,4,1,CN,University Of Chinese Academy Of Social Sciences,Academic
+63708,4,2,CN,Guangdong LITONG Network Technology Limited,Computer and Information Technology|Internet Service Provider (ISP)
+149979,4,1,CN,China Telecom,"Media, Publishing, and Broadcasting|Museums, Libraries, and Entertainment|Music and Video Industry"
+150145,4,1,CN,China Telecom,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
+151261,4,5,CN,"Sichuan Xiaocong Cloud Supercomputing Technology Co., Ltd","Education and Research|Computer and Information Technology|Media, Publishing, and Broadcasting"
+209306,4,4,CN,Jin Shaohai,"Eyeball|Internet Service Provider (ISP)|Media, Publishing, and Broadcasting"
+211575,4,3,CN,Rui Feng,Eyeball|Computer and Information Technology|Anycast
+9805,3,2,CN,China Internet Network Infomation Center,"Manufacturing|Investment, Portfolio Management, Pensions and Funds|Electronics and Computer Components"
+9807,3,4,CN,Data Management Centre National Bureau of Statistics of China,Hosting and Cloud Provider|Online Informational Content|Education and Research
+23842,3,2,CN,Shenzhen Information and Network Center,"Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
+38364,3,3,CN,"RM 1706,Block A,Ocean Express,No.66",Internet Service Provider (ISP)|Computer and Information Technology
+45275,3,2,CN,BII Group Holdings Ltd,Computer and Information Technology|IPv6 only
+58448,3,4,CN,CONAC (China Organizational Name Administration Center),"Anycast|Social Assistance (Temporary Shelters, Emergency Relief, Child Day Care, etc)|Service"
+58851,3,2,CN,"BeiJing Wish Network Technology CO.,LTD.",Software Development|Computer and Information Technology
+59077,3,2,CN,Shanghai UCloud Information Technology Company Limited,Internet Service Provider (ISP)|Software Development|Computer and Information Technology
+63567,3,2,CN,"Suqian Pugongying Network Service Co.,Ltd","Computer and Information Technology|Education and Research|Media, Publishing, and Broadcasting"
+63718,3,1,CN,"Hangzhou YouYun Technology Co., Ltd.",Software Development|Computer and Information Technology
+131558,3,2,CN,"Wal-mart (China) Investment Co., Ltd.","Retail Stores, Wholesale, and E-commerce Sites"
+132536,3,3,CN,China Telecom,Internet Service Provider (ISP)|Computer and Information Technology
+133111,3,3,CN,"CERNET New Technology Co., Ltd",Internet Service Provider (ISP)|Not Validating RPKI ROV|Computer and Information Technology
+137690,3,2,CN,"Zaozhuang,Shandong Province, P.R.China.",Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology
+139128,3,2,CN,Dr.Peng BigData co.LTD,Computer and Information Technology
+139148,3,3,CN,"China UnionPay Co., Ltd",Corporate/Enterprise|Software Development|Hosting and Cloud Provider
+210352,3,3,CN,Yijia Xu,Eyeball|Community Groups and Nonprofits|Personal ASN
+210634,3,3,CN,"Suzhou Yesong Information Technology Co., Ltd.",Software Development|Computer and Information Technology
+55991,3,5,CN,,
+9401,2,2,CN,NETSLAND Center,"Not Validating RPKI ROV|Libraries and Archives|Museums, Libraries, and Entertainment"
+9803,2,2,CN,"Beijing Jingxun Public Information Technology Co., Ltd","Validating RPKI ROV|Software Development|Media, Publishing, and Broadcasting"
+17633,2,3,CN,Shandong Provincial Net of CT,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+17799,2,2,CN,Liaoning Provincial Net of CT,Computer and Information Technology|Not Validating RPKI ROV|Internet Service Provider (ISP)
+17897,2,1,CN,Heilongjiang Provincial Net of CT,Eyeball|Not Validating RPKI ROV|Internet Service Provider (ISP)
+18245,2,1,CN,China Internet Network Infomation Center,Validating RPKI ROV|Internet Service Provider (ISP)|Software Development
+23841,2,1,CN,"6/F, No.3 Huatian Road, New Technology Industry Area","Internet Service Provider (ISP)|Media, Publishing, and Broadcasting|Computer and Information Technology"
+38255,2,2,CN,China Education and Research Network (CERNET),Carrier|Internet Service Provider (ISP)|Computer and Information Technology
+38272,2,2,CN,China Education and Research Network (CERNET),IPv6 only|Computer and Information Technology|Internet Service Provider (ISP)
+38367,2,2,CN,"20/F.,Kuntai International Mansion,Buiding1 Yi No.12","Law, Business, and Consulting Services|Service"
+45074,2,2,CN,Data Management Centre National Bureau of Statistics of China,"Media, Publishing, and Broadcasting|Internet Service Provider (ISP)|Online Informational Content"
+50922,2,3,CN,SHI Li Li,"Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)|Service|Anycast"
+63580,2,1,CN,"China Novartis Institutes for Bio-Medical Research Co., Ltd.",Not Validating RPKI ROV|Research and Development Organizations|Education and Research
+63631,2,2,CN,"Guangdong Cloudbase Technology Co., Ltd.",Server Hosting|Internet Service Provider (ISP)|Computer and Information Technology
+131521,2,1,CN,Haitong Securities Company Limited,"Government and Public Administration|Finance and Insurance|Investment, Portfolio Management, Pensions and Funds"
+131536,2,2,CN,"Shanghai Great Wall Broadband Network Service Co., Ltd.",Computer and Information Technology
+131539,2,2,CN,"Ningbo Zhuo Zhi Innovation Network Technology Co., Ltd",Software Development|Computer and Information Technology
+133465,2,2,CN,Duke Kunshan University,"Education and Research|Colleges, Universities, and Professional Schools|Academic"
+136160,2,1,CN,"Tianjin Shi Shi Ji Hulian Yuntong Network Technology Co., Ltd.","Hosting, Cloud Provider, Data Center, Server Colocation|Computer and Information Technology|Hosting and Cloud Provider"
+137758,2,4,CN,"Industrial and Commercial Bank of China Limited,ICBC","Corporate/Enterprise|Banks, Credit Card Companies, Mortgage Providers|Finance and Insurance"
+137782,2,2,CN,STATE GRID SHANGHAI MUNICIPAL ELECTRIC POWER COMPANY,"Electric Power Generation, Transmission, Distribution|Manufacturing|Utilities (Excluding Internet Service)"
+138029,2,1,CN,"Shen Zhen Hu Lian Xian Feng Technology Co., Limited",Computer and Information Technology
+139138,2,2,CN,"Gopay Information Technology Co.,Ltd",Finance and Insurance|Software Development|Computer and Information Technology
+139141,2,2,CN,Yusys Financial Cloud,Computer and Information Technology|Software Development
+139172,2,1,CN,"Hangzhou Woodnn Technology Co., Ltd.","Service|Buildings, Repair, Maintenance (Pest Control, Landscaping, Cleaning, Locksmiths, Car Washes, etc)"
+140309,2,1,CN,China Telecom,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
+146822,2,1,CN,Shenzhenshi Zhongyun Shujujishu Youxiangongsi,Education and Research|Internet Service Provider (ISP)|Online Informational Content
+151253,2,1,CN,"Beijing Sanwang Fusion Technology Co., Ltd",Online Informational Content|Internet Service Provider (ISP)|Software Development
+213605,2,2,CN,Liu HaoRan,"Carrier|Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation"
+213891,2,1,CN,Liu Zhen,Personal ASN|IPv6 only
+137746,2,1,CN,,
+7641,1,1,CN,China Broadcasting TV Net,Eyeball|Not Validating RPKI ROV|Computer and Information Technology
+17739,1,1,CN,Shanghai Telecom Haplink Network Co Ltd (Haplink),"Civil Engineering Construction (Utility Lines, Roads and Bridges)|Internet Service Provider (ISP)|Computer and Information Technology"
+37942,1,2,CN,"3rd Floor, Wenbo Building, No.A2 Gaoyuan Street,","Law, Business, and Consulting Services|Not Validating RPKI ROV|Service"
+37970,1,1,CN,"Floor 9,Hua Sheng Building No.1 Lane 519 Ao Men Road,Shanghai",Eyeball|Computer and Information Technology|Internet Service Provider (ISP)
+38378,1,1,CN,Bosch (China) Investment Ltd.,Automotive and Transportation|Machinery|Computer and Information Technology
+55982,1,1,CN,"Changhong IT information Products CO.,LTD.","Internet Service Provider (ISP)|Service|Media, Publishing, and Broadcasting"
+56002,1,1,CN,BEIJING MARINE COMMUNICATION AND NAVIGATION CO.,Finance and Insurance|Not Validating RPKI ROV
+58571,1,1,CN,CHINANET Guizhou province network,Internet Service Provider (ISP)|Computer and Information Technology
+59037,1,1,CN,"Zhejiang Ruili Information Technology Co., Ltd",Software Development|Computer and Information Technology|Hosting and Cloud Provider
+59074,1,1,CN,"TAIKANG INSURANCE GROUP CO.,LTD.",Insurance Carriers and Agencies|Finance and Insurance
+59223,1,1,CN,China Telecom,Computer and Information Technology
+63696,1,1,CN,"China Securities Co., Ltd",Manufacturing|Electronics and Computer Components|Service
+131511,1,1,CN,"Beijing Chenxun Technology Co., Ltd.","Computer and Information Technology|Law, Business, and Consulting Services|Service"
+131519,1,1,CN,Hisense,Electronics and Computer Components|Computer and Information Technology|Manufacturing
+132153,1,1,CN,China Telecom,Computer and Information Technology|Internet Service Provider (ISP)
+137571,1,1,CN,"Rang Yang Bai Shi Chuang Yun Co., Limited",Education and Research|Eyeball
+137721,1,1,CN,,IPv6 only
+137801,1,1,CN,"AIPO Cloud (Guizhou) Technology Co., Ltd.",Computer and Information Technology|Tranco 10k Host
+138545,1,1,CN,"Zero Cirrus Cloud Computing (Shanghai) Co., Ltd.","Media, Publishing, and Broadcasting|Online Informational Content|Museums, Libraries, and Entertainment"
+139118,1,1,CN,"Shanghai Rugu Info&Tech Co.,Ltd.","Law, Business, and Consulting Services|Service"
+139139,1,2,CN,Shenyang Agricultural University,Academic|Not Validating RPKI ROV|Education and Research
+139462,1,19,CN,China Telecom,Internet Service Provider (ISP)|Computer and Information Technology|Phone Provider
+139769,1,1,CN,Guangzhou LinSeek Network Technology Co.Ltd,Other|Not Validating RPKI ROV
+140317,1,1,CN,China Telecom,Phone Provider|Internet Service Provider (ISP)|Computer and Information Technology
+141739,1,1,CN,China Telecom,"Media, Publishing, and Broadcasting|Music and Video Industry|Museums, Libraries, and Entertainment"
+142111,1,1,MY,Zhejiang Aiyun Network Technology Co Ltd,"Computer and Information Technology|Retail Stores, Wholesale, and E-commerce Sites"
+147038,1,1,CN,China Telecom,"Museums, Libraries, and Entertainment|Music and Video Industry|Media, Publishing, and Broadcasting"
+149511,1,1,CN,"Yamu Technologies Co., Ltd.","Computer and Information Technology|Hosting, Cloud Provider, Data Center, Server Colocation|Anycast"
+151251,1,1,CN,"Chengdu Qianzhiyunfu Technology Co., Ltd.",
+151311,1,1,CN,"Shenzhen Humeng Technology Co., Ltd",Education and Research|Online Informational Content|Internet Service Provider (ISP)
+153725,1,1,CN,Tenonet (Hangzhou) Co Ltd,Eyeball|Computer and Information Technology|Internet Service Provider (ISP)
+210426,1,1,CN,Liang Zhu,Personal ASN|Service|IPv6 only
+212982,1,1,CN,Lu Wang,Service|Anycast|IPv6 only
+137745,1,1,CN,,

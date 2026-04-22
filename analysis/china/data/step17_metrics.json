@@ -12,9 +12,9 @@
     ],
     "per_ranking_cn_count": {
       "CAIDA ASRank": 2000,
-      "APNIC eyeball estimates (CN)": 416,
+      "APNIC eyeball estimates (CN)": 395,
       "IHR country ranking: Total eyeball (CN)": 64,
-      "IHR country ranking: Total AS (CN)": 46,
+      "IHR country ranking: Total AS (CN)": 49,
       "CrUX top 1M (CN)": 0
     },
     "cn_ases_with_any_rank": 644,

@@ -11,7 +11,8 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     COLORS, DATA_DIR, DARK_PANEL, TEXT_PRIMARY, TEXT_SECONDARY,
-    load_as_metadata, load_cn_ases, save_multi_plotly_html, write_csv,
+    as_hover_with_org, as_label_with_org, load_as_metadata, load_as_org_map,
+    load_cn_ases, save_multi_plotly_html, write_csv,
     write_step_metrics, writeup,
 )
 from analysis.complex_network.utils import DATA_DIR as GLOBAL_DATA_DIR
@@ -24,6 +25,7 @@ TITLE_EN = 'China ASes in Global Centrality Rankings'
 def main():
     cn = load_cn_ases()
     md = load_as_metadata()
+    org_map = load_as_org_map()
     path = os.path.join(GLOBAL_DATA_DIR, 'step07_centrality_full.csv')
 
     rows = []
@@ -68,7 +70,7 @@ def main():
     other_y = [r['pagerank'] for r in rows if not r['is_cn']]
     cn_x = [r['degree'] for r in rows if r['is_cn']]
     cn_y = [r['pagerank'] for r in rows if r['is_cn']]
-    cn_text = [f'AS{r["asn"]}' for r in rows if r['is_cn']]
+    cn_text = [as_hover_with_org(r['asn'], org_map) for r in rows if r['is_cn']]
 
     scatter = go.Figure()
     scatter.add_trace(go.Scatter(
@@ -80,30 +82,36 @@ def main():
         x=cn_x, y=cn_y, mode='markers',
         marker=dict(color=COLORS['red'], size=8, opacity=0.85),
         name='中国 AS (CN)',
-        text=cn_text, hovertemplate='%{text}<br>degree=%{x}<br>pagerank=%{y}<extra></extra>',
+        text=cn_text,
+        hovertemplate='%{text}<br>degree = %{x:.4g}<br>PageRank = %{y:.4g}<extra></extra>',
     ))
     scatter.update_layout(
         title='度中心性 × PageRank (log 轴) · CN highlighted',
         xaxis=dict(title='Degree centrality', type='log'),
         yaxis=dict(title='PageRank', type='log'),
         height=620,
+        margin=dict(l=70, r=30, t=70, b=60),
     )
 
-    # Top-30 CN by pagerank with global rank
+    # Top-30 CN by pagerank with global rank — x-axis label shows AS + Org
     top = sorted(cn_rows, key=lambda r: r['pagerank'], reverse=True)[:30]
     bar = go.Figure()
     bar.add_trace(go.Bar(
-        x=[f'AS{r["asn"]}' for r in top],
+        x=[as_label_with_org(r['asn'], org_map, max_org_len=18) for r in top],
         y=[r['rank_pagerank'] for r in top],
         marker_color=COLORS['red'],
         text=[f'#{r["rank_pagerank"]}' for r in top],
         textposition='outside',
+        customdata=[as_hover_with_org(r['asn'], org_map) for r in top],
+        hovertemplate='%{customdata}<br>全球 PageRank 排名 #%{y}<extra></extra>',
         name='PageRank rank',
     ))
     bar.update_layout(
-        title='Top-30 CN ASes · 全球 PageRank 排名 (小=更中心)',
+        title='Top-30 CN ASes · 全球 PageRank 排名 (数字越小 = 越中心)',
         yaxis=dict(title='Global rank (lower = more central)', autorange='reversed'),
-        xaxis=dict(tickangle=-45),
+        xaxis=dict(tickangle=-40, automargin=True, title='AS · 所属组织'),
+        margin=dict(l=70, r=30, t=70, b=140),
+        bargap=0.35,
     )
 
     # Scatter matrix of 4 centralities

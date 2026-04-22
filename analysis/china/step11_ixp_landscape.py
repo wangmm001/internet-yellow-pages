@@ -69,16 +69,23 @@ def main():
     import plotly.graph_objects as go
 
     # ── Bar: top IXPs globally by CN presence ──
+    def _short_ixp(name, n=26):
+        return name if len(name) <= n else name[: n - 1] + '…'
     bar = go.Figure(go.Bar(
-        x=[f'{i}<br>[{ixp_country.get(i, "?")}]' for i, _ in top],
+        x=[f'{_short_ixp(i)}<br>[{ixp_country.get(i, "?")}]' for i, _ in top],
         y=[c for _, c in top],
         marker_color=[country_color(ixp_country.get(i, 'ZZ')) for i, _ in top],
         text=[str(c) for _, c in top],
         textposition='outside',
+        customdata=[[i, ixp_country.get(i, '?')] for i, _ in top],
+        hovertemplate='<b>%{customdata[0]}</b><br>Host country: %{customdata[1]}'
+                      '<br>CN members: %{y}<extra></extra>',
     ))
     bar.update_layout(title='Top-25 IXPs by CN member count (colors = host country)',
                       yaxis=dict(title='# CN ASes member'),
-                      xaxis=dict(tickangle=-60))
+                      xaxis=dict(tickangle=-40, automargin=True),
+                      margin=dict(l=60, r=30, t=70, b=140),
+                      bargap=0.3)
 
     # ── Geo-bubble map ──
     import math
@@ -106,7 +113,7 @@ def main():
 
     # ── Domestic IXP bar ──
     dom = go.Figure(go.Bar(
-        x=[i for i, _ in domestic_top],
+        x=[_short_ixp(i) for i, _ in domestic_top],
         y=[c for _, c in domestic_top],
         marker_color=COLORS['red'],
         text=[str(c) for _, c in domestic_top],
@@ -115,7 +122,8 @@ def main():
     dom.update_layout(
         title=f'中国境内 IXPs · Domestic CN-hosted IXPs ({len(domestic_top)} shown)',
         yaxis=dict(title='# CN members'),
-        xaxis=dict(tickangle=-30))
+        xaxis=dict(tickangle=-30, automargin=True),
+        margin=dict(l=60, r=30, t=70, b=120))
 
     # ── Concentration ratio ──
     dom_cn_total = sum(c for _, c in domestic_top)

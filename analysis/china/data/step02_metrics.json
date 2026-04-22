@@ -4,7 +4,7 @@
   "title_en": "Top-20 Chinese ASes · Identity Cards",
   "metrics": {
     "top_ases_analyzed": 20,
-    "total_prefixes_top20": 47744,
+    "total_prefixes_top20": 44862,
     "asns": [
       23911,
       38255,

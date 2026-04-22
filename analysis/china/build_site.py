@@ -122,7 +122,7 @@ STEP_KPIS = {
 # Order matches the existing <h3> subtitle order in each HTML.
 CHART_META = {
     1: [
-        {'plain': '大中华都有哪些“互联网行政区”？',    'sub': '① 大中华 AS 分层 · Sunburst',        'part': 1},
+        {'plain': '中国区都有哪些“互联网行政区”？',    'sub': '① 中国区 AS 分层 · Sunburst',        'part': 1},
         {'plain': '大陆 / 香港 / 台湾 / 澳门各有多少 AS？',  'sub': '② 区域 AS 规模对比 · Bar',       'part': 1},
         {'plain': '这些 AS 各自在经营什么业务？',       'sub': '③ 区域 × 标签类别 · Table',           'part': 1},
     ],

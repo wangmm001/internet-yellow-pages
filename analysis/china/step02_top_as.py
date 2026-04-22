@@ -115,19 +115,28 @@ def main():
     ))
     table.update_layout(title=f'Top-{len(rows)} 中国 AS 身份档案表 · Identity Table')
 
-    # ── Bar: prefix_count ──
+    # ── Bar: prefix_count (x-axis label carries AS + Org so the reader doesn't
+    # need to mentally map ASNs to operators) ──
     rows_sorted = sorted(rows, key=lambda r: r['prefix_count'], reverse=True)
+    def _short(s, n=22):
+        s = s or '?'
+        return s if len(s) <= n else s[: n - 1] + '…'
     bar = go.Figure(go.Bar(
-        x=[f'AS{r["asn"]}' for r in rows_sorted],
+        x=[f'AS{r["asn"]}<br>{_short(r["org"] or r["name"])}' for r in rows_sorted],
         y=[r['prefix_count'] for r in rows_sorted],
         marker_color=COLORS['red'],
         text=[f'{r["prefix_count"]:,}' for r in rows_sorted],
         textposition='outside',
-        hovertext=[r['name'] for r in rows_sorted],
+        customdata=[[r['name'], r['org']] for r in rows_sorted],
+        hovertemplate=(
+            '<b>AS%{x}</b><br>名称 %{customdata[0]}<br>组织 %{customdata[1]}'
+            '<br>前缀数 %{y:,}<extra></extra>'
+        ),
     ))
     bar.update_layout(title='前缀数排名 · Prefixes originated per top CN AS',
                       yaxis=dict(title='BGPPrefix count', type='log'),
-                      xaxis=dict(title='AS'))
+                      xaxis=dict(title='AS · 所属组织', tickangle=-30, automargin=True),
+                      margin=dict(l=70, r=30, t=70, b=130))
 
     metrics = {
         'top_ases_analyzed': len(rows),

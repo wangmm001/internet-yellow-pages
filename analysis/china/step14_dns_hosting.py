@@ -11,9 +11,9 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
-    COLORS, DATA_DIR, country_color, load_as_metadata, load_as_country_map,
-    load_cn_ases, save_multi_plotly_html, write_csv,
-    write_step_metrics, writeup,
+    COLORS, DATA_DIR, as_hover_with_org, as_label_with_org, country_color,
+    load_as_country_map, load_as_metadata, load_as_org_map, load_cn_ases,
+    save_multi_plotly_html, write_csv, write_step_metrics, writeup,
 )
 from analysis.complex_network.utils import DATA_DIR as GLOBAL_DATA_DIR
 
@@ -26,6 +26,7 @@ def main():
     cn = load_cn_ases()
     cmap = load_as_country_map()
     md = load_as_metadata()
+    org_map = load_as_org_map()
 
     path = os.path.join(GLOBAL_DATA_DIR, 'dns_as_hosting.csv')
     rows = []
@@ -43,9 +44,11 @@ def main():
             global_by_country[primary_cc] += hc
             rows.append((asn, hc, primary_cc))
             if asn in cn:
+                org_info = org_map.get(asn) or {}
                 cn_hosting_rows.append({
                     'asn': asn, 'hostname_count': hc, 'ip_count': int(row.get('ip_count') or 0),
                     'country': primary_cc,
+                    'org_name': org_info.get('org_name', ''),
                     'org_tags': '|'.join(md.get(asn, {}).get('tags', [])[:3]),
                 })
     cn_hosting_rows.sort(key=lambda r: r['hostname_count'], reverse=True)
@@ -70,7 +73,12 @@ def main():
         colors.append(country_color(cc))
         lst = sorted(as_by_country[cc], key=lambda t: -t[1])[:5]
         for asn, hc in lst:
-            labels.append(f'AS{asn} · {hc:,}')
+            org_rec = org_map.get(asn) or {}
+            org_short = (org_rec.get('org_name') or '').strip()
+            if org_short and len(org_short) > 20:
+                org_short = org_short[:19] + '…'
+            tail = f' · {org_short}' if org_short else ''
+            labels.append(f'AS{asn}{tail} · {hc:,}')
             parents.append(cc)
             values.append(hc)
             colors.append(country_color(cc))
@@ -84,20 +92,25 @@ def main():
     sun.update_layout(
         title='全球托管规模 · HostName hosting by country→AS (top 10 countries × top 5 AS)')
 
-    # ── Top-20 CN ASes ──
+    # ── Top-20 CN ASes (x-axis carries AS + Org so the reader immediately
+    # sees which operator each bar belongs to) ──
     top_cn = cn_hosting_rows[:20]
     bar = go.Figure(go.Bar(
-        x=[f'AS{r["asn"]}' for r in top_cn],
+        x=[as_label_with_org(r['asn'], org_map, max_org_len=18) for r in top_cn],
         y=[r['hostname_count'] for r in top_cn],
         marker_color=COLORS['red'],
         text=[f'{r["hostname_count"]:,}' for r in top_cn],
         textposition='outside',
-        hovertext=[r['org_tags'] for r in top_cn],
+        customdata=[[as_hover_with_org(r['asn'], org_map), r['org_tags']] for r in top_cn],
+        hovertemplate='%{customdata[0]}<br>标签 %{customdata[1]}'
+                      '<br>HostName count %{y:,}<extra></extra>',
     ))
     bar.update_layout(
         title='中国托管最多 HostName 的 AS · Top-20 CN hosting ASes',
         yaxis=dict(title='HostName count (log)', type='log'),
-        xaxis=dict(tickangle=-30))
+        xaxis=dict(tickangle=-35, automargin=True, title='AS · 所属组织'),
+        margin=dict(l=70, r=30, t=70, b=150),
+        bargap=0.3)
 
     # ── Pie: CN hosting by commercial cloud vs ISP ──
     cloud_keywords = ['Hosting', 'Cloud', 'Content Delivery Network']

@@ -164,6 +164,68 @@ def load_as_metadata():
     return mp
 
 
+_AS_ORG_CACHE = None
+
+
+def load_as_org_map():
+    """Return dict[asn] -> {'org_name': str, 'org_countries': str}.
+
+    Sourced from the IYP (:AS)-[:MANAGED_BY]->(:Organization) relation,
+    cached by analysis/complex_network/step04 as as_organization.csv.
+    Missing ASes simply return None from .get(); callers should fall back
+    gracefully (e.g. render bare 'AS<n>').
+    """
+    global _AS_ORG_CACHE
+    if _AS_ORG_CACHE is not None:
+        return _AS_ORG_CACHE
+    path = os.path.join(GLOBAL_DATA_DIR, 'as_organization.csv')
+    mp = {}
+    if not os.path.exists(path):
+        _AS_ORG_CACHE = mp
+        return mp
+    with open(path, encoding='utf-8') as f:
+        for row in csv.DictReader(f):
+            try:
+                asn = int(row['asn'])
+            except (KeyError, TypeError, ValueError):
+                continue
+            org = (row.get('org_name') or '').strip()
+            if not org:
+                continue
+            mp[asn] = {'org_name': org, 'org_countries': row.get('org_countries') or ''}
+    _AS_ORG_CACHE = mp
+    return mp
+
+
+def _truncate(s, n):
+    s = s or ''
+    return s if len(s) <= n else s[: n - 1] + '…'
+
+
+def as_label_with_org(asn, org_map, max_org_len=28, prefix='AS'):
+    """Short display label — e.g. 'AS4134 · China Telecom'.
+
+    If org unknown, returns 'AS<asn>' alone so bar-chart x-axes stay aligned.
+    """
+    rec = org_map.get(asn) if org_map else None
+    if not rec or not rec.get('org_name'):
+        return f'{prefix}{asn}'
+    return f'{prefix}{asn} · {_truncate(rec["org_name"], max_org_len)}'
+
+
+def as_hover_with_org(asn, org_map):
+    """Multi-line hover snippet — 'AS4134<br>China Telecom (CN)'.
+
+    Returns just 'AS<asn>' if no org info is cached.
+    """
+    rec = org_map.get(asn) if org_map else None
+    if not rec or not rec.get('org_name'):
+        return f'AS{asn}'
+    cc = rec.get('org_countries') or ''
+    cc_s = f' ({cc})' if cc else ''
+    return f'AS{asn}<br>{_truncate(rec["org_name"], 48)}{cc_s}'
+
+
 # ─────────────────────────────────────────────────────────────
 # Neo4j fallback
 # ─────────────────────────────────────────────────────────────

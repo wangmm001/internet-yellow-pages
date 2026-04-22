@@ -7,9 +7,9 @@ import numpy as np
 import os
 
 # ── Neo4j connection ──
-NEO4J_URI = 'bolt://localhost:7687'
-NEO4J_USER = 'neo4j'
-NEO4J_PASS = 'neo4j'
+NEO4J_URI = os.environ.get('IYP_NEO4J_URI', 'bolt://localhost:7687')
+NEO4J_USER = os.environ.get('IYP_NEO4J_USER', 'neo4j')
+NEO4J_PASS = os.environ.get('IYP_NEO4J_PASS', 'neo4j')
 
 # ── Paths ──
 # Raw / derived CSVs live in a repo-root data_cache/ directory that is

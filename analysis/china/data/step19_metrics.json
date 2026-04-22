@@ -3,12 +3,12 @@
   "title_zh": "中国境内 RIPE Atlas 测量观测点",
   "title_en": "RIPE Atlas Measurement Presence in China",
   "metrics": {
-    "cn_probes_count": 698,
+    "cn_probes_count": 660,
     "cn_probes_with_coords": 0,
     "cn_rank_global_probe_count": null,
     "target_measurement_counts": {
-      "AS": 108,
-      "HostName": 7
+      "AS": 96,
+      "HostName": 8
     }
   }
 }

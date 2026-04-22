@@ -61,13 +61,14 @@ def main():
 
     # ── Build Plotly sunburst: region → category ──
     import plotly.graph_objects as go
-    labels = ['Greater China']
+    ROOT_LABEL = '中国区 · China Region'
+    labels = [ROOT_LABEL]
     parents = ['']
     values = [total_asns]
     colors = [COLORS['red']]
     for region in ['CN', 'HK', 'TW', 'MO']:
         labels.append(region)
-        parents.append('Greater China')
+        parents.append(ROOT_LABEL)
         values.append(len(groups[region]))
         colors.append(COLORS['red'] if region == 'CN' else COLORS['pink'])
         for cat, cnt in tag_counters[region].most_common():
@@ -86,7 +87,10 @@ def main():
         marker=dict(colors=colors, line=dict(color=DARK_BG, width=1)),
         branchvalues='total', hovertemplate='<b>%{label}</b><br>%{value} ASNs<extra></extra>',
     ))
-    sunburst.update_layout(title=f'Greater China AS breakdown · {total_asns:,} ASNs total')
+    sunburst.update_layout(
+        title=f'中国区 AS 分层 · China Region AS breakdown · {total_asns:,} ASNs total',
+        margin=dict(l=40, r=40, t=80, b=40),
+    )
 
     # ── Category table per region ──
     all_cats = sorted({c for r in groups for c in tag_counters[r]})
@@ -112,9 +116,10 @@ def main():
         text=[f'{len(groups[r]):,}' for r in groups],
         textposition='outside',
     ))
-    bar.update_layout(title='AS count by region',
+    bar.update_layout(title='中国区各注册地 AS 规模对比 · AS count by region',
                       yaxis=dict(title='unique ASNs'),
-                      xaxis=dict(title='Region'))
+                      xaxis=dict(title='Region'),
+                      margin=dict(l=60, r=30, t=70, b=60))
 
     metrics = {
         'total_greater_china_asns': total_asns,
@@ -147,7 +152,7 @@ def main():
         [sunburst, bar, table_fig], 'step01_scope.html',
         step_num=STEP, title_zh=TITLE_ZH, title_en=TITLE_EN, source='cached CSV',
         writeup_html=w,
-        subtitles=['1. 大中华 AS 分层旭日图 · Sunburst', '2. 区域 AS 规模对比',
+        subtitles=['1. 中国区 AS 分层旭日图 · Sunburst', '2. 区域 AS 规模对比',
                    '3. 区域 × 标签类别 分布表'],
     )
 

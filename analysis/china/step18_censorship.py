@@ -11,7 +11,8 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
-    COLORS, DATA_DIR, load_cn_ases, save_multi_plotly_html,
+    COLORS, DATA_DIR, as_hover_with_org, as_label_with_org,
+    load_as_org_map, load_cn_ases, save_multi_plotly_html,
     write_csv, write_step_metrics, writeup,
 )
 from analysis.complex_network.utils import DATA_DIR as GLOBAL_DATA_DIR
@@ -23,6 +24,7 @@ TITLE_EN = 'Censorship Topology in China'
 
 def main():
     cn = load_cn_ases()
+    org_map = load_as_org_map()
     # Load censorship
     cens_path = os.path.join(GLOBAL_DATA_DIR, 'censorship.csv')
     rows = []
@@ -71,7 +73,7 @@ def main():
     import plotly.graph_objects as go
     import plotly.subplots as sp
 
-    # ── Heatmap: AS × test-type (top-20 CN ASes with most detections) ──
+    # ── Heatmap: AS × test-type (top-25 CN ASes with most detections) ──
     top_as = [a for a, _ in per_as_total.most_common(25)]
     tests = [t for t, _ in per_test.most_common(12)]
     matrix = []
@@ -85,14 +87,22 @@ def main():
                     break
             row.append(v)
         matrix.append(row)
+    # y labels carry Org so the reader sees operator identity directly;
+    # customdata supplies a richer tooltip.
+    y_labels = [as_label_with_org(a, org_map, max_org_len=18) for a in top_as]
+    hover_text = [[as_hover_with_org(a, org_map) for _ in tests] for a in top_as]
     heatmap = go.Figure(go.Heatmap(
-        z=matrix, x=tests, y=[f'AS{a}' for a in top_as],
+        z=matrix, x=tests, y=y_labels,
         colorscale='Reds',
-        hovertemplate='%{y} × %{x}: %{z}<extra></extra>',
+        customdata=hover_text,
+        hovertemplate='%{customdata}<br>测试 %{x}<br>检出 %{z}<extra></extra>',
     ))
     heatmap.update_layout(
         title='中国 AS × 测试类型 审查热图 · Top-25 AS × Top-12 tests',
-        height=640, xaxis=dict(tickangle=-30),
+        height=680,
+        xaxis=dict(tickangle=-30, automargin=True),
+        yaxis=dict(automargin=True, title='AS · 所属组织'),
+        margin=dict(l=180, r=30, t=70, b=100),
     )
 
     # ── Topology features: censoring vs non-censoring vs global ──
@@ -150,7 +160,8 @@ def main():
     bar.update_layout(
         title='CN AS 上检出最多的 OONI 测试类型',
         yaxis=dict(title='Detection count'),
-        xaxis=dict(tickangle=-45))
+        xaxis=dict(tickangle=-35, automargin=True),
+        margin=dict(l=70, r=30, t=70, b=130))
 
     metrics = {
         'cn_ases_with_censorship_signal': len(cn_censoring_ases),

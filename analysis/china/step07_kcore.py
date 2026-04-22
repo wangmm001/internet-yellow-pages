@@ -11,7 +11,8 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
-    COLORS, DATA_DIR, load_as_country_map, load_as_metadata, load_cn_ases,
+    COLORS, DATA_DIR, as_hover_with_org, as_label_with_org,
+    load_as_country_map, load_as_metadata, load_as_org_map, load_cn_ases,
     save_multi_plotly_html, write_csv, write_step_metrics, writeup,
 )
 from analysis.complex_network.utils import DATA_DIR as GLOBAL_DATA_DIR
@@ -82,16 +83,19 @@ def main():
         yaxis=dict(title='AS count', type='log'),
     )
 
-    # ── CN in inner-core (k >= 50) ──
+    # ── CN in inner-core (k >= 50) ── use Org on the x-axis so operator identity
+    # is readable at a glance; fallback to first IYP tag if Org is missing.
     md = load_as_metadata()
+    org_map = load_as_org_map()
     deep = [r for r in cn_rows if r['coreness'] >= 30]
     deep.sort(key=lambda r: r['coreness'], reverse=True)
     labels = []
     for r in deep[:20]:
-        tags = md.get(r['asn'], {}).get('tags', [])
-        lbl = f'AS{r["asn"]}'
-        if tags:
-            lbl += f' · {tags[0][:25]}'
+        lbl = as_label_with_org(r['asn'], org_map, max_org_len=22)
+        if ' · ' not in lbl:  # no org — use first IYP tag
+            tags = md.get(r['asn'], {}).get('tags', [])
+            if tags:
+                lbl += f' · {tags[0][:22]}'
         labels.append(lbl)
     bar = go.Figure(go.Bar(
         x=labels,
@@ -99,11 +103,15 @@ def main():
         marker_color=COLORS['red'],
         text=[str(r['coreness']) for r in deep[:20]],
         textposition='outside',
+        customdata=[as_hover_with_org(r['asn'], org_map) for r in deep[:20]],
+        hovertemplate='%{customdata}<br>coreness = %{y}<extra></extra>',
     ))
     bar.update_layout(
         title=f'深入核心的中国 AS · CN ASes reaching deep k-core (k≥30) · max={max_core}',
         yaxis=dict(title='Coreness'),
-        xaxis=dict(tickangle=-45),
+        xaxis=dict(tickangle=-40, automargin=True, title='AS · 所属组织'),
+        margin=dict(l=70, r=30, t=70, b=150),
+        bargap=0.3,
     )
 
     # ── Coreness vs degree (CN vs Other) ──
@@ -120,13 +128,14 @@ def main():
         y=[r['degree'] for r in cn_rows],
         mode='markers', marker=dict(color=COLORS['red'], size=7),
         name='CN',
-        text=[f'AS{r["asn"]}' for r in cn_rows],
-        hovertemplate='%{text}<br>core=%{x}<br>deg=%{y}<extra></extra>',
+        text=[as_hover_with_org(r['asn'], org_map) for r in cn_rows],
+        hovertemplate='%{text}<br>coreness = %{x}<br>degree = %{y}<extra></extra>',
     ))
     scatter.update_layout(
         title='Coreness × Degree (CN red)',
         xaxis=dict(title='Coreness'),
         yaxis=dict(title='Degree', type='log'),
+        margin=dict(l=70, r=30, t=70, b=60),
     )
 
     metrics = {
