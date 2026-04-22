@@ -89,6 +89,35 @@ def download_vendor(vendor_dir: Path, skip: bool = False) -> None:
             dst.write_bytes(resp.read())
 
 
+def run_site_build() -> None:
+    """Invoke analysis.web.build as a subprocess with Galaxy suppressed."""
+    env = os.environ.copy()
+    env['IYP_EXCLUDE_GALAXY'] = '1'
+    result = subprocess.run(
+        [sys.executable, '-m', 'analysis.web.build'],
+        env=env, cwd=REPO_ROOT,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+    )
+    if result.returncode != 0:
+        sys.stderr.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        raise RuntimeError(f'site build failed (exit {result.returncode})')
+    print(result.stdout.strip().splitlines()[-1] if result.stdout else 'site built')
+
+
+def copy_sources(out: Path) -> None:
+    """Copy all SOURCE_TREES into <out>/<tree>/, preserving structure."""
+    for rel in SOURCE_TREES:
+        src = REPO_ROOT / rel
+        dst = out / rel
+        if dst.exists():
+            shutil.rmtree(dst)
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(src, dst, symlinks=False)
+        size_mb = sum(f.stat().st_size for f in dst.rglob('*') if f.is_file()) / (1024 * 1024)
+        print(f'  copy   {rel} ({size_mb:.1f} MB)')
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--out', type=Path, default=DEFAULT_OUT,
