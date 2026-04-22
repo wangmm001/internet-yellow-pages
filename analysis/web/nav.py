@@ -9,6 +9,7 @@ are not modified; we only iframe / embed them.
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable
@@ -529,7 +530,11 @@ GLOBE_VIEWS: list[tuple[str, str, str, str, str, str, list[str]]] = [
 
 def _build_globe_track() -> Track:
     pages: list[Page] = []
-    for slug, src_dir, src_file, title_zh, title_en, subtitle_zh, kpis in GLOBE_VIEWS:
+    exclude = set()
+    if os.environ.get('IYP_EXCLUDE_GALAXY'):
+        exclude.add('galaxy')
+    views = [v for v in GLOBE_VIEWS if v[0] not in exclude]
+    for slug, src_dir, src_file, title_zh, title_en, subtitle_zh, kpis in views:
         pages.append(Page(
             slug=slug,
             url=f'/globe/{slug}/',
