@@ -49,40 +49,141 @@
         Global Complex-Network Analysis
         · Phase α
         · Step 05
+        · 6 个面板 · 6 panels
       </p>
     </div>
     <h1>度分布与幂律拟合</h1>
     <p class="en">Degree Distribution &amp; Power Law</p>
     <p class="sub">各层节点度分布的幂律指数与拟合拖尾</p>
-  </header>
-
-  <section class="chart-card">
-    <div class="chart-head">
-      <div>
-        <h3>度分布与幂律拟合</h3>
-        <span class="en">Degree Distribution &amp; Power Law</span>
-      </div>
-      <div class="right">
-        
-        <button class="cap-btn" data-cap-trigger type="button" aria-label="打开图解">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          图解 · Explainer
-          <kbd style="font-family:var(--font-mono);font-size:10px;padding:1px 4px;background:rgba(0,0,0,.2);border-radius:3px;margin-left:2px;">D</kbd>
-        </button>
-        
-        <span class="chip is-dim">image · static analysis</span>
-        <a href="../../../../complex_network_images/step05_degree_distribution.png" target="_blank" rel="noopener">查看原图 · Full-res ↗</a>
-      </div>
-    </div>
     
-    <div class="chart-caption">
+    <div class="chart-caption" style="margin-top:12px;">
       <span class="chip" style="margin-right:6px;">α ≈ 2.107</span><span class="chip" style="margin-right:6px;">无标度网络</span>
     </div>
     
-    <div class="chart-png-wrap">
-      <img class="chart-png" src="../../../../complex_network_images/step05_degree_distribution.png" alt="Degree Distribution &amp; Power Law"
-           loading="lazy" decoding="async" data-lightbox>
-    </div>
+  </header>
+
+  <section class="grid-auto" style="margin-top:18px;">
+    
+    <a class="chart-card" href="../../network/step05_panel01/index.html"
+       style="display:block; text-decoration:none; color:inherit;">
+      <div class="chart-head">
+        <div>
+          <h3 style="font-size:14px; margin:0;">Panel 01 · BGP 对等度的互补累积分布</h3>
+          <span class="en" style="font-size:11px;">BGP Peering Degree · CCDF</span>
+        </div>
+      </div>
+      <div class="chart-png-wrap" style="max-height:220px; overflow:hidden;">
+        <img class="chart-png" src="../../../../complex_network_images/step05_panel01_bgp_ccdf.png" alt="BGP Peering Degree · CCDF"
+             loading="lazy" decoding="async"
+             style="width:100%; height:auto; display:block;">
+      </div>
+      
+      <div class="chart-caption" style="padding:8px 12px; font-size:12px;">
+        每个 AS 的对等邻居数如何分布 · Scale-free heavy tail
+      </div>
+      
+    </a>
+    
+    <a class="chart-card" href="../../network/step05_panel02/index.html"
+       style="display:block; text-decoration:none; color:inherit;">
+      <div class="chart-head">
+        <div>
+          <h3 style="font-size:14px; margin:0;">Panel 02 · AS 依赖入度的互补累积分布</h3>
+          <span class="en" style="font-size:11px;">AS Dependency In-Degree · CCDF</span>
+        </div>
+      </div>
+      <div class="chart-png-wrap" style="max-height:220px; overflow:hidden;">
+        <img class="chart-png" src="../../../../complex_network_images/step05_panel02_as_dep_ccdf.png" alt="AS Dependency In-Degree · CCDF"
+             loading="lazy" decoding="async"
+             style="width:100%; height:auto; display:block;">
+      </div>
+      
+      <div class="chart-caption" style="padding:8px 12px; font-size:12px;">
+        有多少 AS 在依赖这个 AS 作为上游
+      </div>
+      
+    </a>
+    
+    <a class="chart-card" href="../../network/step05_panel03/index.html"
+       style="display:block; text-decoration:none; color:inherit;">
+      <div class="chart-head">
+        <div>
+          <h3 style="font-size:14px; margin:0;">Panel 03 · IXP 成员度的互补累积分布</h3>
+          <span class="en" style="font-size:11px;">IXP Membership Degree · CCDF</span>
+        </div>
+      </div>
+      <div class="chart-png-wrap" style="max-height:220px; overflow:hidden;">
+        <img class="chart-png" src="../../../../complex_network_images/step05_panel03_ixp_ccdf.png" alt="IXP Membership Degree · CCDF"
+             loading="lazy" decoding="async"
+             style="width:100%; height:auto; display:block;">
+      </div>
+      
+      <div class="chart-caption" style="padding:8px 12px; font-size:12px;">
+        每个 AS 加入了多少个交换中心
+      </div>
+      
+    </a>
+    
+    <a class="chart-card" href="../../network/step05_panel04/index.html"
+       style="display:block; text-decoration:none; color:inherit;">
+      <div class="chart-head">
+        <div>
+          <h3 style="font-size:14px; margin:0;">Panel 04 · DNS 托管度的互补累积分布</h3>
+          <span class="en" style="font-size:11px;">DNS Hosting Degree · CCDF</span>
+        </div>
+      </div>
+      <div class="chart-png-wrap" style="max-height:220px; overflow:hidden;">
+        <img class="chart-png" src="../../../../complex_network_images/step05_panel04_dns_hosting_ccdf.png" alt="DNS Hosting Degree · CCDF"
+             loading="lazy" decoding="async"
+             style="width:100%; height:auto; display:block;">
+      </div>
+      
+      <div class="chart-caption" style="padding:8px 12px; font-size:12px;">
+        每个 AS 承载的权威 / 托管域名数
+      </div>
+      
+    </a>
+    
+    <a class="chart-card" href="../../network/step05_panel05/index.html"
+       style="display:block; text-decoration:none; color:inherit;">
+      <div class="chart-head">
+        <div>
+          <h3 style="font-size:14px; margin:0;">Panel 05 · 三层度分布的对数分箱对比</h3>
+          <span class="en" style="font-size:11px;">Three-Layer PDF Comparison · Log-binned</span>
+        </div>
+      </div>
+      <div class="chart-png-wrap" style="max-height:220px; overflow:hidden;">
+        <img class="chart-png" src="../../../../complex_network_images/step05_panel05_comparison_pdf.png" alt="Three-Layer PDF Comparison · Log-binned"
+             loading="lazy" decoding="async"
+             style="width:100%; height:auto; display:block;">
+      </div>
+      
+      <div class="chart-caption" style="padding:8px 12px; font-size:12px;">
+        BGP / 依赖 / IXP 三层的 P(k) 同框
+      </div>
+      
+    </a>
+    
+    <a class="chart-card" href="../../network/step05_panel06/index.html"
+       style="display:block; text-decoration:none; color:inherit;">
+      <div class="chart-head">
+        <div>
+          <h3 style="font-size:14px; margin:0;">Panel 06 · 各层拓扑指标汇总</h3>
+          <span class="en" style="font-size:11px;">Layer-Level Topology Summary</span>
+        </div>
+      </div>
+      <div class="chart-png-wrap" style="max-height:220px; overflow:hidden;">
+        <img class="chart-png" src="../../../../complex_network_images/step05_panel06_summary_stats.png" alt="Layer-Level Topology Summary"
+             loading="lazy" decoding="async"
+             style="width:100%; height:auto; display:block;">
+      </div>
+      
+      <div class="chart-caption" style="padding:8px 12px; font-size:12px;">
+        节点 / 边 / 平均度 / k_max / 聚类系数
+      </div>
+      
+    </a>
+    
   </section>
 
   <nav class="nav-foot">
@@ -95,10 +196,10 @@
     
 
     
-    <a class="nav-link-card is-next" data-nav="next" href="../../network/step06/index.html">
+    <a class="nav-link-card is-next" data-nav="next" href="../../network/step05_panel01/index.html">
       <div class="lab">下一页 · Next →</div>
-      <div class="title">小世界特性</div>
-      <div class="en">Small-World Properties</div>
+      <div class="title">BGP 对等度的互补累积分布</div>
+      <div class="en">BGP Peering Degree · CCDF</div>
     </a>
     
   </nav>
@@ -106,7 +207,7 @@
 
 
   <footer class="foot">
-    85 pages · 3 tracks · IYP snapshot 2026-04 ·
+    91 pages · 3 tracks · IYP snapshot 2026-04 ·
     generated by <code>python -m analysis.web.build</code>
     <br>
     Design language adapted from <code>openintel-dns-analysis/analysis/web</code> · bilingual 中文 × English.
@@ -503,6 +604,36 @@
                 <span>度分布与幂律拟合</span>
               </a>
             
+              <a class="toc-link" href="../../network/step05_panel01/index.html">
+                <span class="n">α·05.1</span>
+                <span>BGP 对等度的互补累积分布</span>
+              </a>
+            
+              <a class="toc-link" href="../../network/step05_panel02/index.html">
+                <span class="n">α·05.2</span>
+                <span>AS 依赖入度的互补累积分布</span>
+              </a>
+            
+              <a class="toc-link" href="../../network/step05_panel03/index.html">
+                <span class="n">α·05.3</span>
+                <span>IXP 成员度的互补累积分布</span>
+              </a>
+            
+              <a class="toc-link" href="../../network/step05_panel04/index.html">
+                <span class="n">α·05.4</span>
+                <span>DNS 托管度的互补累积分布</span>
+              </a>
+            
+              <a class="toc-link" href="../../network/step05_panel05/index.html">
+                <span class="n">α·05.5</span>
+                <span>三层度分布的对数分箱对比</span>
+              </a>
+            
+              <a class="toc-link" href="../../network/step05_panel06/index.html">
+                <span class="n">α·05.6</span>
+                <span>各层拓扑指标汇总</span>
+              </a>
+            
               <a class="toc-link" href="../../network/step06/index.html">
                 <span class="n">α·06</span>
                 <span>小世界特性</span>
@@ -625,9 +756,11 @@
       <p>&#34;度&#34; = 一个 AS 有多少个邻居。把全网所有 AS 的度值画成分布图，看它是均匀的、钟形的、还是长尾的。</p>
       <p class="en">&#34;Degree&#34; = number of neighbours of an AS. Plot the empirical distribution — uniform? bell-curve? long-tail?</p>
 
+      
       <h4>怎么读？<span class="en">How to read it</span></h4>
       <p>双对数坐标下若呈直线，说明遵循幂律 P(k) ~ k^-α；拟合斜率 α 越接近 2 表示越严重的长尾。α &lt; 2 说明极端 hub 占比过高，网络可能不稳定。</p>
       <p class="en">On log-log axes, a straight line indicates power-law P(k) ~ k^-α. Smaller α means heavier tail; α &lt; 2 implies pathological hub dominance.</p>
+      
 
       <h4>能看出什么？<span class="en">What can we see?</span></h4>
       <p>IYP BGP 层 α ≈ 2.107 —— 典型无标度 (scale-free) 网络。大量 AS 只有几个邻居，但少数超级 hub (Tier-1/Cloudflare/Google) 连了上千个邻居。</p>
