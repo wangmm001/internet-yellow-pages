@@ -12,12 +12,14 @@ EXPLAINERS: dict[str, dict] = {}
 
 
 def _add(url: str, title_zh: str, title_en: str, *, what: tuple[str, str],
-         how: tuple[str, str], see: tuple[str, str],
+         how: tuple[str, str] | None = None,
+         see: tuple[str, str],
          keyterm: tuple[str, str, str] | None = None) -> None:
     EXPLAINERS[url] = {
         'title_zh': title_zh, 'title_en': title_en,
         'what_zh': what[0], 'what_en': what[1],
-        'how_zh': how[0], 'how_en': how[1],
+        'how_zh': how[0] if how else None,
+        'how_en': how[1] if how else None,
         'see_zh': see[0], 'see_en': see[1],
         'keyterm_zh': keyterm[1] if keyterm else None,
         'keyterm_en': keyterm[2] if keyterm else None,
