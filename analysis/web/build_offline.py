@@ -118,6 +118,38 @@ def copy_sources(out: Path) -> None:
         print(f'  copy   {rel} ({size_mb:.1f} MB)')
 
 
+def rewrite_cdn_refs(html: str, depth_from_vendor: int) -> str:
+    """Replace every CDN URL in VENDOR_MAP with its vendor-relative path.
+
+    ``depth_from_vendor`` is the number of directory levels the HTML file
+    sits above <out>/analysis/vendor/.  E.g. a file at
+    <out>/analysis/countries/html/foo.html is 2 levels below
+    <out>/analysis/, so depth_from_vendor=2 and the vendor prefix becomes
+    ``../../vendor/``.
+    """
+    prefix = '../' * depth_from_vendor + 'vendor/'
+    for url, local in VENDOR_MAP.items():
+        html = html.replace(url, prefix + local)
+    return html
+
+
+def _depth_from_vendor(html_path: Path, out: Path) -> int:
+    """How many directory levels does html_path sit below out/analysis/?"""
+    rel = html_path.relative_to(out / 'analysis')
+    return len(rel.parts) - 1
+
+
+def rewrite_file(html_path: Path, out: Path) -> int:
+    """Rewrite CDN refs in one HTML file.  Returns number of substitutions."""
+    original = html_path.read_text(encoding='utf-8')
+    depth = _depth_from_vendor(html_path, out)
+    new = rewrite_cdn_refs(original, depth_from_vendor=depth)
+    if new != original:
+        html_path.write_text(new, encoding='utf-8')
+    count = sum(1 for url in VENDOR_MAP if url in original and url not in new)
+    return count
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--out', type=Path, default=DEFAULT_OUT,
@@ -155,6 +187,22 @@ def self_test():
         pass
     else:
         raise AssertionError('expected KeyError for unmapped URL')
+
+    # --- rewrite_cdn_refs core ---
+    # Case 1: file in analysis/countries/html/ → vendor/ is 2 levels up
+    html = '<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>'
+    out = rewrite_cdn_refs(html, depth_from_vendor=2)
+    assert out == '<script src="../../vendor/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>', repr(out)
+
+    # Case 2: file at root of offline-site/ (0 levels from vendor/) — unrealistic but handles the edge
+    out = rewrite_cdn_refs(
+        '<link href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css">',
+        depth_from_vendor=0)
+    assert out == '<link href="vendor/vis-network@9.1.2/dist/vis-network.min.css">', repr(out)
+
+    # Case 3: unmapped URL stays untouched
+    out = rewrite_cdn_refs('<a href="https://plotly.com/">plotly</a>', depth_from_vendor=2)
+    assert out == '<a href="https://plotly.com/">plotly</a>'
 
 
 if __name__ == '__main__':
