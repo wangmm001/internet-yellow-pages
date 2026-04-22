@@ -425,14 +425,24 @@ window.addEventListener('resize', () => {
 // defines). Declaring them here again produces a "double declaration" compile
 // error that some drivers silently tolerate and others reject with
 // VALIDATE_STATUS false. Don't redeclare — just use them.
+//
+// Billboarding: each instance is a PlaneGeometry(1,1) whose `position` lives
+// in the XY plane (Z=0). Without billboarding the plane turns edge-on as
+// the camera orbits → looks like thin playing cards. Instead of transforming
+// `position` through instanceMatrix (which bakes in world-space orientation),
+// transform only the CENTER through modelViewMatrix*instanceMatrix, then add
+// the plane's local XY in view space. Uniform scale is recovered from the
+// length of instanceMatrix's first column (setNodeAt() writes uniform sx=sy=sz).
 const VERT = `
 varying vec3 vColor;
 varying vec2 vUv;
 void main() {
   vColor = instanceColor;
   vUv = uv;
-  vec4 mv = modelViewMatrix * instanceMatrix * vec4(position, 1.0);
-  gl_Position = projectionMatrix * mv;
+  vec4 centreView = modelViewMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
+  float scale = length(instanceMatrix[0].xyz);
+  centreView.xy += position.xy * scale;
+  gl_Position = projectionMatrix * centreView;
 }`;
 const FRAG = `
 precision mediump float;
