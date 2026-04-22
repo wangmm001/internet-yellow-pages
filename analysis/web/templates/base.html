@@ -95,15 +95,17 @@
       <p>{{ explainer.what_zh }}</p>
       <p class="en">{{ explainer.what_en }}</p>
 
+      {% if explainer.how_zh %}
       <h4>怎么读？<span class="en">How to read it</span></h4>
       <p>{{ explainer.how_zh }}</p>
       <p class="en">{{ explainer.how_en }}</p>
+      {% endif %}
 
       <h4>能看出什么？<span class="en">What can we see?</span></h4>
       <p>{{ explainer.see_zh }}</p>
       <p class="en">{{ explainer.see_en }}</p>
 
-      {% if explainer.keyterm_zh %}
+      {% if explainer.keyterm_label %}
       <div class="keyterm">
         <div class="kt-label">{{ explainer.keyterm_label or 'KEY TERM' }}</div>
         <p>{{ explainer.keyterm_zh }}</p>
