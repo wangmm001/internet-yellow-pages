@@ -261,6 +261,124 @@ _add('/network/step05/', '度分布与幂律拟合', 'Degree Distribution & Powe
               'looks the same at any zoom level. Internet, citation, and airline networks are all '
               'scale-free.'))
 
+_add('/network/step05_panel01/',
+     'BGP 对等度的互补累积分布',
+     'BGP Peering Degree · CCDF',
+     what=(
+         '横轴是单个 AS 拥有的 BGP 对等邻居数 k；纵轴是"拥有 ≥ k 个邻居"的 AS 占比。'
+         '在双对数坐标下观察尾部斜率，若呈直线就是幂律尾 P(K≥k) ~ k^−(α−1)。',
+         'X-axis is peer-count k per AS; Y-axis is the fraction of ASes with ≥ k '
+         'neighbours. On log-log axes, a straight tail indicates power-law '
+         'P(K≥k) ~ k^−(α−1).'),
+     see=(
+         'IYP BGP 层 α ≈ 2.10：99% 的 AS 只有 1–20 个对等邻居，但尾部一小撮超级 '
+         'hub (Tier-1 / Cloudflare / Google) 连了数千个。曲线尾部的红色拟合线'
+         '就是幂律预测——实际点几乎贴着线下滑，印证无标度结构。',
+         'IYP BGP α ≈ 2.10: 99% of ASes have 1–20 peers, but a handful of '
+         'super-hubs (Tier-1s, Cloudflare, Google) connect to thousands. The '
+         'red fitted tail line is the power-law prediction; observed points '
+         'track it almost exactly, confirming the scale-free structure.'))
+
+_add('/network/step05_panel02/',
+     'AS 依赖入度的互补累积分布',
+     'AS Dependency In-Degree · CCDF',
+     what=(
+         '把 IHR Hegemony 图的边看作"A 依赖 B 作为上游"，统计每个 AS 被多少个下游 AS '
+         '当作关键上游。横轴是入度 k，纵轴是"被 ≥ k 个下游依赖"的 AS 占比，'
+         '仍然用双对数坐标。',
+         'Treat IHR Hegemony edges as "A depends on B upstream". Count how many '
+         'downstream ASes each AS carries. X-axis is in-degree k; Y-axis is the '
+         'fraction of ASes with ≥ k downstream dependents. Log-log axes.'),
+     see=(
+         '依赖入度的长尾比对等度更陡：绝大多数 AS 没有任何下游依赖，只有少数'
+         'Tier-1 / 国际云承载了成千上万个下游。这解释了为什么单点故障（一家'
+         '运营商）会瞬间影响大片用户——依赖在结构上被高度集中了。',
+         'The dependency tail is steeper than peering: most ASes have zero '
+         'downstream dependents; only a few Tier-1s and global clouds carry '
+         'thousands. This is why a single-operator outage cascades to millions '
+         'of users — dependency is structurally concentrated.'))
+
+_add('/network/step05_panel03/',
+     'IXP 成员度的互补累积分布',
+     'IXP Membership Degree · CCDF',
+     what=(
+         '一个 AS 可以同时加入多个 Internet Exchange Point (IXP)——越多 IXP，越容易'
+         '在全球各地建立本地对等。横轴是该 AS 加入的 IXP 数量，纵轴是"至少加入 k '
+         '个 IXP"的 AS 占比。',
+         'An AS can join multiple Internet Exchange Points (IXPs) — more IXPs '
+         'means easier local peering worldwide. X-axis is the number of IXPs an '
+         'AS has joined; Y-axis is the fraction of ASes present at ≥ k IXPs.'),
+     see=(
+         '极少数 AS（通常是全球 CDN 和大型 Tier-1）进入 50+ IXP，是事实意义上的'
+         '"全球对等锚"；大多数 AS 只进入 1–2 个本地 IXP。与 BGP 对等度相比，IXP '
+         '度的头部更稀薄，显示 IXP 是头部运营商才消费得起的资源。',
+         'A tiny minority (global CDNs, Tier-1s) are present at 50+ IXPs — the '
+         'de-facto global peering anchors. Most ASes are at 1–2 local IXPs. '
+         'The head is thinner than BGP-peering; IXP presence is a resource only '
+         'large operators can afford.'))
+
+_add('/network/step05_panel04/',
+     'DNS 托管度的互补累积分布',
+     'DNS Hosting Degree · CCDF',
+     what=(
+         '每个 AS 承载了多少公网可解析的主机名（A/AAAA 终点属于本 AS 的 IP）。'
+         '横轴是该 AS 承载的主机名数量，纵轴是"托管 ≥ k 个主机名"的 AS 占比。'
+         '若原始数据尚未抽取，此面板会显示"DNS data not yet extracted"。',
+         'Counts how many publicly-resolvable hostnames land on each AS (A/AAAA '
+         'answers pointing at IPs in that AS). X-axis is hostnames hosted; '
+         'Y-axis is the fraction of ASes hosting ≥ k. If upstream data is not '
+         'extracted yet, the panel shows a "DNS data not yet extracted" notice.'),
+     see=(
+         '托管度比任何其他层都更极端地集中：Cloudflare / Google / AWS 单家承载'
+         '上千万个主机名，而 99% 的 AS 只承载 < 1K。这是现代内容层"云化"的直接'
+         '后果——DNS 层本身就是一个高度不均的经济市场。',
+         'Hosting concentration is more extreme than any other layer: '
+         'Cloudflare / Google / AWS each host tens of millions of hostnames, '
+         'while 99% of ASes host < 1K. This is cloud centralisation made '
+         'visible — the DNS layer is already a lopsided economic market.'))
+
+_add('/network/step05_panel05/',
+     '三层度分布的对数分箱对比',
+     'Three-Layer PDF Comparison · Log-binned',
+     what=(
+         '不再看"累积"（CCDF），而是直接画概率密度 P(k)——每个度值的概率。'
+         '采用对数分箱（log-bins）把稀疏尾部合并成可见的点。BGP / 依赖 / IXP '
+         '三条曲线同框放在双对数坐标下对比。',
+         'Instead of the cumulative view (CCDF), plot the probability density '
+         'P(k) directly — probability of each degree value. Log-binning merges '
+         'sparse tail points into visible clusters. Three curves (BGP, '
+         'Dependency, IXP) compared on one set of log-log axes.'),
+     see=(
+         '三条曲线几乎平行下滑——说明它们都服从相似指数的幂律（约 α ≈ 2）。'
+         '差异在绝对位置：BGP 最高（最多 AS 参与），IXP 最低（参与门槛高）。'
+         '同一套"无标度"结构在完全不同的资源维度上反复出现，是互联网的底层特征。',
+         'The three curves decay in near-parallel — they share a similar '
+         'power-law exponent (α ≈ 2). They differ only in absolute position: '
+         'BGP sits highest (most ASes participate), IXP lowest (higher cost of '
+         'entry). The same scale-free structure recurs across different '
+         'resource dimensions — a fundamental Internet signature.'))
+
+_add('/network/step05_panel06/',
+     '各层拓扑指标汇总',
+     'Layer-Level Topology Summary',
+     what=(
+         '一张速览表：每一层（BGP 对等 / AS 依赖 / IXP 成员 / DNS 托管）的节点数、'
+         '边数、平均度 <k>、最大度 k_max、全局聚类系数 C。用等宽字体排版成控制台'
+         '风格。',
+         'A one-look summary table per layer (BGP Peering, AS Dependency, '
+         'IXP Membership, DNS Hosting): node count, edge count, average degree '
+         '<k>, maximum degree k_max, global clustering coefficient C. Monospaced '
+         'console-style layout.'),
+     see=(
+         '读者可以直接比较各层规模：BGP 是最大的节点池（~10 万 AS），但聚类系数 '
+         'C 偏低（稀疏连接）；AS 依赖的 <k> 更高但节点数少得多；IXP 层节点最少'
+         '但 k_max 不算突出。这张表是后续所有中心性 / k-core / 社区分析的"底牌"。',
+         'At a glance you can compare layer scales: BGP has the largest node '
+         'pool (~100K ASes) but low clustering C (sparse). AS Dependency has '
+         'higher <k> but far fewer nodes. IXP has the fewest nodes and a '
+         'modest k_max. This table is the baseline all subsequent centrality, '
+         'k-core, and community analyses build on.'))
+
 _add('/network/step06/', '小世界特性', 'Small-World Properties',
      what=('"小世界"指两个看似陌生的节点可能只相隔几跳。本图量化互联网的聚类系数 C 与平均最短路径 L，'
            '与随机图作比。',
