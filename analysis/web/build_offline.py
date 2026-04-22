@@ -78,6 +78,12 @@ EXTERNAL_ALLOWLIST_PREFIXES = (
     'https://unpkg.com/maki@2.1.0/icons/',  # folium map-marker icons (optional)
     'https://github.com/zloirock/core-js',  # core-js LICENSE reference inside pyvis bundle
     'http://www.esri.com',  # ESRI tile attribution link embedded in map JS bundles
+    # mapbox-gl vector style.json + fonts — redundant with the raster OSM
+    # fallback we vendor locally; fetches fail silently offline, map still
+    # renders via Leaflet's raster tileLayer.
+    'https://basemaps.cartocdn.com/gl/',
+    'https://tiles.basemaps.cartocdn.com/fonts/',
+    'https://fonts.openmaptiles.org/',
 )
 
 
@@ -217,9 +223,9 @@ def download_osm_tiles(vendor_dir: Path, skip: bool = False) -> None:
 # are literal placeholders in the HTML that Leaflet substitutes at runtime
 # — we preserve them in the replacement so Leaflet still does its job.
 _TILE_URL_PATTERNS = [
-    # OpenStreetMap — both {s} subdomain template and resolved [a-c] form
+    # OpenStreetMap — both {s} subdomain template, resolved [a-c] form, and no-subdomain variant
     re.compile(
-        r'https?://(?:\{s\}|[a-c])\.tile\.openstreetmap\.org/\{z\}/\{x\}/\{y\}\.png'),
+        r'https?://(?:(?:\{s\}|[a-c])\.)?tile\.openstreetmap\.org/\{z\}/\{x\}/\{y\}\.png'),
     # Stadia Maps / Stamen — may have ?api_key=... suffix
     re.compile(
         r'https?://tiles\.stadiamaps\.com/tiles/[a-z_-]+/\{z\}/\{x\}/\{y\}\.(?:png|jpg)'
@@ -610,6 +616,12 @@ def self_test():
     src = '"https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"'
     out_, n = rewrite_tile_urls(src, depth_from_vendor=2)
     assert out_ == '"../../vendor/tiles/osm/{z}/{x}/{y}.png"', repr(out_)
+    assert n == 1
+
+    # OSM no-subdomain variant
+    src = 'L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png")'
+    out_, n = rewrite_tile_urls(src, depth_from_vendor=2)
+    assert out_ == 'L.tileLayer("../../vendor/tiles/osm/{z}/{x}/{y}.png")', repr(out_)
     assert n == 1
 
     # Non-tile URL untouched
