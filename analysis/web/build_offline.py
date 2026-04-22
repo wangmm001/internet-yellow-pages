@@ -63,6 +63,7 @@ EXTERNAL_ALLOWLIST_PREFIXES = (
     'https://creativecommons.org',
     'https://unpkg.com/maki@2.1.0/icons/',  # folium map-marker icons (optional)
     'https://github.com/zloirock/core-js',  # core-js LICENSE reference inside pyvis bundle
+    'http://www.esri.com',  # ESRI tile attribution link embedded in map JS bundles
 )
 
 
@@ -150,7 +151,14 @@ def rewrite_file(html_path: Path, out: Path) -> int:
     return count
 
 
-_EXTERNAL_URL_RE = re.compile(rb'https?://[^\s"\'<>()]+')
+# Match URLs inside actual-network-loading HTML/CSS constructs:
+#   src="URL", src='URL', href="URL", href='URL', and url(URL) or url("URL").
+# This deliberately skips URL-shaped strings inside inline SVG xmlns= attributes,
+# inline JS string literals, and comment URLs — none of which trigger network fetches.
+_EXTERNAL_URL_RE = re.compile(
+    rb'''(?:src|href)\s*=\s*["'](https?://[^"']+)["']'''
+    rb'''|url\(\s*["']?(https?://[^"')]+?)["']?\s*\)'''
+)
 
 
 def is_allowlisted(url: str) -> bool:
@@ -159,6 +167,11 @@ def is_allowlisted(url: str) -> bool:
 
 def verify_no_external_urls(out: Path) -> list[tuple[Path, str]]:
     """Scan every HTML/JS/CSS under <out> for un-allowlisted external URLs.
+
+    Only flags URLs that appear inside src="…"/href="…"/url(…) constructs
+    (i.e., URLs that actually trigger a network load).  Inline SVG xmlns=
+    attributes, JS string literals, and documentation comment URLs are
+    intentionally ignored because they don't cause browser requests.
 
     Returns a list of (file, url) findings.  Empty list = clean.
     """
@@ -173,11 +186,33 @@ def verify_no_external_urls(out: Path) -> list[tuple[Path, str]]:
         except OSError:
             continue
         for m in _EXTERNAL_URL_RE.finditer(data):
-            url = m.group(0).decode('utf-8', errors='replace').rstrip('.,;:')
+            # One of the two groups matched; take the non-None one.
+            raw = m.group(1) or m.group(2)
+            if raw is None:
+                continue
+            url = raw.decode('utf-8', errors='replace').rstrip('.,;:')
             if is_allowlisted(url):
                 continue
             findings.append((path, url))
     return findings
+
+
+def restore_committed_site() -> None:
+    """Restore analysis/web/site/ to its committed state.
+
+    run_site_build() regenerates the committed site/ tree with Galaxy
+    excluded as a side-effect.  After we've copied that regenerated tree
+    into offline-site/, revert the in-repo site/ back to HEAD so the
+    working tree stays clean.
+    """
+    subprocess.run(
+        ['git', 'checkout', '--', 'analysis/web/site/'],
+        cwd=REPO_ROOT,
+        check=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+    )
+    print('  restored committed analysis/web/site/ state')
 
 
 def main() -> int:
@@ -226,6 +261,9 @@ def main() -> int:
 
     print('→ copying source trees …')
     copy_sources(out)
+
+    print('→ restoring committed site/ state …')
+    restore_committed_site()
 
     print('→ rewriting CDN refs …')
     total_rewrites = 0
@@ -316,6 +354,30 @@ def self_test():
     assert is_allowlisted('https://unpkg.com/maki@2.1.0/icons/circle-15.svg')
     assert not is_allowlisted('https://unpkg.com/3d-force-graph@1.77/dist/3d-force-graph.min.js')
     assert not is_allowlisted('https://example.com/evil.js')
+
+    # --- verify_no_external_urls filters non-fetch URL strings ---
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        td_path = Path(td)
+        # namespace attribute — should NOT be flagged
+        (td_path / 'a.html').write_text(
+            '<svg xmlns="http://www.w3.org/2000/svg"></svg>', encoding='utf-8')
+        # actual script src — should BE flagged
+        (td_path / 'b.html').write_text(
+            '<script src="https://unpkg.com/evil@1/dist/evil.min.js"></script>',
+            encoding='utf-8')
+        # href attribute — should BE flagged (if not allowlisted)
+        (td_path / 'c.html').write_text(
+            '<link href="https://cdnjs.cloudflare.com/x.css">', encoding='utf-8')
+        # string literal inside JS — should NOT be flagged
+        (td_path / 'd.js').write_text(
+            'const API = "https://api.example.com/v1";', encoding='utf-8')
+        findings = verify_no_external_urls(td_path)
+        urls = sorted(u for _, u in findings)
+        assert urls == [
+            'https://cdnjs.cloudflare.com/x.css',
+            'https://unpkg.com/evil@1/dist/evil.min.js',
+        ], f'unexpected findings: {urls}'
 
 
 if __name__ == '__main__':
