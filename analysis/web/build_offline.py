@@ -42,6 +42,8 @@ VENDOR_MAP = {
         'globe.gl@2.32/dist/globe.gl.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js':
         'vis-network@9.1.2/dist/vis-network.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css':
+        'vis-network@9.1.2/dist/vis-network.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css':
         'bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js':
@@ -115,6 +117,9 @@ def self_test():
     assert vendor_local_path(
         'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js'
     ) == 'vis-network@9.1.2/dist/vis-network.min.js'
+    assert vendor_local_path(
+        'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css'
+    ) == 'vis-network@9.1.2/dist/vis-network.min.css'
     try:
         vendor_local_path('https://example.com/foo.js')
     except KeyError:
