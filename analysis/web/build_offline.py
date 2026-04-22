@@ -48,6 +48,19 @@ VENDOR_MAP = {
         'bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js':
         'bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js',
+    'https://unpkg.com/three@0.160.0/build/three.module.js':
+        'three@0.160.0/build/three.module.js',
+    'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js':
+        'three@0.160.0/examples/jsm/controls/OrbitControls.js',
+    'https://unpkg.com/three@0.160.0/examples/jsm/renderers/CSS2DRenderer.js':
+        'three@0.160.0/examples/jsm/renderers/CSS2DRenderer.js',
+    'https://unpkg.com/three-globe@2.31/example/img/earth-dark.jpg':
+        'three-globe@2.31/example/img/earth-dark.jpg',
+    # IMPORTANT: this base-URL entry MUST come AFTER the two full jsm/... file
+    # entries above, so the file URLs are rewritten first and only the
+    # bare importmap base remains to be rewritten.
+    'https://unpkg.com/three@0.160.0/examples/jsm/':
+        'three@0.160.0/examples/jsm/',
 }
 
 # External URLs we accept staying as dead links in the offline bundle
@@ -76,9 +89,14 @@ def download_vendor(vendor_dir: Path, skip: bool = False) -> None:
     """Download every URL in VENDOR_MAP into <vendor_dir>/<local_path>.
 
     Skips any file that already exists when ``skip`` is True.
+    Entries whose URL ends with '/' are base-URL rewrite anchors only —
+    they have no file to download and are silently skipped.
     """
     vendor_dir.mkdir(parents=True, exist_ok=True)
     for url, rel in VENDOR_MAP.items():
+        if url.endswith('/'):
+            # Base-URL entry: used only for string replacement, not a downloadable file.
+            continue
         dst = vendor_dir / rel
         if skip and dst.exists() and dst.stat().st_size > 0:
             print(f'  reuse  {rel}')
