@@ -166,5 +166,6 @@ analysis/web/build_manifest.json
 analysis/web/__pycache__/
 
 # Galaxy view bake output — ~60 MB across ~1200 .bin files per preset.
-# Regenerate via the as_galaxy step10→step15 pipeline (see DESIGN_GALAXY.md).
+# Regenerate via the as_galaxy step10→step15 pipeline (see DESIGN_GALAXY.md),
+# or fetch a packaged snapshot from out-of-band (tarball / S3 / rsync).
 analysis/as_galaxy/data/
