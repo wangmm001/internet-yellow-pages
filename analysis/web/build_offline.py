@@ -19,6 +19,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 import urllib.request
 from pathlib import Path
 
@@ -159,14 +160,88 @@ def _depth_from_vendor(html_path: Path, out: Path) -> int:
 
 
 def rewrite_file(html_path: Path, out: Path) -> int:
-    """Rewrite CDN refs in one HTML file.  Returns number of substitutions."""
+    """Rewrite CDN + tile refs in one HTML file.  Returns substitutions."""
     original = html_path.read_text(encoding='utf-8')
     depth = _depth_from_vendor(html_path, out)
     new = rewrite_cdn_refs(original, depth_from_vendor=depth)
+    new, tile_n = rewrite_tile_urls(new, depth_from_vendor=depth)
     if new != original:
         html_path.write_text(new, encoding='utf-8')
-    count = sum(1 for url in VENDOR_MAP if url in original and url not in new)
-    return count
+    cdn_n = sum(1 for url in VENDOR_MAP if url in original and url not in new)
+    return cdn_n + tile_n
+
+
+# --- OSM tile vendoring ---------------------------------------------------
+# Fetch zoom-0..3 tiles (85 total) and unify all tile-server URLs in the
+# copied HTMLs to this local set.  Low zoom covers global → country-level
+# views, which is all the analysis charts need.
+
+OSM_TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+OSM_MAX_ZOOM = 3  # inclusive; 1+4+16+64 = 85 tiles
+OSM_USER_AGENT = 'iyp-offline-atlas/1.0 (internet-yellow-pages; one-time-fetch)'
+OSM_FETCH_DELAY_SEC = 0.2  # respect tile.openstreetmap.org usage policy
+
+
+def download_osm_tiles(vendor_dir: Path, skip: bool = False) -> None:
+    """Fetch zoom 0..OSM_MAX_ZOOM OSM tiles into <vendor_dir>/tiles/osm/.
+
+    Layout matches Leaflet's URL template: <vendor>/tiles/osm/{z}/{x}/{y}.png.
+    Respects OSM tile usage policy via a descriptive User-Agent and a
+    small inter-request delay.  Skips files that already exist when
+    ``skip`` is True (so --skip-download reuses cached tiles).
+    """
+    tiles_dir = vendor_dir / 'tiles' / 'osm'
+    tiles_dir.mkdir(parents=True, exist_ok=True)
+    total = sum(4 ** z for z in range(OSM_MAX_ZOOM + 1))
+    fetched = 0
+    reused = 0
+    for z in range(OSM_MAX_ZOOM + 1):
+        for x in range(2 ** z):
+            for y in range(2 ** z):
+                dst = tiles_dir / str(z) / str(x) / f'{y}.png'
+                if skip and dst.exists() and dst.stat().st_size > 0:
+                    reused += 1
+                    continue
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                url = OSM_TILE_URL.format(z=z, x=x, y=y)
+                req = urllib.request.Request(
+                    url, headers={'User-Agent': OSM_USER_AGENT})
+                with urllib.request.urlopen(req, timeout=30) as resp:
+                    dst.write_bytes(resp.read())
+                fetched += 1
+                time.sleep(OSM_FETCH_DELAY_SEC)
+    print(f'  OSM tiles: {fetched} fetched, {reused} reused (total {total})')
+
+
+# Tile-server URL patterns in Leaflet/folium HTML. The {z}/{x}/{y} braces
+# are literal placeholders in the HTML that Leaflet substitutes at runtime
+# — we preserve them in the replacement so Leaflet still does its job.
+_TILE_URL_PATTERNS = [
+    # OpenStreetMap — both {s} subdomain template and resolved [a-c] form
+    re.compile(
+        r'https?://(?:\{s\}|[a-c])\.tile\.openstreetmap\.org/\{z\}/\{x\}/\{y\}\.png'),
+    # Stadia Maps / Stamen — may have ?api_key=... suffix
+    re.compile(
+        r'https?://tiles\.stadiamaps\.com/tiles/[a-z_-]+/\{z\}/\{x\}/\{y\}\.(?:png|jpg)'
+        r'(?:\?[^"\'\\s]*)?'),
+    # Carto basemaps
+    re.compile(
+        r'https?://(?:\{s\}|[a-d])\.basemaps\.cartocdn\.com/[a-z_-]+/\{z\}/\{x\}/\{y\}(?:@2x)?\.png'),
+]
+
+
+def rewrite_tile_urls(html: str, depth_from_vendor: int) -> tuple[str, int]:
+    """Replace public tile-server URLs with the local OSM vendor path.
+
+    All recognised tile servers are unified to the same local OSM set —
+    offline bundles prioritise 'it works' over style variety.
+    """
+    local = '../' * depth_from_vendor + 'vendor/tiles/osm/{z}/{x}/{y}.png'
+    count = 0
+    for pat in _TILE_URL_PATTERNS:
+        html, n = pat.subn(local, html)
+        count += n
+    return html, count
 
 
 # Match URLs inside actual-network-loading HTML/CSS constructs:
@@ -379,6 +454,9 @@ def main() -> int:
     print('→ fetching vendor libraries …')
     download_vendor(vendor_dir, skip=args.skip_download)
 
+    print('→ fetching OSM tiles (zoom 0–3) …')
+    download_osm_tiles(vendor_dir, skip=args.skip_download)
+
     print('→ regenerating site with Galaxy excluded …')
     run_site_build()
 
@@ -514,6 +592,30 @@ def self_test():
             'https://cdnjs.cloudflare.com/x.css',
             'https://unpkg.com/evil@1/dist/evil.min.js',
         ], f'unexpected findings: {urls}'
+
+    # --- rewrite_tile_urls ---
+    # OSM with {s} subdomain template
+    src = 'L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")'
+    out_, n = rewrite_tile_urls(src, depth_from_vendor=2)
+    assert out_ == 'L.tileLayer("../../vendor/tiles/osm/{z}/{x}/{y}.png")', repr(out_)
+    assert n == 1
+
+    # Stadia/Stamen with api_key suffix
+    src = '"https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}.png?api_key="'
+    out_, n = rewrite_tile_urls(src, depth_from_vendor=2)
+    assert out_ == '"../../vendor/tiles/osm/{z}/{x}/{y}.png"', repr(out_)
+    assert n == 1
+
+    # Carto basemaps with resolved subdomain
+    src = '"https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"'
+    out_, n = rewrite_tile_urls(src, depth_from_vendor=2)
+    assert out_ == '"../../vendor/tiles/osm/{z}/{x}/{y}.png"', repr(out_)
+    assert n == 1
+
+    # Non-tile URL untouched
+    src = '"https://example.com/image.png"'
+    out_, n = rewrite_tile_urls(src, depth_from_vendor=2)
+    assert out_ == src and n == 0
 
 
 if __name__ == '__main__':
