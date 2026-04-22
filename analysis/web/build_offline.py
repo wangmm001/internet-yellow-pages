@@ -40,8 +40,6 @@ VENDOR_MAP = {
         '3d-force-graph@1.77/dist/3d-force-graph.min.js',
     'https://unpkg.com/globe.gl@2.32/dist/globe.gl.min.js':
         'globe.gl@2.32/dist/globe.gl.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.css':
-        'vis-network@9.1.2/dist/vis-network.min.css',
     'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js':
         'vis-network@9.1.2/dist/vis-network.min.js',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css':
@@ -66,6 +64,29 @@ EXTERNAL_ALLOWLIST_PREFIXES = (
 )
 
 
+def vendor_local_path(url: str) -> str:
+    """Return the vendor-local path for a CDN URL (relative to vendor/)."""
+    return VENDOR_MAP[url]
+
+
+def download_vendor(vendor_dir: Path, skip: bool = False) -> None:
+    """Download every URL in VENDOR_MAP into <vendor_dir>/<local_path>.
+
+    Skips any file that already exists when ``skip`` is True.
+    """
+    vendor_dir.mkdir(parents=True, exist_ok=True)
+    for url, rel in VENDOR_MAP.items():
+        dst = vendor_dir / rel
+        if skip and dst.exists() and dst.stat().st_size > 0:
+            print(f'  reuse  {rel}')
+            continue
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        print(f'  fetch  {url}')
+        req = urllib.request.Request(url, headers={'User-Agent': 'iyp-offline-build'})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            dst.write_bytes(resp.read())
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--out', type=Path, default=DEFAULT_OUT,
@@ -87,7 +108,19 @@ def main():
 
 
 def self_test():
-    pass
+    # --- vendor_local_path helper ---
+    assert vendor_local_path(
+        'https://unpkg.com/globe.gl@2.32/dist/globe.gl.min.js'
+    ) == 'globe.gl@2.32/dist/globe.gl.min.js'
+    assert vendor_local_path(
+        'https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js'
+    ) == 'vis-network@9.1.2/dist/vis-network.min.js'
+    try:
+        vendor_local_path('https://example.com/foo.js')
+    except KeyError:
+        pass
+    else:
+        raise AssertionError('expected KeyError for unmapped URL')
 
 
 if __name__ == '__main__':
