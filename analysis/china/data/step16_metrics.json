@@ -4,37 +4,37 @@
   "title_en": "CNAME Chains Crossing China",
   "metrics": {
     "alias_edges_sampled": 2500,
-    "distinct_cn_cloud_targets": 1472,
+    "distinct_cn_cloud_targets": 1593,
     "top_target_families": {
-      "Aliyun": 1323,
-      "Huawei CDN": 944,
-      "Tencent Cloud": 141,
-      "Aliyun CDN": 58,
-      "Baidu": 17,
-      "Huawei": 11,
+      "Aliyun": 1188,
+      "Huawei CDN": 1107,
+      "Tencent Cloud": 113,
+      "Aliyun CDN": 53,
+      "Baidu": 21,
+      "ChinaNetCenter": 8,
       "Wangsu CDN": 3,
-      "Huawei Cloud": 2
+      "Huawei Cloud": 3
     },
     "top_individual_targets": [
       [
-        "nlb-3svc79r8fxqv73kn0r.ap-southeast-1.nlb.aliyuncsslbintl.com",
-        382
-      ],
-      [
-        "nlb-wwwzr8hg1c5vya400c.ap-southeast-1.nlb.aliyuncsslbintl.com",
-        36
-      ],
-      [
-        "hcdnwsa.ovc.baimingdan.cdnhwcbie120.cn",
-        34
-      ],
-      [
-        "hcdnw119.ovc.c.cdnhwc7.com",
-        31
+        "hcdnw101.v3.cdnhwcprh113.com",
+        54
       ],
       [
         "www.gov.hk.f17a14b3.cdnhwcgqa21.com",
-        27
+        32
+      ],
+      [
+        "hcdnw102.vip.v6.cdnhwcbzj102.com",
+        25
+      ],
+      [
+        "hcdnw102.vip.cdnhwcbzj102.com",
+        25
+      ],
+      [
+        "hcdnw101.sme.cdnhwcaip122.cn",
+        24
       ]
     ]
   }
