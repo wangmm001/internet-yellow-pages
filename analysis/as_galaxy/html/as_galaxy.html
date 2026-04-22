@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>全球 AS 星图 · Galaxy</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root {
+    --bg:#0D1117; --panel:#161B22; --border:#30363D;
+    --fg:#E6EDF3; --muted:#8B949E;
+    --cn:#FF453A; --na:#0A84FF; --ea:#FF9F0A; --eu:#30D158; --ot:#8E8E93;
+    --accent:#5E5CE6;
+  }
+  html, body {
+    margin:0; padding:0; width:100%; height:100%;
+    background:var(--bg); color:var(--fg); overflow:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  }
+  #viz { position:absolute; inset:0; }
+
+  .overlay {
+    position:absolute; z-index:10; background:rgba(22,27,34,0.85);
+    border:1px solid var(--border); border-radius:10px;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    padding:14px 16px; font-size:13px; line-height:1.45;
+  }
+  .overlay.top-left   { top:18px; left:18px; max-width:380px; }
+  .overlay.top-right  { top:18px; right:18px; max-width:280px; }
+  .overlay.top-center { top:18px; left:50%; transform:translateX(-50%); }
+  .overlay.bottom     { bottom:18px; left:18px; right:18px; max-width:none;
+                        display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+  .overlay h1 { margin:0 0 2px 0; font-size:16px; color:var(--fg); font-weight:600; }
+  .overlay h2 { margin:0 0 8px 0; font-size:12px; color:var(--muted); font-weight:400; }
+  .overlay p  { margin:6px 0; color:var(--muted); font-size:12px; }
+  .kv         { display:flex; justify-content:space-between; gap:14px;
+                margin:3px 0; font-size:12px; color:var(--fg); }
+  .kv .lbl    { color:var(--muted); }
+  .legend { display:flex; gap:14px; flex-wrap:wrap; }
+  .legend .chip { display:flex; align-items:center; gap:6px; user-select:none; color:var(--fg); font-size:12px; }
+  .legend .chip .dot { width:10px; height:10px; border-radius:50%; }
+
+  /* Preset segmented control — design §6 */
+  .preset-toggle {
+    display:flex; gap:0; margin-top:8px;
+    border:1px solid var(--border); border-radius:6px; overflow:hidden;
+    background:rgba(13,17,23,0.6);
+  }
+  .preset-toggle button {
+    flex:1; appearance:none; background:transparent; color:var(--muted);
+    border:0; padding:6px 8px; font-size:12px; cursor:pointer;
+    font-family:inherit; transition:background 120ms, color 120ms;
+    border-right:1px solid var(--border);
+  }
+  .preset-toggle button:last-child { border-right:0; }
+  .preset-toggle button:hover { color:var(--fg); background:rgba(94,92,230,0.10); }
+  .preset-toggle button.active {
+    background:var(--accent); color:#fff; font-weight:600;
+  }
+  .preset-toggle button .zh { display:block; font-size:12px; }
+  .preset-toggle button .en { display:block; font-size:10px; opacity:0.7; }
+
+  /* Loading + error overlays */
+  #loader {
+    background:rgba(13,17,23,0.95); padding:10px 18px; font-size:13px;
+    color:var(--muted); border-color:var(--border);
+  }
+  #loader .spinner {
+    display:inline-block; width:10px; height:10px; margin-right:8px;
+    border:2px solid var(--accent); border-top-color:transparent;
+    border-radius:50%; vertical-align:-1px; animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  #load-error {
+    display:none; background:#ff453a; color:#fff; padding:10px 16px;
+    border-radius:8px; font-size:13px;
+  }
+
+  /* Finder panel — top-center search + provider chips */
+  .overlay.finder {
+    top:18px; left:50%; transform:translateX(-50%);
+    max-width:780px; padding:8px 12px; z-index:11;
+  }
+  .finder .finder-row {
+    display:flex; gap:8px; align-items:center;
+  }
+  .finder input[type=search] {
+    flex:1; min-width:0; background:rgba(13,17,23,0.9); color:var(--fg);
+    border:1px solid var(--border); border-radius:6px;
+    padding:4px 8px; font-size:12px; font-family:inherit; outline:none;
+  }
+  .finder #find-hint {
+    color:var(--muted); font-size:11px; opacity:0.75;
+    white-space:nowrap; min-width:90px; text-align:right;
+  }
+  .finder .group-row {
+    display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:6px;
+  }
+  .finder .group-tag {
+    color:var(--muted); font-size:11px; opacity:0.85;
+    min-width:110px; letter-spacing:0.02em; flex-shrink:0;
+  }
+  .finder .group-chip {
+    background:rgba(13,17,23,0.9); color:var(--fg);
+    border:1px solid var(--border); border-radius:999px;
+    padding:3px 10px; font-size:11px; font-family:inherit; cursor:pointer;
+  }
+  .finder .group-chip:disabled { opacity:0.4; cursor:not-allowed; }
+
+  /* Saturn halo — multi-ring orbital animation around focused nodes */
+  #halo-layer { position:absolute; inset:0; pointer-events:none; z-index:15; }
+  .halo {
+    position:absolute; width:0; height:0;
+    transform-style:preserve-3d; perspective:600px;
+    --halo-size:140px;
+  }
+  .halo-ring {
+    position:absolute; left:0; top:0; border-radius:50%; box-sizing:border-box;
+    border-style:solid;
+    transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg);
+    animation:halo-spin 14s linear infinite;
+  }
+  .halo-outer {
+    width:var(--halo-size); height:var(--halo-size); border-width:2.5px;
+    border-color:rgba(255,214,10,0.88);
+    box-shadow:0 0 22px rgba(255,214,10,0.55), inset 0 0 10px rgba(255,214,10,0.25);
+    animation-duration:14s;
+  }
+  .halo-mid {
+    width:calc(var(--halo-size)*0.76); height:calc(var(--halo-size)*0.76); border-width:2px;
+    border-color:rgba(255,159,10,0.72);
+    animation-duration:19s; animation-direction:reverse;
+  }
+  .halo-inner {
+    width:calc(var(--halo-size)*0.54); height:calc(var(--halo-size)*0.54); border-width:1.5px;
+    border-color:rgba(255,90,40,0.55);
+    animation-duration:11s;
+  }
+  @keyframes halo-spin {
+    from { transform:translate(-50%,-50%) rotateX(72deg) rotateZ(0deg); }
+    to   { transform:translate(-50%,-50%) rotateX(72deg) rotateZ(360deg); }
+  }
+
+  /* Focused-AS display row in stats panel */
+  .focus-line {
+    margin-top:8px; padding-top:8px; border-top:1px solid var(--border);
+    color:var(--fg); font-size:12px; line-height:1.45;
+  }
+  .focus-line .as { color:var(--accent); font-weight:600; }
+  .focus-line .meta { color:var(--muted); font-size:11px; }
+
+  /* Mobile banner */
+  @media (max-width: 720px) {
+    #mobile-banner { display:flex !important; }
+    .overlay { display:none !important; }
+  }
+  #mobile-banner {
+    display:none; position:fixed; inset:0; z-index:50; background:var(--bg);
+    align-items:center; justify-content:center; flex-direction:column;
+    padding:24px; text-align:center;
+  }
+  #mobile-banner h1 { color:var(--fg); margin:0 0 8px 0; font-size:18px; }
+  #mobile-banner p  { color:var(--muted); margin:6px 0; font-size:14px; }
+  #mobile-banner a  { color:var(--accent); text-decoration:none; font-weight:600; }
+</style>
+</head>
+<body>
+
+<div id="viz"></div>
+
+<div id="mobile-banner">
+  <h1>桌面端专属 · Desktop only</h1>
+  <p>全景星图依赖 WebGL2 + 大屏交互，移动端体验受限。</p>
+  <p>The galaxy view requires desktop with WebGL2.</p>
+  <p><a href="./as_force.html">→ 改用 5K 力图 · use Force view</a></p>
+</div>
+
+<div class="overlay top-left" id="info-panel">
+  <h1>全球 AS 星图 · Galaxy</h1>
+  <h2>~127K ASes · pre-computed 3D layout · 4-tier LOD pyramid</h2>
+  <p>Top 500 节点已加载。后续阶段会按摄像机距离流式加载 L1–L3 tile。</p>
+  <p>Drag to rotate · scroll to zoom · LOD streams as you zoom in (P4 work).</p>
+</div>
+
+<div class="overlay top-right" id="stats-panel">
+  <div class="kv"><span class="lbl">视角 View</span></div>
+  <div class="preset-toggle" id="preset-toggle">
+    <!-- buttons injected by JS from manifest.presets -->
+  </div>
+  <div class="kv" style="margin-top:10px"><span class="lbl">节点 Nodes</span><span id="n-count">…</span></div>
+  <div class="kv"><span class="lbl">总数 Total</span><span id="n-total">…</span></div>
+  <div class="kv"><span class="lbl">边数 Edges</span><span id="e-count">…</span></div>
+  <div class="kv"><span class="lbl">LOD 层级</span><span id="lod-tier">L0</span></div>
+  <div class="kv"><span class="lbl">FPS</span><span id="fps">…</span></div>
+  <div class="focus-line" id="focus-line" style="display:none">
+    <span class="as" id="focus-asn">—</span>
+    <div class="meta" id="focus-meta">—</div>
+  </div>
+</div>
+
+<div class="overlay finder" id="finder">
+  <div class="finder-row">
+    <input id="find-input" type="search" autocomplete="off" spellcheck="false"
+           placeholder="🔍 AS号 / 名称 · ASN / name · 点 chip 显示光环, Enter 飞镜头">
+    <span id="find-hint">—</span>
+  </div>
+  <div id="provider-groups"><!-- chip rows injected by JS --></div>
+</div>
+
+<div id="halo-layer" aria-hidden="true"></div>
+
+<div class="overlay bottom">
+  <div class="legend">
+    <span class="chip"><span class="dot" style="background:var(--cn)"></span>中国区 · Greater China</span>
+    <span class="chip"><span class="dot" style="background:var(--na)"></span>北美 · North America</span>
+    <span class="chip"><span class="dot" style="background:var(--ea)"></span>东亚 · East Asia (ex-GC)</span>
+    <span class="chip"><span class="dot" style="background:var(--eu)"></span>欧洲 · Europe (EU+EEA+UK+CH)</span>
+    <span class="chip"><span class="dot" style="background:var(--ot)"></span>其他 · Other</span>
+  </div>
+</div>
+
+<div class="overlay top-center" id="loader"><span class="spinner"></span><span id="loader-text">载入 manifest…</span></div>
+<div class="overlay top-center" id="load-error"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.165.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ─────────────────────────────────────────────────────────────────────────
+// Constants — keep in sync with analysis/as_galaxy/common.py PRESETS
+// ─────────────────────────────────────────────────────────────────────────
+const REGION_COLORS = [
+  new THREE.Color('#FF453A'),  // 0 cn
+  new THREE.Color('#0A84FF'),  // 1 na
+  new THREE.Color('#FF9F0A'),  // 2 ea
+  new THREE.Color('#30D158'),  // 3 eu
+  new THREE.Color('#8E8E93'),  // 4 ot
+];
+const REGION_LABEL = ['cn','na','ea','eu','ot'];
+
+const HEADER_BYTES = 48;
+const EDGE_BYTES   = 12;
+const BUNDLE_BYTES = 108;
+const SAMPLES_PER_CURVE   = 8;          // matches Python step14
+const SEGMENTS_PER_CURVE  = SAMPLES_PER_CURVE - 1;  // 7
+const MAX_NODES    = 200_000;   // pre-allocated GPU instance buffer cap
+const MAX_STRAIGHT_EDGES  = 60_000;     // L0+L1+streamed L2/L3 caps headroom
+const MAX_BUNDLED_EDGES   = 40_000;     // L0+L1 only; design §4.5 budget
+const PRESET_KEY   = 'as_galaxy.preset';
+const DATA_BASE    = '../data/';
+
+// ─────────────────────────────────────────────────────────────────────────
+// Loader / error helpers
+// ─────────────────────────────────────────────────────────────────────────
+const els = {
+  loader:      document.getElementById('loader'),
+  loaderText:  document.getElementById('loader-text'),
+  err:         document.getElementById('load-error'),
+  nCount:      document.getElementById('n-count'),
+  nTotal:      document.getElementById('n-total'),
+  eCount:      document.getElementById('e-count'),
+  lodTier:     document.getElementById('lod-tier'),
+  fps:         document.getElementById('fps'),
+  presetTgl:   document.getElementById('preset-toggle'),
+  viz:         document.getElementById('viz'),
+  findInput:   document.getElementById('find-input'),
+  findHint:    document.getElementById('find-hint'),
+  groups:      document.getElementById('provider-groups'),
+  halo:        document.getElementById('halo-layer'),
+  focusLine:   document.getElementById('focus-line'),
+  focusAsn:    document.getElementById('focus-asn'),
+  focusMeta:   document.getElementById('focus-meta'),
+};
+
+function setLoader(text) {
+  if (text == null) { els.loader.style.display = 'none'; return; }
+  els.loader.style.display = 'block';
+  els.loaderText.textContent = text;
+}
+function showError(text) {
+  els.err.style.display = 'block';
+  els.err.textContent = text;
+  console.error('[as_galaxy]', text);
+}
+window.addEventListener('error', e => showError('页面错误 · ' + (e.message || 'unknown')));
+window.addEventListener('unhandledrejection', e => showError('Promise 错误 · ' + (e.reason?.message || e.reason)));
+
+// ─────────────────────────────────────────────────────────────────────────
+// Binary parsers — see DESIGN_GALAXY.md §4.6 + step15_galaxy_export.py
+// ─────────────────────────────────────────────────────────────────────────
+function parseHeader(view, off) {
+  const magic = String.fromCharCode(
+    view.getUint8(off), view.getUint8(off+1),
+    view.getUint8(off+2), view.getUint8(off+3));
+  if (magic !== 'GALX') throw new Error('Bad magic in tile: ' + magic);
+  return {
+    version:     view.getUint8(off+4),
+    tier:        view.getUint8(off+5),
+    regionMask:  view.getUint8(off+6),
+    tileId:      view.getUint32(off+8, true),
+    bbox: [
+      view.getFloat32(off+12, true), view.getFloat32(off+16, true),
+      view.getFloat32(off+20, true), view.getFloat32(off+24, true),
+      view.getFloat32(off+28, true), view.getFloat32(off+32, true),
+    ],
+    nodeCount:   view.getUint32(off+36, true),
+    edgeCount:   view.getUint32(off+40, true),
+    bundleCount: view.getUint32(off+44, true),
+  };
+}
+
+function parseTile(buf) {
+  const view = new DataView(buf);
+  let off = 0;
+  const hdr = parseHeader(view, off);
+  off += HEADER_BYTES;
+
+  const nodes = new Array(hdr.nodeCount);
+  for (let i = 0; i < hdr.nodeCount; i++) {
+    const start = off;
+    const asn = view.getUint32(off, true); off += 4;
+    const x = view.getFloat32(off, true); off += 4;
+    const y = view.getFloat32(off, true); off += 4;
+    const z = view.getFloat32(off, true); off += 4;
+    const r = view.getFloat32(off, true); off += 4;
+    const region = view.getUint8(off); off += 1;
+    const tierIn = view.getUint8(off); off += 1;
+    const cc = String.fromCharCode(view.getUint8(off), view.getUint8(off+1));
+    off += 2;
+    const nameLen = view.getUint8(off); off += 1;
+    let name = '';
+    for (let k = 0; k < nameLen; k++) name += String.fromCharCode(view.getUint8(off + k));
+    off += nameLen;
+    // pad to next 32-byte boundary relative to block start
+    const used = off - start;
+    const pad = (32 - (used % 32)) % 32;
+    off += pad;
+    nodes[i] = { asn, x, y, z, r, region, tierIn,
+                 cc: cc.replace(/\0/g, ''), name };
+  }
+
+  const edges = new Array(hdr.edgeCount);
+  for (let i = 0; i < hdr.edgeCount; i++) {
+    edges[i] = {
+      src:    view.getUint32(off, true),
+      dst:    view.getUint32(off + 4, true),
+      weight: view.getFloat32(off + 8, true),
+    };
+    off += EDGE_BYTES;
+  }
+
+  const bundles = new Array(hdr.bundleCount);
+  for (let i = 0; i < hdr.bundleCount; i++) {
+    const src = view.getUint32(off, true);
+    const dst = view.getUint32(off + 4, true);
+    const w   = view.getFloat32(off + 8, true);
+    const pts = new Array(8);
+    for (let k = 0; k < 8; k++) {
+      pts[k] = [
+        view.getFloat32(off + 12 + k * 12,     true),
+        view.getFloat32(off + 12 + k * 12 + 4, true),
+        view.getFloat32(off + 12 + k * 12 + 8, true),
+      ];
+    }
+    bundles[i] = { src, dst, weight: w, pts };
+    off += BUNDLE_BYTES;
+  }
+
+  return { header: hdr, nodes, edges, bundles };
+}
+
+async function fetchTile(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`fetch ${url} → ${r.status}`);
+  const buf = await r.arrayBuffer();
+  return parseTile(buf);
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Three.js scene
+// ─────────────────────────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#0D1117');
+
+const camera = new THREE.PerspectiveCamera(
+  55,
+  window.innerWidth / window.innerHeight,
+  0.01,
+  100
+);
+camera.position.set(0, 0, 3);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+els.viz.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.07;
+controls.minDistance = 0.05;
+controls.maxDistance = 10;
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ─────────────────────────────────────────────────────────────────────────
+// Sprite shader — soft circular disk, billboarded, alpha-blended.
+// One InstancedMesh holds every visible node across all tiers.
+// ─────────────────────────────────────────────────────────────────────────
+const VERT = `
+attribute vec3 instanceColor;
+varying vec3  vColor;
+varying vec2  vUv;
+void main() {
+  vColor = instanceColor;
+  vUv = uv;
+  vec4 mv = modelViewMatrix * instanceMatrix * vec4(position, 1.0);
+  gl_Position = projectionMatrix * mv;
+}`;
+const FRAG = `
+precision mediump float;
+varying vec3 vColor;
+varying vec2 vUv;
+void main() {
+  float d = length(vUv - 0.5);
+  float core = smoothstep(0.50, 0.30, d);   // soft disk
+  float halo = smoothstep(0.50, 0.46, d) * 0.35;
+  if (core + halo < 0.005) discard;
+  vec3  c = vColor + vec3(halo) * 0.6;
+  gl_FragColor = vec4(c, core + halo);
+}`;
+
+const spriteGeom = new THREE.PlaneGeometry(1, 1);
+const spriteMat  = new THREE.ShaderMaterial({
+  vertexShader: VERT, fragmentShader: FRAG,
+  transparent: true, depthWrite: false,
+});
+const nodeMesh = new THREE.InstancedMesh(spriteGeom, spriteMat, MAX_NODES);
+nodeMesh.frustumCulled = false;
+nodeMesh.count = 0;
+nodeMesh.instanceColor = new THREE.InstancedBufferAttribute(
+  new Float32Array(MAX_NODES * 3), 3);
+nodeMesh.geometry.setAttribute('instanceColor', nodeMesh.instanceColor);
+scene.add(nodeMesh);
+
+// Map ASN → instance index + region + position + display metadata. The
+// finder/halo overlay needs name + cc + baked radius for sizing and
+// labelling; edge buffers want region for the gradient; LOD streamer
+// uses position to project onto screen for halos.
+const asnToIndex  = new Map();
+const asnToRegion = new Map();
+const asnToPos    = new Map();   // asn → [x, y, z]
+const asnToRadius = new Map();   // asn → baked sprite radius
+const asnToName   = new Map();   // asn → display name (may be empty)
+const asnToCc     = new Map();   // asn → ISO-3166 alpha-2 (may be empty)
+
+// Per-tile bookkeeping. Lets us check whether a tile is loaded, find its
+// node-slot range (for future eviction), and enumerate edges.
+//   key = `L0` | `L1` | `L2/<cellId>` | `L3/<cellId>`
+const loadedTiles  = new Map();      // key → {tile, nodeStart, nodeEnd, ...}
+const loadingTiles = new Map();      // key → Promise (in-flight fetches)
+let nextNodeSlot      = 0;
+let nextStraightSeg   = 0;
+let nextBundledSeg    = 0;
+
+// ─────────────────────────────────────────────────────────────────────────
+// Edge meshes — two LineSegments, one for straight edges, one for bundles.
+// We pre-allocate the bigger possible buffer up-front so loadTileIntoScene
+// only updates contents (no GPU re-alloc) per the design §5.4 contract.
+// ─────────────────────────────────────────────────────────────────────────
+function makeLineMesh(maxSegments) {
+  const positions = new Float32Array(maxSegments * 2 * 3);   // 2 verts/seg
+  const colors    = new Float32Array(maxSegments * 2 * 3);
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geom.setAttribute('color',    new THREE.BufferAttribute(colors,    3));
+  geom.setDrawRange(0, 0);
+  const mat = new THREE.LineBasicMaterial({
+    vertexColors: true, transparent: true, opacity: 0.28,
+    depthWrite: false, blending: THREE.NormalBlending,
+  });
+  const mesh = new THREE.LineSegments(geom, mat);
+  mesh.frustumCulled = false;
+  return mesh;
+}
+
+// Straight: one segment per edge → MAX_STRAIGHT_EDGES segments
+const straightLines = makeLineMesh(MAX_STRAIGHT_EDGES);
+// Bundled: 7 segments per curve → MAX_BUNDLED_EDGES * 7 segments
+const bundledLines  = makeLineMesh(MAX_BUNDLED_EDGES * SEGMENTS_PER_CURVE);
+scene.add(straightLines);
+scene.add(bundledLines);
+
+function regionColorOf(asn) {
+  const r = asnToRegion.get(asn);
+  return REGION_COLORS[r != null ? r : 4];
+}
+
+// Append per-segment data to a LineSegments mesh starting at `startSeg`,
+// growing the draw range. Returns the new next-free segment index.
+function appendSegments(mesh, segs, startSeg, maxSegs) {
+  if (segs.length === 0) return startSeg;
+  const posAttr = mesh.geometry.attributes.position;
+  const colAttr = mesh.geometry.attributes.color;
+  const pos = posAttr.array;
+  const col = colAttr.array;
+  const fit = Math.min(segs.length, maxSegs - startSeg);
+  let off = startSeg * 6;
+  for (let i = 0; i < fit; i++) {
+    const [a, b, ca, cb] = segs[i];
+    pos[off  ] = a[0]; pos[off+1] = a[1]; pos[off+2] = a[2];
+    pos[off+3] = b[0]; pos[off+4] = b[1]; pos[off+5] = b[2];
+    col[off  ] = ca.r; col[off+1] = ca.g; col[off+2] = ca.b;
+    col[off+3] = cb.r; col[off+4] = cb.g; col[off+5] = cb.b;
+    off += 6;
+  }
+  const newEnd = startSeg + fit;
+  mesh.geometry.setDrawRange(0, newEnd * 2);
+  posAttr.needsUpdate = true;
+  colAttr.needsUpdate = true;
+  if (fit < segs.length) {
+    console.warn(`segment buffer overflow on ${mesh === bundledLines ? "bundled" : "straight"}: dropped ${segs.length - fit} segments`);
+  }
+  return newEnd;
+}
+
+function bundleSegmentsFor(b) {
+  const ca = regionColorOf(b.src), cb = regionColorOf(b.dst);
+  const out = new Array(SEGMENTS_PER_CURVE);
+  for (let s = 0; s < SEGMENTS_PER_CURVE; s++) {
+    const t1 = s / SEGMENTS_PER_CURVE;
+    const t2 = (s + 1) / SEGMENTS_PER_CURVE;
+    out[s] = [
+      b.pts[s], b.pts[s + 1],
+      new THREE.Color().lerpColors(ca, cb, t1),
+      new THREE.Color().lerpColors(ca, cb, t2),
+    ];
+  }
+  return out;
+}
+
+function straightSegmentsFor(edges) {
+  const out = [];
+  for (let i = 0; i < edges.length; i++) {
+    const e = edges[i];
+    const ap = asnToPos.get(e.src);
+    const bp = asnToPos.get(e.dst);
+    if (!ap || !bp) continue;   // endpoint in an unloaded tier — skip
+    out.push([ap, bp, regionColorOf(e.src), regionColorOf(e.dst)]);
+  }
+  return out;
+}
+
+const _m = new THREE.Matrix4();
+const _q = new THREE.Quaternion();
+const _scale = new THREE.Vector3();
+function setNodeAt(idx, n) {
+  // Sprite size scales with baked radius. Multiply by a global k to get
+  // visually meaningful pixel sizes — tier-1 sprites should be readable
+  // at L0 zoom-out without becoming overwhelming. Smaller multiplier for
+  // deeper tiers so the long-tail L3 doesn't blanket the scene.
+  const tierSizeFactor = n.tierIn === 0 ? 1.6
+                       : n.tierIn === 1 ? 1.2
+                       : n.tierIn === 2 ? 0.9
+                       :                  0.7;
+  const sz = Math.max(0.005, n.r * tierSizeFactor);
+  _scale.set(sz, sz, sz);
+  _m.compose(new THREE.Vector3(n.x, n.y, n.z), _q, _scale);
+  nodeMesh.setMatrixAt(idx, _m);
+  const c = REGION_COLORS[n.region] || REGION_COLORS[4];
+  nodeMesh.instanceColor.setXYZ(idx, c.r, c.g, c.b);
+  asnToIndex.set(n.asn, idx);
+  asnToRegion.set(n.asn, n.region);
+  asnToPos.set(n.asn, [n.x, n.y, n.z]);
+  asnToRadius.set(n.asn, sz);
+  if (n.name) asnToName.set(n.asn, n.name);
+  if (n.cc)   asnToCc.set(n.asn, n.cc);
+}
+
+function clearScene() {
+  asnToIndex.clear();
+  asnToRegion.clear();
+  asnToPos.clear();
+  asnToRadius.clear();
+  asnToName.clear();
+  asnToCc.clear();
+  setFocus([]);    // wipe halos so we don't keep stale entries pointing at evicted nodes
+  loadedTiles.clear();
+  loadingTiles.clear();
+  nextNodeSlot = 0;
+  nextStraightSeg = 0;
+  nextBundledSeg = 0;
+  nodeMesh.count = 0;
+  nodeMesh.instanceMatrix.needsUpdate = true;
+  nodeMesh.instanceColor.needsUpdate = true;
+  straightLines.geometry.setDrawRange(0, 0);
+  bundledLines.geometry.setDrawRange(0, 0);
+}
+
+function appendTileToScene(key, tile) {
+  if (loadedTiles.has(key)) return;
+  const nodeStart = nextNodeSlot;
+  let added = 0;
+  for (const n of tile.nodes) {
+    if (nextNodeSlot >= MAX_NODES) {
+      console.warn(`node buffer full, dropping ${tile.nodes.length - added} from ${key}`);
+      break;
+    }
+    setNodeAt(nextNodeSlot++, n);
+    added++;
+  }
+  nodeMesh.count = nextNodeSlot;
+  nodeMesh.instanceMatrix.needsUpdate = true;
+  nodeMesh.instanceColor.needsUpdate = true;
+
+  const bundledStart = nextBundledSeg;
+  const straightStart = nextStraightSeg;
+
+  // Bundles win over straight lines when both exist for the same edges
+  // (L0/L1 case). For L2/L3 only straight lines are present.
+  if (tile.bundles.length > 0) {
+    const segs = [];
+    for (const b of tile.bundles) {
+      for (const seg of bundleSegmentsFor(b)) segs.push(seg);
+    }
+    nextBundledSeg = appendSegments(
+      bundledLines, segs, nextBundledSeg,
+      MAX_BUNDLED_EDGES * SEGMENTS_PER_CURVE);
+  } else if (tile.edges.length > 0) {
+    nextStraightSeg = appendSegments(
+      straightLines, straightSegmentsFor(tile.edges), nextStraightSeg,
+      MAX_STRAIGHT_EDGES);
+  }
+
+  loadedTiles.set(key, {
+    tile, nodeStart, nodeEnd: nextNodeSlot,
+    bundledStart, bundledEnd: nextBundledSeg,
+    straightStart, straightEnd: nextStraightSeg,
+  });
+  updateStatsCounts();
+  // New tile may add hits to provider chips — refresh counts.
+  if (els.groups && els.groups.children.length) buildProviderChips();
+}
+
+async function ensureTileLoaded(key, url) {
+  if (loadedTiles.has(key)) return;
+  if (loadingTiles.has(key)) return loadingTiles.get(key);
+  const p = (async () => {
+    try {
+      const tile = await fetchTile(url);
+      appendTileToScene(key, tile);
+    } catch (e) {
+      console.warn(`tile ${key} (${url}) load failed:`, e);
+    } finally {
+      loadingTiles.delete(key);
+    }
+  })();
+  loadingTiles.set(key, p);
+  return p;
+}
+
+function updateStatsCounts() {
+  let edges = 0, bundles = 0;
+  for (const t of loadedTiles.values()) {
+    edges   += t.tile.edges.length;
+    bundles += t.tile.bundles.length;
+  }
+  els.nCount.textContent = nextNodeSlot.toLocaleString();
+  const bSuffix = bundles > 0 ? ` (+${bundles.toLocaleString()} bundled)` : '';
+  els.eCount.textContent = edges.toLocaleString() + bSuffix;
+  els.lodTier.textContent = `L${currentLOD} (${loadedTiles.size} tile${loadedTiles.size === 1 ? '' : 's'})`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Preset switcher — wires up #preset-toggle from manifest.presets
+// ─────────────────────────────────────────────────────────────────────────
+let manifest = null;
+let currentPreset = null;
+
+function buildPresetButtons() {
+  const order = ['economy', 'structure', 'reach'].filter(n => n in manifest.presets);
+  for (const name of order) {
+    const p = manifest.presets[name];
+    const b = document.createElement('button');
+    b.dataset.preset = name;
+    b.innerHTML = `<span class="zh">${p.label_zh}</span>`
+                + `<span class="en">${p.label_en}</span>`;
+    b.addEventListener('click', () => switchPreset(name));
+    els.presetTgl.appendChild(b);
+  }
+}
+function highlightPreset(name) {
+  for (const b of els.presetTgl.querySelectorAll('button')) {
+    b.classList.toggle('active', b.dataset.preset === name);
+  }
+}
+
+async function switchPreset(name) {
+  if (currentPreset === name) return;
+  currentPreset = name;
+  highlightPreset(name);
+  localStorage.setItem(PRESET_KEY, name);
+  setLoader(`载入 ${name}/L0.bin …`);
+  clearScene();
+  try {
+    const presetMeta = manifest.presets[name];
+    await ensureTileLoaded('L0', DATA_BASE + presetMeta.dir + '/L0.bin');
+    setLoader(null);
+    // Re-evaluate LOD against current camera state — the user may have
+    // been zoomed in when they switched, in which case we want to start
+    // streaming L1+ immediately rather than wait for camera motion.
+    currentLOD = -1;   // force a refresh
+    checkLOD(true);
+    // Refresh chip hit counts under the new preset's L0 admission.
+    if (els.groups.children.length) buildProviderChips();
+  } catch (e) { showError('preset ' + name + ' 加载失败 · ' + e.message); }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// LOD controller + tile streaming (design §5.3 / §5.4)
+// ─────────────────────────────────────────────────────────────────────────
+// Camera-altitude → desired LOD. A hysteresis band of 10% around each
+// boundary prevents flicker when the user parks their camera near a
+// transition point.
+const LOD_THRESHOLDS = [2.5, 1.0, 0.3];   // [L0|L1, L1|L2, L2|L3] altitudes
+const LOD_HYSTERESIS = 0.10;
+let currentLOD = 0;
+
+function pickLOD(alt) {
+  // Default mapping
+  let target;
+  if      (alt > LOD_THRESHOLDS[0]) target = 0;
+  else if (alt > LOD_THRESHOLDS[1]) target = 1;
+  else if (alt > LOD_THRESHOLDS[2]) target = 2;
+  else                              target = 3;
+  if (target === currentLOD) return target;
+  // If we'd zoom OUT (target < currentLOD), require alt to be > thresh*1.10.
+  // If we'd zoom IN  (target > currentLOD), require alt to be < thresh*0.90.
+  // This bands the transition.
+  if (target < currentLOD) {
+    const t = LOD_THRESHOLDS[target];   // boundary between target and target+1
+    if (alt < t * (1 + LOD_HYSTERESIS)) return currentLOD;
+  } else {
+    const t = LOD_THRESHOLDS[target - 1];
+    if (alt > t * (1 - LOD_HYSTERESIS)) return currentLOD;
+  }
+  return target;
+}
+
+function cellBboxOf(cid, depth, root) {
+  const D = 1 << depth;
+  const ix = cid % D;
+  const iy = Math.floor(cid / D) % D;
+  const iz = Math.floor(cid / (D * D));
+  const sx = (root[3] - root[0]) / D;
+  const sy = (root[4] - root[1]) / D;
+  const sz = (root[5] - root[2]) / D;
+  return new THREE.Box3(
+    new THREE.Vector3(root[0] + ix * sx,
+                      root[1] + iy * sy,
+                      root[2] + iz * sz),
+    new THREE.Vector3(root[0] + (ix + 1) * sx,
+                      root[1] + (iy + 1) * sy,
+                      root[2] + (iz + 1) * sz)
+  );
+}
+
+const _frustum = new THREE.Frustum();
+const _projViewMat = new THREE.Matrix4();
+function tilesInView(tier) {
+  // Returns the array of tile_ids whose octree cell intersects the
+  // current camera frustum OR sits within a proximity sphere around the
+  // camera (so tiles slightly outside the frustum are pre-loaded for
+  // smooth panning).
+  if (!manifest) return [];
+  const presetMeta = manifest.presets[currentPreset];
+  const tierMeta = presetMeta?.tiers?.[`L${tier}`];
+  if (!tierMeta || !tierMeta.tiles) return [];
+  const depth = manifest.octree[`l${tier}_depth`];
+  const root = [
+    ...manifest.octree.bbox[0],
+    ...manifest.octree.bbox[1],
+  ];
+  _projViewMat.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+  _frustum.setFromProjectionMatrix(_projViewMat);
+  // Proximity sphere: within 2× of (1 - inverse altitude). Heuristic:
+  // when zoomed in close, allow a slightly bigger sphere to pre-fetch
+  // adjacent cells.
+  const camPos = camera.position.clone();
+  const proxR = Math.max(0.2, camera.position.length() * 0.6);
+  const out = [];
+  for (const cidStr of Object.keys(tierMeta.tiles)) {
+    const cid = parseInt(cidStr, 10);
+    const box = cellBboxOf(cid, depth, root);
+    const inFrustum = _frustum.intersectsBox(box);
+    let inProximity = false;
+    if (!inFrustum) {
+      const cellCentre = new THREE.Vector3();
+      box.getCenter(cellCentre);
+      inProximity = camPos.distanceTo(cellCentre) <= proxR;
+    }
+    if (inFrustum || inProximity) out.push({ cid, file: tierMeta.tiles[cidStr].file });
+  }
+  return out;
+}
+
+let lodCheckTimer = 0;
+function checkLOD(force = false) {
+  // Throttled to ~5 Hz; the camera state doesn't need finer attention.
+  const now = performance.now();
+  if (!force && now - lodCheckTimer < 200) return;
+  lodCheckTimer = now;
+  if (!manifest || !currentPreset) return;
+  const alt = camera.position.length();
+  const desired = pickLOD(alt);
+  // Always make sure L0 is loaded (it is after switchPreset, but defensively…)
+  // and load every cumulatively-needed tier up to `desired`.
+  const presetDir = manifest.presets[currentPreset].dir;
+  if (desired !== currentLOD) {
+    currentLOD = desired;
+    updateStatsCounts();
+  }
+  // Ensure L1 is loaded once we're at L1 or deeper
+  if (currentLOD >= 1) {
+    ensureTileLoaded('L1', `${DATA_BASE}${presetDir}/L1.bin`);
+  }
+  // Stream L2 tiles within the frustum/proximity
+  if (currentLOD >= 2) {
+    const want2 = tilesInView(2);
+    // Cap concurrent fetches to 4 to avoid storming the server (design risk)
+    let inflight = loadingTiles.size;
+    for (const { cid, file } of want2) {
+      if (inflight >= 4) break;
+      const key = `L2/${cid}`;
+      if (!loadedTiles.has(key) && !loadingTiles.has(key)) {
+        ensureTileLoaded(key, `${DATA_BASE}${presetDir}/${file}`);
+        inflight++;
+      }
+    }
+  }
+  // L3 only once we're zoomed all the way in
+  if (currentLOD >= 3) {
+    const want3 = tilesInView(3);
+    let inflight = loadingTiles.size;
+    for (const { cid, file } of want3) {
+      if (inflight >= 4) break;
+      const key = `L3/${cid}`;
+      if (!loadedTiles.has(key) && !loadingTiles.has(key)) {
+        ensureTileLoaded(key, `${DATA_BASE}${presetDir}/${file}`);
+        inflight++;
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Finder + Saturn halo (design §6) — search input + provider chips,
+// multi-ring orbital halos around focused nodes, fly-to via camera tween.
+// Adapted from as_force.html: same UX, but raw Three.js projection (no
+// 3d-force-graph helpers) and the halo size comes from the baked sprite
+// radius rather than nodeVal.
+// ─────────────────────────────────────────────────────────────────────────
+// Curated well-known ASNs per operator. Mirrors as_force.html's
+// PROVIDER_GROUPS one-for-one so the finder UX is identical across
+// the two views — change in one, change in the other.
+const PROVIDER_GROUPS = [
+  { label:'云服务 · Cloud', items:[
+    {label:'AWS',        asns:[16509, 14618, 58838, 8987, 39111, 9059, 2905]},
+    {label:'GCP',        asns:[15169, 396982, 36492, 36040, 43515, 139070]},
+    {label:'Azure',      asns:[8075, 8068, 12076, 12271]},
+    {label:'Cloudflare', asns:[13335, 395747, 209242, 133877]},
+    {label:'阿里云',     asns:[45102, 37963, 45104, 134963, 59028]},
+    {label:'腾讯云',     asns:[132203, 45090, 133478, 133199]},
+    {label:'Baidu',      asns:[38365, 55967]},
+    {label:'Oracle',     asns:[31898, 14413]},
+    {label:'IBM',        asns:[36351, 6088, 1024]},
+    {label:'Akamai',     asns:[20940, 16625, 32787, 21342]},
+    {label:'DO',         asns:[14061]},
+    {label:'Hetzner',    asns:[24940]},
+    {label:'OVH',        asns:[16276]},
+  ]},
+  { label:'大型 ISP · Tier-1 / Backbone', items:[
+    {label:'Cogent',     asns:[174]},
+    {label:'Lumen',      asns:[3356, 3549]},
+    {label:'GTT',        asns:[3257]},
+    {label:'NTT',        asns:[2914]},
+    {label:'Tata',       asns:[6453, 4755]},
+    {label:'Telia',      asns:[1299]},
+    {label:'DTAG',       asns:[3320]},
+    {label:'Verizon',    asns:[701, 702, 703]},
+    {label:'AT&T',       asns:[7018]},
+    {label:'Zayo',       asns:[6461]},
+    {label:'Telecom Italia', asns:[6762]},
+    {label:'KPN',        asns:[286, 1136]},
+    {label:'Orange',     asns:[5511]},
+    {label:'中国电信',   asns:[4134, 4809]},
+    {label:'中国联通',   asns:[4837, 9929]},
+    {label:'中国移动',   asns:[9808, 58453, 56040]},
+  ]},
+];
+
+const HALO_CAP = 24;
+const HALO_RADIUS_MULT = 2.6;
+const HALO_MIN = 36;
+const HALO_MAX = 520;
+let focusedEntries = [];   // [{asn, el}, ...]
+
+function createHaloEl() {
+  const h = document.createElement('div');
+  h.className = 'halo';
+  h.style.display = 'none';
+  h.innerHTML =
+    '<div class="halo-ring halo-outer"></div>' +
+    '<div class="halo-ring halo-mid"></div>' +
+    '<div class="halo-ring halo-inner"></div>';
+  els.halo.appendChild(h);
+  return h;
+}
+
+function setFocus(asnList) {
+  for (const e of focusedEntries) e.el.remove();
+  focusedEntries = [];
+  if (!asnList || !asnList.length) {
+    if (els.focusLine) els.focusLine.style.display = 'none';
+    return;
+  }
+  const trimmed = asnList.slice(0, HALO_CAP);
+  for (const asn of trimmed) focusedEntries.push({ asn, el: createHaloEl() });
+}
+
+const _projVec = new THREE.Vector3();
+function updateHaloEntry(entry) {
+  const { asn, el } = entry;
+  const pos = asnToPos.get(asn);
+  if (!pos) { el.style.display = 'none'; return; }   // node not currently loaded
+  _projVec.set(pos[0], pos[1], pos[2]);
+  // Behind-camera test: project to NDC, hide if z > 1.
+  _projVec.project(camera);
+  if (_projVec.z > 1 || _projVec.z < -1) {
+    el.style.display = 'none';
+    return;
+  }
+  const sx = (_projVec.x + 1) * 0.5 * window.innerWidth;
+  const sy = (1 - (_projVec.y + 1) * 0.5) * window.innerHeight;
+  if (sx < -400 || sx > window.innerWidth + 400 ||
+      sy < -400 || sy > window.innerHeight + 400) {
+    el.style.display = 'none';
+    return;
+  }
+  // World→pixel scale at this depth — mirrors how Three.js sprites scale.
+  const dist = camera.position.distanceTo(_projVec.set(pos[0], pos[1], pos[2]));
+  const fovRad = camera.fov * Math.PI / 180;
+  const pxPerUnit = window.innerHeight / (2 * dist * Math.tan(fovRad / 2));
+  const r = asnToRadius.get(asn) || 0.02;
+  const size = Math.max(HALO_MIN, Math.min(HALO_MAX, r * pxPerUnit * HALO_RADIUS_MULT * 2));
+  el.style.setProperty('--halo-size', size.toFixed(1) + 'px');
+  el.style.left = sx + 'px';
+  el.style.top  = sy + 'px';
+  el.style.display = 'block';
+}
+function tickHalo() {
+  for (const e of focusedEntries) updateHaloEntry(e);
+  requestAnimationFrame(tickHalo);
+}
+
+// Camera fly-to: 1.5 s ease-out interpolation of camera.position toward a
+// vantage point that frames `pos` at `distance`. OrbitControls.target also
+// shifts so subsequent rotation orbits the focused AS.
+let flyState = null;   // {start, dur, fromPos, toPos, fromTgt, toTgt}
+function flyTo(asn) {
+  const pos = asnToPos.get(asn);
+  if (!pos) return;
+  const target = new THREE.Vector3(pos[0], pos[1], pos[2]);
+  // Fly to ~0.4× the current distance from origin, but along the line
+  // origin→AS so we end up looking at it from outside.
+  const dist = Math.max(0.12, target.length() + 0.10);
+  const direction = target.clone().normalize();
+  const newCamPos = direction.multiplyScalar(dist + 0.3);
+  flyState = {
+    start: performance.now(),
+    dur: 1500,
+    fromPos: camera.position.clone(),
+    toPos: newCamPos,
+    fromTgt: controls.target.clone(),
+    toTgt: target,
+  };
+  // Show focus details in stats panel
+  const name = asnToName.get(asn) || '';
+  const cc = asnToCc.get(asn) || '';
+  els.focusAsn.textContent = 'AS' + asn;
+  els.focusMeta.textContent = (name || '(no name)')
+                            + (cc ? ' · ' + cc : '');
+  els.focusLine.style.display = '';
+}
+function tickFly() {
+  if (!flyState) return;
+  const t = (performance.now() - flyState.start) / flyState.dur;
+  if (t >= 1) {
+    camera.position.copy(flyState.toPos);
+    controls.target.copy(flyState.toTgt);
+    flyState = null;
+    return;
+  }
+  // ease-out cubic
+  const e = 1 - Math.pow(1 - t, 3);
+  camera.position.lerpVectors(flyState.fromPos, flyState.toPos, e);
+  controls.target.lerpVectors(flyState.fromTgt, flyState.toTgt, e);
+}
+
+// ── Search ────────────────────────────────────────────────────────────
+let searchMatches = [];   // ASN ints
+let searchIdx = -1;
+
+function pickBestFromPool(asns) {
+  // Filter to currently-loaded, sort by sprite radius descending (proxy
+  // for IPv4 size since radius = score**0.5 * scale).
+  const loaded = asns.filter(a => asnToPos.has(a));
+  loaded.sort((a, b) => (asnToRadius.get(b) || 0) - (asnToRadius.get(a) || 0));
+  return loaded;
+}
+
+function setMatches(asns, label, opts) {
+  const fly = !!(opts && opts.fly);
+  searchMatches = asns;
+  searchIdx = fly ? 0 : -1;
+  if (!asns.length) {
+    setFocus([]);
+    els.findHint.textContent = label
+      ? `未找到 · no match (${label})`
+      : '未找到 · no match';
+    els.findHint.style.color = '#ff9f0a';
+    return;
+  }
+  els.findHint.style.color = '';
+  const haloNote = asns.length > HALO_CAP ? ` · 光环限前 ${HALO_CAP}` : '';
+  if (asns.length === 1) {
+    els.findHint.textContent = '1 个匹配 · Enter 飞过去';
+  } else if (fly) {
+    els.findHint.textContent = `${asns.length} 个匹配 · Enter 下一个${haloNote}`;
+  } else {
+    els.findHint.textContent = `${asns.length} 个匹配 · Enter 飞到第一个${haloNote}`;
+  }
+  setFocus(asns);
+  if (fly) flyTo(asns[0]);
+}
+
+function focusNext() {
+  if (!searchMatches.length) return;
+  searchIdx = (searchIdx + 1) % searchMatches.length;
+  els.findHint.textContent = `${searchIdx + 1} / ${searchMatches.length}`;
+  flyTo(searchMatches[searchIdx]);
+}
+
+function runSearch(raw, opts) {
+  const q = (raw || '').trim();
+  if (!q) {
+    searchMatches = [];
+    searchIdx = -1;
+    setFocus([]);
+    els.findHint.textContent = '—';
+    els.findHint.style.color = '';
+    return;
+  }
+  const ql = q.toLowerCase();
+  const asnMaybe = /^(?:as)?([0-9]+)$/i.exec(q);
+  const exact = asnMaybe ? parseInt(asnMaybe[1], 10) : null;
+  const matches = [];
+  for (const asn of asnToPos.keys()) {
+    if (exact != null && asn === exact) { matches.push(asn); continue; }
+    const name = asnToName.get(asn);
+    if (name && name.toLowerCase().includes(ql)) matches.push(asn);
+  }
+  matches.sort((a, b) => (asnToRadius.get(b) || 0) - (asnToRadius.get(a) || 0));
+  const fly = !!(opts && opts.fly) || matches.length === 1;
+  setMatches(matches, q, { fly });
+}
+
+function clearFinder() {
+  els.findInput.value = '';
+  searchMatches = [];
+  searchIdx = -1;
+  setFocus([]);
+  els.focusLine.style.display = 'none';
+  els.findHint.textContent = '—';
+  els.findHint.style.color = '';
+}
+
+// Build provider chip rows
+function buildProviderChips() {
+  els.groups.innerHTML = '';
+  for (const group of PROVIDER_GROUPS) {
+    const row = document.createElement('div');
+    row.className = 'group-row';
+    const tag = document.createElement('span');
+    tag.className = 'group-tag';
+    tag.textContent = group.label;
+    row.appendChild(tag);
+    for (const cp of group.items) {
+      const hits = pickBestFromPool(cp.asns);
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'group-chip';
+      chip.textContent = hits.length ? `${cp.label} (${hits.length})` : `${cp.label} —`;
+      chip.disabled = hits.length === 0;
+      chip.addEventListener('click', () => {
+        if (!hits.length) return;
+        els.findInput.value = '';
+        // Halos light up; camera DOES NOT move — Enter to fly.
+        setMatches(hits, cp.label, { fly: false });
+      });
+      row.appendChild(chip);
+    }
+    els.groups.appendChild(row);
+  }
+}
+
+// Debounced live search
+let searchTimer = null;
+els.findInput.addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => runSearch(e.target.value), 220);
+});
+window.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    if (document.activeElement === els.findInput) {
+      e.preventDefault();
+      const v = els.findInput.value.trim();
+      if (v && (!searchMatches.length || searchMatches.length === 1)) {
+        runSearch(v, { fly: true });
+        return;
+      }
+    }
+    if (searchMatches.length) focusNext();
+  } else if (e.key === 'Escape') {
+    if (!searchMatches.length && document.activeElement !== els.findInput) return;
+    e.preventDefault();
+    clearFinder();
+    if (document.activeElement === els.findInput) els.findInput.blur();
+  }
+});
+
+// Halo loop runs independently — the halo divs need updating whenever
+// the camera moves, even between LOD checks.
+requestAnimationFrame(tickHalo);
+
+// ─────────────────────────────────────────────────────────────────────────
+// Bootstrap
+// ─────────────────────────────────────────────────────────────────────────
+async function boot() {
+  setLoader('载入 manifest.json …');
+  try {
+    const r = await fetch(DATA_BASE + 'manifest.json');
+    if (!r.ok) throw new Error('manifest.json HTTP ' + r.status);
+    manifest = await r.json();
+  } catch (e) {
+    return showError(
+      'manifest.json 加载失败 · ' + e.message
+      + '. 请在仓库根目录运行 `python3 -m http.server` 然后访问 http://localhost:8000/analysis/as_galaxy/html/as_galaxy.html');
+  }
+  els.nTotal.textContent = (manifest.total_nodes || 0).toLocaleString()
+    + ` / ${(manifest.total_edges || 0).toLocaleString()} edges`;
+  buildPresetButtons();
+  const initial = localStorage.getItem(PRESET_KEY)
+                  || manifest.default
+                  || Object.keys(manifest.presets)[0];
+  await switchPreset(initial);
+  // Now that L0 is loaded, the chip-hit counts are accurate — rebuild.
+  buildProviderChips();
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Render loop with FPS counter
+// ─────────────────────────────────────────────────────────────────────────
+let frameCount = 0;
+let lastFpsT = performance.now();
+function tick() {
+  tickFly();
+  controls.update();
+  checkLOD(false);
+  renderer.render(scene, camera);
+  frameCount++;
+  const now = performance.now();
+  if (now - lastFpsT >= 1000) {
+    els.fps.textContent = (frameCount * 1000 / (now - lastFpsT)).toFixed(0);
+    frameCount = 0; lastFpsT = now;
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+boot();
+</script>
+
+</body>
+</html>

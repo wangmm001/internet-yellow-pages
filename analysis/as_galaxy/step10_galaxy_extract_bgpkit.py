@@ -114,78 +114,80 @@ def parse_nro_country() -> dict[int, str]:
 
 
 def parse_pfx2as_ipv4() -> dict[int, tuple[int, int]]:
-    """BGPKit pfx2as → {asn: (ipv4_total, prefix_count)}."""
+    """BGPKit pfx2as → {asn: (ipv4_total, prefix_count)}.
+
+    Wire format (verified 2026-04): a pretty-printed JSON ARRAY of records
+    `{"asn": int, "count": int, "prefix": "1.2.3.0/24"}`. One record per
+    (asn, prefix) — multi-origin prefixes appear as multiple records with
+    the same prefix and different asn. Earlier versions used NDJSON with
+    an `origins` array; we now stream the array via json.load on the
+    decompressed text.
+    """
     path = os.path.join(RAW_DIR, 'pfx2as-latest.json.bz2')
     _download(PFX2AS_URL, path)
     by_asn: dict[int, list[int]] = defaultdict(lambda: [0, 0])
     skipped = 0
-    # BGPKit's pfx2as is a newline-delimited JSON stream inside the bz2.
     with bz2.open(path, 'rt', encoding='utf-8') as f:
-        for raw in f:
-            raw = raw.strip()
-            if not raw:
-                continue
-            try:
-                rec = json.loads(raw)
-            except json.JSONDecodeError:
-                skipped += 1
-                continue
-            prefix = rec.get('prefix')
-            origins = rec.get('origins') or []
-            if not prefix or not origins:
-                skipped += 1
-                continue
-            # pfx2as encodes multi-origin prefixes — count each origin once.
-            addrs = ipv4_addresses_for_prefix(prefix)
-            if addrs <= 0:
-                continue
-            for origin in origins:
-                try:
-                    asn = int(origin)
-                except (ValueError, TypeError):
-                    continue
-                entry = by_asn[asn]
-                entry[0] += addrs
-                entry[1] += 1
+        records = json.load(f)
+    for rec in records:
+        prefix = rec.get('prefix')
+        asn = rec.get('asn')
+        if not prefix or asn is None:
+            skipped += 1
+            continue
+        addrs = ipv4_addresses_for_prefix(prefix)
+        if addrs <= 0:
+            continue   # IPv6 / malformed — silently drop, no skipped++
+        try:
+            asn = int(asn)
+        except (ValueError, TypeError):
+            skipped += 1
+            continue
+        entry = by_asn[asn]
+        entry[0] += addrs
+        entry[1] += 1
     if skipped:
-        print(f'  [pfx2as] skipped {skipped:,} malformed rows')
-    print(f'  [pfx2as] {len(by_asn):,} ASes originate ≥1 IPv4 prefix')
+        print(f'  [pfx2as] skipped {skipped:,} malformed records')
+    print(f'  [pfx2as] {len(by_asn):,} ASes originate ≥1 IPv4 prefix '
+          f'(from {len(records):,} pfx2as records)')
     return {asn: (entry[0], entry[1]) for asn, entry in by_asn.items()}
 
 
 def parse_as2rel_edges() -> list[tuple[int, int]]:
-    """BGPKit as2rel → sorted, deduped undirected edges (src < dst)."""
+    """BGPKit as2rel → sorted, deduped undirected edges (src < dst).
+
+    Wire format (verified 2026-04): a pretty-printed JSON ARRAY of records
+    `{"asn1": int, "asn2": int, "paths_count": int, "peers_count": int,
+    "rel": int}` where `rel` ∈ {-1: provider→customer, 0: peer-to-peer,
+    1: customer→provider}. We treat all relationship types as undirected
+    peering edges since the design models the AS graph as undirected
+    (directed customer-cone arrows are future work, per design §1).
+    """
     path = os.path.join(RAW_DIR, 'as2rel-v4-latest.json.bz2')
     _download(AS2REL_V4_URL, path)
+    with bz2.open(path, 'rt', encoding='utf-8') as f:
+        records = json.load(f)
     out: set[tuple[int, int]] = set()
     skipped = 0
-    with bz2.open(path, 'rt', encoding='utf-8') as f:
-        for raw in f:
-            raw = raw.strip()
-            if not raw:
-                continue
-            try:
-                rec = json.loads(raw)
-            except json.JSONDecodeError:
-                skipped += 1
-                continue
-            a, b = rec.get('asn1'), rec.get('asn2')
-            if a is None or b is None:
-                skipped += 1
-                continue
-            try:
-                a, b = int(a), int(b)
-            except (ValueError, TypeError):
-                skipped += 1
-                continue
-            if a == b:
-                continue
-            if a > b:
-                a, b = b, a
-            out.add((a, b))
+    for rec in records:
+        a, b = rec.get('asn1'), rec.get('asn2')
+        if a is None or b is None:
+            skipped += 1
+            continue
+        try:
+            a, b = int(a), int(b)
+        except (ValueError, TypeError):
+            skipped += 1
+            continue
+        if a == b:
+            continue
+        if a > b:
+            a, b = b, a
+        out.add((a, b))
     if skipped:
-        print(f'  [as2rel] skipped {skipped:,} malformed rows')
-    print(f'  [as2rel] {len(out):,} unique undirected edges')
+        print(f'  [as2rel] skipped {skipped:,} malformed records')
+    print(f'  [as2rel] {len(out):,} unique undirected edges '
+          f'(from {len(records):,} as2rel records)')
     return sorted(out)
 
 

@@ -423,22 +423,28 @@ def _build_network_track() -> Track:
 
 # --- Globe (3D AS interconnect) track -----------------------------------
 
-GLOBE_VIEWS: list[tuple[str, str, str, str, str, list[str]]] = [
-    ('strata', 'as_strata.html', '分层占比图', 'AS Strata · Country Canopy',
+# Each tuple: (slug, src_dir, src_file, title_zh, title_en, subtitle_zh, kpis).
+# The src_dir field lets the new `galaxy` view live under `as_galaxy/`
+# alongside the existing `as_globe/` pages without renaming anything.
+GLOBE_VIEWS: list[tuple[str, str, str, str, str, str, list[str]]] = [
+    ('strata', 'as_globe', 'as_strata.html', '分层占比图', 'AS Strata · Country Canopy',
      '扇区面积=占比 · 柱高=国家 IPv4 · 丝带粗细=对等量',
      ['94 国扇区', '1.8K 对等丝带', 'Three.js']),
-    ('globe', 'as_globe.html', '地球视图', 'Geographic Globe',
+    ('globe', 'as_globe', 'as_globe.html', '地球视图', 'Geographic Globe',
      'globe.gl · 真实坐标 + 国家质心抖动 + 对等弧',
      ['5,000 AS', '地理坐标', 'globe.gl']),
-    ('force', 'as_force.html', '拓扑力图', 'Force Topology',
+    ('force', 'as_globe', 'as_force.html', '拓扑力图', 'Force Topology',
      '3d-force-graph · 力导布局暴露对等社群',
      ['5,000 AS', '拓扑布局', '3d-force-graph']),
+    ('galaxy', 'as_galaxy', 'as_galaxy.html', '全景星图', 'Full Galaxy · 127K AS',
+     'Three.js InstancedMesh · 4 级 LOD · 八叉树流式 · 3 种 score preset',
+     ['127K AS', '4-tier LOD', '3 视角', 'Three.js']),
 ]
 
 
 def _build_globe_track() -> Track:
     pages: list[Page] = []
-    for slug, src_file, title_zh, title_en, subtitle_zh, kpis in GLOBE_VIEWS:
+    for slug, src_dir, src_file, title_zh, title_en, subtitle_zh, kpis in GLOBE_VIEWS:
         pages.append(Page(
             slug=slug,
             url=f'/globe/{slug}/',
@@ -446,7 +452,7 @@ def _build_globe_track() -> Track:
             title_zh=title_zh,
             title_en=title_en,
             kind='plotly',  # reuses step_plotly.html iframe wrapper
-            src=f'../../../../as_globe/html/{src_file}',
+            src=f'../../../../{src_dir}/html/{src_file}',
             phase='views',
             kpis=kpis,
             subtitle_zh=subtitle_zh,
@@ -455,8 +461,8 @@ def _build_globe_track() -> Track:
         slug='globe',
         title_zh='全球 AS 互联立体图',
         title_en='Global AS Interconnect · 3D',
-        tagline_zh='把 5,000 头部 AS 与其对等关系搬到三维地球与拓扑空间，一眼看全球互联架构',
-        tagline_en='Top 5K ASes × WebGL 3D — geographic globe + force topology, region-colored, IPv4-sized.',
+        tagline_zh='把 5,000 头部 AS（地球/拓扑/分层）和全 127K AS 星图四视角串起来，一眼看全球互联架构',
+        tagline_en='Top 5K ASes (geographic / force / strata) plus the full 127K-AS galaxy — four WebGL views.',
         accent='#5E5CE6',
         phases=[Phase('views', '三维视图', '3D Views', pages)],
         hub_url='/globe/',

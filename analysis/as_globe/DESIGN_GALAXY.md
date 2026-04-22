@@ -190,9 +190,37 @@ L2: top 30 000                       →  64 octree cells (streamed)
 L3: all 100 000                      →  512 octree cells (streamed)
 ```
 
-Edges are assigned to the **highest LOD both endpoints are present in**.
-Edges crossing octree tiles are stored in the "parent" file (higher LOD)
-to avoid duplicate renders.
+Edges are first assigned to the **highest LOD both endpoints are present
+in**, then capped per tier to keep the always-loaded payload small.
+
+**Edge caps (added 2026-04-22 after the first real-data bake hit 28-46 MB
+cold-start):** the original design assumed L0 ~2K / L1 ~20K *edges*, but
+the real top-500 ASes form a near-clique (~70K internal edges) and the
+top-5000 mesh has 200-330K internal edges. Without a cap, L1.bin
+ballooned to 35-40 MB. The cap selects the strongest edges by weight
+(`min(log10(v_src), log10(v_dst))`) and demotes overflow into L2 tiles
+by edge midpoint position, where they appear when the user zooms in:
+
+| Tier | Edge cap | Overflow goes to |
+|---|---|---|
+| L0 | 2 000 strongest | L2 tile of edge midpoint |
+| L1 | 18 000 strongest | L2 tile of edge midpoint |
+
+Edges crossing octree tiles within L2 rejoin the L1 candidate pool
+(still subject to the L1 cap); cross-cell L3 edges go straight to L2 by
+midpoint, sparing L1 from long-haul-but-small-AS traffic.
+
+After capping, real-data per-preset sizes (real bake 2026-04-22):
+- L0.bin: ~270 KB  (500 nodes + 2K edges + 2K bundles)
+- L1.bin: ~2.4 MB  (4500 nodes + 18K edges + 18K bundles)
+- **Cold start (L0+L1) ≈ 2.7 MB** vs the original design hope of <100 KB.
+- Avg L2 tile: ~140 KB ; avg L3 tile: ~25 KB
+- Total per preset: ~18 MB across ~400 files.
+
+The <100 KB / <500 ms first-paint budget in §7 was unachievable with
+real internet topology: the core is too densely interconnected to fit
+its visual skeleton into 100 KB. 2.7 MB / ~1 sec on a 10 Mbit link is
+the realistic floor for the always-loaded slice.
 
 Switching presets is effectively switching which ~30 K ASes are "zoomed
 in to you first" — a tier-1 like AS174 Cogent is in L0 under every

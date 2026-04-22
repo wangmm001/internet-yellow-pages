@@ -71,7 +71,9 @@ def _kcore_and_eigen_igraph(nodes, edges):
     kc = g.coreness(mode='all')
     print(f'  [igraph] coreness: {time.time() - t0:.1f}s')
     t0 = time.time()
-    ev = g.eigenvector_centrality(directed=False, scale=True)
+    # igraph rejects `directed=False` for undirected graphs (it's a directed-
+    # only flag); the graph here is already undirected, so omit it.
+    ev = g.eigenvector_centrality(scale=True)
     print(f'  [igraph] eigenvector_centrality: {time.time() - t0:.1f}s')
     return (
         {nodes[i]: kc[i] for i in range(len(nodes))},

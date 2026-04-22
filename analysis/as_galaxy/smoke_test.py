@@ -1,10 +1,16 @@
-"""Smoke test for P1 (step11 + step12).
+"""Smoke test for P1 + P2 (step11 → step15).
 
 Skips step10 (needs Neo4j or a ~50 MB download). Instead, generates a
 synthetic power-law-ish graph of ~200 ASes, writes it to a temp
-CACHE_DIR as if step10 had produced it, then runs step11 and step12
-as subprocesses (so env-override of IYP_AS_GALAXY_CACHE_DIR sticks)
+CACHE_DIR as if step10 had produced it, then runs step11–step15 as
+subprocesses (so env-override of IYP_AS_GALAXY_CACHE_DIR sticks)
 and verifies their outputs look sensible.
+
+P1 checks  — step11 (scoring) + step12 (3D layout)
+P2 checks  — step13 (LOD tiles) × 3 presets
+            + step14 (HEB bundling) × 3 presets
+            + step15 (binary export + manifest) × 3 presets
+            + binary header round-trip on every emitted .bin
 
 Usage:
   python -m analysis.as_galaxy.smoke_test
@@ -14,13 +20,15 @@ Does not touch the real CACHE_DIR or DATA_DIR.
 """
 from __future__ import annotations
 
+import json
 import os
 import random
+import struct
 import subprocess
 import sys
 import tempfile
 
-from analysis.as_galaxy.common import read_csv, write_csv
+from analysis.as_galaxy.common import PRESETS, read_csv, write_csv
 
 
 SYNTHETIC_N = 200
@@ -119,16 +127,45 @@ def _synthetic_graph(n: int, m: int, seed: int = 42):
 # Runner
 # ---------------------------------------------------------------------------
 
-def _run_step(step_mod: str, cache_dir: str, data_dir: str) -> None:
+def _run_step(step_mod: str, cache_dir: str, data_dir: str,
+              extra: list[str] | None = None) -> None:
     """Run a step as a subprocess with dirs overridden to the temp sandbox."""
     env = dict(os.environ)
     env['IYP_AS_GALAXY_CACHE_DIR'] = cache_dir
     env['IYP_AS_GALAXY_DATA_DIR'] = data_dir
-    cmd = [sys.executable, '-m', step_mod]
+    cmd = [sys.executable, '-m', step_mod] + (extra or [])
     print(f'\n$ {" ".join(cmd)}  (cache={cache_dir}, data={data_dir})')
     res = subprocess.run(cmd, env=env, check=False)
     if res.returncode != 0:
         raise SystemExit(f'{step_mod} exited {res.returncode}')
+
+
+# ---------------------------------------------------------------------------
+# Binary header validator — minimal parse, enough to catch version drift
+# ---------------------------------------------------------------------------
+
+GALAXY_MAGIC = b'GALX'
+
+
+def _parse_header(path: str) -> dict:
+    with open(path, 'rb') as f:
+        head = f.read(48)
+    if len(head) < 48:
+        raise AssertionError(f'{path}: file shorter than 48-byte header')
+    magic = head[:4]
+    if magic != GALAXY_MAGIC:
+        raise AssertionError(f'{path}: bad magic {magic!r}')
+    version, tier, region_mask, _reserved = struct.unpack('<BBBB', head[4:8])
+    (tile_id,) = struct.unpack('<I', head[8:12])
+    bbox = struct.unpack('<6f', head[12:36])
+    node_count, edge_count, bundle_count = struct.unpack('<III', head[36:48])
+    return {
+        'version': version, 'tier': tier, 'region_mask': region_mask,
+        'tile_id': tile_id, 'bbox': bbox,
+        'node_count': node_count, 'edge_count': edge_count,
+        'bundle_count': bundle_count,
+        'file_size': os.path.getsize(path),
+    }
 
 
 def main() -> int:
@@ -191,6 +228,75 @@ def main() -> int:
         spread = (max(xs) - min(xs)) + (max(ys) - min(ys)) + (max(zs) - min(zs))
         assert spread > 0.1, f'layout too flat (spread={spread:.4f})'
 
+        # --- 4. Run step13 + step14 + step15 across all 3 presets ---------
+        for p in PRESETS:
+            _run_step('analysis.as_galaxy.step13_galaxy_tiles',
+                      cache_dir, data_dir, ['--preset', p['name']])
+            _run_step('analysis.as_galaxy.step14_galaxy_bundle',
+                      cache_dir, data_dir, ['--preset', p['name']])
+            _run_step('analysis.as_galaxy.step15_galaxy_export',
+                      cache_dir, data_dir, ['--preset', p['name']])
+
+        # --- 5. Validate manifest.json + binary headers --------------------
+        manifest_path = os.path.join(data_dir, 'manifest.json')
+        assert os.path.exists(manifest_path), 'step15 did not emit manifest.json'
+        with open(manifest_path, encoding='utf-8') as f:
+            manifest = json.load(f)
+        for required in ('version', 'presets', 'default', 'octree',
+                         'total_nodes', 'total_edges', 'cone_available',
+                         'samples_per_curve', 'binary_format'):
+            assert required in manifest, (
+                f'manifest missing required key: {required}'
+            )
+        assert manifest['version'] == 1
+        assert set(manifest['presets']) == {p['name'] for p in PRESETS}, (
+            f'manifest presets mismatch: {set(manifest["presets"])} '
+            f'vs {{p["name"] for p in PRESETS}}'
+        )
+        assert manifest['default'] in manifest['presets']
+
+        bin_count = 0
+        for pname, pmeta in manifest['presets'].items():
+            pdir = os.path.join(data_dir, pmeta['dir'])
+            assert os.path.isdir(pdir), f'preset dir missing: {pdir}'
+            tiers = pmeta['tiers']
+            # L0 + L1: validate header
+            for tier_key, tier_int in (('L0', 0), ('L1', 1)):
+                fpath = os.path.join(pdir, tiers[tier_key]['file'])
+                assert os.path.exists(fpath), f'{tier_key} bin missing: {fpath}'
+                hdr = _parse_header(fpath)
+                bin_count += 1
+                assert hdr['tier'] == tier_int, (
+                    f'{fpath}: header tier {hdr["tier"]} != {tier_int}'
+                )
+                assert hdr['version'] == 1
+                assert hdr['node_count'] == tiers[tier_key]['nodes'], (
+                    f'{fpath}: header node_count {hdr["node_count"]} != '
+                    f'manifest {tiers[tier_key]["nodes"]}'
+                )
+                assert hdr['edge_count'] == tiers[tier_key]['edges'], (
+                    f'{fpath}: header edge_count {hdr["edge_count"]} != '
+                    f'manifest {tiers[tier_key]["edges"]}'
+                )
+            # L2 + L3: validate every tile header
+            for tier_key, tier_int in (('L2', 2), ('L3', 3)):
+                lmeta = tiers[tier_key]
+                ldir = os.path.join(pdir, lmeta['dir'])
+                if lmeta['tile_count'] == 0:
+                    continue   # OK on the synthetic graph (everything fits in L0/L1)
+                assert os.path.isdir(ldir), f'{tier_key} dir missing: {ldir}'
+                for tile_id, tile_meta in lmeta['tiles'].items():
+                    tpath = os.path.join(pdir, tile_meta['file'])
+                    hdr = _parse_header(tpath)
+                    bin_count += 1
+                    assert hdr['tier'] == tier_int, (
+                        f'{tpath}: header tier {hdr["tier"]} != {tier_int}'
+                    )
+                    assert hdr['version'] == 1
+                    assert hdr['tile_id'] == int(tile_id), (
+                        f'{tpath}: header tile_id {hdr["tile_id"]} != {tile_id}'
+                    )
+
         print('\n=== ALL CHECKS PASSED ===')
         print(f'  {len(nodes)} nodes · {len(edges)} edges')
         print(f'  score_economy top:   '
@@ -208,6 +314,10 @@ def main() -> int:
         print(f'  layout bbox x=[{min(xs):.2f},{max(xs):.2f}] '
               f'y=[{min(ys):.2f},{max(ys):.2f}] '
               f'z=[{min(zs):.2f},{max(zs):.2f}]')
+        print(f'  manifest.json: {len(manifest["presets"])} presets, '
+              f'{bin_count} .bin files validated, '
+              f'total_nodes={manifest["total_nodes"]}, '
+              f'total_edges={manifest["total_edges"]}')
     return 0
 
 
