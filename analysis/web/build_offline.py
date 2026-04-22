@@ -233,6 +233,111 @@ def restore_committed_site() -> None:
     print('  restored committed analysis/web/site/ state')
 
 
+# Python launcher that starts a local HTTP server and opens the browser.
+# Shipped inside the offline bundle so the user can sidestep Chrome's
+# progressively-stricter file:// restrictions (ES modules, fetch(), cross-
+# origin iframes all degrade on file:// in Chrome 130+).
+_LAUNCHER_PY = '''#!/usr/bin/env python3
+"""Start a local HTTP server for the IYP offline analysis atlas.
+
+Usage: double-click this file, or run: python3 start.py
+
+Falls back through ports 8765, 8766, 8767 if earlier ones are busy.
+Stop with Ctrl+C. Requires Python 3.7+ (stdlib only).
+"""
+import http.server
+import os
+import socketserver
+import sys
+import webbrowser
+from functools import partial
+
+PORTS = [8765, 8766, 8767, 8768, 8769]
+INDEX_PATH = 'analysis/web/site/index.html'
+
+
+def main():
+    here = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(here)
+
+    for port in PORTS:
+        try:
+            handler = partial(http.server.SimpleHTTPRequestHandler, directory=here)
+            # allow_reuse_address avoids TIME_WAIT binding errors on restart.
+            socketserver.TCPServer.allow_reuse_address = True
+            with socketserver.TCPServer(('127.0.0.1', port), handler) as httpd:
+                url = f'http://127.0.0.1:{port}/{INDEX_PATH}'
+                print(f'IYP offline atlas · serving {here}')
+                print(f'  → {url}')
+                print(f'  Press Ctrl+C to stop.')
+                try:
+                    webbrowser.open_new_tab(url)
+                except Exception:
+                    pass
+                httpd.serve_forever()
+                return 0
+        except OSError as exc:
+            if port == PORTS[-1]:
+                sys.stderr.write(f'All ports {PORTS} busy: {exc}\\n')
+                return 1
+            print(f'port {port} busy, trying {PORTS[PORTS.index(port) + 1]}', file=sys.stderr)
+
+
+if __name__ == '__main__':
+    try:
+        raise SystemExit(main() or 0)
+    except KeyboardInterrupt:
+        print()
+        sys.exit(0)
+'''
+
+_LAUNCHER_SH = '''#!/bin/sh
+# IYP offline atlas launcher (Unix/macOS)
+cd "$(dirname "$0")"
+if command -v python3 >/dev/null 2>&1; then
+    exec python3 start.py
+elif command -v python >/dev/null 2>&1; then
+    exec python start.py
+else
+    echo "Python 3 is required. Install from https://www.python.org/ then re-run."
+    read -p "Press Enter to close."
+fi
+'''
+
+_LAUNCHER_BAT = '''@echo off
+REM IYP offline atlas launcher (Windows)
+cd /d "%~dp0"
+where python >nul 2>nul
+if %errorlevel%==0 (
+    python start.py
+) else (
+    where py >nul 2>nul
+    if %errorlevel%==0 (
+        py start.py
+    ) else (
+        echo Python 3 is required.  Install from https://www.python.org/ then re-run.
+        pause
+    )
+)
+'''
+
+
+def emit_launchers(out: Path) -> None:
+    """Write start.py + start.sh + start.bat to the offline bundle."""
+    py = out / 'start.py'
+    py.write_text(_LAUNCHER_PY, encoding='utf-8')
+    py.chmod(0o755)
+
+    sh = out / 'start.sh'
+    sh.write_text(_LAUNCHER_SH, encoding='utf-8')
+    sh.chmod(0o755)
+
+    bat = out / 'start.bat'
+    bat.write_text(_LAUNCHER_BAT, encoding='utf-8')
+
+    print('  wrote  start.py / start.sh / start.bat')
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('--out', type=Path, default=DEFAULT_OUT,
@@ -317,16 +422,29 @@ def main() -> int:
     readme.write_text(
         'IYP Offline Analysis Atlas\n'
         '==========================\n\n'
-        '打开 · Open:  analysis/web/site/index.html  (double-click)\n\n'
-        '所有交互图表（中国 / 九国 / 复杂网络 / Globe）均已本地化；\n'
-        '无需联网、无需本地 HTTP 服务器。Galaxy 127K-AS 视图因浏览器安全限制\n'
-        '（file:// 无法 fetch 二进制数据）未包含在离线版本中；若需要，请在\n'
-        '在线版本 analysis/web/site/ 下浏览。\n\n'
+        '推荐使用方式 · Recommended (fixes all browser file:// limitations):\n'
+        '  1. 双击 start.sh (macOS/Linux) 或 start.bat (Windows)\n'
+        '     Double-click start.sh (macOS/Linux) or start.bat (Windows)\n'
+        '  2. 浏览器会自动打开 http://127.0.0.1:8765/...\n'
+        '     Browser opens automatically at http://127.0.0.1:8765/...\n'
+        '  3. Ctrl+C 停止服务 · Ctrl+C in the terminal to stop\n\n'
+        '直接双击打开（有限制）· Direct double-click (limited):\n'
+        '  打开 · Open:  analysis/web/site/index.html\n\n'
+        '  ⚠️  Chrome 130+ 在 file:// 下会静默阻止 ES 模块与跨源 iframe,\n'
+        '     导致 3D 分层图 (Strata) 无法渲染. 建议使用 start.sh/.bat.\n'
+        '     Firefox 不受影响.\n'
+        '  ⚠️  Chrome 130+ silently blocks ES modules and cross-origin\n'
+        '     iframes on file://, so the Strata 3D view won\'t render.\n'
+        '     Prefer start.sh/.bat. Firefox is unaffected.\n\n'
+        '所有交互图表 (中国 / 九国 / 复杂网络 / Globe) 均已本地化;\n'
+        'Galaxy 127K-AS 视图因浏览器安全限制未包含.\n\n'
         'All interactive charts (China / Countries / Complex Network / Globe)\n'
-        'are fully localised; no internet or local HTTP server required.\n'
-        'The Galaxy 127K-AS view is excluded because Chrome blocks the\n'
-        'fetch() it needs over file://; use the online version for that.\n',
+        'are fully localised. The Galaxy 127K-AS view is excluded because\n'
+        'browser security limits its fetch() calls on file://.\n',
         encoding='utf-8')
+
+    print('→ writing launchers …')
+    emit_launchers(out)
 
     print(f'\nDone. Open: {out / "analysis/web/site/index.html"}')
     return 0
