@@ -19,6 +19,8 @@ Author: design doc for review — **not yet implemented**.
 - **Static hosting**: output is a set of binary files + one HTML, served
   as plain static assets. No server-side rendering, no runtime Neo4j
   dependency, no backend API.
+- **Desktop-only**. Mobile is a non-goal; viewports <720 px get a banner
+  redirecting to `as_force.html` (which works at 5 K).
 
 ## 1. Goals & non-goals
 
@@ -125,20 +127,43 @@ BGPKit fallback: ~8 min (pfx2as + as2rel + asnames + nro).
 
 ### 4.2 step11_galaxy_score.py
 
-Computes a single importance score per AS used to (a) rank-order nodes for
-LOD admission and (b) set sprite size. Components, all normalised to [0,1]:
+Computes **three** importance scores per AS — one per preset — used to
+(a) rank-order nodes for LOD admission and (b) set sprite size. Components
+are computed once and normalised to [0,1]; presets differ only in how
+they're weighted:
 
-- `log10(IPv4 advertised + 1)` — economic scale
-- `k-core number` (igraph) — structural depth
-- `eigenvector centrality` (igraph, power iteration, tol 1e-6) — global reach
-- `customer-cone size` (if IHR Hegemony data available; else skip)
+| Component | Source | Meaning |
+|---|---|---|
+| `v` | `log10(IPv4 advertised + 1)` | economic scale |
+| `prefix` | `log10(prefix_count + 1)` | announcement breadth |
+| `kcore` | `igraph.coreness()` | structural depth in peering fabric |
+| `eigen` | `igraph.eigenvector_centrality()` (tol 1e-6) | global reach in peering graph |
+| `cone` | IHR Hegemony customer cone size (if available) | transit reach |
 
-Final score = weighted sum `0.3·v + 0.3·kcore + 0.3·eigen + 0.1·cone`.
-Weights tunable in `config.py`. Output: `nodes_scored.csv`.
+**Preset weights:**
+
+| Preset | zh / en label | v | prefix | kcore | eigen | cone | Visual emphasis |
+|---|---|---|---|---|---|---|---|
+| `economy`   | 经济 / Economy     | **0.60** | 0.20 | 0.10 | 0.10 | 0.00 | Hyperscale clouds + large ISPs (Amazon, Lumen, Google) dominate |
+| `structure` | 结构 / Structure   | 0.15 | 0.05 | **0.50** | **0.30** | 0.00 | IXP-dense and richly-peered ASes rise — European transit hubs jump |
+| `reach`     | 到达度 / Reach     | 0.10 | 0.00 | 0.20 | **0.30** | **0.40** | Tier-1 transit (Cogent, Telia, NTT) and global CDN anchors dominate |
+
+If `cone` data isn't available (no IHR integration on server), `reach`
+gracefully falls back to `{eigen: 0.7, kcore: 0.3}`. Recorded in manifest.
+
+Output: `nodes_scored.csv` with columns
+`(asn, v, prefix, kcore, eigen, cone, score_economy, score_structure, score_reach)`.
+Downstream steps (step13, step14, step15) run **once per preset** using one
+of the three score columns; same `nodes_layout.csv` feeds all three.
 
 ### 4.3 step12_galaxy_layout.py
 
-3D spring-embedder over the full graph, run **once, offline**.
+3D spring-embedder over the full graph, run **once, offline**. Layout is
+**shared across all three presets** — presets differ in which nodes are
+admitted to L0/L1/L2/L3 and how sprites are sized, but every AS sits at
+the same coordinates regardless of preset. This keeps the doubled bake
+cost of multi-preset tiling manageable: only step13–15 re-run per preset,
+not step12.
 
 - Library: `graph-tool` if installed (SFDP in C++, ~15 min for 100K nodes);
   fallback to `networkx.spring_layout` with `scipy.sparse` matrices
@@ -155,11 +180,11 @@ goal. Static layout is computed once, cached in the tile files.
 
 ### 4.4 step13_galaxy_tiles.py
 
-Partitions nodes into LOD tiers by score percentile, then octree-partitions
-L2 and L3 by position:
+**Runs once per preset.** Partitions nodes into LOD tiers by that preset's
+score percentile, then octree-partitions L2 and L3 by position:
 
 ```
-L0: top 500 by score                 →  1 file (always loaded)
+L0: top 500 by preset.score          →  1 file (always loaded)
 L1: top 5 000                        →  1 file (load on first interaction)
 L2: top 30 000                       →  64 octree cells (streamed)
 L3: all 100 000                      →  512 octree cells (streamed)
@@ -169,14 +194,22 @@ Edges are assigned to the **highest LOD both endpoints are present in**.
 Edges crossing octree tiles are stored in the "parent" file (higher LOD)
 to avoid duplicate renders.
 
+Switching presets is effectively switching which ~30 K ASes are "zoomed
+in to you first" — a tier-1 like AS174 Cogent is in L0 under every
+preset, but a strongly-peered but small-IPv4 AS like AS1103 SURFnet
+appears in L1 under `structure`, in L2 under `economy`.
+
 ### 4.5 step14_galaxy_bundle.py
 
-Hierarchical Edge Bundling (HEB) using Louvain communities as the hierarchy:
+**Runs once per preset.** Hierarchical Edge Bundling (HEB) using Louvain
+communities as the hierarchy:
 
-1. Run `igraph.community_multilevel()` → ~1 K communities.
+1. Run `igraph.community_multilevel()` → ~1 K communities (Louvain output
+   is preset-independent — same edges go in, same communities come out —
+   but we re-key edges by each preset's L0/L1 node membership).
 2. Build a community centroid tree (3 levels: community → super-community → root).
-3. For each edge in L0+L1 (only): route through parent community centroids
-   using a Bezier-weighted path with 8 control points.
+3. For each edge in L0+L1 (of the current preset): route through parent
+   community centroids using a Bezier-weighted path with 8 control points.
 4. Serialise curves as `(edge_src, edge_dst, pts[8][3])`.
 
 L2 and L3 edges stay as straight lines — bundling cost is O(E · nodes_in_path)
@@ -247,21 +280,43 @@ the next 32-B boundary. Names are truncated at 63 chars by the exporter.
   "version": 1,
   "snapshot_date": "2026-04-22",
   "source": "iyp + bgpkit + asnames",
-  "tiers": {
-    "L0": {"file": "L0.bin", "nodes": 500, "edges": 2000},
-    "L1": {"file": "L1.bin", "nodes": 5000, "edges": 20000},
-    "L2": {"dir":  "L2", "tiles": 64},
-    "L3": {"dir":  "L3", "tiles": 512}
+  "presets": {
+    "economy": {
+      "label_zh": "经济", "label_en": "Economy",
+      "weights": {"v":0.6, "prefix":0.2, "kcore":0.1, "eigen":0.1, "cone":0.0},
+      "dir": "economy",
+      "tiers": {
+        "L0": {"file": "L0.bin", "nodes": 500, "edges": 2000, "bundles": 2000},
+        "L1": {"file": "L1.bin", "nodes": 5000, "edges": 20000, "bundles": 20000},
+        "L2": {"dir":  "L2", "tiles": 64},
+        "L3": {"dir":  "L3", "tiles": 512}
+      }
+    },
+    "structure": {
+      "label_zh": "结构", "label_en": "Structure",
+      "weights": {"v":0.15, "prefix":0.05, "kcore":0.5, "eigen":0.3, "cone":0.0},
+      "dir": "structure",
+      "tiers": { /* same shape */ }
+    },
+    "reach": {
+      "label_zh": "到达度", "label_en": "Reach",
+      "weights": {"v":0.1, "prefix":0.0, "kcore":0.2, "eigen":0.3, "cone":0.4},
+      "dir": "reach",
+      "tiers": { /* same shape */ }
+    }
   },
+  "default": "economy",
   "octree": {"depth": 3, "bbox": [[-1,-1,-1],[1,1,1]]},
-  "scoring": {"weights": {"ipv4":0.3, "kcore":0.3, "eigen":0.3, "cone":0.1}},
   "total_nodes": 98437,
-  "total_edges": 683210
+  "total_edges": 683210,
+  "cone_available": true
 }
 ```
 
-Browser fetches `manifest.json` first, derives tile URLs from it, never
-hardcodes paths.
+Browser fetches `manifest.json` first, derives tile URLs from
+`presets[<current>].dir`, never hardcodes paths. Switching presets is
+a matter of re-pointing the tile loader at a different directory; the
+scene graph itself clears and reloads from L0.
 
 ## 5. Frontend (Three.js, ~1200 LOC total)
 
@@ -338,20 +393,41 @@ Not raycasting (too slow for 100K instances). Instead:
   per-tile KD-tree, lookup on `mousemove` (throttled to 10 Hz). Benchmark
   both; ship the one that holds 60 fps with a fast-moving cursor.
 
-## 6. Finder parity
+## 6. Finder parity + preset switcher
 
 Reuse the exact UX from `as_force.html`:
 - Top-centre panel with search input + two groups of chips.
-- Saturn halo layer with multi-halo + IPv4-scale diameter.
+- Saturn halo layer with multi-halo + baked-radius diameter.
 - Global Enter/Esc keybindings.
 - Provider ASN lists (`PROVIDER_GROUPS`).
 
-The only difference: halos compute `nodeWorldRadius` from the **baked
-radius** in the node block, not from `nodeVal^(1/3)`, because there's no
-`.nodeVal` accessor in the raw Three.js path.
+The only diff: halos compute size from the **baked radius** in the node
+block, not from `nodeVal^(1/3)`, because there's no `.nodeVal` accessor
+in the raw Three.js path.
 
-Optional extension (not in v1): chip for "k-core ≥ 50" or "rich-club"
-that lights up the structural hubs regardless of brand.
+**New: preset segmented control.** A three-way selector sits in the
+stats panel (top-right):
+
+```
+视角  · View:  [ 经济 |  结构  | 到达度 ]
+              Economy  Structure  Reach
+```
+
+- Clicking a preset chip:
+  1. Tears down current scene (instance buffers cleared, edge lines emptied).
+  2. Switches `TileStream` base URL to the preset's tile dir.
+  3. Re-fetches L0 from the new preset — typically <30 KB, <250 ms.
+  4. Restores camera position (presets share layout, so "where you were
+     looking" stays meaningful).
+  5. Re-applies the active search/focus set via ASN lookup in the new
+     node pool. ASes not admitted at the current LOD in the new preset
+     fall back to their focus row in the stats panel without a halo.
+
+Persistent selection: remembered via `localStorage['as_galaxy.preset']`
+so the user's last choice loads on next visit.
+
+Optional extension (not in v1): "custom" preset that takes weight
+sliders — not worth the build-time cost unless users ask.
 
 ## 7. Initial load budget
 
@@ -411,11 +487,11 @@ No changes to existing TOC entries; strictly additive.
 |---|---|---|---|---|
 | **P0** | This design doc | — | — | done on approval |
 | **P1** | `step10` + `step11` + `step12` + smoke test | ~500 | 0 | 1–2 sessions |
-| **P2** | `step13` + `step14` + `step15` + binary spec validator | ~400 | 0 | 1 session |
+| **P2** | `step13` + `step14` + `step15` + binary spec validator; each step driven by a `--preset {economy,structure,reach}` flag and run 3× | ~450 | 0 | 1 session |
 | **P3** | `as_galaxy.html` bootstrap, InstancedMesh + sprite shader, load L0 statically | 0 | ~500 | 1 session |
 | **P4** | LOD controller + tile streaming + octree culling | 0 | ~400 | 1 session |
 | **P5** | Edge rendering (straight + bundled) | 0 | ~300 | 0.5 session |
-| **P6** | Finder + halo + stats panel parity | 0 | ~400 | 0.5 session |
+| **P6** | Finder + halo + stats panel parity + preset switcher | 0 | ~450 | 0.5 session |
 | **P7** | Navigation entry + TOC + iframe wrapper | 0 | ~50 | 0.25 session |
 
 Total: **~900 LOC Python**, **~1 650 LOC JS**, ~5–7 working sessions.
@@ -435,16 +511,18 @@ Total: **~900 LOC Python**, **~1 650 LOC JS**, ~5–7 working sessions.
 
 ## 12. Open questions
 
-- **What importance metric do we actually prefer?** The doc proposes 4
-  components with fixed weights. Might want to bake 2–3 presets ("economic",
-  "structural", "reach") as chips that swap the importance ranking on the
-  fly, driving a different LOD admission order.
-- **Colour hierarchy**: today we colour by region bucket. At 100 K nodes,
-  showing k-core depth via luminance might read better than 5 flat region
-  colours. Worth a v2 experiment.
-- **Mobile**: unclear whether 100 K sprites hold 30 fps on a phone. Fallback
-  is "force view works on mobile, galaxy is desktop-only" with a breakpoint
-  warning banner.
+Resolved in review (2026-04-22):
+- ✅ **Importance metric**: 3 presets — Economy / Structure / Reach
+  (see §4.2 for weights). User picks at runtime via a segmented control.
+- ✅ **Mobile**: non-goal. Desktop-only. A single breakpoint-driven
+  banner on `<720px` viewports redirects to `as_force.html` for the 5K
+  experience.
+
+Still open:
+- **Colour hierarchy**: today we colour by region bucket (cn/na/ea/eu/ot).
+  At 100 K nodes, showing k-core depth via luminance might read better
+  than 5 flat region colours. Worth a v2 experiment — decide after P5
+  when we can A/B it.
 
 ---
 
@@ -471,22 +549,29 @@ analysis/
     ├── step14_galaxy_bundle.py
     ├── step15_galaxy_export.py
     ├── data/
-    │   ├── manifest.json
-    │   ├── L0.bin
-    │   ├── L1.bin
-    │   ├── L2/tile_*.bin
-    │   ├── L3/tile_*.bin
-    │   └── bundles.bin
+    │   ├── manifest.json                ← lists all 3 presets + tiers
+    │   ├── economy/
+    │   │   ├── L0.bin
+    │   │   ├── L1.bin
+    │   │   ├── L2/tile_*.bin
+    │   │   ├── L3/tile_*.bin
+    │   │   └── bundles.bin
+    │   ├── structure/
+    │   │   └── ...   (same shape)
+    │   └── reach/
+    │       └── ...   (same shape)
     └── html/
         └── as_galaxy.html
 ```
 
 ## Appendix B: browser support matrix
 
+Desktop-only by design (§0). Mobile viewports see a breakpoint banner,
+not the scene.
+
 | Browser | Min version | Notes |
 |---|---|---|
 | Chrome / Edge | 90 | WebGL2 + BigInt64Array |
 | Firefox | 85 | — |
 | Safari | 16 | WebGL2 needs macOS 12+ |
-| Mobile Safari | 16 | performance untested — non-goal |
-| Chrome Android | 100 | performance untested — non-goal |
+| Mobile Safari / Chrome Android | — | **not supported** (banner only) |
