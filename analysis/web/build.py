@@ -261,7 +261,12 @@ def build(dry: bool = False) -> dict:
 
             prev_p, next_p = model['prev_next'].get(page.url, (None, None))
 
-            template_name = 'step_plotly.html' if page.kind == 'plotly' else 'step_png.html'
+            if page.kind == 'plotly':
+                template_name = 'step_plotly.html'
+            elif page.kind == 'png_index':
+                template_name = 'network_step_index.html'
+            else:
+                template_name = 'step_png.html'
             delta_strip = _country_delta_strip(page) if (track.slug == 'countries' and page.phase == 'profiles') else None
             explainer = explainers.get(page.url)
 
