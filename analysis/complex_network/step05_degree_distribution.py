@@ -98,97 +98,112 @@ def fit_and_plot(ax, degrees, label, color):
         return f'{label}: fit failed ({e})', 0, 0, 0, 0, 0, 0
 
 
-def main():
-    # Load data
-    G_bgp = load_bgp_graph()
-    G_dep = load_dependency_graph()
-    ixp_degrees = load_ixp_membership()
+PANEL_FILES = [
+    'step05_panel01_bgp_ccdf.png',
+    'step05_panel02_as_dep_ccdf.png',
+    'step05_panel03_ixp_ccdf.png',
+    'step05_panel04_dns_hosting_ccdf.png',
+    'step05_panel05_comparison_pdf.png',
+    'step05_panel06_summary_stats.png',
+]
 
-    # Check if DNS hosting data exists
-    dns_path = os.path.join(DATA_DIR, 'dns_as_hosting.csv')
-    dns_degrees = load_dns_hosting() if os.path.exists(dns_path) else None
 
-    # Compute degree sequences
-    bgp_degrees = [d for _, d in G_bgp.degree()]
-    dep_in_degrees = [d for _, d in G_dep.in_degree()]
-    dep_out_degrees = [d for _, d in G_dep.out_degree()]
-    ixp_deg_vals = list(ixp_degrees.values())
-
-    # ── Create 6-panel figure ──
-    fig = plt.figure(figsize=(30, 18))
+def _new_panel_fig():
+    fig = plt.figure(figsize=(10, 7))
     fig.patch.set_facecolor(DARK_BG)
-    gs = fig.add_gridspec(2, 3, hspace=0.35, wspace=0.3,
-                          left=0.05, right=0.97, top=0.90, bottom=0.05)
+    return fig, fig.add_subplot(1, 1, 1)
 
-    results = []
 
-    # Panel 1: BGP Peering Degree CCDF
-    ax1 = fig.add_subplot(gs[0, 0])
-    style_ax(ax1, 'BGP Peering Degree (CCDF)', 'Degree k', 'P(K ≥ k)')
-    info, *params = fit_and_plot(ax1, bgp_degrees, 'BGP Peering', COLORS['red'])
-    ax1.text(0.02, 0.02, info, transform=ax1.transAxes, fontsize=8,
-             color=TEXT_MUTED, va='bottom', family='monospace',
-             bbox=dict(boxstyle='round,pad=0.3', facecolor=DARK_BG, edgecolor=DARK_BORDER))
-    results.append(('BGP Peering', *params))
+def _annotate_fit_box(ax, info):
+    ax.text(0.02, 0.02, info, transform=ax.transAxes, fontsize=9,
+            color=TEXT_MUTED, va='bottom', family='monospace',
+            bbox=dict(boxstyle='round,pad=0.3', facecolor=DARK_BG,
+                      edgecolor=DARK_BORDER))
 
-    # Panel 2: Dependency In-degree CCDF
-    ax2 = fig.add_subplot(gs[0, 1])
-    style_ax(ax2, 'AS Dependency In-Degree (CCDF)\n(how many depend on this AS)', 'In-Degree k', 'P(K ≥ k)')
-    dep_in_nonzero = [d for d in dep_in_degrees if d > 0]
-    info, *params = fit_and_plot(ax2, dep_in_nonzero, 'Dependency In-Degree', COLORS['cyan'])
-    ax2.text(0.02, 0.02, info, transform=ax2.transAxes, fontsize=8,
-             color=TEXT_MUTED, va='bottom', family='monospace',
-             bbox=dict(boxstyle='round,pad=0.3', facecolor=DARK_BG, edgecolor=DARK_BORDER))
-    results.append(('Dependency In-Degree', *params))
 
-    # Panel 3: IXP Membership Degree CCDF
-    ax3 = fig.add_subplot(gs[0, 2])
-    style_ax(ax3, 'IXP Membership Degree (CCDF)\n(IXPs per AS)', 'IXP Count k', 'P(K ≥ k)')
-    info, *params = fit_and_plot(ax3, ixp_deg_vals, 'IXP Membership', COLORS['orange'])
-    ax3.text(0.02, 0.02, info, transform=ax3.transAxes, fontsize=8,
-             color=TEXT_MUTED, va='bottom', family='monospace',
-             bbox=dict(boxstyle='round,pad=0.3', facecolor=DARK_BG, edgecolor=DARK_BORDER))
-    results.append(('IXP Membership', *params))
+def render_panel01_bgp_ccdf(bgp_degrees):
+    fig, ax = _new_panel_fig()
+    style_ax(ax, 'BGP Peering Degree (CCDF)', 'Degree k', 'P(K ≥ k)')
+    info, *params = fit_and_plot(ax, bgp_degrees, 'BGP Peering', COLORS['red'])
+    _annotate_fit_box(ax, info)
+    save_fig(fig, 'step05_panel01_bgp_ccdf.png')
+    plt.close(fig)
+    return ('BGP Peering', *params)
 
-    # Panel 4: DNS Hosting Degree CCDF
-    ax4 = fig.add_subplot(gs[1, 0])
-    style_ax(ax4, 'DNS Hosting Degree (CCDF)\n(HostNames per AS)', 'HostName Count k', 'P(K ≥ k)')
+
+def render_panel02_as_dep_ccdf(dep_in_nonzero):
+    fig, ax = _new_panel_fig()
+    style_ax(ax, 'AS Dependency In-Degree (CCDF)\n(how many depend on this AS)',
+             'In-Degree k', 'P(K ≥ k)')
+    info, *params = fit_and_plot(ax, dep_in_nonzero, 'Dependency In-Degree',
+                                 COLORS['cyan'])
+    _annotate_fit_box(ax, info)
+    save_fig(fig, 'step05_panel02_as_dep_ccdf.png')
+    plt.close(fig)
+    return ('Dependency In-Degree', *params)
+
+
+def render_panel03_ixp_ccdf(ixp_deg_vals):
+    fig, ax = _new_panel_fig()
+    style_ax(ax, 'IXP Membership Degree (CCDF)\n(IXPs per AS)',
+             'IXP Count k', 'P(K ≥ k)')
+    info, *params = fit_and_plot(ax, ixp_deg_vals, 'IXP Membership',
+                                 COLORS['orange'])
+    _annotate_fit_box(ax, info)
+    save_fig(fig, 'step05_panel03_ixp_ccdf.png')
+    plt.close(fig)
+    return ('IXP Membership', *params)
+
+
+def render_panel04_dns_hosting_ccdf(dns_degrees):
+    fig, ax = _new_panel_fig()
+    style_ax(ax, 'DNS Hosting Degree (CCDF)\n(HostNames per AS)',
+             'HostName Count k', 'P(K ≥ k)')
     if dns_degrees:
         dns_vals = list(dns_degrees.values())
-        info, *params = fit_and_plot(ax4, dns_vals, 'DNS Hosting', COLORS['green'])
-        ax4.text(0.02, 0.02, info, transform=ax4.transAxes, fontsize=8,
-                 color=TEXT_MUTED, va='bottom', family='monospace',
-                 bbox=dict(boxstyle='round,pad=0.3', facecolor=DARK_BG, edgecolor=DARK_BORDER))
-        results.append(('DNS Hosting', *params))
+        info, *params = fit_and_plot(ax, dns_vals, 'DNS Hosting', COLORS['green'])
+        _annotate_fit_box(ax, info)
+        result = ('DNS Hosting', *params)
     else:
-        ax4.text(0.5, 0.5, 'DNS data not yet extracted\n(run step02 first)',
-                 transform=ax4.transAxes, ha='center', va='center',
-                 color=TEXT_SECONDARY, fontsize=12)
+        ax.text(0.5, 0.5, 'DNS data not yet extracted\n(run step02 first)',
+                transform=ax.transAxes, ha='center', va='center',
+                color=TEXT_SECONDARY, fontsize=14)
+        result = None
+    save_fig(fig, 'step05_panel04_dns_hosting_ccdf.png')
+    plt.close(fig)
+    return result
 
-    # Panel 5: Degree histogram comparison (linear scale, top-100)
-    ax5 = fig.add_subplot(gs[1, 1])
-    style_ax(ax5, 'Degree Distribution Comparison\n(PDF, log-binned)', 'Degree k', 'P(k)')
+
+def render_panel05_comparison_pdf(bgp_degrees, dep_in_nonzero, ixp_deg_vals):
+    fig, ax = _new_panel_fig()
+    style_ax(ax, 'Degree Distribution Comparison\n(PDF, log-binned)',
+             'Degree k', 'P(k)')
     for deg_data, label, color in [
         (bgp_degrees, 'BGP Peering', COLORS['red']),
         (dep_in_nonzero, 'Dependency', COLORS['cyan']),
         (ixp_deg_vals, 'IXP Member', COLORS['orange']),
     ]:
-        # Log-binned histogram
         arr = np.array(deg_data)
         arr = arr[arr > 0]
         bins = np.logspace(0, np.log10(max(arr) + 1), 50)
         hist, edges = np.histogram(arr, bins=bins, density=True)
         centers = (edges[:-1] + edges[1:]) / 2
         mask = hist > 0
-        ax5.loglog(centers[mask], hist[mask], 'o-', color=color, label=label,
-                   markersize=4, alpha=0.8, linewidth=1.5)
-    ax5.legend(fontsize=9, facecolor=DARK_PANEL, edgecolor=DARK_BORDER, labelcolor=TEXT_MUTED)
+        ax.loglog(centers[mask], hist[mask], 'o-', color=color, label=label,
+                  markersize=4, alpha=0.8, linewidth=1.5)
+    ax.legend(fontsize=10, facecolor=DARK_PANEL, edgecolor=DARK_BORDER,
+              labelcolor=TEXT_MUTED)
+    save_fig(fig, 'step05_panel05_comparison_pdf.png')
+    plt.close(fig)
 
-    # Panel 6: Summary statistics table
-    ax6 = fig.add_subplot(gs[1, 2])
-    ax6.set_facecolor(DARK_PANEL)
-    ax6.axis('off')
-    ax6.set_title('Summary Statistics', fontsize=14, fontweight='bold', color=TEXT_PRIMARY, pad=12)
+
+def render_panel06_summary_stats(G_bgp, G_dep, bgp_degrees, dep_in_degrees,
+                                 ixp_degrees, ixp_deg_vals, dns_degrees):
+    fig, ax = _new_panel_fig()
+    ax.set_facecolor(DARK_PANEL)
+    ax.axis('off')
+    ax.set_title('Summary Statistics', fontsize=16, fontweight='bold',
+                 color=TEXT_PRIMARY, pad=12)
 
     stats_lines = [
         f'{"Layer":<22} {"Nodes":>8} {"Edges":>10} {"<k>":>6} {"k_max":>8} {"C":>6}',
@@ -207,36 +222,61 @@ def main():
             f'{"DNS Hosting":<22} {len(dns_degrees):>8,} {"N/A":>10} '
             f'{np.mean(dns_vals):>6.0f} {max(dns_vals):>8,} {"N/A":>6}'
         )
-
     stats_text = '\n'.join(stats_lines)
-    ax6.text(0.05, 0.85, stats_text, transform=ax6.transAxes,
-             fontsize=10, color=TEXT_MUTED, va='top', family='monospace',
-             bbox=dict(boxstyle='round,pad=0.5', facecolor=DARK_BG, edgecolor=DARK_BORDER))
+    ax.text(0.05, 0.85, stats_text, transform=ax.transAxes,
+            fontsize=11, color=TEXT_MUTED, va='top', family='monospace',
+            bbox=dict(boxstyle='round,pad=0.5', facecolor=DARK_BG,
+                      edgecolor=DARK_BORDER))
+    save_fig(fig, 'step05_panel06_summary_stats.png')
+    plt.close(fig)
 
-    # Print fitting results
+
+def main():
+    G_bgp = load_bgp_graph()
+    G_dep = load_dependency_graph()
+    ixp_degrees = load_ixp_membership()
+
+    dns_path = os.path.join(DATA_DIR, 'dns_as_hosting.csv')
+    dns_degrees = load_dns_hosting() if os.path.exists(dns_path) else None
+
+    bgp_degrees = [d for _, d in G_bgp.degree()]
+    dep_in_degrees = [d for _, d in G_dep.in_degree()]
+    ixp_deg_vals = list(ixp_degrees.values())
+    dep_in_nonzero = [d for d in dep_in_degrees if d > 0]
+
+    results = []
+    r = render_panel01_bgp_ccdf(bgp_degrees);          results.append(r) if r else None
+    r = render_panel02_as_dep_ccdf(dep_in_nonzero);    results.append(r) if r else None
+    r = render_panel03_ixp_ccdf(ixp_deg_vals);         results.append(r) if r else None
+    r = render_panel04_dns_hosting_ccdf(dns_degrees);  results.append(r) if r else None
+    render_panel05_comparison_pdf(bgp_degrees, dep_in_nonzero, ixp_deg_vals)
+    render_panel06_summary_stats(G_bgp, G_dep, bgp_degrees, dep_in_degrees,
+                                 ixp_degrees, ixp_deg_vals, dns_degrees)
+
     print('\n── Power-law Fitting Results ──')
     for name, alpha, xmin, R_ln, p_ln, R_exp, p_exp in results:
         print(f'{name}: α={alpha:.3f}, xmin={xmin:.0f}, '
               f'vs_lognorm(R={R_ln:.3f},p={p_ln:.4f}), '
               f'vs_exp(R={R_exp:.3f},p={p_exp:.4f})')
 
-    # Super title
-    fig.suptitle(
-        'Internet Infrastructure Degree Distributions\n'
-        'Power-Law Fitting (Clauset-Shalizi-Newman Method) | IYP 2026-04-08',
-        fontsize=18, fontweight='bold', color=TEXT_PRIMARY, y=0.97
-    )
-
-    save_fig(fig, 'step05_degree_distribution.png')
-
-    # Save results to CSV
+    # Preserve the existing results-CSV side-effect
     results_path = os.path.join(DATA_DIR, 'step05_powerlaw_fits.csv')
     with open(results_path, 'w', newline='') as f:
         w = csv.writer(f)
-        w.writerow(['layer', 'alpha', 'xmin', 'R_vs_lognorm', 'p_vs_lognorm', 'R_vs_exp', 'p_vs_exp'])
+        w.writerow(['layer', 'alpha', 'xmin', 'R_vs_lognorm', 'p_vs_lognorm',
+                    'R_vs_exp', 'p_vs_exp'])
         for row in results:
             w.writerow(row)
     print(f'Saved fit results to {results_path}')
+
+    # Delete the legacy composite if it still exists
+    _repo_root = os.path.dirname(os.path.dirname(DATA_DIR))
+    old_composite = os.path.join(
+        _repo_root, 'analysis', 'complex_network_images',
+        'step05_degree_distribution.png')
+    if os.path.exists(old_composite):
+        os.remove(old_composite)
+        print(f'Removed legacy composite: {old_composite}')
 
 
 if __name__ == '__main__':
