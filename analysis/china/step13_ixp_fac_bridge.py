@@ -156,7 +156,36 @@ def main():
         cc_map = ixp_cc if kind == 'ixp' else fac_cc
         return country_color(cc_map.get(key, ''))
 
-    size_map = {'as': 20, 'ixp': 30, 'fac': 22}
+    import math
+
+    def _scaled_size(metric):
+        return min(round(18 + math.log(max(metric, 1) + 1) * 6.5), 54)
+
+    # Metrics based on tripartite rows:
+    # AS → number of distinct IXPs it's a member of (within top_ixps)
+    as_ixps = {}
+    for r in rows:
+        if r['asn'] in top_ases and r['ixp'] in top_ixps:
+            as_ixps.setdefault(r['asn'], set()).add(r['ixp'])
+    as_metric = {a: len(s) for a, s in as_ixps.items()}
+
+    # IXP → ixp_members (already counted above)
+    ixp_metric = {i: ixp_members[i] for i in top_ixps}
+
+    # Facility → distinct ASes observed there (from full rows, not just top_ases)
+    fac_as = {}
+    for r in rows:
+        if r['fac'] in chosen_facs:
+            fac_as.setdefault(r['fac'], set()).add(r['asn'])
+    fac_metric = {f: len(s) for f, s in fac_as.items()}
+
+    def node_size(kind, key):
+        if kind == 'as':
+            return _scaled_size(as_metric.get(key, 1))
+        if kind == 'ixp':
+            return _scaled_size(ixp_metric.get(key, 1))
+        return _scaled_size(fac_metric.get(key, 1))
+
     for nd in G.nodes():
         kind, key = nd
         x, y = pos[nd]
@@ -172,7 +201,7 @@ def main():
                 else f'IXP {key} [{ixp_cc.get(key, "?")}]' if kind == 'ixp'
                 else f'Facility {key} [{fac_cc.get(key, "?")}]'
             ),
-            color=node_color(kind, key), size=size_map[kind],
+            color=node_color(kind, key), size=node_size(kind, key),
             x=float(x) * 1200, y=float(y) * 900,
         )
     for u, v in G.edges():
