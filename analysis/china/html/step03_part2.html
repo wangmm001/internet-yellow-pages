@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Step 03 · 全球规模排名 · Part 2: BGP 前缀 · 中国互联网全球位置</title>
+<title>Step 03 · 全球规模排名 · Part 2: BGP 前缀 · 中国大陆互联网全球位置</title>
 <link rel="stylesheet" href="site.css">
 <script>window.PlotlyConfig = {MathJaxConfig: "local"};</script><script src="plotly.min.js"></script>
 </head>
@@ -13,7 +13,7 @@
     <span class="logo">中</span>
     <span>
       <div class="brand-title">CN in Global Internet</div>
-      <div class="brand-sub">中国互联网全球位置 · 20-Step IYP Analysis</div>
+      <div class="brand-sub">中国大陆互联网全球位置 · 20-Step IYP Analysis</div>
     </span>
   </a>
   <span class="nav-spacer"></span>
@@ -24,7 +24,7 @@
   </div>
 </header>
 <div class="shell">
-<aside class="side-toc"><h4>A · 范围与身份</h4><ul><li><a href="step01_scope.html" data-current="false"><span class="sn">01</span><span>中国自治系统清册</span></a></li><li><a href="step02_top_as.html" data-current="false"><span class="sn">02</span><span>头部自治系统身份档案</span></a></li><li><a href="step03_part1.html" data-current="true"><span class="sn">03</span><span>全球规模排名 <span style="font-size:10px;color:#8B949E;">×4</span></span></a></li></ul><h4>B · BGP 拓扑位置</h4><ul><li><a href="step04_part1.html" data-current="false"><span class="sn">04</span><span>BGP 前缀与 RPKI <span style="font-size:10px;color:#8B949E;">×2</span></span></a></li><li><a href="step05_peering_graph.html" data-current="false"><span class="sn">05</span><span>对等互联子图</span></a></li><li><a href="step06_centrality.html" data-current="false"><span class="sn">06</span><span>全球中心性位置</span></a></li><li><a href="step07_kcore.html" data-current="false"><span class="sn">07</span><span>k-core 层级位置</span></a></li></ul><h4>C · 依赖与 Hegemony</h4><ul><li><a href="step08_depends_on_world.html" data-current="false"><span class="sn">08</span><span>出向 Hegemony</span></a></li><li><a href="step09_dependents.html" data-current="false"><span class="sn">09</span><span>入向 Hegemony</span></a></li><li><a href="step10_concentration.html" data-current="false"><span class="sn">10</span><span>集中度与 HHI</span></a></li></ul><h4>D · 物理基础设施</h4><ul><li><a href="step11_part1.html" data-current="false"><span class="sn">11</span><span>IXP 互联生态 <span style="font-size:10px;color:#8B949E;">×2</span></span></a></li><li><a href="step12_facilities.html" data-current="false"><span class="sn">12</span><span>机房部署</span></a></li><li><a href="step13_ixp_fac_bridge.html" data-current="false"><span class="sn">13</span><span>IXP × 机房三部图</span></a></li></ul><h4>E · DNS / 内容 / 排名</h4><ul><li><a href="step14_dns_hosting.html" data-current="false"><span class="sn">14</span><span>DNS 托管版图</span></a></li><li><a href="step15_dns_authority.html" data-current="false"><span class="sn">15</span><span>.cn DNS 主权</span></a></li><li><a href="step16_cname_chains.html" data-current="false"><span class="sn">16</span><span>CNAME 跨境链</span></a></li><li><a href="step17_rankings.html" data-current="false"><span class="sn">17</span><span>多排名位置</span></a></li></ul><h4>F · 安全 / 测量 / 综合</h4><ul><li><a href="step18_censorship.html" data-current="false"><span class="sn">18</span><span>审查拓扑</span></a></li><li><a href="step19_atlas.html" data-current="false"><span class="sn">19</span><span>Atlas 观测点</span></a></li><li><a href="step20_part1.html" data-current="false"><span class="sn">20</span><span>综合仪表板 <span style="font-size:10px;color:#8B949E;">×3</span></span></a></li></ul></aside>
+<aside class="side-toc"><h4>A · 范围与身份</h4><ul><li><a href="step01_scope.html" data-current="false"><span class="sn">01</span><span>中国大陆自治系统清册</span></a></li><li><a href="step02_top_as.html" data-current="false"><span class="sn">02</span><span>头部自治系统身份档案</span></a></li><li><a href="step03_part1.html" data-current="true"><span class="sn">03</span><span>全球规模排名 <span style="font-size:10px;color:#8B949E;">×4</span></span></a></li></ul><h4>B · BGP 拓扑位置</h4><ul><li><a href="step04_part1.html" data-current="false"><span class="sn">04</span><span>BGP 前缀与 RPKI <span style="font-size:10px;color:#8B949E;">×2</span></span></a></li><li><a href="step05_peering_graph.html" data-current="false"><span class="sn">05</span><span>对等互联子图</span></a></li><li><a href="step06_centrality.html" data-current="false"><span class="sn">06</span><span>全球中心性位置</span></a></li><li><a href="step07_kcore.html" data-current="false"><span class="sn">07</span><span>k-core 层级位置</span></a></li></ul><h4>C · 依赖与 Hegemony</h4><ul><li><a href="step08_depends_on_world.html" data-current="false"><span class="sn">08</span><span>出向 Hegemony</span></a></li><li><a href="step09_dependents.html" data-current="false"><span class="sn">09</span><span>入向 Hegemony</span></a></li><li><a href="step10_concentration.html" data-current="false"><span class="sn">10</span><span>集中度与 HHI</span></a></li></ul><h4>D · 物理基础设施</h4><ul><li><a href="step11_part1.html" data-current="false"><span class="sn">11</span><span>IXP 互联生态 <span style="font-size:10px;color:#8B949E;">×2</span></span></a></li><li><a href="step12_facilities.html" data-current="false"><span class="sn">12</span><span>机房部署</span></a></li><li><a href="step13_ixp_fac_bridge.html" data-current="false"><span class="sn">13</span><span>IXP × 机房三部图</span></a></li></ul><h4>E · DNS / 内容 / 排名</h4><ul><li><a href="step14_dns_hosting.html" data-current="false"><span class="sn">14</span><span>DNS 托管版图</span></a></li><li><a href="step15_dns_authority.html" data-current="false"><span class="sn">15</span><span>.cn DNS 主权</span></a></li><li><a href="step16_cname_chains.html" data-current="false"><span class="sn">16</span><span>CNAME 跨境链</span></a></li><li><a href="step17_rankings.html" data-current="false"><span class="sn">17</span><span>多排名位置</span></a></li></ul><h4>F · 安全 / 测量 / 综合</h4><ul><li><a href="step18_censorship.html" data-current="false"><span class="sn">18</span><span>审查拓扑</span></a></li><li><a href="step19_atlas.html" data-current="false"><span class="sn">19</span><span>Atlas 观测点</span></a></li><li><a href="step20_part1.html" data-current="false"><span class="sn">20</span><span>综合仪表板 <span style="font-size:10px;color:#8B949E;">×3</span></span></a></li></ul></aside>
 <main class="step-page">
 <nav class="breadcrumb"><a href="index.html">首页 Home</a><span class="sep">›</span><a href="index.html#phase-A">A · 范围与身份</a><span class="sep">›</span><span>Step 03 · 全球规模排名</span><span class="sep">›</span><span class="current">Part 2 · BGP 前缀</span></nav>
 <section class="step-hero">
@@ -54,7 +54,7 @@
         BGP 前缀数量——一个前缀就是一段连续的公网 IP 地址(比如 223.5.5.0/24 涵盖 256 个地址)。
         <b>为什么看前缀？</b> 前缀数量 ≈ 国家在全球路由表里"占地面积"。全球路由表总共约 100 万条，
         谁占得多，谁就在互联网地图上拥有更大版图。
-        <b>地图分布？</b> 颜色最深的依然是美国、然后巴西、中国、俄罗斯、德国。中国 115,206 个前缀，
+        <b>地图分布？</b> 颜色最深的依然是美国、然后巴西、中国大陆、俄罗斯、德国。中国大陆 115,206 个前缀，
         全球第 3，相当于占全球路由表约 11%。
         <b>细节值得注意？</b> 发达小国如荷兰、瑞士虽然面积小，但前缀密度极高——说明其互联网
         基础设施发达。非洲多数国家颜色极浅，反映其接入仍严重依赖少数跨国运营商，
@@ -77,13 +77,13 @@
       <span class="cap-title" id="cap-03-4-t">前缀数 Top-15 的国家排行</span>
       <button class="cap-close" aria-label="关闭 / close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </header>
-    <div class="cap-body"><b>这是什么图？</b> 前 15 国家 BGP 前缀总数条形图，中国红色高亮。
+    <div class="cap-body"><b>这是什么图？</b> 前 15 国家 BGP 前缀总数条形图，中国大陆红色高亮。
         <b>前缀数说明什么？</b> 粗略等价于"国家可用的公网 IP 地址总量"。美国 25 万+、巴西 13 万+、
-        中国约 11 万，第 4 之后俄罗斯、德国、英国、日本依次排开。
-        <b>中国的"IP 地址问题"？</b> 中国拥有世界最大互联网用户群，但公网 IPv4 地址分配相对紧张——
-        这是因为早期分配期(1990s)中国尚未申请充分。解决方案是大量使用 IPv6 和 NAT(地址翻译)。
-        数据中 47,617 个是 IPv6 前缀(约占 41%)，说明中国 IPv6 部署全球领先。
-        <b>结论？</b> IP 地址是互联网最基础的"土地"，中国以约 11% 的占比跻身前 3，
+        中国大陆约 11 万，第 4 之后俄罗斯、德国、英国、日本依次排开。
+        <b>中国大陆的"IP 地址问题"？</b> 中国大陆拥有世界最大互联网用户群，但公网 IPv4 地址分配相对紧张——
+        这是因为早期分配期(1990s)中国大陆尚未申请充分。解决方案是大量使用 IPv6 和 NAT(地址翻译)。
+        数据中 47,617 个是 IPv6 前缀(约占 41%)，说明中国大陆 IPv6 部署全球领先。
+        <b>结论？</b> IP 地址是互联网最基础的"土地"，中国大陆以约 11% 的占比跻身前 3，
         但人均 IP 密度仍落后美、日、韩等国，这是底层技术选择和早期分配历史共同作用的结果。</div>
   </dialog>
 </article>

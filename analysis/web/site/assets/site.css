@@ -695,7 +695,7 @@ a.card { display: block; }
 }
 .chart-frame {
   width: 100%;
-  min-height: 720px;
+  min-height: 1400px;
   border: 0;
   background: var(--bg-2);
   border-radius: var(--radius);
