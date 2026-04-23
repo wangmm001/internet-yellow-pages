@@ -746,6 +746,16 @@ a.card { display: block; }
   background: var(--bg-2);
   cursor: zoom-in;
 }
+.chart-png-full {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 8px 0 24px;
+  background: var(--bg-2);
+  border-radius: var(--radius);
+  cursor: zoom-in;
+}
 
 /* --- Snapshot delta strip (countries) ----------------------------------- */
 
