@@ -12,10 +12,11 @@ from collections import Counter
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
-    COLORS, DATA_DIR, neo4j_available, save_pyvis_html, save_placeholder_html,
+    COLORS, DATA_DIR, country_color, neo4j_available, save_pyvis_html, save_placeholder_html,
     write_csv, write_step_metrics, writeup,
 )
 from analysis.complex_network.utils import run_query
+from analysis.web.enrich_as_labels import load_as_org_map, DEFAULT_MAP_CSV
 
 STEP = 13
 TITLE_ZH = 'IXP + 机房 三部图：中国互联"物理桥梁"'
@@ -24,11 +25,28 @@ TITLE_EN = 'IXP + Facility Tripartite Bridge'
 MAX_EDGES_DISPLAY = 400
 
 
+def _as_label(asn, as_org_map):
+    """Return 'AS9808 · China Mobile' (truncated if too long)."""
+    org = as_org_map.get(int(asn))
+    if not org:
+        return f'AS{asn}'
+    if len(org) > 22:
+        org = org[:20].rstrip() + '…'
+    return f'AS{asn} · {org}'
+
+
 def main():
     if not neo4j_available():
         save_placeholder_html('step13_ixp_fac_bridge.html', STEP, TITLE_ZH, TITLE_EN,
                               'Neo4j 不可用，跳过本步骤。', 'Neo4j unavailable.')
         return
+
+    try:
+        as_org_map = load_as_org_map(DEFAULT_MAP_CSV)
+        print(f'[step13] loaded AS→Org map: {len(as_org_map):,} entries')
+    except OSError:
+        as_org_map = {}
+        print('[step13] AS→Org map unavailable, falling back to ASN-only labels')
 
     print('[step13] live Neo4j query…')
     # Fetch: (CN AS) -- MEMBER_OF -- (IXP) -- LOCATED_IN -- (Facility)
@@ -129,19 +147,32 @@ def main():
       "interaction": { "dragNodes": true, "hover": true }
     }
     ''')
-    color_map = {'as': COLORS['red'], 'ixp': COLORS['cyan'], 'fac': COLORS['blue']}
+    # Color by country for IXPs / facilities; ASes keep uniform red (all CN).
+    base_color_map = {'as': COLORS['red']}
+
+    def node_color(kind, key):
+        if kind == 'as':
+            return base_color_map['as']
+        cc_map = ixp_cc if kind == 'ixp' else fac_cc
+        return country_color(cc_map.get(key, ''))
+
     size_map = {'as': 20, 'ixp': 30, 'fac': 22}
     for nd in G.nodes():
         kind, key = nd
         x, y = pos[nd]
         net.add_node(
             f'{kind}:{key}',
-            label=(f'AS{key}' if kind == 'as'
-                   else key if len(str(key)) < 22 else str(key)[:22] + '…'),
-            title=(f'AS{key} (CN)' if kind == 'as' else
-                   f'IXP {key} [{ixp_cc.get(key, "?")}]' if kind == 'ixp' else
-                   f'Facility {key} [{fac_cc.get(key, "?")}]'),
-            color=color_map[kind], size=size_map[kind],
+            label=(
+                _as_label(key, as_org_map) if kind == 'as'
+                else key if len(str(key)) < 22 else str(key)[:22] + '…'
+            ),
+            title=(
+                f'AS{key} · {as_org_map.get(int(key), "Unknown")} (CN)'
+                if kind == 'as'
+                else f'IXP {key} [{ixp_cc.get(key, "?")}]' if kind == 'ixp'
+                else f'Facility {key} [{fac_cc.get(key, "?")}]'
+            ),
+            color=node_color(kind, key), size=size_map[kind],
             x=float(x) * 1200, y=float(y) * 900,
         )
     for u, v in G.edges():
