@@ -1464,5 +1464,112 @@ _add('/network/step24/', '零模型对比', 'Null Model Comparison',
           'by "preferential attachment + economic alignment + geographic partitioning" overlaid.'))
 
 
+# =================== GLOBE & NETWORK-EVOLUTION ===================
+
+_add('/network/evolution/', '时序演化', 'Network Time-Series',
+     what=(
+         '数据源为 `data_cache/complex_network/`，覆盖 2024-01 → 2026-04 共 10 个季度快照。'
+         '每个快照计算 10 项拓扑指标：节点数、边数、平均度、最大度、聚类系数、同配性、k-max、'
+         'rich-club 系数、Louvain 模块度、渗流阈值，绘制成折线时序图。鼠标悬停可读取每季度精确值。',
+         'Source: `data_cache/complex_network/` across 10 quarterly snapshots '
+         '(2024-01 → 2026-04). Ten topology metrics are computed per snapshot: '
+         'node/edge count, mean/max degree, clustering coefficient, assortativity, '
+         'k-max, rich-club coefficient, Louvain modularity, and percolation threshold. '
+         'Hover any point to read the exact quarterly value.'),
+     see=(
+         '2025-Q1 至 2025-Q2 区间 BGP peering 图边数出现显著跃升（+约 8%），推测与骨干路由'
+         '重组有关；Louvain 模块度自 2024 年起持续上升，说明社群结构在加剧分化；聚类系数与'
+         '同配性长期稳定，验证互联网核心拓扑对增量扰动具有鲁棒性。渗流阈值维持在 0.07-0.09，'
+         '意味着移除约 8% 的 hub 节点即可令网络碎裂。',
+         'A notable edge-count spike (~+8%) appears between 2025-Q1 and 2025-Q2, likely tied '
+         'to backbone route re-organisation. Louvain modularity has risen steadily since 2024, '
+         'indicating deepening community fragmentation. Clustering coefficient and assortativity '
+         'remain stable, confirming the Internet core is robust to incremental perturbation. '
+         'Percolation threshold holds at 0.07–0.09 — removing ~8% of hub nodes suffices to '
+         'fragment the network.'))
+
+_add('/globe/strata/', '分层占比图', 'AS Strata · Country Canopy',
+     what=(
+         '基于 three.js + OrbitControls + CSS2DRenderer 的 3D 伞盖状结构。94 个国家映射为扇区：'
+         '扇角 = 该国 AS 占全球比例，柱高 = 该国 IPv4 地址总量，国家之间的丝带粗细 = '
+         'Top-5K AS 对等量（成对 peering 流量代理）。拖拽旋转、滚轮缩放；点击扇区显示国家摘要。',
+         'A canopy-shaped 3D structure built with three.js, OrbitControls, and CSS2DRenderer. '
+         '94 countries map to sectors: sector angle = country AS share of global total, '
+         'column height = IPv4 address space, ribbon width = pairwise peering volume (Top-5K AS). '
+         'Drag to rotate, scroll to zoom, click a sector for a country summary.'),
+     see=(
+         '中国大陆扇区约 8,624 AS（约 7% 全球份额），宽度位居全球第 3，次于美国 (~34%) 和欧盟聚合；'
+         '美国扇区高度远超其他（IPv4 地址总量约 15 亿），折射出历史分配不均；北美丝带最粗，'
+         '说明跨大西洋 peering 是全球最密集的对等轴；亚太内部丝带偏细，暗示区域内 peering 仍不足。',
+         'Chinese mainland sector: ~8,624 ASes (~7% global share), width ranks 3rd after US (~34%) '
+         'and aggregated EU. US column dwarfs all others (IPv4 ~1.5 B addresses), reflecting '
+         'historical allocation inequity. Trans-Atlantic ribbons are the thickest globally — '
+         'intra-APAC ribbons remain comparatively thin, indicating under-developed regional peering.'))
+
+_add('/globe/globe/', '地球视图', 'Geographic Globe',
+     what=(
+         '基于 globe.gl（three.js 后端），将 5,000 个头部 AS 按真实地理坐标投影到 earth-dark '
+         '纹理地球表面。点颜色按区域分组（CN / NA / EA / EU / 其他），点大小对应 IPv4 地址空间；'
+         '对等弧连接 AS 间的 BGP peering 关系。拖拽旋转；点击 AS 点可查看 ASN、名称与地址量。',
+         'Built with globe.gl (three.js backend). 5,000 top ASes are projected onto an earth-dark '
+         'texture globe at their real geographic coordinates. Point colour encodes region '
+         '(CN / NA / EA / EU / other); size encodes IPv4 address space. '
+         'Arcs connect BGP peering pairs. Drag to rotate; click a point to see ASN, name, and prefix count.'),
+     see=(
+         '美国 AS 高度聚集在东西海岸（Virginia/California 两极）与芝加哥枢纽；中国大陆 AS 则集中于'
+         '北京/上海/广州三地；欧洲节点在法兰克福/阿姆斯特丹/伦敦密度最高。对等弧显示跨太平洋连接'
+         '显著少于跨大西洋，验证"数字鸿沟"的地理根源。西非与中亚地区节点极稀，说明这些区域依赖'
+         '少数门户 AS 连接全球。',
+         'US ASes cluster on the east coast (Virginia) and west coast (California) with Chicago '
+         'as the interior hub. Chinese mainland ASes concentrate in Beijing, Shanghai, and Guangzhou. '
+         'European density peaks at Frankfurt, Amsterdam, and London. '
+         'Trans-Pacific arcs are visibly sparser than trans-Atlantic ones — the geographic root '
+         'of the digital divide. West Africa and Central Asia show very few nodes, '
+         'relying on a handful of gateway ASes for global connectivity.'))
+
+_add('/globe/force/', '拓扑力图', 'Force Topology',
+     what=(
+         '基于 3d-force-graph（three.js），同样以 5,000 个头部 AS 为节点，但改用 force-directed '
+         '布局替代真实地理坐标——拓扑相近的 AS 在引力作用下聚拢，与地理无关。'
+         '节点颜色按社群检测结果着色，边为 BGP peering；拖拽/滚轮交互，点击节点可高亮邻居。',
+         'Same 5,000 top ASes as the geographic globe, but rendered with 3d-force-graph '
+         '(three.js) using force-directed layout rather than real coordinates. '
+         'Topologically similar ASes gravitate together regardless of geography. '
+         'Node colour encodes community; edges are BGP peering pairs. '
+         'Drag/scroll to navigate; click a node to highlight its neighbours.'),
+     see=(
+         'Tier-1 骨干（AT&T、Lumen、NTT 等）聚居图中心，形成致密的高度数核；'
+         'CDN/云巨头（Cloudflare、Google、Amazon）占据围绕核心的第二层；'
+         '中国大陆 AS 群在图右下方形成独立子簇，与全球骨干仅有少数桥接边相连，'
+         '视觉上印证了"半封闭式"互联网拓扑的结构特征。eyeball ISP 散落图外缘。',
+         'Tier-1 backbones (AT&T, Lumen, NTT, etc.) occupy the dense centre hub. '
+         'CDN/cloud giants (Cloudflare, Google, Amazon) form a second shell around the core. '
+         'Chinese mainland ASes cluster into an isolated sub-cloud at the periphery, '
+         'connected to the global backbone by only a few bridge edges — visually confirming '
+         'the semi-closed topology. Eyeball ISPs scatter along the outer fringe.'))
+
+_add('/globe/galaxy/', '全景星图', 'Full Galaxy · 127K AS',
+     what=(
+         '基于 three.js InstancedMesh（4 级 LOD + 八叉树流式加载），将全部 127,000+ 个 AS '
+         '渲染为粒子星图。支持 3 种评分预设布局切换：reach（覆盖面）/ economy（经济价值）/ '
+         'structure（拓扑结构重要性）。注意：离线版本受浏览器 file:// 限制暂不支持；'
+         '在线访问或启用本地 HTTP 服务器后可正常加载。',
+         'Renders all 127,000+ ASes as a particle starfield using three.js InstancedMesh with '
+         '4-level LOD and octree streaming. Three scoring preset layouts are switchable: '
+         'reach (address coverage), economy (economic value), and structure (topological importance). '
+         'Note: offline file:// mode is not supported due to browser CORS restrictions; '
+         'use a local HTTP server or the online version to load the full dataset.'),
+     see=(
+         '127K 个粒子在任意 preset 下都呈现幂律分布：极少数 AS 聚集于高分核心（对应少数 Tier-1 '
+         '和超大型 CDN），而绝大多数 AS 漂散在低分外围。切换 reach→structure preset 可见'
+         'Cloudflare（覆盖率极高）和 AT&T（结构重要性极高）在两种坐标系下位置截然不同，'
+         '说明"覆盖大 ≠ 拓扑核心"——两个维度彼此补充而非替代。',
+         'Under any preset, 127K particles display a power-law distribution: a tiny elite '
+         'cluster at the high-score core (Tier-1s and mega-CDNs) while the vast majority '
+         'drift in the low-score periphery. Switching reach→structure reveals that Cloudflare '
+         '(top-ranked by reach) and AT&T (top-ranked by structure) occupy very different '
+         'positions — confirming that "large footprint ≠ topological centrality."'))
+
+
 def get(url: str) -> dict | None:
     return EXPLAINERS.get(url)
