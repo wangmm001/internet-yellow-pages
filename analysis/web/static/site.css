@@ -694,7 +694,6 @@ a.card { display: block; }
   width: 100%;
   height: calc(100vh - 280px);
   min-height: 720px;
-  max-height: 2200px;
   border: 0;
   background: var(--bg-2);
   border-radius: var(--radius);
