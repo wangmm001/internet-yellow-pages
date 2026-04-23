@@ -39,33 +39,24 @@
   </div>
   {% endif %}
 
-  <section class="chart-card">
-    <div class="chart-head">
-      <div>
-        <h3>{{ page.title_zh }}</h3>
-        <span class="en">{{ page.title_en }}</span>
-      </div>
-      <div class="right">
-        {% if explainer %}
-        <button class="cap-btn" data-cap-trigger type="button" aria-label="打开图解">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          图解 · Explainer
-          <kbd style="font-family:var(--font-mono);font-size:10px;padding:1px 4px;background:rgba(0,0,0,.2);border-radius:3px;margin-left:2px;">D</kbd>
-        </button>
-        {% endif %}
-        <span class="chip is-dim">iframe · interactive</span>
-        <a href="{{ page.src }}" target="_blank" rel="noopener">独立打开 · Open standalone ↗</a>
-      </div>
+  <div class="iframe-actions">
+    <div class="iframe-chips">
+      {% if page.kpis %}
+        {% for k in page.kpis %}<span class="chip" style="margin-right:6px;">{{ k }}</span>{% endfor %}
+      {% endif %}
+      <span class="chip is-dim">iframe · interactive</span>
     </div>
-    {% if page.kpis %}
-    <div class="chart-caption">
-      {% for k in page.kpis %}<span class="chip" style="margin-right:6px;">{{ k }}</span>{% endfor %}
+    <div class="iframe-actions-right">
+      {% if explainer %}
+      <button class="cap-btn" data-cap-trigger type="button" aria-label="打开图解">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        图解 · Explainer <kbd style="font-family:var(--font-mono);font-size:10px;padding:1px 4px;background:rgba(0,0,0,.2);border-radius:3px;margin-left:2px;">D</kbd>
+      </button>
+      {% endif %}
+      <a href="{{ page.src }}" target="_blank" rel="noopener" class="iframe-open">独立打开 ↗</a>
     </div>
-    {% endif %}
-    <div class="chart-frame-wrap">
-      <iframe class="chart-frame" src="{{ page.src }}" loading="lazy" title="{{ page.title_en }}"></iframe>
-    </div>
-  </section>
+  </div>
+  <iframe class="chart-frame" src="{{ page.src }}" loading="lazy" title="{{ page.title_en }}"></iframe>
 
   <nav class="nav-foot">
     {% if prev_page %}
