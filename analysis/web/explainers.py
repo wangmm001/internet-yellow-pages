@@ -237,6 +237,491 @@ _add('/countries/dashboards/geography/', '内容地理分布', 'Content Geograph
           'Russia post-2022 shows almost zero Western CDN dots.'))
 
 
+# ==================== CHINA (track) ====================
+
+_add('/china/evolution/', '时序演化', 'Network Time-Series',
+     what=(
+         '把中国大陆互联网的 20 项核心指标（AS 数、前缀量、IXP 成员数、主权指数等）按时间'
+         '轴展开，覆盖 2024-01 到 2026-04 共 11 个季度快照，让读者一眼看出哪些维度在增长、'
+         '哪些在停滞或收缩。',
+         'Eleven quarterly snapshots (2024-01 → 2026-04) of 20 core metrics for '
+         'mainland China — AS count, prefix volume, IXP membership, sovereignty index, '
+         'and more — laid out as a multi-panel time series so trends and stagnations '
+         'are immediately visible.'),
+     see=(
+         '大陆 AS 总数从 2024-01 约 6,100 稳步攀升至 2026-04 的 6,660；BGP 前缀量呈同向'
+         '增长；而 IXP 成员数和主权指数在多数季度几乎持平，暗示底层互联架构的改变远慢于地址空间扩张。',
+         'Mainland AS count grew steadily from ~6,100 (2024-01) to 6,660 (2026-04); '
+         'BGP prefix volume tracks in step. By contrast, IXP membership and the '
+         'sovereignty index barely moved across most quarters, suggesting the '
+         'underlying interconnect architecture changes far slower than address-space '
+         'expansion.'))
+
+_add('/china/step01/', 'AS 清册与范围', 'AS Inventory & Scope',
+     what=(
+         '列出归属于中国大陆、中国香港和中国台湾的全部 AS，按注册机构（APNIC/ARIN/RIPE）、'
+         'AS 类型（ISP/内容/企业）和所在地理区域分组，给出每个维度的数量与占比，'
+         '是整个中国专题的"人口普查"底牌。',
+         'A census of all ASes registered to mainland China, Hong Kong, and Taiwan — '
+         'broken down by registry (APNIC/ARIN/RIPE), AS type (ISP/content/enterprise), '
+         'and geographic sub-region. Numbers and share per slice form the baseline '
+         'for all subsequent steps.'),
+     see=(
+         '中国大陆共 6,660 个 AS，中国香港 1,468 个，中国台湾 474 个；三地合计超过 8,600 个。'
+         '大陆 AS 中 ISP 类型占多数，企业直联 AS 比例近年稳步上升，折射出大型互联网企业自建网络的趋势。',
+         'Mainland China has 6,660 ASes, Hong Kong 1,468, Taiwan 474 — over 8,600 '
+         'combined. ISP-type ASes dominate the mainland, but enterprise-direct ASes '
+         'have grown steadily, reflecting the trend of large internet companies '
+         'building their own networks.'))
+
+_add('/china/step02/', '头部 AS 身份档案', 'Top AS Identity Profiles',
+     what=(
+         '对中国大陆流量最大的 Top-20 AS 逐一建档：AS 号、注册机构、ASN 持有人、'
+         '前缀数量、IXP 出席数、上游依赖等，将量化数据与组织背景并排呈现，'
+         '回答"谁是中国互联网的骨干运营者"。',
+         'Individual profiles for the Top-20 Chinese mainland ASes by prefix count — '
+         'ASN, registry, operator name, prefix footprint, IXP presence, and upstream '
+         'dependencies presented side by side, answering "who runs the Chinese Internet '
+         'backbone?"'),
+     see=(
+         'Top-20 AS 合计持有约 44% 的大陆 BGP 前缀，高度集中于中国电信（AS 4134/4809）、'
+         '中国联通（AS 4837）和中国移动（AS 9808）三家运营商；其余头部 AS 来自阿里云、'
+         '腾讯和华为，反映运营商与互联网巨头的双轨格局。',
+         'The Top-20 ASes collectively hold ~44% of mainland BGP prefixes, heavily '
+         'concentrated in China Telecom (AS 4134/4809), China Unicom (AS 4837), and '
+         'China Mobile (AS 9808). Remaining top entries come from Alibaba Cloud, '
+         'Tencent, and Huawei — a dual-track of carriers plus internet giants.'))
+
+_add('/china/step03_part1/', '全球排名 · 规模', 'Global Rankings · Scale',
+     what=(
+         '把中国大陆的 AS 数量、BGP 前缀量和 IXP 出席数放入全球国家排行榜，'
+         '用横条图展示中国与美国、德国、日本等国的绝对差距，坐标轴使用对数刻度以便容纳极端值。',
+         'Places mainland China\'s AS count, BGP prefix volume, and IXP presence on '
+         'global country leaderboards. Horizontal bar charts with log-scale axes '
+         'compare China against the US, Germany, Japan, and other major peers.'),
+     see=(
+         '中国大陆 AS 数全球第 3（仅次于美国和巴西）、BGP 前缀全球第 3；但 IXP 出席数仅排第 16，'
+         '远低于同体量国家，说明中国在物理互联层的参与度与其地址空间规模严重不匹配。',
+         'Mainland China ranks #3 globally in both AS count and BGP prefix volume '
+         '(behind only the US and Brazil). IXP presence, however, sits at just #16 — '
+         'far below peers of similar scale, exposing a sharp mismatch between '
+         'address-space mass and physical interconnect participation.'))
+
+_add('/china/step03_part2/', '全球排名 · 连通度', 'Global Rankings · Connectivity',
+     what=(
+         '从连通度角度衡量中国在全球的位置：出向和入向 BGP 路径多样性、Hegemony 中位数、'
+         '平均 AS 跳数等指标在全球 200+ 国家中的排名，横条图逐指标展开。',
+         'Connectivity-oriented global rankings for mainland China — outbound and '
+         'inbound BGP path diversity, median Hegemony score, average AS hop count — '
+         'across 200+ countries, one bar chart per metric.'),
+     see=(
+         '中国大陆的出向路径多样性偏低，表明到达国际互联网的路由出口相对集中，'
+         '约 70% 以上的境外流量需经由少数骨干 AS 的上游传输，'
+         '连通度排名与体量排名存在明显落差。',
+         'Mainland China\'s outbound path diversity is below-average; over 70% of '
+         'international traffic is funnelled through a handful of backbone upstreams. '
+         'Connectivity rankings lag notably behind scale rankings, confirming a '
+         'structural bottleneck at the border.'))
+
+_add('/china/step03_part3/', '全球排名 · 内容', 'Global Rankings · Content',
+     what=(
+         '从内容维度评估中国大陆的全球位置：Tranco / CrUX 排行榜中注册在大陆的域名占比、'
+         'DNS 托管在境内的比例、全球 CDN 节点在中国大陆的覆盖密度，各项指标排名并列展示。',
+         'Content-layer global rankings for mainland China — share of Tranco/CrUX '
+         'top-list domains registered domestically, fraction of DNS hosted on-shore, '
+         'and global CDN node density inside China, all ranked country-by-country.'),
+     see=(
+         'Tranco 百万榜中大陆注册域名比例可观，但境外 CDN（Cloudflare/Akamai）在中国大陆'
+         '几乎没有落地节点，导致"内容生产在国内、分发基础设施在境外"的结构性矛盾，'
+         '中国大陆内容指标排名低于其域名数量本应对应的位置。',
+         'A notable share of Tranco million-domain registrations are mainland-based, '
+         'but global CDNs (Cloudflare, Akamai) have virtually no presence inside '
+         'mainland China. This yields a structural paradox: content is produced '
+         'domestically, but the distribution infrastructure is largely offshore.'))
+
+_add('/china/step03_part4/', '全球排名 · 综合', 'Global Rankings · Composite',
+     what=(
+         '把规模、连通度、内容三个子维度合并成一个综合得分，与全球 200+ 国家横向比较，'
+         '用雷达图 + 排行条形图双视角呈现中国大陆在"体量型 vs 效率型"轴上的位置。',
+         'Aggregates scale, connectivity, and content sub-scores into a composite '
+         'ranking across 200+ countries. A radar plus bar-chart dual view places '
+         'mainland China on a "mass vs. efficiency" axis.'),
+     see=(
+         '综合来看，中国大陆是典型的"体量领先、效率偏低"国家：规模维度全球前 3，'
+         '但连通度和内容分发效率双双拖后腿；若按综合得分排名，实际位次在 5-10 名之间浮动，'
+         '说明体量并不直接等于互联网影响力。',
+         'Overall, mainland China is a "high-mass, low-efficiency" nation — top-3 '
+         'on scale but dragged down by connectivity and content distribution scores. '
+         'On the composite ranking it floats between 5th and 10th globally, '
+         'demonstrating that raw size does not automatically translate to influence.'))
+
+_add('/china/step04_part1/', 'BGP 前缀与 RPKI · 分布', 'BGP Prefixes & RPKI · Distribution',
+     what=(
+         '展示中国大陆 BGP 前缀的地址族（IPv4 vs IPv6）分布、前缀长度直方图以及'
+         'RPKI 覆盖状态（Valid/Invalid/NotFound）的饼图，让读者直观掌握路由公告的整体构成。',
+         'Distribution of mainland China\'s BGP prefixes by address family (IPv4 vs '
+         'IPv6), prefix-length histogram, and RPKI coverage status (Valid / Invalid / '
+         'NotFound) as a pie chart — a structural snapshot of China\'s routing '
+         'advertisement landscape.'),
+     see=(
+         '中国大陆共公告约 109,409 条前缀，IPv4 占绝大多数；RPKI 覆盖率约在中等水平——'
+         'Valid 占比低于全球平均，NotFound 比例偏高，说明大量前缀尚未签署 ROA，'
+         '存在路由劫持风险。',
+         'Mainland China announces ~109,409 prefixes, overwhelmingly IPv4. RPKI '
+         'coverage is moderate — the Valid fraction sits below global average, and '
+         'NotFound is high, meaning a large share of prefixes lack signed ROAs and '
+         'remain exposed to route-hijack risk.'))
+
+_add('/china/step04_part2/', 'BGP 前缀与 RPKI · 采纳', 'BGP Prefixes & RPKI · Adoption',
+     what=(
+         '聚焦 RPKI 采纳进度：分运营商（按前缀量 Top-10）显示各家的 Valid/NotFound 比率，'
+         '并与 2024-01 基线对比，衡量过去两年中国大陆的 RPKI 部署进展。',
+         'Zooms in on RPKI adoption per operator — Valid/NotFound ratio for the '
+         'Top-10 Chinese ASes by prefix count, compared with the 2024-01 baseline '
+         'to measure two years of deployment progress.'),
+     see=(
+         '中国电信和中国联通的 RPKI Valid 比率在 2024-2026 间有所提升，但仍落后于欧洲同类运营商；'
+         '中国移动进展相对迟缓；小型内容 AS 的 ROA 覆盖普遍偏低，'
+         '整体采纳速度明显慢于全球中位数。',
+         'China Telecom and China Unicom\'s RPKI Valid ratios improved from 2024 to '
+         '2026, but still trail European peers. China Mobile shows slower progress; '
+         'smaller content ASes have minimal ROA coverage. Overall adoption pace is '
+         'notably below the global median.'))
+
+_add('/china/step05/', 'AS 对等子图', 'AS Peering Subgraph',
+     what=(
+         '抽取中国大陆及中国香港的 BGP 对等关系，用力导向布局绘制一张交互式网络图：'
+         '节点 = AS，边 = 对等或客户-提供商关系，节点大小按前缀数着色，'
+         '聚焦"大陆-香港-全球"三层连通结构。',
+         'Extracts BGP peering links among mainland China and Hong Kong ASes and '
+         'renders an interactive force-directed graph (nodes = ASes, edges = '
+         'peer or customer-provider). Node size scales with prefix count; colour '
+         'highlights the mainland–HK–global three-layer structure.'),
+     see=(
+         '图中约 400 个节点、2,450 条边；中国电信、中国联通、中国移动三者处于中心，'
+         '大量小 AS 作为叶节点依附其上。中国香港 AS 形成明显的"跨境枢纽"子群，'
+         '是大陆 AS 连接国际互联网的主要桥梁之一。',
+         'The graph contains ~400 nodes and ~2,450 edges. China Telecom, Unicom, and '
+         'Mobile occupy the centre; scores of smaller ASes hang as leaves. '
+         'Hong Kong ASes form a visible "cross-border hub" subcluster, serving as '
+         'one of the primary bridges between the mainland and global Internet.'))
+
+_add('/china/step06/', '全球中心性位置', 'Global Centrality Position',
+     what=(
+         '将中国大陆的 AS 们放入全球 BGP 图中计算四种中心性指标（度中心性、介数、'
+         '特征向量、PageRank），并在全球排名分布中标出中国大陆的位置，'
+         '展示其在全球路由网络中的影响力。',
+         'Computes four centrality metrics (degree, betweenness, eigenvector, '
+         'PageRank) for mainland China\'s ASes within the full global BGP graph, '
+         'then marks China\'s position inside each global ranking distribution — '
+         'a holistic view of influence within the routing graph.'),
+     see=(
+         '中国大陆 AS 群整体 PageRank 中等（未进全球前 10）但度数偏高（全球前 5）：'
+         '这意味着中国 AS 连接了大量本土节点，但在全球路由决策中的权重低于体量预期，'
+         '反映"内向型"网络拓扑特征。',
+         'Mainland China\'s ASes show moderate aggregate PageRank (outside global '
+         'top-10) but high degree centrality (top-5 globally). This means China\'s '
+         'ASes connect to many domestic nodes but carry less global routing weight '
+         'than their scale suggests — a signature of an inward-facing topology.'))
+
+_add('/china/step07/', 'k-core 层级位置', 'k-Core Layer Position',
+     what=(
+         '在全球 BGP 图的 k-core 分解结果中，标出中国大陆各 AS 所在的核层深度（k 值），'
+         '并与美国、欧洲 AS 的层级分布对比，回答"中国大陆有多少 AS 进入了全球互联网的'
+         '真正核心"。',
+         'Labels each mainland China AS with its k-core depth in the global BGP graph, '
+         'then compares the resulting layer-depth distribution against US and European '
+         'ASes — answering "how many Chinese ASes are in the genuine global backbone?"'),
+     see=(
+         '绝大多数中国大陆 AS 集中在 k=1-10 的浅层；只有少数（主要是中国电信 AS 4134、'
+         '中国联通 AS 4837）进入 k=30 以上的深层核心，'
+         '与美国超大型运营商相比核心层密度明显较低。',
+         'The vast majority of mainland ASes cluster in the shallow k=1–10 range. '
+         'Only a handful — primarily China Telecom (AS 4134) and China Unicom '
+         '(AS 4837) — reach k=30+. Core-layer density is markedly lower than '
+         'US hyperscale operators.'))
+
+_add('/china/step08/', '出向 Hegemony', 'Outbound Hegemony',
+     what=(
+         '用 IHR Hegemony 指数量化中国大陆每条前缀到达全球其他 AS 时必须经过哪些"中间人"，'
+         '累计得出每个上游 AS 对大陆流量的控制比例，并绘制成 Sankey 或热图。',
+         'Uses the IHR Hegemony index to quantify which intermediary ASes mainland '
+         'China\'s prefixes must traverse to reach the rest of the Internet. '
+         'The cumulative control share of each upstream AS is rendered as a Sankey '
+         'or heatmap.'),
+     see=(
+         '超过 70% 的大陆出向路由依赖中国电信、中国联通等极少数境内骨干，'
+         '而境外上游主要集中在美国云/Tier-1（NTT、GTT、Telia），'
+         '形成"境内少数骨干 → 境外少数 Tier-1"的双重集中格局。',
+         'Over 70% of mainland outbound routing depends on a tiny set of domestic '
+         'backbones (China Telecom, Unicom). Beyond the border, the upstreams '
+         'concentrate on US Tier-1s (NTT, GTT, Telia) — a double-concentration '
+         'pattern of domestic bottleneck followed by offshore bottleneck.'))
+
+_add('/china/step09/', '入向 Hegemony', 'Inbound Hegemony',
+     what=(
+         '翻转视角——看全球其他国家的前缀有多大比例必须经过中国大陆的 AS 才能到达目的地，'
+         '衡量中国大陆在全球路由体系中扮演"过境提供商"的程度。',
+         'Flips the perspective — measures what fraction of prefixes from other '
+         'countries must transit mainland China\'s ASes to reach their destination, '
+         'quantifying how much China acts as a global transit provider.'),
+     see=(
+         '外国前缀依赖中国大陆 AS 的比例整体较低，大多数国家的对华依赖 Hegemony 分低于 0.1；'
+         '少数例外是与中国大陆直连且路由选项有限的中亚小国，'
+         '说明中国大陆目前并非全球路由核心，而更多是"受保护的目的地"。',
+         'The fraction of foreign prefixes transiting mainland China is generally low; '
+         'most countries\' inbound Hegemony toward China is below 0.1. A few '
+         'exceptions are small Central Asian nations with limited routing alternatives. '
+         'Mainland China is currently a "protected destination", not a global transit '
+         'hub.'))
+
+_add('/china/step10/', '集中度与 HHI', 'Concentration & HHI',
+     what=(
+         '计算中国大陆 BGP 前缀市场的 HHI（赫芬达尔-赫希曼指数）和 Gini 系数，'
+         '并绘制 Lorenz 曲线，衡量前缀资源在大陆 6,660 个 AS 之间的分布均匀程度。',
+         'Computes HHI (Herfindahl-Hirschman Index) and Gini coefficient for the '
+         'mainland China BGP prefix market, plus a Lorenz curve — measuring how '
+         'evenly prefix resources are distributed across 6,660 mainland ASes.'),
+     see=(
+         'HHI 偏高，接近或超过 2500（高集中阈值），头部三家运营商合计持有超过 60% 的前缀；'
+         'Gini 系数约 0.85，Lorenz 曲线严重偏向右下角，'
+         '说明大陆路由资源高度集中，小 AS 几乎没有独立的路由影响力。',
+         'HHI is high, approaching or exceeding the 2,500 concentrated-market '
+         'threshold; the top-3 operators hold over 60% of prefixes. Gini ≈ 0.85; '
+         'the Lorenz curve bows sharply to the lower-right — routing resources are '
+         'heavily concentrated and small ASes have minimal independent routing '
+         'influence.'))
+
+_add('/china/step11_part1/', 'IXP 互联生态 · 总量', 'IXP Interconnect · Volume',
+     what=(
+         '统计中国大陆及中国香港 AS 参与的全球 IXP 数量与分布，'
+         '按 IXP 所在地和成员 AS 数量排序，展示中国互联网实体在全球互联网交换点生态中的总体覆盖。',
+         'Counts and maps all IXPs globally where mainland China or Hong Kong ASes '
+         'are members, ranked by IXP location and member AS count — the total '
+         'footprint of Chinese Internet entities in the global exchange-point '
+         'ecosystem.'),
+     see=(
+         '中国大陆 AS 在全球 IXP 的出席数量偏少，全球排名约第 16；'
+         '中国香港的 HKIX 在亚太是最重要的 IXP 之一，承接了大量大陆 AS 通过香港出海的流量，'
+         '使中国香港成为大陆 IXP 互联的事实跳板。',
+         'Mainland China ASes are present at relatively few IXPs globally (ranked '
+         '~#16). Hong Kong\'s HKIX is one of Asia-Pacific\'s most important exchanges '
+         'and handles a large share of mainland traffic exiting via Hong Kong, making '
+         'it the de-facto IXP gateway for the mainland.'))
+
+_add('/china/step11_part2/', 'IXP 互联生态 · 跨境', 'IXP Interconnect · Cross-Border',
+     what=(
+         '聚焦中国大陆 AS 在境外 IXP 的成员关系，用地图和条形图展示哪些 IXP（如 HKIX、JPIX、'
+         'DE-CIX 香港）接入了大陆 AS，以及通过哪些国家/地区进行跨境互联。',
+         'Focuses on mainland China ASes\'s memberships at overseas IXPs — a map '
+         'and bar chart showing which exchanges (HKIX, JPIX, DE-CIX HK, etc.) '
+         'host mainland members, and through which territories cross-border '
+         'interconnection flows.'),
+     see=(
+         '中国大陆的跨境 IXP 互联高度集中于中国香港（HKIX 是最多大陆 AS 参与的境外 IXP），'
+         '其次是新加坡和日本；欧美 IXP 的大陆成员数极少，'
+         '显示大陆互联网的物理跨境互联路径存在明显的地理集中风险。',
+         'Cross-border IXP connectivity is heavily concentrated in Hong Kong (HKIX '
+         'hosts the most mainland members of any overseas exchange), followed by '
+         'Singapore and Japan. European and US IXP memberships are minimal, '
+         'indicating significant geographic concentration risk in physical '
+         'cross-border paths.'))
+
+_add('/china/step12/', '机房部署', 'Data-Center Presence',
+     what=(
+         '统计 PeeringDB 中标记为中国大陆 AS 所在的数据中心（机房）数量和地理分布，'
+         '并与境外机房中出现的大陆 AS 相对比，展示物理基础设施的境内-境外分布格局。',
+         'Counts data-centre presences (from PeeringDB) of mainland China ASes both '
+         'inside the mainland and at overseas facilities, comparing the on-shore '
+         'vs. off-shore physical infrastructure footprint.'),
+     see=(
+         '大陆 AS 在全球机房排名约第 33，境内机房部署集中于北京、上海、广州等几大城市；'
+         '境外机房则以中国香港为最大集散地，其次为新加坡，欧美机房出现的大陆 AS 数量极少，'
+         '显示物理重心明显境外偏向中国香港/东南亚。',
+         'Mainland ASes rank ~#33 globally in data-centre count. On-shore facilities '
+         'concentrate in Beijing, Shanghai, and Guangzhou. Overseas presence is '
+         'largest in Hong Kong, then Singapore; European and US facilities host very '
+         'few mainland ASes — physical weight is skewed toward HK/SEA offshore.'))
+
+_add('/china/step13/', 'IXP × 机房三部图', 'IXP × Facility Tripartite',
+     what=(
+         '用三部图（AS — IXP — 机房）Sankey 或二分网络图展示中国大陆 AS、它们加入的 IXP、'
+         '以及所在机房之间的三重关联关系，揭示"谁在哪儿互联、用哪栋楼"。',
+         'A tripartite Sankey or bipartite network linking mainland China ASes, '
+         'the IXPs they join, and the facilities where they colocate — revealing '
+         'the "who interconnects where, in which building" structure.'),
+     see=(
+         '中国香港的 HKIX 和 Equinix HK 是最密集的交汇节点，把大陆、香港、东南亚 AS 聚合在一起；'
+         '大陆本土三部图则显示 IXP 稀少、机房相对分散的特征，'
+         '与中国香港作为跨境枢纽的角色形成鲜明对比。',
+         'HKIX and Equinix Hong Kong are the densest intersection points, aggregating '
+         'mainland, Hong Kong, and SEA ASes. The mainland-only tripartite shows '
+         'sparse IXPs and relatively dispersed facilities — a sharp contrast with '
+         'Hong Kong\'s role as cross-border hub.'))
+
+_add('/china/step14/', 'DNS 托管版图', 'DNS Hosting Landscape',
+     what=(
+         '统计中国大陆注册域名（.cn 及其他 gTLD）的权威 DNS 托管在哪些 AS，'
+         '按托管量排名，区分境内 DNS 服务商（阿里云 DNS、DNSPod）和境外服务商（Cloudflare/AWS），'
+         '展示大陆 DNS 控制权的分布。',
+         'Maps authoritative DNS hosting of mainland Chinese domains (.cn and '
+         'other gTLDs) to their hosting ASes, ranked by domain count. Distinguishes '
+         'on-shore providers (Alibaba Cloud DNS, DNSPod) from offshore (Cloudflare, '
+         'AWS Route 53) — the landscape of DNS control.'),
+     see=(
+         '境内两大平台（阿里云 DNS 和腾讯 DNSPod）合计托管超过半数大陆注册域名；'
+         '但仍有相当比例域名使用境外 DNS（主要是 Cloudflare），'
+         '这些域名的解析路径在技术上经过境外节点，形成"内容在国内、解析在国外"的悖论。',
+         'Two domestic platforms — Alibaba Cloud DNS and Tencent DNSPod — together '
+         'host over half of mainland-registered domains. A significant share still '
+         'use offshore DNS (mainly Cloudflare), meaning their resolution paths '
+         'technically cross the border — "content on-shore, resolution offshore".'))
+
+_add('/china/step15/', '.cn DNS 主权', '.cn DNS Sovereignty',
+     what=(
+         '专门分析 .cn 顶级域下的域名，统计其权威名称服务器（NS 记录）所在的 AS 是否注册在'
+         '中国大陆，计算" .cn 权威 NS 自持率"，衡量国家顶级域的 DNS 控制权是否真正留在境内。',
+         'Focuses exclusively on .cn TLD domains, checking whether each domain\'s '
+         'authoritative nameservers (NS records) reside in mainland-registered ASes. '
+         'Computes the ".cn authoritative NS self-hosting rate" — is national TLD '
+         'DNS control actually kept on-shore?'),
+     see=(
+         '.cn 权威 NS 的境内自持度较高，多数 .cn 域名使用阿里云或 DNSPod 等境内服务，'
+         '主权率高于大陆注册的全部域名的平均水平；但仍有少量 .cn 域名的 NS 位于境外，'
+         '属于"国家域名被外资解析"的灰色地带。',
+         'The .cn authoritative NS self-hosting rate is high — most .cn domains '
+         'use on-shore resolvers (Alibaba, DNSPod). This sovereignty ratio is '
+         'above the average for all mainland-registered domains. However, a small '
+         'fraction of .cn names still have offshore NS records — a grey zone of '
+         '"national domain names resolved by foreign infrastructure".'))
+
+_add('/china/step16/', 'CNAME 跨境链', 'CNAME Cross-Border Chains',
+     what=(
+         '追踪中国大陆注册域名的 CNAME 链路：从 .cn 或大陆注册域名出发，'
+         '逐跳跟随 CNAME 直到 A/AAAA 记录，统计最终落点的 AS 地理归属，'
+         '展示"看起来是国内域名、实际指向境外 IP"的跨境依赖链。',
+         'Traces CNAME chains starting from mainland-registered domains (.cn and '
+         'others), following each alias hop until the final A/AAAA record, then '
+         'geolocating the terminating AS. Reveals "looks domestic, terminates '
+         'offshore" cross-border dependency chains.'),
+     see=(
+         '大量中国大陆域名通过一到三层 CNAME 最终落在境外 CDN（Cloudflare、Akamai、Fastly）'
+         '的 IP 上；即便顶层域名注册在大陆，实际流量往往经由中国香港或美国 AS 提供服务，'
+         '体现"跨境 CNAME 桥接"在内容分发中的普遍性。',
+         'Many mainland-registered domains CNAME-chain their way to offshore CDN IPs '
+         '(Cloudflare, Akamai, Fastly) within one to three hops. Even when the root '
+         'domain is mainland-registered, actual traffic is served from Hong Kong '
+         'or US ASes — cross-border CNAME bridging is pervasive in content delivery.'))
+
+_add('/china/step17/', '多排名位置', 'Multi-Ranking Position',
+     what=(
+         '从 Tranco、CrUX（Chrome UX Report）、APNIC 主动测量三个不同榜单中，'
+         '统计中国大陆域名和用户群体的占比与排名位置，对比三种榜单视角下中国大陆的'
+         '"互联网存在感"差异。',
+         'Cross-references mainland China\'s presence in three distinct ranking '
+         'sources — Tranco (traffic-weighted), CrUX (Chrome UX user data), '
+         'and APNIC active measurement — comparing the "Internet presence" implied '
+         'by each list.'),
+     see=(
+         'Tranco 和 CrUX 中大陆注册域名比例在全球排前 10，但 APNIC 用户份额排名更高（约前 5），'
+         '反映中国大陆是全球重要的互联网消费市场；三个榜单结果差异揭示了"域名可见性"与'
+         '"用户访问量"之间的测量偏差。',
+         'Mainland-registered domains appear in the Tranco and CrUX top-10 by '
+         'country; APNIC user-measurement share ranks even higher (~top-5), '
+         'reflecting China as a major internet consumption market. Differences '
+         'between the three lists expose measurement biases between "domain '
+         'visibility" and "actual user traffic".'))
+
+_add('/china/step18/', '审查拓扑', 'Censorship Topology',
+     what=(
+         '把 OONI 探针对中国大陆的审查检测结果叠加到 AS 拓扑上：哪些大陆 AS 被探针检测到'
+         '"封锁"行为、这些 AS 处于 k-core 的哪一层？用热图呈现审查与网络位置的二维关系。',
+         'Overlays OONI probe censorship measurements targeting mainland China onto '
+         'the AS topology — which ASes show "blocking" signals, and at what k-core '
+         'depth? A heatmap maps censorship intensity to network position.'),
+     see=(
+         'OONI 检测到大陆审查的 AS 集中在 k-core 浅层（接入网级别），与全球审查拓扑规律一致；'
+         '审查网络与非审查网络（如中国香港、国际出口）在 k-core 层次上存在清晰的界线，'
+         '暗示审查实施发生在接入层而非骨干层。',
+         'OONI-detected censorship in mainland China concentrates in shallow k-core '
+         'layers (access-network level), consistent with global censorship topology '
+         'patterns. A clear boundary exists between censoring ASes and non-censoring '
+         'ASes (HK, international exits) at the k-core layer — censorship is '
+         'enforced at the access layer, not the backbone.'))
+
+_add('/china/step19/', 'Atlas 观测点', 'Atlas Probe Coverage',
+     what=(
+         '统计 RIPE Atlas 中部署在中国大陆境内的探针数量和地理分布，'
+         '以及这些探针覆盖了多少大陆 AS；对比探针密度与人口、AS 数量的比例，'
+         '评估网络测量基础设施的覆盖盲区。',
+         'Counts RIPE Atlas probes located inside mainland China — their number, '
+         'geographic spread, and how many mainland ASes they cover. Compares probe '
+         'density against population and AS count to assess measurement blind-spots.'),
+     see=(
+         '中国大陆的 RIPE Atlas 探针数量极少（相对于 6,660 个 AS 而言），'
+         '大量 AS 没有任何探针覆盖，导致对大陆网络质量的独立测量能力极为有限；'
+         '现有探针主要集中在高校和研究机构，商业 ISP 的覆盖几乎为零。',
+         'Mainland China has very few RIPE Atlas probes relative to its 6,660 ASes; '
+         'the vast majority of ASes have no probe coverage, severely limiting '
+         'independent network-quality measurement. Existing probes concentrate in '
+         'universities and research institutes — commercial ISP coverage is '
+         'near-zero.'))
+
+_add('/china/step20_part1/', '综合仪表板 · 指数', 'Composite Dashboard · Index',
+     what=(
+         '把中国大陆在 20 步分析中得出的 5 个子维度（托管、DNS、RPKI、IXP、枢纽比率）'
+         '汇总成一个 0-1 主权指数，用仪表盘样式呈现综合得分与各维度分项，'
+         '便于与其他国家横向对比。',
+         'Aggregates mainland China\'s five sovereignty sub-scores (hosting, DNS, '
+         'RPKI, IXP, hub ratio) into a single 0–1 composite index, displayed as a '
+         'dashboard gauge with sub-dimension breakdown — formatted for direct '
+         'cross-country comparison.'),
+     see=(
+         '2026-04 综合主权指数 0.269，九国研究中排名最后；托管子维度接近 1.0（境内域名大多'
+         '在境内托管），但 DNS、RPKI、IXP、枢纽四项子分都偏低，'
+         '共同体现"基础设施高度自建但路由与解析仍依赖境外"的主权悖论。',
+         'Composite sovereignty index 0.269 as of 2026-04 — last of 9 countries. '
+         'The hosting sub-score approaches 1.0 (most domestic domains hosted '
+         'on-shore), but DNS, RPKI, IXP, and hub-ratio sub-scores are all low — '
+         'together expressing the sovereignty paradox: infrastructure built '
+         'domestically, but routing and resolution still dependent on offshore actors.'))
+
+_add('/china/step20_part2/', '综合仪表板 · 对比', 'Composite Dashboard · Comparison',
+     what=(
+         '把中国大陆的五维主权指数与九国研究中的其他八个国家（美、日、印、德、英、法、荷、俄）'
+         '并排绘成雷达图或条形矩阵，找出中国大陆在哪个维度上相对最强、最弱。',
+         'Places mainland China\'s five-dimension sovereignty profile side by side '
+         'with the other eight countries (US, JP, IN, DE, GB, FR, NL, RU) as a '
+         'radar chart or bar matrix — identifying which dimensions China leads '
+         'and lags in relative terms.'),
+     see=(
+         '雷达图上中国大陆的"托管"角是最突出的，而"RPKI"和"IXP"角明显凹陷；'
+         '与俄罗斯的形态相似（高托管-低互联），但中国大陆的 IXP 角更浅，'
+         '说明其物理互联参与度是九国中最低的之一。',
+         'On the radar, China\'s "hosting" axis juts out while "RPKI" and "IXP" '
+         'axes are conspicuously hollow — the profile resembles Russia\'s '
+         '(high hosting, low interconnect), but mainland China\'s IXP axis is '
+         'even shallower, making it one of the lowest physical interconnect '
+         'participants among the nine countries.'))
+
+_add('/china/step20_part3/', '综合仪表板 · 趋势', 'Composite Dashboard · Trend',
+     what=(
+         '把中国大陆的综合主权指数和各子维度分数在 11 个快照（2024-01 → 2026-04）中的变化'
+         '绘制成折线图，让读者看清哪个维度在改善、哪个在退步或停滞。',
+         'Plots mainland China\'s composite sovereignty index and each sub-dimension '
+         'score across 11 quarterly snapshots (2024-01 → 2026-04) as a line chart — '
+         'showing which dimensions are improving, stagnating, or declining.'),
+     see=(
+         '托管维度在多数快照中稳定高位；DNS 主权分有缓慢上行趋势；'
+         'RPKI 分在 2025 年出现阶段性提升后趋于平稳；IXP 分基本持平或微幅波动，'
+         '整体主权指数 2026-04 为 0.269，较 2024-01 仅增约 +0.05，进展缓慢。',
+         'The hosting dimension holds steady at a high level across snapshots. DNS '
+         'sovereignty shows a slow upward drift. RPKI improved in a step around '
+         '2025 before levelling off. IXP is essentially flat. The composite '
+         'sovereignty index reached 0.269 in 2026-04, only ~+0.05 above the '
+         '2024-01 baseline — slow overall progress.'))
+
+
 # ======================================================================
 # COMPLEX NETWORK · 13 analyses
 # ======================================================================
