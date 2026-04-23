@@ -722,6 +722,421 @@ _add('/china/step20_part3/', '综合仪表板 · 趋势', 'Composite Dashboard �
          '2024-01 baseline — slow overall progress.'))
 
 
+# =================== COUNTRIES (dashboards) ===================
+
+_add('/countries/dashboards/new-angles/', '15 个新角度汇总', 'New Angles · Synthesis',
+     what=(
+         '把 15 个新分析维度的核心结论浓缩成一张汇总页：每个 topic 对应一行摘要，标注数据来源、'
+         '样本规模与降级说明。列出三条结构性洞察，跨 topic 印证互相关。',
+         'A single-page digest of 15 novel analysis dimensions. Each topic row summarises its '
+         'data source, sample size, and any fallback. Three structural insights cross-validate '
+         'findings across topics.'),
+     see=(
+         '三大结构性洞察：① 用户加权后中国大陆互联网曝光度远高于基础设施视角（eyeball 1.0% vs '
+         'infra 0.25%，差 23.4×）；② 88% 宣告 AS 不执行 ROV，路由安全存在严重执行落差；③ '
+         '.com 占 Tranco Top-10k 的 51.6%，TLD 多样性高但由少数 NS 运营商主导。',
+         'Three cross-cutting insights: (1) user-weighted exposure of Chinese mainland Internet '
+         'is 23.4× higher than infra view (eyeball 1.0% vs infra 0.25%); (2) 88% of announcing '
+         'ASes do not enforce ROV; (3) .com holds 51.6% of Tranco Top-10k despite 350 unique TLDs.'))
+
+_add('/countries/dashboards/scorecards/', '9 国综合 scorecard', '9-Country Scorecard',
+     what=(
+         '以热力矩阵呈现 9 国 × 15 个新角度指标的综合评分：每行为一个 topic，每列为一个国家。'
+         '颜色按列内方向归一化——深绿代表相对强，深红代表相对弱，中性灰表示方向性模糊。',
+         'A heatmap of 9 countries × 15 new-angle metrics. Each row is a topic; each column '
+         'a country. Colours are direction-normalised within column — dark green = relatively '
+         'strong, dark red = relatively weak, neutral grey = ambiguous direction.'),
+     see=(
+         '美国在路由安全、DNS 托管、IXP 会话真实度上独占强绿；中国大陆在 OONI 审查、ROV 执行率'
+         '上深红突出；荷兰 IXP 真实度表现最佳（AMS-IX 主导）；俄罗斯与印度在多数 topic 上评分偏低。',
+         'The US leads in routing security, DNS hosting, and IXP session reality. '
+         'Chinese mainland shows deep red on OONI censorship and ROV enforcement. '
+         'Netherlands tops IXP session reality (AMS-IX dominant). '
+         'Russia and India score below median on most topics.'))
+
+_add('/countries/dashboards/evolution-narrative/', '演化叙事', 'Evolution Narrative',
+     what=(
+         '以叙事文本形式梳理 11 个季度（2024-01 → 2026-04）中 9 国互联网格局的演变轨迹，'
+         '重点覆盖 AS 规模、前缀增长、主权指数、IXP 会员等指标的时序变化。',
+         'A narrative walkthrough of 11 quarterly snapshots (2024-01 → 2026-04) tracing how '
+         '9 countries evolved on AS scale, prefix growth, sovereignty index, and IXP membership. '
+         'Each quarter is annotated with the most notable structural shift.'),
+     see=(
+         '关键发现：若要研究"谁多了一个新 AS"或"谁开了新 IXP peering"须参阅原始时序数据；'
+         '总体趋势是美国 AS 数稳增，中国大陆前缀量收缩，荷兰与德国在 IXP 活跃成员数上持续攀升，'
+         '俄罗斯主权指数在 2024 年后显著上扬。',
+         'Key finding: studying "who added a new AS or IXP peering" requires the raw time-series. '
+         'Overall: US AS count grows steadily; Chinese mainland prefix count contracts; '
+         'Netherlands and Germany climb on active IXP members; Russia sovereignty index '
+         'rises sharply post-2024.'))
+
+_add('/countries/dashboards/correlations/', '跨 Topic 相关性', 'Cross-Topic Correlation Scatters',
+     what=(
+         '用散点图矩阵展示 15 个新角度指标之间的两两相关关系，样本点为 9 个国家。'
+         '每幅散点图的 X/Y 轴对应两个 topic，颜色编码国家，帮助识别结构性共线。',
+         'Scatter-plot matrix of pairwise correlations across 15 new-angle metrics. '
+         'Each plot places two topics on X/Y axes, with 9 countries as data points, '
+         'helping identify structural co-linearity or trade-offs.'),
+     see=(
+         '路由安全得分与 RPKI 覆盖率高度正相关（r > 0.85）；用户加权主权与基础设施主权的差距'
+         '在中国大陆最大，说明人口密度放大了互联网脆弱性；BGP 观测多样性与 IXP 会员数正相关。',
+         'Routing security and RPKI coverage correlate strongly (r > 0.85). '
+         'The gap between user-weighted and infra-weighted sovereignty is widest for Chinese mainland, '
+         'amplifying vulnerability. BGP observation diversity positively correlates with IXP membership.'))
+
+_add('/countries/dashboards/ixp-reality/', 'IXP 会话真伪', 'IXP Session Reality Check',
+     what=(
+         '对比 PeeringDB 自报成员数与 Alice-LG 实时 route-server 抓取的 BGP session 状态，'
+         '量化"声称成员"与"活跃会话"之间的落差。数据覆盖 13 个 IXP、15,524 条 MEMBER_OF 边。',
+         'Compares PeeringDB self-reported membership against Alice-LG real-time route-server '
+         'session state across 13 IXPs and 15,524 MEMBER_OF edges, quantifying the gap between '
+         'claimed and established sessions.'),
+     see=(
+         '74%（11,433/15,524）的成员边当前 state=Established；PeeringDB 在同一 IXP 子集声称 17,153 '
+         '个成员，差集约 1,629 个"声称但不活跃"。AMS-IX 和 DE-CIX 的真实活跃率最高，亚太 IXP '
+         '的落差率偏大，说明 PeeringDB 数据新鲜度在该区域较差。',
+         '74% (11,433/15,524) of member edges have state=Established. PeeringDB claims 17,153 '
+         'members for the same IXP subset, leaving ~1,629 "claimed but inactive." AMS-IX and '
+         'DE-CIX show highest real-session rates; APAC IXPs show larger gaps, indicating stale '
+         'PeeringDB data in that region.'))
+
+_add('/countries/dashboards/collector-consensus/', 'BGP 观测冗余度', 'Multi-Source Peering Visibility',
+     what=(
+         '交叉比对 bgpkit as2rel_v4 与 as2rel_v6 两个 BGP 观测源，统计每个 AS 在多少个源中可见。'
+         '共观察到 14,488 个 AS；双栈可见（v4+v6 同时出现）的 AS 占 46.9%。',
+         'Cross-references bgpkit as2rel_v4 and as2rel_v6 BGP observation sources, counting how '
+         'many sources each AS appears in. Of 14,488 observed ASes, 46.9% (6,797) are visible '
+         'in both v4 and v6 datasets — the "dual-stack visible" fraction.'),
+     see=(
+         '7,023 个 AS 仅在 v4 可见，668 个仅在 v6 可见；v4/v6 可见度差异直接反映 IPv6 部署真实度'
+         '（登记 ≠ 被多源观测到）。中国大陆 AS 的双栈可见率显著低于美国和欧洲，暗示 IPv6 路由'
+         '通告仍以单一观测源为主。',
+         '7,023 ASes appear only in v4; 668 only in v6. The v4/v6 visibility gap reflects '
+         'real IPv6 deployment (registration ≠ multi-source observation). '
+         'Chinese mainland ASes show significantly lower dual-stack visibility than US or European peers, '
+         'suggesting IPv6 announcements are dominated by single-source collection.'))
+
+_add('/countries/dashboards/real-traffic/', '反 eyeball 对照', 'Counter-Eyeball Demand Signal',
+     what=(
+         '以 Google CrUX Top-100 万为主信号，对比 APNIC Eyeball（基于 Google Ads + DNS 测量）'
+         '揭示"真实用户需求"与"基础设施视角 AS 权重"之间的结构差。数据覆盖 200,000 行 CrUX 记录。',
+         'Uses Google CrUX Top-1M as the demand signal to contrast with APNIC Eyeball '
+         '(Google Ads + DNS measurement), exposing the structural gap between real user demand '
+         'and infrastructure-view AS weights. Covers 200,000 CrUX records.'),
+     see=(
+         '用户视角（仅 71 个 eyeball AS）下中国大陆互联网曝光度达 5.9%，而基础设施视角（6,660 个 AS）'
+         '仅 0.25%，差距 23.4 倍。CrUX 与 APNIC eyeball 两源对比显示：高 Eyeball 份额国家（IN/BR）'
+         '在 CrUX 内容侧排名偏低，说明用户规模 ≠ 内容生产能力。',
+         'User-view (71 eyeball ASes) puts Chinese mainland Internet exposure at 5.9%; infra-view '
+         '(6,660 ASes) gives only 0.25% — a 23.4× gap. Cross-referencing CrUX and APNIC eyeball '
+         'shows high-eyeball countries (IN/BR) rank lower in content supply, confirming user scale '
+         'does not equal content production.'))
+
+_add('/countries/dashboards/app-censorship/', '应用级封锁矩阵', 'App-Level Censorship Matrix',
+     what=(
+         '基于 OONI 12 个应用专用探针（共 18,788 条 CENSORED 边，横跨 10 个 app、165 个国家），'
+         '展示各国对 WhatsApp/Telegram/Signal/Psiphon 等应用的封锁矩阵。',
+         'Built from OONI 12 app-specific probes (18,788 CENSORED edges across 10 apps and 165 '
+         'countries), this dashboard displays a country × application censorship matrix for '
+         'WhatsApp, Telegram, Signal, Psiphon, and others.'),
+     see=(
+         '中国大陆对全部 10 个测试应用均有严重阻断记录（179 个严重阻断 pair）；俄罗斯封锁 Telegram '
+         '历史记录仍留存；印度与巴基斯坦在 VoIP/通讯应用上有局部阻断；规避工具（Tor/Psiphon/'
+         'RiseupVPN）在五国阻断率 > 60%。',
+         'Chinese mainland records severe blocks across all 10 tested apps (179 critical pairs). '
+         'Russia retains historical Telegram blocks. India and Pakistan show partial VoIP/messaging '
+         'blocks. Circumvention tools (Tor/Psiphon/RiseupVPN) face > 60% block rates in five countries.'))
+
+_add('/countries/dashboards/anycast-census/', 'Anycast 地理普查', 'Anycast Geographic Census',
+     what=(
+         '基于 UTwente LACES v4/v6 数据集（7,814 独立前缀，500,000 条 PoP 定位记录）绘制 anycast '
+         '前缀的地理落点分布，揭示 CDN、DNS 根服务器的实际 PoP 部署格局。',
+         'Maps anycast prefix geographic distribution using UTwente LACES v4/v6 '
+         '(7,814 prefixes, 500,000 PoP records), revealing where CDN and DNS root-server '
+         'Points-of-Presence actually land.'),
+     see=(
+         '7,807/7,814 前缀被标记为 anycast；PoP 分布高度集中于美国、荷兰和德国三国；中国大陆境内'
+         'anycast PoP 覆盖率偏低，DNS 根服务器镜像节点主要由 Anycast 路由承载。亚洲 PoP 密度低于'
+         '欧美，是互联网测量偏差的隐性来源。',
+         '7,807 of 7,814 prefixes are anycast-tagged. PoPs concentrate heavily in the US, '
+         'Netherlands, and Germany. Chinese mainland has below-average anycast PoP coverage; '
+         'DNS root-server mirrors rely predominantly on anycast routing. Lower PoP density '
+         'in Asia is a latent source of measurement bias.'))
+
+_add('/countries/dashboards/dns-authority-deep/', 'DNS 权威深度图', 'DNS Authority Consolidation',
+     what=(
+         '从三类 MANAGED_BY 关系（正向 NS 100 万行、反向 RDNS 50 万行、根区 iana.root_zone 5000 行）'
+         '出发，按 NS 主机名的 2LD 聚合运营商，绘制 DNS 权威托管的深度集中度图谱。',
+         'Builds on three MANAGED_BY relation types — forward NS (1M rows), reverse RDNS (500K), '
+         'root zone (5K) — and aggregates operators by NS 2LD to chart deep consolidation '
+         'in DNS authoritative hosting.'),
+     see=(
+         'Cloudflare、AWS Route53、Google 占据正向 NS 集中度前三；HHI ≈ 326（500 NS 范围内），'
+         '属于分散市场，但 top-3 合计份额仍超 30%。根区运营商（Verisign/ICANN 授权）高度集中；'
+         '中国大陆域名的 NS 大量落在国内自建 DNS，自持度高于平均。',
+         'Cloudflare, AWS Route53, and Google lead forward-NS concentration. '
+         'HHI ≈ 326 (across 500 NS) signals a dispersed market, yet the top-3 combined share '
+         'exceeds 30%. Root-zone operators (Verisign/ICANN) are highly concentrated. '
+         'Chinese mainland domains use predominantly domestic DNS, above-average self-hosting ratio.'))
+
+_add('/countries/dashboards/schema-gaps/', 'Schema 缺口清单', 'Upstream Schema Gap Report',
+     what=(
+         '记录 IYP 2024-01 → 2026-04 跨度 15 个 topic + evolution 分析中发现的所有上游 schema '
+         '不一致与缺失：每条列出具体 Cypher 路径、受影响的 topic 与快照、以及本研究采用的 workaround。',
+         'Documents all upstream schema inconsistencies and gaps discovered across 15 topics '
+         'and the evolution analysis over 11 IYP snapshots. Each entry shows the Cypher path, '
+         'affected topics/snapshots, and the workaround adopted.'),
+     see=(
+         '共 16 个 gap（High 2 · Medium 7 · Low 7）。High 级别：① MANRS crawler 可能失败导致节点'
+         '缺失；② Cloudflare DNS QUERIED_FROM 关系名变更致 topic18 降级。静态 fallback dict 覆盖'
+         '9 国；crawler 文档未声明属性名建议标准化后提 PR。',
+         '16 gaps total (High 2 · Medium 7 · Low 7). High-severity: (1) MANRS crawler failure '
+         'can leave nodes missing; (2) Cloudflare DNS QUERIED_FROM relation rename caused '
+         'topic18 fallback. Static fallback dicts cover all 9 countries. '
+         'Attribute naming conventions are inconsistent — standardisation PRs recommended.'))
+
+_add('/countries/dashboards/eyeball/', '用户加权视角', 'User-weighted Sovereignty',
+     what=(
+         '引入 APNIC Eyeball（每个 AS 在所在国的用户份额）× Worldbank 人口数据作为新权重，'
+         '重新计算主权指数与集中度指标。X 轴为基础设施视角，Y 轴为用户视角，散点偏离对角线说明差距。',
+         'Re-weights sovereignty and concentration metrics by APNIC Eyeball (per-AS user share '
+         'in-country) × Worldbank population. Scatter plots compare infra-view (X) vs user-view '
+         '(Y) — departure from the diagonal marks the eyeball gap.'),
+     see=(
+         '中国大陆在深层 k-core 上基础设施视角约 0.25%、用户视角约 5.9%，差距 23.4 倍，是九国中最大。'
+         '荷兰 AS 密度最高（93 AS/百万人口 vs 中国大陆 4.7），说明荷兰的互联网资源分配极度人均领先。',
+         'Chinese mainland k-core infrastructure view ≈ 0.25%, user view ≈ 5.9% — a 23.4× gap, '
+         'the largest of the nine. Netherlands has the highest AS density (93 ASes per million '
+         'population vs Chinese mainland 4.7), indicating far superior per-capita Internet '
+         'resource allocation.'))
+
+_add('/countries/dashboards/routing-security/', '路由安全真身', 'Routing Security Reality',
+     what=(
+         '将路由安全拆为三层：宣告层（RPKI ROA 签名率）、实行层（ROVISTA 实测 drop 无效路由）、'
+         '承诺层（MANRS 声明）。范围：29,778 个交叉 AS，2024-10 快照。',
+         'Decomposes routing security into three tiers: announcement (RPKI ROA signing rate), '
+         'enforcement (ROVISTA measured invalid-prefix drop), and commitment (MANRS declaration). '
+         'Scope: 29,778 cross-referenced ASes, 2024-10 snapshot.'),
+     see=(
+         '88% 的宣告 AS 不执行 ROV（ROVISTA drop 率 < 50%）；签名率高 ≠ 真正过滤无效路由；'
+         '美国和荷兰的实行率最高；中国大陆 ROV 实行 AS 占比仅约 3%；MANRS 承诺数量与实际执行'
+         '相关性低，说明"承诺"层存在大量空洞声明。',
+         '88% of announcing ASes do not enforce ROV (ROVISTA drop rate < 50%). '
+         'High RPKI signing rate does not imply filtering. US and Netherlands have the highest '
+         'enforcement rates. Chinese mainland ROV-enforcing ASes account for only ~3%. '
+         'MANRS commitments show weak correlation with actual enforcement.'))
+
+_add('/countries/dashboards/toplist/', 'Tranco Top-10k 深度', 'Tranco Top-10k Deep-dive',
+     what=(
+         '以 Tranco Top-10k（2024-10 快照）为分析单元，解剖 Top 域名的 TLD 构成、托管 AS 分布、'
+         'NS 运营商集中度与各国域名占比。共 333 个 TLD，.com 占 50%。',
+         'Dissects Tranco Top-10k (2024-10 snapshot) by TLD composition, hosting-AS distribution, '
+         'NS operator concentration, and per-country domain share. Covers 333 TLDs; '
+         '.com holds 50% of the top-10k.'),
+     see=(
+         '.com 占 51.6%（降级自四源对比），350 个独立 TLD 显示 ccTLD 碎片化；托管 AS 高度集中'
+         '于 Cloudflare/AWS/Google；中国大陆 ccTLD .cn 在 Top-10k 中仅约 0.3%，与其网民规模'
+         '极不匹配；.de/.nl 在 Top-10k 的代表度相对人口最高。',
+         '.com accounts for 51.6% (single-source fallback). 350 unique TLDs show ccTLD '
+         'fragmentation. Hosting ASes concentrate on Cloudflare/AWS/Google. '
+         'Chinese mainland .cn holds only ~0.3% of Top-10k — far below its Internet population share. '
+         '.de/.nl have the highest per-capita Top-10k representation.'))
+
+_add('/countries/dashboards/asdb/', 'AS 业务类型图谱', 'ASDB Category Map',
+     what=(
+         '以 Stanford ASDB 数据集（layer=1 顶级业务分类）切分 9 国 AS 组成，主要类别包括 '
+         'Computer & IT、Manufacturing、Service、Government、Construction 等。',
+         'Uses the Stanford ASDB dataset (layer-1 top-level categories) to decompose each '
+         'country\'s AS population by business sector: Computer & IT, Manufacturing, Service, '
+         'Government, Construction, and others.'),
+     see=(
+         'Computer & IT 占全局 57%，是最大单一类别（16K Service AS 排第二）；美国该类别 AS '
+         '数远超其他国家；中国大陆 Government 类别 AS 占比相对高于欧洲，反映国家主导的网络格局；'
+         '荷兰与德国的 Manufacturing/Service AS 比例高，与工业互联网布局一致。',
+         'Computer & IT accounts for 57% globally — the single largest category (Service 16K '
+         'is second). The US dominates this category by count. Chinese mainland shows a higher '
+         'Government-category share than European peers, reflecting state-led network governance. '
+         'Netherlands and Germany have elevated Manufacturing/Service shares.'))
+
+_add('/countries/dashboards/archetype/', 'AS 业务原型', 'AS Business Archetype',
+     what=(
+         '基于 bgptools.as_names 的 Carrier / Content / Eyeball / T1 四分法，描绘 9 国 AS 组合'
+         '的"业务原型"：每国 AS 偏用户端（Eyeball）还是内容端（Content），或运营商（Carrier）？',
+         'Uses bgptools.as_names Carrier/Content/Eyeball/T1 four-way taxonomy to draw each '
+         'country\'s AS "business archetype" — is its AS population user-oriented (Eyeball), '
+         'content-oriented (Content), carrier, or Tier-1?'),
+     see=(
+         'Eyeball AS 8,332 / Content 1,173 / Carrier 557 / T1 15（降级自 AWS IP-range 方案）；'
+         '美国在 Content 与 T1 两类绝对领先；中国大陆 Eyeball 类别数量庞大但 Content 稀少，'
+         '反映"消费端重、生产端轻"的结构；荷兰 Carrier+T1 密度全球最高。',
+         'Eyeball 8,332 / Content 1,173 / Carrier 557 / T1 15 (fallback from AWS IP-range plan). '
+         'US leads absolutely in Content and T1. Chinese mainland has many Eyeball ASes but few '
+         'Content ASes — a "heavy consumer, light producer" structure. '
+         'Netherlands has the highest Carrier+T1 density globally.'))
+
+_add('/countries/dashboards/bgp-tags/', 'AS 行为标签地图', 'BGP-tools AS Tags',
+     what=(
+         '展示 bgp.tools 手工维护的 18 个 AS 行为标签在 9 国的分布。标签涵盖角色（Home ISP、'
+         'Academic、Government）、安全（ToR、VPN、DDoS Mitigation、Anycast）与关键基础设施。'
+         '数据：15,350 条标签记录，2024-10 快照。',
+         'Shows the distribution of bgp.tools 18 hand-curated AS behavioral tags across 9 '
+         'countries. Tags cover role (Home ISP, Academic, Government), security (ToR, VPN, '
+         'DDoS Mitigation, Anycast), and critical infrastructure. Data: 15,350 tag records, '
+         '2024-10 snapshot.'),
+     see=(
+         'Home ISP 2,424 是最大标签类；ToR 974、VPN 751、关键基础设施 448；荷兰与美国的 ToR/VPN '
+         'AS 密度远超其他国家；中国大陆几乎没有 ToR 标签 AS，但 Government 标签 AS 比例最高；'
+         '德国 Academic AS 比例领先欧洲。',
+         'Home ISP 2,424 is the largest tag. ToR 974, VPN 751, critical infrastructure 448. '
+         'Netherlands and the US have far higher ToR/VPN AS density than others. '
+         'Chinese mainland has almost no ToR-tagged ASes but the highest Government-tagged share. '
+         'Germany leads Europe in Academic-tagged ASes.'))
+
+_add('/countries/dashboards/ooni/', 'OONI 审查测试图谱', 'OONI Censorship Tests',
+     what=(
+         '以 OONI 10 个测试类型 × 165 国的 CENSORED 边（共 18,788 条）绘制审查矩阵，测试包括'
+         'Web Connectivity、WhatsApp、Telegram 等；country_code 缺失时从 AS→Country 映射回退。',
+         'Charts a censorship matrix from 18,788 CENSORED edges across 10 OONI test types and '
+         '165 countries. Tests include Web Connectivity, WhatsApp, and Telegram. '
+         'Missing country_code falls back to AS→Country mapping.'),
+     see=(
+         '179 对严重阻断 pair 中中国大陆位居首位；俄罗斯在 Telegram 与 VoIP 测试上有历史阻断记录；'
+         '规避工具（Tor/Psiphon/RiseupVPN/TorSF）在强审查国家被阻断率 > 60%；美国、荷兰、'
+         '德国在全部 10 个测试中无严重阻断记录。',
+         '179 severe block pairs; Chinese mainland ranks first. Russia retains historical '
+         'blocks on Telegram and VoIP tests. Circumvention tools (Tor/Psiphon/RiseupVPN/TorSF) '
+         'face > 60% blocking in heavy-censorship countries. US, Netherlands, and Germany '
+         'record zero severe blocks across all 10 tests.'))
+
+_add('/countries/dashboards/rovista-country/', 'ROV 执行国别地图', 'ROV Enforcement by Country',
+     what=(
+         '将 ROVISTA 实测 drop 率（无效前缀被过滤的比例）按国家聚合，补充 Topic 2 全球散点图的'
+         '国家粒度视角。范围：有 ROVISTA 数据的 AS，2024-10 快照；PeeringDB 字段缺失时回退。',
+         'Aggregates ROVISTA measured drop rates (fraction of invalid prefixes actually filtered) '
+         'by country, adding a country-level view to the Topic 2 global scatter. '
+         'Covers all ASes with ROVISTA data, 2024-10 snapshot, with PeeringDB fallback.'),
+     see=(
+         'BT（英国）以 63% drop 率居国别榜首；五国 ROV 执行率为 0%（包括多个亚洲国家）；中国大陆'
+         'AS 平均 drop 率 < 3%；欧洲整体优于亚洲；全球仍有 > 80% 的宣告 AS 不执行 ROV，'
+         '路由劫持风险依然系统性存在。',
+         'BT (UK) tops the country ranking at 63% drop rate. Five countries record 0% ROV '
+         'enforcement, including several Asian nations. Chinese mainland AS average drop rate '
+         'is under 3%. Europe outperforms Asia overall. More than 80% of announcing ASes '
+         'globally still do not enforce ROV.'))
+
+_add('/countries/dashboards/atlas/', 'Atlas 探针全球覆盖', 'RIPE Atlas Probes',
+     what=(
+         '以 RIPE Atlas 39,502 个探针在 222 国的地理分布，揭示主动 Internet 测量能力的地理不平等。'
+         '探针密度决定路由/DNS/拥塞研究的测量精度；低密度区域的分析结论存在系统性偏差。',
+         'Maps 39,502 RIPE Atlas probes across 222 countries, exposing geographic inequality '
+         'in active Internet measurement capacity. Probe density determines the precision of '
+         'routing/DNS/congestion studies — low-density regions introduce systematic bias.'),
+     see=(
+         'Top-5 国合计占全球探针 40%（德国、荷兰、法国、美国、英国领先）；中国大陆探针数量显著偏低，'
+         '约 50 个，与其网络规模严重不匹配；9,681 个探针 country 字段未知（已排除）；探针密度与'
+         '主权指数正相关，说明高主权国家在测量基础设施上也更有优势。',
+         'Top-5 countries account for 40% of all probes (Germany, Netherlands, France, US, UK '
+         'lead). Chinese mainland has only ~50 probes — severely under-represented relative to '
+         'network scale. 9,681 probes have unknown country (excluded). Probe density correlates '
+         'positively with sovereignty index.'))
+
+_add('/countries/dashboards/bgp-obs/', 'BGP 观测多样性', 'BGP Observation Diversity',
+     what=(
+         '基于 bgpkit.as2rel 的 v4 与 v6 两个 peering 观测源，量化 AS 的"多源可见度"——一个 AS '
+         '在几个独立观测源中被看到，反映路由宣告的真实传播范围。',
+         'Uses bgpkit.as2rel v4 and v6 peering sources to quantify AS multi-source visibility — '
+         'how many independent collectors observe each AS, reflecting the true propagation '
+         'scope of its route announcements.'),
+     see=(
+         '14,488 AS 在至少一源可见；13K 有 v4 记录，6.8K 有 v6 记录，6.2K 同时被两源观测（降级自'
+         'PCH 三源方案）；v4/v6 双栈可见率 46.9%；中国大陆 AS 的 v6 单源可见比例偏高，说明 IPv6'
+         '路由宣告分散度不足，测量质量低于欧美。',
+         '14,488 ASes visible in at least one source; 13K have v4, 6.8K have v6, '
+         '6.2K are observed by both (fallback from a three-source PCH plan). '
+         'Dual-stack visibility rate: 46.9%. Chinese mainland ASes show higher v6 single-source '
+         'visibility, indicating insufficient IPv6 route propagation diversity.'))
+
+_add('/countries/dashboards/org-concentration/', 'AS 所有权集中度', 'AS Ownership Concentration',
+     what=(
+         '以 caida.as2org 数据集派生各国 AS 的组织归属，计算 HHI 市场集中度指数，判断 9 国'
+         '互联网 AS 资源是否存在寡头垄断（HHI > 2,500）或高度分散（HHI < 100）。',
+         'Derives AS ownership from caida.as2org, computes HHI concentration index per country, '
+         'and tests whether each country\'s AS pool shows oligopoly (HHI > 2,500) '
+         'or dispersion (HHI < 100).'),
+     see=(
+         '9 国 HHI 均 < 200（组织级高度分散）；但按用户数加权后，中国大陆的三大运营商（中国电信/'
+         '中国联通/中国移动）合计控制 > 90% 用户，说明 AS 层面分散不等于市场层面分散；'
+         '美国在 AS 组织数量上最多，但 Comcast/AT&T 的用户份额仍高度集中。',
+         'All 9 countries have HHI < 200 at the AS-organisation level (highly dispersed). '
+         'However, weighting by user base, Chinese mainland\'s top-3 operators (Telecom/Unicom/Mobile) '
+         'control > 90% of users — AS dispersion ≠ market dispersion. '
+         'The US has the most AS organisations but Comcast/AT&T still dominate user share.'))
+
+_add('/countries/dashboards/ihr-hegemony/', '全球依赖中心性', 'Global IHR Hegemony',
+     what=(
+         '以 IHR local-hegemony-v4 量化全球 AS 依赖图：对每个 AS 聚合其入向依赖权重（多少个 AS '
+         '将它当作必经路径），识别全球互联网的依赖中心节点。范围：top-5,000 AS 按入向权重排序。',
+         'Aggregates IHR local-hegemony-v4 to compute global dependency centrality: '
+         'for each AS, sum the incoming hegemony weights (how many ASes route through it). '
+         'Scope: top-5,000 ASes by incoming hegemony.'),
+     see=(
+         'No.1 = AS6939 Hurricane Electric（美国，入向权重 27,500+）；Lumen/CenturyLink 排第二（10,900）；'
+         '中国大陆 CERNET2 全球第 5，是前 10 中唯一非美国实体；中国大陆中国电信/联通排名 50-100；'
+         '荷兰 AMS-IX 相关 AS 集中在前 20。',
+         'No.1 = AS6939 Hurricane Electric (US, incoming weight 27,500+). '
+         'Lumen/CenturyLink ranks second (10,900). Chinese mainland CERNET2 is global #5 — '
+         'the only non-US entity in the top 10. China Telecom/Unicom rank 50–100. '
+         'Netherlands AMS-IX-related ASes cluster in the top 20.'))
+
+_add('/countries/dashboards/multinational/', '跨国组织 AS 足迹', 'Multinational Org Footprint',
+     what=(
+         '交叉 caida.as2org 的 as_organization.csv 与 as_country.csv，找出 AS 跨多国的 814 个'
+         '跨国组织（占 97,759 个组织的 0.8%），分析其 AS 足迹的国家广度与 AS 密度。',
+         'Cross-references caida.as2org organization and country tables to identify 814 '
+         'multinational organisations (0.8% of 97,759) whose ASes span multiple countries, '
+         'then analyses their country breadth and AS density.'),
+     see=(
+         'Top-3：Internet Systems Consortium（ISC，18 国，56 AS）、ISC, Inc.（16 国，71 AS）、'
+         'AT&T Japan（12 国）；美国主导跨国 AS 足迹；中国大陆跨国组织较少但中国移动在 10+ 国'
+         '均有 AS；荷兰 AMS-IX 相关组织足迹覆盖 50+ 国，是欧洲最广的跨国互联网实体。',
+         'Top-3: Internet Systems Consortium (18 countries, 56 ASes), ISC Inc. (16 countries, '
+         '71 ASes), AT&T Japan (12 countries). The US dominates multinational AS footprints. '
+         'Chinese mainland multinationals are fewer, though China Mobile spans 10+ countries. '
+         'Netherlands AMS-IX-related orgs cover 50+ countries — the widest European footprint.'))
+
+_add('/countries/dashboards/dns-authority/', '全球 DNS 权威集中度', 'Global DNS Authority',
+     what=(
+         '基于 OpenINTEL Top-500 权威 NS 服务器（按托管域名数排序）交叉 ns_to_as 映射，'
+         '计算 DNS 权威托管的运营商集中度（HHI）与国家分布。覆盖 158 个独立运营商。',
+         'Uses OpenINTEL Top-500 authoritative NS servers (ranked by hosted domain count), '
+         'cross-referenced with ns_to_as, to compute DNS authority operator concentration (HHI) '
+         'and country distribution across 158 operators.'),
+     see=(
+         '最大运营商 GoDaddy (domaincontrol.com) 托管 130 万域名；dns-parking 728K；Google 652K；'
+         'HHI (top-500 内) ≈ 326，属分散市场但 top-3 合计 > 30%；中国大陆域名 NS 主要落在国内'
+         '运营商，中国域名注册局/阿里云/腾讯云合计占中国大陆域名权威比例约 60%。',
+         'Largest operator: GoDaddy (domaincontrol.com) hosts 1.3M domains; dns-parking 728K; '
+         'Google 652K. HHI ≈ 326 across top-500 — dispersed but top-3 combined share exceeds 30%. '
+         'Chinese mainland domains rely predominantly on domestic operators (CNNIC/Alibaba Cloud/'
+         'Tencent Cloud ≈ 60% combined domestic-domain authority).'))
+
+_add('/countries/dashboards/country-dep/', '9×9 国家依赖矩阵', 'Country Dependency Matrix',
+     what=(
+         '将 IHR local-hegemony-v4 的 AS 级依赖关系按国家聚合成 9×9 矩阵，每格为起源国 AS 对'
+         '目标国 AS 的 hege 加权依赖总量；对角线为国内自依赖，行净和揭示净出口 / 净进口方向。',
+         'Aggregates IHR local-hegemony-v4 into a 9×9 country matrix. Each cell is the total '
+         'hegemony-weighted dependency of source-country ASes on target-country ASes. '
+         'The diagonal is domestic self-dependency; row net-sum reveals net exporter/importer.'),
+     see=(
+         '美国是唯一净出口国（net = +13,604），即全球其他 AS 对美国 AS 的依赖显著大于美国对外依赖；'
+         '中国大陆是最大净进口国（net = −5,018），净进口/净出口比约 253:1；荷兰对美国的依赖排名'
+         '九国第二低，说明欧洲互联网具备较强的横向互联自主性。',
+         'The US is the sole net exporter (net = +13,604): the global Internet depends on US '
+         'ASes far more than US ASes depend on others. Chinese mainland is the largest net '
+         'importer (net = −5,018), net-import/export ratio ≈ 253:1. '
+         'Netherlands has the second-lowest US dependence among the nine, confirming '
+         'strong European lateral interconnection autonomy.'))
+
 # ======================================================================
 # COMPLEX NETWORK · 13 analyses
 # ======================================================================
