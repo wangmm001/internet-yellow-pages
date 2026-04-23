@@ -2,7 +2,7 @@
 
 Dimensions: HostName -[:ALIAS_OF]- HostName chains crossing CN cloud targets
 Data: live Neo4j (targeted)
-Output: cn_cname_chains.csv + Pyvis directed alias graph
+Output: cn_cname_chains.csv + Plotly Sankey cloud-provider flow diagram
 """
 import os
 import sys
@@ -11,7 +11,7 @@ from collections import Counter
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 from analysis.china.common import (  # noqa: E402
     COLORS, DATA_DIR, country_color, neo4j_available,
-    save_pyvis_html, save_placeholder_html,
+    save_placeholder_html,
     write_csv, write_step_metrics, writeup,
 )
 from analysis.complex_network.utils import run_query
@@ -86,136 +86,30 @@ def main():
 
     write_csv('cn_cname_chains.csv', rows, fieldnames=['src', 'dst'])
 
-    # ── Family / TLD aggregation ──
-    FAMILY_COLOR = {
-        'Aliyun': COLORS['orange'],
-        'Aliyun CDN': COLORS['orange'],
-        'Tencent': COLORS['blue'],
-        'Tencent Cloud': COLORS['blue'],
-        'Tencent DNSPod': COLORS['blue'],
-        'Tencent DNS': COLORS['blue'],
-        'Huawei': COLORS['red'],
-        'Huawei Cloud': COLORS['red'],
-        'Huawei CDN': COLORS['red'],
-        'Baidu': COLORS['purple'],
-        'NetEase': COLORS['pink'],
-        'JD': COLORS['amber'],
-        'JD Cloud': COLORS['amber'],
-        'ChinaCache': COLORS['green'],
-        'ChinaNetCenter': COLORS['green'],
-        'Wangsu': COLORS['cyan'],
-        'Wangsu CDN': COLORS['cyan'],
-        'Other CN': COLORS['teal'],
-    }
+    # ── Plotly Sankey: cloud-provider flow ──
+    # Delegate to the shared Sankey patcher (also usable as standalone post-processor)
+    from analysis.web import patch_step16_html
+    patch_step16_html.main()
 
-    def family_of(dst):
-        return classify_target(dst) or 'Other CN'
-
-    def tld_of(src):
-        part = src.rsplit('.', 1)[-1].lower() if '.' in src else 'none'
-        return part
-
-    # Aggregate: TLD -> family edges
-    from collections import Counter
-    fam_target_count = Counter()     # family -> distinct target host count
-    tld_edge_count = Counter()       # tld -> distinct src-domain count
-    tld_to_fam = Counter()           # (tld, family) -> edge count
-    for r in rows:
-        fam = family_of(r['dst'])
-        tld = tld_of(r['src'])
-        fam_target_count[fam] += 1
-        tld_edge_count[tld] += 1
-        tld_to_fam[(tld, fam)] += 1
-
-    # Top-K tlds: collapse tail into "other"
-    TOP_TLDS = 12
-    sorted_tlds = [t for t, _ in tld_edge_count.most_common()]
-    main_tlds = set(sorted_tlds[:TOP_TLDS])
-
-    def tld_bucket(t):
-        return t if t in main_tlds else 'other'
-
-    # Rebuild counters with bucketing
+    # Compute aggregates for metrics (mirrors patcher logic)
+    fam_target_count = Counter()
     tld_edges = Counter()
-    tld_fam_edges = Counter()
     for r in rows:
-        fam = family_of(r['dst'])
-        tld = tld_bucket(tld_of(r['src']))
+        fam = classify_target(r['dst']) or 'Other CN'
+        tld = r['src'].rsplit('.', 1)[-1].lower() if '.' in r['src'] else 'none'
+        fam_target_count[fam] += 1
         tld_edges[tld] += 1
-        tld_fam_edges[(tld, fam)] += 1
-
-    # Node sizing (log-scale)
-    import math
-    def scaled(count, base=22, k=7.5, cap=70):
-        return min(round(base + math.log(max(count, 1) + 1) * k), cap)
-
-    # ── Pyvis two-column layout ──
-    from pyvis.network import Network
-    net = Network(height='780px', width='100%', bgcolor='#0D1117',
-                  font_color='#E6EDF3', notebook=False, directed=True)
-    net.toggle_physics(False)
-    net.set_options('''
-    var options = {
-      "nodes": { "borderWidth": 2, "shadow": false, "font": {"color": "#E6EDF3", "size": 14} },
-      "edges": { "arrows": {"to": {"enabled": true, "scaleFactor": 0.4}},
-                 "color": {"color": "#484F58", "opacity": 0.55},
-                 "smooth": {"enabled": true, "type": "continuous"} },
-      "physics": { "enabled": false },
-      "interaction": { "dragNodes": true, "hover": true, "navigationButtons": true }
-    }
-    ''')
-
-    # Sort by volume within each side for aesthetically pleasing layout
-    left_tlds = sorted(tld_edges.items(), key=lambda x: -x[1])
-    right_fams = sorted(fam_target_count.items(), key=lambda x: -x[1])
-
-    # Left column (TLDs)
-    n_left = len(left_tlds)
-    for i, (tld, count) in enumerate(left_tlds):
-        label = f'.{tld}' if tld not in ('other', 'none') else tld
-        # Try to color by country (TLD as cc)
-        cc = tld.upper() if len(tld) == 2 else ''
-        color = country_color(cc) if cc else COLORS['cyan']
-        net.add_node(
-            f'tld:{tld}',
-            label=f'{label} ({count})',
-            title=f'TLD {label} — {count} CNAME edges',
-            color=color, size=scaled(count),
-            x=-900, y=float(i - n_left / 2) * 90,
-        )
-
-    # Right column (families)
-    n_right = len(right_fams)
-    for i, (fam, count) in enumerate(right_fams):
-        color = FAMILY_COLOR.get(fam, COLORS['teal'])
-        net.add_node(
-            f'fam:{fam}',
-            label=f'{fam} ({count})',
-            title=f'{fam} — {count} distinct target hosts',
-            color=color, size=scaled(count),
-            x=900, y=float(i - n_right / 2) * 90,
-        )
-
-    # Edges: TLD -> family
-    for (tld, fam), count in tld_fam_edges.items():
-        width = min(1 + math.log(count + 1), 8)
-        net.add_edge(
-            f'tld:{tld}', f'fam:{fam}',
-            value=count, width=float(width),
-            title=f'{count} edges',
-        )
 
     metrics = {
         'alias_edges_sampled': len(rows),
         'distinct_cn_cloud_targets': len(target_count),
         'top_target_families': dict(family_count.most_common(8)),
-        'top_individual_targets': target_count.most_common(5),
         'family_distribution': dict(fam_target_count.most_common(10)),
-        'tld_distribution': dict(tld_edges.most_common(10)),
+        'top_individual_targets': target_count.most_common(5),
     }
     write_step_metrics(STEP, metrics, TITLE_ZH, TITLE_EN)
 
-    w = writeup(
+    writeup(
         hypothesis=(
             'CNAME 链揭示"运营依赖"而非 IP 层依赖。'
             '大量全球网站把 CDN/WAF 外包到 Cloudflare / Akamai；中国云服务的 CNAME 受众范围可反映"被中国 Cloud 承载"的海外流量。<br>'
@@ -224,18 +118,14 @@ def main():
         ),
         finding=(
             f'已采样 {len(rows)} 条 CNAME 边指向中国大陆云/CDN 目标；涉及目标主机名 {len(target_count)} 个。'
-            f'聚合为 {len(fam_target_count)} 个云家族 × {len(tld_edges)} 个源 TLD 的二分图。'
+            f'聚合为 {len(fam_target_count)} 个云家族 × {len(tld_edges)} 个源 TLD 的 Sankey 流量图。'
             f'最受欢迎的运营商家族：{", ".join(f"{k}({v})" for k, v in fam_target_count.most_common(5))}。<br>'
             f'{len(rows)} sampled alias edges. Aggregated into {len(fam_target_count)} cloud '
-            f'families × {len(tld_edges)} source TLDs. Top families: '
+            f'families × {len(tld_edges)} source TLDs (Sankey). Top families: '
             f'{", ".join(f"{k}({v})" for k, v in fam_target_count.most_common(5))}.'
         ),
         reference='OpenINTEL ALIAS_OF via IYP live query',
     )
-
-    save_pyvis_html(net, 'step16_cname_chains.html',
-                    step_num=STEP, title_zh=TITLE_ZH, title_en=TITLE_EN,
-                    source='Neo4j live', writeup_html=w)
 
 
 if __name__ == '__main__':
