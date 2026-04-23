@@ -86,63 +86,132 @@ def main():
 
     write_csv('cn_cname_chains.csv', rows, fieldnames=['src', 'dst'])
 
-    # ── Pyvis: bipartite-ish network, sources aggregated by TLD ──
-    import networkx as nx
-    G = nx.DiGraph()
-    # Build with sources truncated
-    MAX_ROWS_VIS = 300
-    sample = rows[:MAX_ROWS_VIS]
-    for r in sample:
-        src = r['src']
-        dst = r['dst']
-        if len(src) > 40:
-            src = src[:37] + '…'
-        if len(dst) > 40:
-            dst = dst[:37] + '…'
-        G.add_edge(src, dst)
+    # ── Family / TLD aggregation ──
+    FAMILY_COLOR = {
+        'Aliyun': COLORS['orange'],
+        'Aliyun CDN': COLORS['orange'],
+        'Tencent': COLORS['blue'],
+        'Tencent Cloud': COLORS['blue'],
+        'Tencent DNSPod': COLORS['blue'],
+        'Tencent DNS': COLORS['blue'],
+        'Huawei': COLORS['red'],
+        'Huawei Cloud': COLORS['red'],
+        'Huawei CDN': COLORS['red'],
+        'Baidu': COLORS['purple'],
+        'NetEase': COLORS['pink'],
+        'JD': COLORS['amber'],
+        'JD Cloud': COLORS['amber'],
+        'ChinaCache': COLORS['green'],
+        'ChinaNetCenter': COLORS['green'],
+        'Wangsu': COLORS['cyan'],
+        'Wangsu CDN': COLORS['cyan'],
+        'Other CN': COLORS['teal'],
+    }
 
-    try:
-        pos = nx.spring_layout(G, k=0.5, iterations=100, seed=42)
-    except Exception:
-        pos = {n: (0, 0) for n in G.nodes()}
+    def family_of(dst):
+        return classify_target(dst) or 'Other CN'
 
+    def tld_of(src):
+        part = src.rsplit('.', 1)[-1].lower() if '.' in src else 'none'
+        return part
+
+    # Aggregate: TLD -> family edges
+    from collections import Counter
+    fam_target_count = Counter()     # family -> distinct target host count
+    tld_edge_count = Counter()       # tld -> distinct src-domain count
+    tld_to_fam = Counter()           # (tld, family) -> edge count
+    for r in rows:
+        fam = family_of(r['dst'])
+        tld = tld_of(r['src'])
+        fam_target_count[fam] += 1
+        tld_edge_count[tld] += 1
+        tld_to_fam[(tld, fam)] += 1
+
+    # Top-K tlds: collapse tail into "other"
+    TOP_TLDS = 12
+    sorted_tlds = [t for t, _ in tld_edge_count.most_common()]
+    main_tlds = set(sorted_tlds[:TOP_TLDS])
+
+    def tld_bucket(t):
+        return t if t in main_tlds else 'other'
+
+    # Rebuild counters with bucketing
+    tld_edges = Counter()
+    tld_fam_edges = Counter()
+    for r in rows:
+        fam = family_of(r['dst'])
+        tld = tld_bucket(tld_of(r['src']))
+        tld_edges[tld] += 1
+        tld_fam_edges[(tld, fam)] += 1
+
+    # Node sizing (log-scale)
+    import math
+    def scaled(count, base=22, k=7.5, cap=70):
+        return min(round(base + math.log(max(count, 1) + 1) * k), cap)
+
+    # ── Pyvis two-column layout ──
     from pyvis.network import Network
-    net = Network(height='720px', width='100%', bgcolor='#0D1117',
+    net = Network(height='780px', width='100%', bgcolor='#0D1117',
                   font_color='#E6EDF3', notebook=False, directed=True)
     net.toggle_physics(False)
     net.set_options('''
     var options = {
-      "nodes": { "borderWidth": 1, "shadow": false },
+      "nodes": { "borderWidth": 2, "shadow": false, "font": {"color": "#E6EDF3", "size": 14} },
       "edges": { "arrows": {"to": {"enabled": true, "scaleFactor": 0.4}},
-                 "color": {"color": "#30363D", "opacity": 0.4},
-                 "smooth": false, "width": 0.5 },
+                 "color": {"color": "#484F58", "opacity": 0.55},
+                 "smooth": {"enabled": true, "type": "continuous"} },
       "physics": { "enabled": false },
-      "interaction": { "dragNodes": true, "hover": true }
+      "interaction": { "dragNodes": true, "hover": true, "navigationButtons": true }
     }
     ''')
 
-    for node in G.nodes():
-        fam = classify_target(node)
-        if fam:
-            color = COLORS['red']
-            size = 18
-            title = f'CN cloud target · {node} ({fam})'
-        else:
-            color = COLORS['cyan']
-            size = 7
-            title = f'Source domain · {node}'
-        x, y = pos.get(node, (0, 0))
-        net.add_node(node, label=node[:20], title=title, color=color, size=size,
-                     x=float(x) * 1200, y=float(y) * 900)
+    # Sort by volume within each side for aesthetically pleasing layout
+    left_tlds = sorted(tld_edges.items(), key=lambda x: -x[1])
+    right_fams = sorted(fam_target_count.items(), key=lambda x: -x[1])
 
-    for u, v in G.edges():
-        net.add_edge(u, v)
+    # Left column (TLDs)
+    n_left = len(left_tlds)
+    for i, (tld, count) in enumerate(left_tlds):
+        label = f'.{tld}' if tld not in ('other', 'none') else tld
+        # Try to color by country (TLD as cc)
+        cc = tld.upper() if len(tld) == 2 else ''
+        color = country_color(cc) if cc else COLORS['cyan']
+        net.add_node(
+            f'tld:{tld}',
+            label=f'{label} ({count})',
+            title=f'TLD {label} — {count} CNAME edges',
+            color=color, size=scaled(count),
+            x=-900, y=float(i - n_left / 2) * 90,
+        )
+
+    # Right column (families)
+    n_right = len(right_fams)
+    for i, (fam, count) in enumerate(right_fams):
+        color = FAMILY_COLOR.get(fam, COLORS['teal'])
+        net.add_node(
+            f'fam:{fam}',
+            label=f'{fam} ({count})',
+            title=f'{fam} — {count} distinct target hosts',
+            color=color, size=scaled(count),
+            x=900, y=float(i - n_right / 2) * 90,
+        )
+
+    # Edges: TLD -> family
+    for (tld, fam), count in tld_fam_edges.items():
+        width = min(1 + math.log(count + 1), 8)
+        net.add_edge(
+            f'tld:{tld}', f'fam:{fam}',
+            value=count, width=float(width),
+            title=f'{count} edges',
+        )
 
     metrics = {
         'alias_edges_sampled': len(rows),
         'distinct_cn_cloud_targets': len(target_count),
         'top_target_families': dict(family_count.most_common(8)),
         'top_individual_targets': target_count.most_common(5),
+        'family_distribution': dict(fam_target_count.most_common(10)),
+        'tld_distribution': dict(tld_edges.most_common(10)),
     }
     write_step_metrics(STEP, metrics, TITLE_ZH, TITLE_EN)
 
@@ -154,11 +223,12 @@ def main():
             'CNAMEd into Chinese clouds reflects foreign traffic operationally hosted by CN providers.'
         ),
         finding=(
-            f'已采样 {len(rows)} 条 CNAME 边指向中国云/CDN 目标；涉及目标主机名 {len(target_count)} 个。'
-            f'最受欢迎的运营商家族：{", ".join(f"{k}({v})" for k, v in family_count.most_common(5))}。<br>'
-            f'{len(rows)} sampled alias edges pointing to CN cloud/CDN targets covering {len(target_count)} '
-            f'distinct CN target hostnames. Top families: '
-            f'{", ".join(f"{k}({v})" for k, v in family_count.most_common(5))}.'
+            f'已采样 {len(rows)} 条 CNAME 边指向中国大陆云/CDN 目标；涉及目标主机名 {len(target_count)} 个。'
+            f'聚合为 {len(fam_target_count)} 个云家族 × {len(tld_edges)} 个源 TLD 的二分图。'
+            f'最受欢迎的运营商家族：{", ".join(f"{k}({v})" for k, v in fam_target_count.most_common(5))}。<br>'
+            f'{len(rows)} sampled alias edges. Aggregated into {len(fam_target_count)} cloud '
+            f'families × {len(tld_edges)} source TLDs. Top families: '
+            f'{", ".join(f"{k}({v})" for k, v in fam_target_count.most_common(5))}.'
         ),
         reference='OpenINTEL ALIAS_OF via IYP live query',
     )
